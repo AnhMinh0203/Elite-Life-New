@@ -1,0 +1,78 @@
+<div class="blank-layout-container justify-content-center align-items-center bg-light-primary">
+  <div
+    class="position-relative row w-100 h-100 bg-gredient"
+    [ngClass]="{ 'justify-content-end': !isSmallScreen, 'justify-content-center': isSmallScreen }"
+  >
+    <div class="col-lg-8 p-0" *ngIf="!isSmallScreen">
+      <img
+        src="/assets/images/elite-live/background-login.jpg"
+        alt="login"
+        style="width: 100%; height: 100vh; display: block;"
+      />
+    </div>
+    <div class="col-lg-4 d-flex align-items-center p-0 justify-content-center" >
+      <mat-card class="cardWithShadow boxed-auth" style="height: 100%; margin: 0; max-width: none; padding-top: 10%;">
+        <mat-card-content  style="padding: auto;">
+          <div class="text-center">
+            <a [routerLink]="['/dashboard']">
+              <img
+                src="./assets/images/elite-live/logo-elitelive.svg"
+                class="align-middle m-2"
+                alt="logo"
+              />
+            </a>
+          </div>
+          <div class="or-border m-t-30"><h1 style="color: #004882;">Đăng nhập</h1></div>
+
+          <form #form="ngForm" class="m-t-30">
+            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block"
+              >Tên đăng nhập <span style="color: red">*</span></mat-label
+            >
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input placeholder="Nhập tên đăng nhập" matInput />
+            </mat-form-field>
+            <!-- password -->
+            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block"
+              >Mật khẩu <span style="color: red">*</span></mat-label
+            >
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input matInput placeholder="Nhập mật khẩu" [type]="hide ? 'password' : 'text'" formControlName="password" required>
+              <button mat-icon-button matSuffix (click)="hide = !hide" type="button">
+                <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+              </button>
+            </mat-form-field>
+
+            <div class="d-flex align-items-center m-b-12">
+              <mat-checkbox color="primary">Ghi nhớ mật khẩu</mat-checkbox>
+              <a
+                [routerLink]="['/']"
+                class="text-primary f-w-600 text-decoration-none m-l-auto f-s-14"
+                >Quên mật khẩu ?</a
+              >
+            </div>
+            <re-captcha id="recaptcha" name="recaptcha" #recaptcha="ngModel" [(ngModel)]="token" required [class.is-invalid]="recaptcha.invalid && (recaptcha.dirty || recaptcha.touched)"></re-captcha>
+            <div *ngIf="recaptcha.invalid && (recaptcha.dirty || recaptcha.touched)" class="invalid-feedback">
+              <div *ngIf="recaptcha.errors?.['required']" style="color: red;padding: 10px 0;">Vui lòng xác thực capcha.</div>
+            </div>
+            <!-- <a [routerLink]="['/']" mat-flat-button color="primary" class="w-100" (click)="login(form)">
+              Đăng nhập
+            </a> -->
+            <button mat-flat-button color="primary" class="w-100" (click)="login(form)">
+              Đăng nhập
+            </button>
+            <!-- input -->
+          </form>
+          <span class="d-block f-w-500 text-center m-t-24"
+            >Bạn chưa có tài khoản?
+            <a
+              [routerLink]="['/authentication/register']"
+              class="text-decoration-none text-primary f-w-500 f-s-14"
+            >
+              Tạo tài khoản</a
+            >
+          </span>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

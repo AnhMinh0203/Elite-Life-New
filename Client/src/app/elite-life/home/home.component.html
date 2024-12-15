@@ -1,0 +1,68 @@
+<div class="row">
+  <div class="col-lg-4">
+    <div class="col-lg-12 col-sm-4">
+      <mat-card class="cardWithShadow">
+        <mat-card-content class="p-24" style="height: 180px;color: #fff; border-radius: 10px ;background: conic-gradient(from 311deg at 50% 50%, #144DB5 5deg, #0F3E91 123deg, #00203A 325deg);">
+          <mat-card-title>Số dư</mat-card-title>
+          <div class="row d-flex align-items-center">
+            <i class="pi pi-info-circle"></i>
+          </div>
+          <!-- <div class="row m-t-24">
+            <h3  class="mat-headline-5" style="color: #fff;">Số dư</h3>
+            <div class="d-flex align-items-center">
+              <i class="pi pi-info-circle"></i>
+            </div>
+          </div> -->
+          <div class="row m-t-24">
+            <div class="col-10 d-flex align-items-center">
+              <h4 class="mat-headline-5" style="color: #fff;">{{ hideWallet1 ? getMaskedBalance1() : balance1 | number: '1.0-0' }}ELP</h4>
+              <div class="d-flex align-items-center">
+                <button mat-icon-button matSuffix (click)="hideWallet1 = !hideWallet1" type="button">
+                  <mat-icon>{{ hideWallet1 ? 'visibility_off' : 'visibility' }}</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+  <div class="col-lg-4">
+    <div class="col-lg-12 col-sm-4">
+      <mat-card class="cardWithShadow">
+        <mat-card-content class="p-24" style="height: 180px;color: #fff; border-radius: 10px ;background: conic-gradient(from 311deg at 50% 50%, #144DB5 5deg, #0F3E91 123deg, #00203A 325deg);">
+          <mat-card-title>Số dư</mat-card-title>
+          <div class="row m-t-24">
+            <div class="col-10 d-flex align-items-center">
+              <h4 class="mat-headline-5" style="color: #fff;">{{ hideWallet2 ? getMaskedBalance2() : balance2 }}ELP</h4>
+              <div class="d-flex align-items-center">
+                <button mat-icon-button matSuffix (click)="hideWallet2 = !hideWallet2" type="button">
+                  <mat-icon>{{ hideWallet2 ? 'visibility_off' : 'visibility' }}</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+  <div class="col-lg-4">
+    <div class="col-lg-12 col-sm-4">
+      <mat-card class="cardWithShadow">
+        <mat-card-content class="p-24" style="height: 180px;color: #fff; border-radius: 10px ;background: conic-gradient(from 311deg at 50% 50%, #144DB5 5deg, #0F3E91 123deg, #00203A 325deg);">
+          <mat-card-title>Số dư</mat-card-title>
+          <div class="row m-t-24">
+            <div class="col-10 d-flex align-items-center">
+              <h4 class="mat-headline-5" style="color: #fff;">{{ hideWallet3 ? getMaskedBalance3() : balance3 }}ELP</h4>
+              <div class="d-flex align-items-center">
+                <button mat-icon-button matSuffix (click)="hideWallet3 = !hideWallet3" type="button">
+                  <mat-icon>{{ hideWallet3 ? 'visibility_off' : 'visibility' }}</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

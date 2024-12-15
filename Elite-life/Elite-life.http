@@ -1,0 +1,6 @@
+@Elite_life_HostAddress = http://localhost:5152
+
+GET {{Elite_life_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
