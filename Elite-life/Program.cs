@@ -8,7 +8,7 @@ using System;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
-
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -17,8 +17,14 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddCustomService(builder.Configuration);
-/*builder.Services.AddStartupService(builder.Configuration);*/
 builder.Services.AddDebugCustomService(builder.Configuration);
+
+builder.Services.AddCors(options => options.AddPolicy(name: MyAllowSpecificOrigins, builder =>
+{
+    builder.AllowAnyOrigin()
+    .AllowAnyHeader()
+    .AllowAnyMethod();
+}));
 
 // AutoMapper
 var config = new MapperConfiguration(cfg =>
@@ -99,7 +105,7 @@ app.Services.GetRequiredService<ILoggerFactory>();
 app.UseStartupService(builder.Configuration);
 app.UseProductionStartupService(builder.Configuration);*/
 app.UseCustomService(builder.Configuration);
-
+app.UseCors(MyAllowSpecificOrigins);
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();

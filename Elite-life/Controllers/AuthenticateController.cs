@@ -33,9 +33,9 @@ namespace Elite_life.Controllers
 
         [HttpPost]
         [Route("login")]
-        public async Task<IActionResult> Login([FromBody] LoginModel model)
+        public async Task<MethodResult> Login([FromBody] LoginModel model)
         {
-            var user = await _authenticateRepos.FindByUserNameAsync(model.Username);
+                var user = await _authenticateRepos.FindByUserNameAsync(model.Username);
             if (user != null && _authenticateRepos.CheckPasswordAsync(model.Password, user.Password))
             {
                 var authClaims = new List<Claim>
@@ -58,15 +58,14 @@ namespace Elite_life.Controllers
                 user.RefreshTokenExpiryTime = DateTime.Now.AddDays(refreshTokenValidityInDays);
 
                 await _authenticateRepos.UpdateRefreshTokenAsync(user.Id, user.RefreshToken, user.RefreshTokenExpiryTime);
-
-                return Ok(new
-                {
-                    Token = new JwtSecurityTokenHandler().WriteToken(token),
-                    RefreshToken = refreshToken,
-                    Expiration = token.ValidTo
-                });
+                LoginRespon loginRespon = new LoginRespon();
+                loginRespon.collaboratorDto = user;
+                loginRespon.Token = new JwtSecurityTokenHandler().WriteToken(token);
+                loginRespon.RefreshToken = refreshToken;
+                loginRespon.RefreshTokenExpiryTime = user.RefreshTokenExpiryTime;
+                return MethodResult.ResultWithSuccess(loginRespon,200,"Success");
             }
-            return Unauthorized();
+            return MethodResult.ResultWithAuthorized("Mã đăng nhập hoặc mật khẩu không đúng", 401, "Error");
         }
 
         [HttpPost]

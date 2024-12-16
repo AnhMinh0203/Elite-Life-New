@@ -3,10 +3,7 @@
     <div class="col-lg-12 col-sm-4">
       <mat-card class="cardWithShadow">
         <mat-card-content class="p-24" style="height: 180px;color: #fff; border-radius: 10px ;background: conic-gradient(from 311deg at 50% 50%, #144DB5 5deg, #0F3E91 123deg, #00203A 325deg);">
-          <mat-card-title>Số dư</mat-card-title>
-          <div class="row d-flex align-items-center">
-            <i class="pi pi-info-circle"></i>
-          </div>
+          <mat-card-title>Số dư <i style="cursor: pointer;" matTooltip="Đây là ví 1" matTooltipPosition="right" class="pi pi-info-circle"></i></mat-card-title>
           <!-- <div class="row m-t-24">
             <h3  class="mat-headline-5" style="color: #fff;">Số dư</h3>
             <div class="d-flex align-items-center">
@@ -66,3 +63,51 @@
     </div>
   </div>
 </div>
+
+<div class="row">
+  <div class="col-12 lg:col-12 xl:col-12 mb-20 w-100-us">
+    <div class="col-lg-12 col-sm-12">
+      <mat-card class="cardWithShadow">
+        <mat-card-content class="p-24" style="color: #fff; border-radius: 10px; background: #444;">
+          <div class="col-lg-12 col-sm-4 d-flex align-items-center">
+            <div class="avatar" style="border-radius: 50%; margin-right: 30px;">
+              <img src="https://static.vecteezy.com/system/resources/previews/009/292/244/non_2x/default-avatar-icon-of-social-media-user-vector.jpg" alt="" class="avatar-img">
+            </div>
+            <div class="info">
+              <div class="info_box">
+                <h4 class="mat-headline-5 fullname">
+                  Nguyễn Thị Kiều Anh
+                  <span class="rank">
+                    <span>V2</span>
+                  </span>
+                </h4>
+              </div>
+              <p>Mã hội viên: {{info.userName}}</p>
+              <p>Số thành viên mời: cấp 4</p>
+              <p>Ngày tham gia: {{info.createdAt | date: 'dd/MM/yyyy'}}</p>
+            </div>
+            <div>
+              <div class="btn_invite" style="position: absolute; top: 16px; right: 16px;">
+                <span>Mã Mời: </span> 
+                <button (click)="copyToClipboard(baseUrl + '/auth/register?collaboratorCode=' + info?.userName)">
+                  <i class="pi pi-clone"></i>
+                </button>
+              </div>
+            </div>
+            <ng-template #activateAccountButton>
+              <button class="btn-mk" (click)="confirmActivateAccount()">
+                <div class="input-m-new">
+                  <img src="/layout/images/icons8_unlock_private.png" alt="unlockIcon" />
+                  <span>Mở khóa mã mời</span>
+                </div>
+              </button>
+            </ng-template>
+            
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
+
+

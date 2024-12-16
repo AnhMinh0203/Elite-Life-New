@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -27,6 +27,9 @@ import { RECAPTCHA_SETTINGS, RecaptchaFormsModule, RecaptchaModule, RecaptchaSet
 import { AppSideLoginComponent } from './pages/authentication/login/login.component';
 import { environment } from '../environments/environment';
 import { HomeComponent } from './elite-life/home/home.component';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+import { SendAccessTokenInterceptorService } from 'src/untils/SendAccessTokenInterceptor.service';
 
 @NgModule({
   declarations: [
@@ -51,6 +54,7 @@ import { HomeComponent } from './elite-life/home/home.component';
     TablerIconsModule.pick(TablerIcons),
     RecaptchaFormsModule,
     RecaptchaModule,
+    ToastModule,
   ],
   exports: [TablerIconsModule],
   bootstrap: [AppComponent],
@@ -60,6 +64,12 @@ import { HomeComponent } from './elite-life/home/home.component';
         useValue: {
           siteKey: environment.recaptcha.siteKey,
         } as RecaptchaSettings,
+      },
+      MessageService,
+      {
+        provide: HTTP_INTERCEPTORS,
+        useClass: SendAccessTokenInterceptorService,
+        multi: true,
       },
     ],
 })

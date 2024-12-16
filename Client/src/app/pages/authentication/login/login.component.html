@@ -3,6 +3,7 @@
     class="position-relative row w-100 h-100 bg-gredient"
     [ngClass]="{ 'justify-content-end': !isSmallScreen, 'justify-content-center': isSmallScreen }"
   >
+  <p-toast />
     <div class="col-lg-8 p-0" *ngIf="!isSmallScreen">
       <img
         src="/assets/images/elite-live/background-login.jpg"
@@ -29,14 +30,14 @@
               >Tên đăng nhập <span style="color: red">*</span></mat-label
             >
             <mat-form-field appearance="outline" class="w-100" color="primary">
-              <input placeholder="Nhập tên đăng nhập" matInput />
+              <input [(ngModel)]="userName" name="userName" placeholder="Nhập tên đăng nhập" matInput />
             </mat-form-field>
             <!-- password -->
             <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block"
               >Mật khẩu <span style="color: red">*</span></mat-label
             >
             <mat-form-field appearance="outline" class="w-100" color="primary">
-              <input matInput placeholder="Nhập mật khẩu" [type]="hide ? 'password' : 'text'" formControlName="password" required>
+              <input  [(ngModel)]="passWord" name="passWord" matInput placeholder="Nhập mật khẩu" [type]="hide ? 'password' : 'text'" required>
               <button mat-icon-button matSuffix (click)="hide = !hide" type="button">
                 <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
               </button>

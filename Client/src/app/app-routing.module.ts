@@ -3,9 +3,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { BlankComponent } from './layouts/blank/blank.component';
 import { FullComponent } from './layouts/full/full.component';
 import { HomeComponent } from './elite-life/home/home.component';
+import { AuthGuardService } from 'src/untils/AuthGuard.service';
 
 const routes: Routes = [
   {
+    canActivate: [AuthGuardService],
     path: '',
     component: FullComponent,
     children: [

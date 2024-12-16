@@ -19,6 +19,8 @@ import { AppSideRegisterComponent } from './register/register.component';
 import { RECAPTCHA_SETTINGS, RecaptchaFormsModule, RecaptchaModule, RecaptchaSettings } from 'ng-recaptcha';
 
 import { environment } from '../../../environments/environment';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 @NgModule({
   imports: [
@@ -34,6 +36,7 @@ import { environment } from '../../../environments/environment';
     TablerIconsModule.pick(TablerIcons),
     RecaptchaModule,
     RecaptchaFormsModule,
+    ToastModule,
   ],
   declarations: [
     AppSideLoginComponent,
@@ -46,6 +49,7 @@ import { environment } from '../../../environments/environment';
         siteKey: environment.recaptcha.siteKey,
       } as RecaptchaSettings,
     },
+    MessageService,
   ],
 })
 export class AuthenticationModule {}
