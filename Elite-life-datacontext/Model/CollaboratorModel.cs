@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Elite_life_datacontext.Dto
+namespace Elite_life_datacontext.Model
 {
-    public class CollaboratorDto
+    public class CollaboratorModel
     {
         public int Id { get; set; }
         public string CreatedBy { get; set; } = string.Empty;
