@@ -28,6 +28,7 @@ import { AppSideLoginComponent } from './pages/authentication/login/login.compon
 import { environment } from '../environments/environment';
 import { HomeComponent } from './elite-life/home/home.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
