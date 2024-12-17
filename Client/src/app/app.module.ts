@@ -30,6 +30,8 @@ import { HomeComponent } from './elite-life/home/home.component';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { SendAccessTokenInterceptorService } from 'src/untils/SendAccessTokenInterceptor.service';
+import { NgApexchartsModule } from 'ng-apexcharts';
+import { ButtonModule } from 'primeng/button';
 
 
 @NgModule({
@@ -56,6 +58,8 @@ import { SendAccessTokenInterceptorService } from 'src/untils/SendAccessTokenInt
     RecaptchaFormsModule,
     RecaptchaModule,
     ToastModule,
+    NgApexchartsModule,
+    ButtonModule,
   ],
   exports: [TablerIconsModule],
   bootstrap: [AppComponent],

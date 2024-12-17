@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, Injector } from '@angular/core';
+import { Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
 import { catchError, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -13,7 +14,7 @@ export class AuthenticateService {
   serviceUri: any;
   _http: HttpClient;
 
-  constructor(http: HttpClient, injector: Injector) {
+  constructor(http: HttpClient, injector: Injector, private router: Router) {
     this.serviceUri =  `${environment.EnpointUrl}/Authenticate`;
     this._http = http;
 
@@ -34,9 +35,10 @@ export class AuthenticateService {
       accessToken,
       refreshToken,
     };
+    const apiUrl = `${this.serviceUri}/refresh-token`;
 
     return this._http.post<{ accessToken: string; refreshToken: string }>(
-      '/Authenticate/refresh-token', 
+      apiUrl, 
       payload
     );
   }
@@ -46,6 +48,7 @@ export class AuthenticateService {
     localStorage.removeItem('refreshToken');
     localStorage.removeItem('refreshTokenExpiryTime');
     localStorage.removeItem('info');
+    this.router.navigate(['/authentication/login']);
   }
 
   isAuthenticated(): boolean {
@@ -53,7 +56,7 @@ export class AuthenticateService {
     if (!token) {
       return false;
     }
-    return !this.isTokenExpired(token);
+    return true; //!this.isTokenExpired(token);
   }
 
   getToken(): string | null {
