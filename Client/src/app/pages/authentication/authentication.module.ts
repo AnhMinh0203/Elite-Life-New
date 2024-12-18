@@ -21,6 +21,16 @@ import { RECAPTCHA_SETTINGS, RecaptchaFormsModule, RecaptchaModule, RecaptchaSet
 import { environment } from '../../../environments/environment';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { FileUploadModule } from 'primeng/fileupload';
+
+
+//
+import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {provideNativeDateAdapter} from '@angular/material/core';
+import { MatNativeDateModule } from '@angular/material/core';
+
 
 @NgModule({
   imports: [
@@ -37,6 +47,10 @@ import { MessageService } from 'primeng/api';
     RecaptchaModule,
     RecaptchaFormsModule,
     ToastModule,
+    FileUploadModule,
+    MatFormFieldModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   declarations: [
     AppSideLoginComponent,

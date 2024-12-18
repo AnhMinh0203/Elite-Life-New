@@ -1,12 +1,14 @@
 <div class="blank-layout-container justify-content-center align-items-center bg-light-primary">
-  <div class="position-relative row w-100 h-100 bg-gredient justify-content-center">
-    <div class="col-lg-8 p-0" *ngIf="!isSmallScreen">
+  <div class="position-relative row w-100 h-100 bg-gredient justify-content-center" >
+    <!-- Form 1 -->
+    <p-toast />
+    <div class="col-lg-7 p-0" *ngIf="!isSmallScreen">
       <img src="/assets/images/elite-live/background-login.jpg" alt="login"
         style="width: 100%; height: 100vh; display: block;" />
     </div>
-    <div class="col-lg-4 d-flex align-items-center p-0 justify-content-center">
-      <mat-card class="cardWithShadow boxed-auth" style="height: 100%; margin: 0; max-width: none; padding-top: 10%;">
-        <mat-card-content style="padding: auto;">
+    <div class="col-lg-5 d-flex align-items-center p-0 justify-content-center" *ngIf="currentForm === 1">
+      <mat-card class="cardWithShadow boxed-auth" style="height: 100%; margin: 0; max-width: none; padding-top: 5%;">
+        <mat-card-content style="padding: 10px 80px;">
           <div class="text-center">
             <a [routerLink]="['/dashboard']">
               <img src="./assets/images/elite-live/logo-elitelive.svg" class="align-middle m-2" alt="logo" />
@@ -16,33 +18,45 @@
             <h1 style="color: #004882;">Đăng ký</h1>
           </div>
           <div class="button_register d-flex justify-content-center">
-            <div class="button_regisrer--first">
-              <button class="d-flex flex-column">
-                <span>1</span>
+            <div class="button_step">
+              <button class="d-flex flex-column format-button active button_step--first">
+                1
                 <span>Thông tin cá nhân</span>
               </button>
             </div>
-            <div class="button_regisrer--second">
-              <button class="d-flex flex-column">
-                <span>2</span>
+            <div class="button_step">
+              <button class="d-flex flex-column format-button button_step--">
+                2
                 <span>Thông tin ngân hàng</span>
               </button>
             </div>
           </div>
 
-          <form #form="ngForm" class="m-t-30">
+          <div class="avatar-container" style="text-align: center;margin: 60px 0;">
+            <div class="format_text">Ảnh đại diện</div>
+            <!-- Hiển thị ảnh avatar (hoặc ảnh mặc định) -->
+
+            <img [src]="uploadedImage || 'assets/images/profile/default-avatar.png'" class="avatar-image"
+              style="width: 180px; height: 180px; border-radius: 50%; object-fit: cover; cursor: pointer;"
+              (click)="triggerFileUpload()" />
+            <input type="file" accept="image/*" #fileInput style="display: none;" (change)="onFileChange($event)" />
+          </div>
+
+
+
+          <form [formGroup]="signUpForm" class="m-t-30">
             <!-- Họ tên -->
             <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Họ và tên <span
                 style="color: red">*</span></mat-label>
             <mat-form-field appearance="outline" class="w-100" color="primary">
-              <input matInput />
+              <input matInput formControlName="userName" />
             </mat-form-field>
 
             <!-- Email -->
             <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Email <span
                 style="color: red">*</span></mat-label>
             <mat-form-field appearance="outline" class="w-100" color="primary">
-              <input matInput />
+              <input matInput formControlName="email"/>
             </mat-form-field>
 
             <div class="form-row">
@@ -51,7 +65,7 @@
                 <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Số điện thoại <span
                     style="color: red">*</span></mat-label>
                 <mat-form-field appearance="outline" class="w-100" color="primary">
-                  <input matInput />
+                  <input matInput formControlName="phoneNumber"/>
                 </mat-form-field>
               </div>
               <div class="form-group">
@@ -59,7 +73,7 @@
                 <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Người giới thiệu<span
                     style="color: red">*</span></mat-label>
                 <mat-form-field appearance="outline" class="w-100" color="primary">
-                  <input matInput />
+                  <input matInput formControlName="introPerson"/>
                 </mat-form-field>
               </div>
 
@@ -68,7 +82,7 @@
             <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Số CMTND/ CCCD/ Hộ chiếu<span
                 style="color: red">*</span></mat-label>
             <mat-form-field appearance="outline" class="w-100" color="primary">
-              <input matInput />
+              <input matInput formControlName="identification"/>
             </mat-form-field>
 
             <div class="form-row">
@@ -77,15 +91,17 @@
                 <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Nơi cấp<span
                     style="color: red">*</span></mat-label>
                 <mat-form-field appearance="outline" class="w-100" color="primary">
-                  <input matInput />
+                  <input matInput formControlName="providePlace"/>
                 </mat-form-field>
               </div>
               <div class="form-group">
                 <!-- Ngày cấp -->
                 <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Ngày cấp<span
                     style="color: red">*</span></mat-label>
-                <mat-form-field appearance="outline" class="w-100" color="primary">
-                  <input matInput />
+                <mat-form-field>
+                  <input matInput [matDatepicker]="picker" formControlName="provideDate">
+                  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
               </div>
             </div>
@@ -104,20 +120,96 @@
             <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Xác nhận mật khẩu <span
                 style="color: red">*</span></mat-label>
             <mat-form-field appearance="outline" class="w-100" color="primary">
-              <input matInput [type]="hideComfirmPassword ? 'password' : 'text'" formControlName="password" required>
+              <input matInput [type]="hideComfirmPassword ? 'password' : 'text'" formControlName="confirmPassword" required>
               <button mat-icon-button matSuffix (click)="hideComfirmPassword = !hideComfirmPassword" type="button">
                 <mat-icon>{{ hideComfirmPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
               </button>
             </mat-form-field>
 
-            <button mat-flat-button style="background-color: #5d87ff; color: white;" class="w-100" (click)="login(form)">
-              Tiếp theo
+            <button mat-button style="color: #919191;" class="w-100 button-decor active" (click)="nextForm()">
+              Tiếp tục
             </button>
+          </form>
+          <span class="d-block f-w-500 text-center m-t-24">Bạn đã có tài khoản?
+            <a [routerLink]="['/authentication/login']" class="text-decoration-none text-primary f-w-500 f-s-14">
+              Click để đăng nhập</a>
+          </span>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+  <!-- Form 2 -->
+    <div class="col-lg-5 d-flex align-items-center p-0 justify-content-center" *ngIf="currentForm === 2">
+      <mat-card class="cardWithShadow boxed-auth" style="height: 100%; margin: 0; max-width: none; padding-top: 5%;">
+        <mat-card-content style="padding: 10px 80px;">
+          <div class="text-center">
+            <a [routerLink]="['/dashboard']">
+              <img src="./assets/images/elite-live/logo-elitelive.svg" class="align-middle m-2" alt="logo" />
+            </a>
+          </div>
+          <div class="or-border m-t-30">
+            <h1 style="color: #004882;">Đăng ký</h1>
+          </div>
+          <div class="button_register d-flex justify-content-center">
+            <div class="button_step">
+              <button class="d-flex flex-column format-button active button_step--first">
+                1
+                <span>Thông tin cá nhân</span>
+              </button>
+            </div>
+            <div class="button_step">
+              <button class="d-flex flex-column format-button active button_step--second">
+                2
+                <span>Thông tin ngân hàng</span>
+              </button>
+            </div>
+          </div>
+          <form [formGroup]="signUpForm" class="m-t-30">
+            <!-- Ngân hàng -->
+            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Ngân hàng <span
+                style="color: red">*</span></mat-label>
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input matInput formControlName="bank"/>
+            </mat-form-field>
+
+            <!-- Số tài khoản -->
+            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Số tài khoản <span
+                style="color: red">*</span></mat-label>
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input matInput formControlName="accountNumber"/>
+            </mat-form-field>
+
+
+            <!-- Chủ tài khoản -->
+            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Chủ tài khoản <span
+                style="color: red">*</span></mat-label>
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input matInput formControlName="accountOwner"/>
+            </mat-form-field>
+
+            <!-- Chi nhánh -->
+            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Chi nhánh<span
+                style="color: red">*</span></mat-label>
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input matInput formControlName="bankBranch"/>
+            </mat-form-field>
+            <div class="form-row">
+              <div class="form-group">
+                <button mat-button style="color: #919191;" class="w-100 button-decor" (click)="previousForm()">
+                  Quay lại
+                </button>
+              </div>
+              <div class="form-group">
+                <button mat-button style="color: #919191;" class="w-100 button-decor active" (click)="signUp()">
+                  Đăng ký
+                </button>
+              </div>
+            </div>
             <!-- input -->
           </form>
-          <span class="d-block f-w-500 text-center m-t-24">Bạn chưa có tài khoản?
-            <a [routerLink]="['/authentication/register']" class="text-decoration-none text-primary f-w-500 f-s-14">
-              Tạo tài khoản</a>
+          <span class="d-block f-w-500 text-center m-t-24">Bạn đã có tài khoản?
+            <a [routerLink]="['/authentication/login']" class="text-decoration-none text-primary f-w-500 f-s-14">
+              Click để đăng nhập</a>
           </span>
         </mat-card-content>
       </mat-card>

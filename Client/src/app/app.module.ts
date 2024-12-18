@@ -43,6 +43,7 @@ import { SendAccessTokenInterceptorService } from 'src/untils/SendAccessTokenInt
     AppNavItemComponent,
     //
     HomeComponent,
+
   ],
   imports: [
     BrowserModule,

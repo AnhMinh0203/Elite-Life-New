@@ -29,6 +29,16 @@ export class AuthenticateService {
       );
   }
 
+  signUp(model:any){
+    const apiUrl = `${this.serviceUri}/register`;
+    return this._http.post<ResponseResult>(apiUrl, model)
+      .pipe(
+        catchError((error: any) => {
+          throw error;
+        })
+      );
+  }
+
   refreshToken(accessToken: string, refreshToken: string): Observable<{ accessToken: string; refreshToken: string }> {
     const payload = {
       accessToken,
@@ -36,7 +46,7 @@ export class AuthenticateService {
     };
 
     return this._http.post<{ accessToken: string; refreshToken: string }>(
-      '/Authenticate/refresh-token', 
+      '/Authenticate/refresh-token',
       payload
     );
   }
