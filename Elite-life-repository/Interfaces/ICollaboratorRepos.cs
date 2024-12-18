@@ -1,4 +1,5 @@
 ﻿using Elite_life_datacontext.Dto;
+using Elite_life_datacontext.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,10 @@ namespace Elite_life_repository.Interfaces
     {
         Task<List<CollaboratorHomeDto>> GetCollaboratorsByParendId(int CollaboratorId);
         Task<MemoryStream> ExportExcelCollaboratorsByParendId(int CollaboratorId);
+        //Customer manager
+        Task<List<CollaboratorCustomerManagerDto>> GetAllCollaboratorsByParendId(CollaboratorCustomerManagerModel model);
+        Task<MemoryStream> ExportExcelAllCollaboratorsByParendId(CollaboratorCustomerManagerModel model);
+        // System manager
+        Task<List<CollaboratorSystemManagerDto>> GetCollaboratorsSystemManager(int CollaboratorId);
     }
 }

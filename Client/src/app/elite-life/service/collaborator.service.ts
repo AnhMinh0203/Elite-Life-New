@@ -38,4 +38,24 @@ export class CollaboratorService {
       );
   }
 
+  getAllCollaboratorByParentId(model: any) {
+    const apiUrl = `${this.serviceUri}/get-all-collaborator-by-parentId`;
+    return this._http.post<ResponseResult>(apiUrl, model)
+      .pipe(
+        catchError((error: any) => {
+          throw error;
+        })
+      );
+  }
+
+  exportExcelAllCollaboratorByParentId(model: any) {
+    const apiUrl = `${this.serviceUri}/export-excel-all-collaborator-by-parentId`;
+    return this._http.post(apiUrl, model, { responseType: 'blob' })
+      .pipe(
+        catchError((error: any) => {
+          throw error;
+        })
+      );
+  }
+
 }

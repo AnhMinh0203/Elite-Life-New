@@ -1,3 +1,55 @@
-<p>
-  customer-manager works!
-</p>
+<mat-card class="cardWithShadow">
+  <mat-card-content class="p-24">
+    <div class="d-flex w-100">
+      <mat-card-title style="color: #004882;">Quản lý khách hàng</mat-card-title>
+      <div class="m-l-auto">
+        <p-calendar 
+          [(ngModel)]="rangeDates" 
+          selectionMode="range" 
+          (onSelect)="onDateChange($event)"
+          [readonlyInput]="true" />
+        <p-button (onClick)="exportExcelAllCollaboratorByParentId()" label="Xuất Excel" icon="pi pi-file-export" styleClass="m-0" [outlined]="true" />
+      </div>
+    </div>
+    <div class="">
+      <table mat-table [dataSource]="dataSource">
+        <ng-container matColumnDef="position">
+          <th style="font-weight: bold;" mat-header-cell *matHeaderCellDef> STT </th>
+          <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+        </ng-container>
+        <ng-container matColumnDef="name">
+          <th style="font-weight: bold;" mat-header-cell *matHeaderCellDef> Họ tên </th>
+          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+        <ng-container matColumnDef="userName">
+          <th style="font-weight: bold;" mat-header-cell *matHeaderCellDef> Tên đăng nhập </th>
+          <td mat-cell *matCellDef="let element"> {{element.userName}} </td>
+        </ng-container>
+        <ng-container matColumnDef="email">
+          <th style="font-weight: bold;" mat-header-cell *matHeaderCellDef> Email </th>
+          <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+        </ng-container>
+        <ng-container matColumnDef="mobile">
+          <th style="font-weight: bold;" mat-header-cell *matHeaderCellDef> SĐT </th>
+          <td mat-cell *matCellDef="let element"> {{element.mobile}} </td>
+        </ng-container>
+        <ng-container matColumnDef="rank">
+          <th style="font-weight: bold;" mat-header-cell *matHeaderCellDef> Cấp độ </th>
+          <td mat-cell *matCellDef="let element"> {{element.rank}} </td>
+        </ng-container>
+        <ng-container matColumnDef="createdAt">
+          <th style="font-weight: bold;" mat-header-cell *matHeaderCellDef> Ngày tham gia </th>
+          <td mat-cell *matCellDef="let element"> {{element.createdAt | date: 'dd/MM/yyyy hh:mm:ss'}} </td>
+        </ng-container>
+    
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                     showFirstLastButtons
+                     aria-label="Select page of periodic elements">
+      </mat-paginator>
+    </div>
+  </mat-card-content>
+</mat-card>

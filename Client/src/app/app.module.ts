@@ -34,6 +34,7 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 import { ButtonModule } from 'primeng/button';
 import { FooterComponent } from './layouts/full/footer/footer.component';
 import { CustomerManagerComponent } from './elite-life/customer-manager/customer-manager.component';
+import { CalendarModule } from 'primeng/calendar';
 
 
 @NgModule({
@@ -64,6 +65,7 @@ import { CustomerManagerComponent } from './elite-life/customer-manager/customer
     ToastModule,
     NgApexchartsModule,
     ButtonModule,
+    CalendarModule,
   ],
   exports: [TablerIconsModule],
   bootstrap: [AppComponent],
