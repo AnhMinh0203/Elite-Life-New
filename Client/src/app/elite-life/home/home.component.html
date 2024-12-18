@@ -1,112 +1,87 @@
 <div class="row">
-  <div class="col-lg-4">
-    <div class="col-lg-12 col-sm-4">
-      <mat-card class="cardWithShadow">
-        <mat-card-content class="p-24" style="height: 180px;color: #fff; border-radius: 10px ;background: conic-gradient(from 311deg at 50% 50%, #144DB5 5deg, #0F3E91 123deg, #00203A 325deg);">
-          <mat-card-title>Số dư <i style="cursor: pointer;" matTooltip="Đây là ví 1" matTooltipPosition="right" class="pi pi-info-circle"></i></mat-card-title>
-          <!-- <div class="row m-t-24">
-            <h3  class="mat-headline-5" style="color: #fff;">Số dư</h3>
-            <div class="d-flex align-items-center">
-              <i class="pi pi-info-circle"></i>
-            </div>
-          </div> -->
-          <div class="row m-t-24">
-            <div class="col-10 d-flex align-items-center">
-              <h4 class="mat-headline-5" style="color: #fff;">{{ hideWallet1 ? getMaskedBalance1() : balance1 | number: '1.0-0' }}ELP</h4>
-              <div class="d-flex align-items-center">
-                <button mat-icon-button matSuffix (click)="hideWallet1 = !hideWallet1" type="button">
-                  <mat-icon>{{ hideWallet1 ? 'visibility_off' : 'visibility' }}</mat-icon>
-                </button>
-              </div>
-            </div>
+  <!-- Card số dư -->
+  <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+    <mat-card class="cardWithShadow">
+      <mat-card-content class="p-24 card-content">
+        <mat-card-title>Số dư
+          <i matTooltip="Đây là ví 1" matTooltipPosition="right" class="pi pi-info-circle" style="cursor: pointer;"></i>
+        </mat-card-title>
+        <div class="row m-t-24">
+          <div class="col-10 d-flex align-items-center">
+            <h4 class="mat-headline-5 balance-text" style="color: #fff;">
+              {{ hideWallet1 ? getMaskedBalance1() : balance1 | number: '1.0-2' }} ELP
+            </h4>
+            <button mat-icon-button (click)="hideWallet1 = !hideWallet1" type="button">
+              <mat-icon>{{ hideWallet1 ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
           </div>
-        </mat-card-content>
-      </mat-card>
-    </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
   </div>
-  <div class="col-lg-4">
-    <div class="col-lg-12 col-sm-4">
-      <mat-card class="cardWithShadow">
-        <mat-card-content class="p-24" style="height: 180px;color: #fff; border-radius: 10px ;background: conic-gradient(from 311deg at 50% 50%, #144DB5 5deg, #0F3E91 123deg, #00203A 325deg);">
-          <mat-card-title>Số dư</mat-card-title>
-          <div class="row m-t-24">
-            <div class="col-10 d-flex align-items-center">
-              <h4 class="mat-headline-5" style="color: #fff;">{{ hideWallet2 ? getMaskedBalance2() : balance2 }}ELP</h4>
-              <div class="d-flex align-items-center">
-                <button mat-icon-button matSuffix (click)="hideWallet2 = !hideWallet2" type="button">
-                  <mat-icon>{{ hideWallet2 ? 'visibility_off' : 'visibility' }}</mat-icon>
-                </button>
-              </div>
-            </div>
+
+  <!-- Lặp lại card cho Wallet 2 và Wallet 3 -->
+  <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+    <mat-card class="cardWithShadow">
+      <mat-card-content class="p-24 card-content">
+        <mat-card-title>Số dư</mat-card-title>
+        <div class="row m-t-24">
+          <div class="col-10 d-flex align-items-center">
+            <h4 class="mat-headline-5 balance-text"  style="color: #fff;">
+              {{ hideWallet2 ? getMaskedBalance2() : balance2 | number: '1.0-2' }} ELP
+            </h4>
+            <button mat-icon-button (click)="hideWallet2 = !hideWallet2" type="button">
+              <mat-icon>{{ hideWallet2 ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
           </div>
-        </mat-card-content>
-      </mat-card>
-    </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
   </div>
-  <div class="col-lg-4">
-    <div class="col-lg-12 col-sm-4">
-      <mat-card class="cardWithShadow">
-        <mat-card-content class="p-24" style="height: 180px;color: #fff; border-radius: 10px ;background: conic-gradient(from 311deg at 50% 50%, #144DB5 5deg, #0F3E91 123deg, #00203A 325deg);">
-          <mat-card-title>Số dư</mat-card-title>
-          <div class="row m-t-24">
-            <div class="col-10 d-flex align-items-center">
-              <h4 class="mat-headline-5" style="color: #fff;">{{ hideWallet3 ? getMaskedBalance3() : balance3 }}ELP</h4>
-              <div class="d-flex align-items-center">
-                <button mat-icon-button matSuffix (click)="hideWallet3 = !hideWallet3" type="button">
-                  <mat-icon>{{ hideWallet3 ? 'visibility_off' : 'visibility' }}</mat-icon>
-                </button>
-              </div>
-            </div>
+
+  <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+    <mat-card class="cardWithShadow">
+      <mat-card-content class="p-24 card-content">
+        <mat-card-title>Số dư</mat-card-title>
+        <div class="row m-t-24">
+          <div class="col-10 d-flex align-items-center">
+            <h4 class="mat-headline-5 balance-text"  style="color: #fff;">
+              {{ hideWallet3 ? getMaskedBalance3() : balance3 | number: '1.0-2' }} ELP
+            </h4>
+            <button mat-icon-button (click)="hideWallet3 = !hideWallet3" type="button">
+              <mat-icon>{{ hideWallet3 ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
           </div>
-        </mat-card-content>
-      </mat-card>
-    </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
   </div>
 </div>
 
+<!-- Thẻ thông tin -->
 <div class="row">
-  <div class="col-12 lg:col-12 xl:col-12 mb-20 w-100-us">
-    <div class="col-lg-12 col-sm-12">
-      <mat-card class="cardWithShadow">
-        <mat-card-content class="p-24" style="color: #fff; border-radius: 10px; background: #444;">
-          <div class="col-lg-12 col-sm-4 d-flex align-items-center">
-            <div class="avatar" style="border-radius: 50%; margin-right: 30px;">
-              <img src="https://static.vecteezy.com/system/resources/previews/009/292/244/non_2x/default-avatar-icon-of-social-media-user-vector.jpg" alt="" class="avatar-img">
-            </div>
-            <div class="info">
-              <div class="info_box">
-                <h4 class="mat-headline-5 fullname">
-                  Nguyễn Thị Kiều Anh
-                  <span class="rank">
-                    <span>V2</span>
-                  </span>
-                </h4>
-              </div>
-              <p>Mã hội viên: {{info.userName}}</p>
-              <p>Số thành viên mời: cấp 4</p>
-              <p>Ngày tham gia: {{info.createdAt | date: 'dd/MM/yyyy'}}</p>
-            </div>
-            <div>
-              <div class="btn_invite" style="position: absolute; top: 16px; right: 16px;">
+  <div class="col-12 mb-3">
+    <mat-card class="cardWithShadow">
+      <mat-card-content class="p-24" style="color: #fff; border-radius: 10px; background: #444;">
+        <div class="d-flex flex-wrap align-items-center">
+          <div class="avatar" style="border-radius: 50%; margin-right: 15px;">
+            <img src="https://static.vecteezy.com/system/resources/previews/009/292/244/non_2x/default-avatar-icon-of-social-media-user-vector.jpg" alt="avatar" class="avatar-img">
+          </div>
+          <div class="info">
+            <h4 class="mat-headline-5 fullname">{{info.name}}</h4>
+            <p>Mã hội viên: {{info.userName}}</p>
+            <p>Số thành viên mời:4</p>
+            <p>Ngày tham gia: {{info.createdAt | date: 'dd/MM/yyyy'}}</p>
+          </div>
+           <div class="btn_invite" style="position: absolute; top: 16px; right: 16px;">
                 <span>Mã Mời: </span> 
                 <button (click)="copyToClipboard(baseUrl + '/authentication/login?collaboratorCode=' + info?.userName)">
                   <i class="pi pi-clone"></i>
                 </button>
               </div>
-            </div>
-            <ng-template #activateAccountButton>
-              <button class="btn-mk" (click)="confirmActivateAccount()">
-                <div class="input-m-new">
-                  <img src="/layout/images/icons8_unlock_private.png" alt="unlockIcon" />
-                  <span>Mở khóa mã mời</span>
-                </div>
-              </button>
-            </ng-template>
-            
-          </div>
-        </mat-card-content>
-      </mat-card>
-    </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
   </div>
 </div>
 

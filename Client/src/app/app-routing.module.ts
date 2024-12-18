@@ -4,6 +4,7 @@ import { BlankComponent } from './layouts/blank/blank.component';
 import { FullComponent } from './layouts/full/full.component';
 import { HomeComponent } from './elite-life/home/home.component';
 import { AuthGuardService } from 'src/untils/AuthGuard.service';
+import { CustomerManagerComponent } from './elite-life/customer-manager/customer-manager.component';
 
 const routes: Routes = [
   {
@@ -35,6 +36,9 @@ const routes: Routes = [
       },
       {
         path: 'home',component:HomeComponent,
+      },
+      {
+        path: 'customer-manager', component: CustomerManagerComponent
       }
     ],
   },

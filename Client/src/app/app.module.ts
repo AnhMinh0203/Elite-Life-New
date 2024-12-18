@@ -32,6 +32,8 @@ import { ToastModule } from 'primeng/toast';
 import { SendAccessTokenInterceptorService } from 'src/untils/SendAccessTokenInterceptor.service';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { ButtonModule } from 'primeng/button';
+import { FooterComponent } from './layouts/full/footer/footer.component';
+import { CustomerManagerComponent } from './elite-life/customer-manager/customer-manager.component';
 
 
 @NgModule({
@@ -41,10 +43,12 @@ import { ButtonModule } from 'primeng/button';
     BlankComponent,
     SidebarComponent,
     HeaderComponent,
+    FooterComponent,
     BrandingComponent,
     AppNavItemComponent,
     //
     HomeComponent,
+    CustomerManagerComponent,
   ],
   imports: [
     BrowserModule,

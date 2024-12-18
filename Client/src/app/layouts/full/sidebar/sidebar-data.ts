@@ -9,7 +9,7 @@ export const navItems: NavItem[] = [
   {
     displayName: 'Quản lý khách hàng',
     iconName: 'users-group',
-    route: '/ui-components',
+    route: '/customer-manager',
   },
   {
     displayName: 'Quản lý hệ thống',

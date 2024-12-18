@@ -13,6 +13,7 @@ import { StatisticalService } from '../service/statistical.service';
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import { CollaboratorService } from '../service/collaborator.service';
+import { WalletsService } from '../service/wallets.service';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -49,16 +50,19 @@ export class HomeComponent implements OnInit, AfterViewInit {
   hideWallet2 = true;
   hideWallet3 = true;
 
-  balance1: string = '36343523458';  
-  balance2: string = '36,358';
-  balance3: string = '36,358';
+  listWalletData: any;
+
+  balance1: any;  
+  balance2: any;
+  balance3: any;
   info: any;
   baseUrl: string = window.location.origin;
 
   constructor(
     private messageService: MessageService, 
     private _statisticalService: StatisticalService,
-    private _collaboratorService: CollaboratorService
+    private _collaboratorService: CollaboratorService,
+    private _walletsService: WalletsService,
   ) { 
     this.chartOptions = {
       series: [
@@ -109,6 +113,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
       viewValue: `${this.getMonthName(index)} ${currentYear}`
     }));
     this.getDataForMonth(1);
+    this.getWalletByCollaboratorId();
   }
 
   ngAfterViewInit(): void {
@@ -129,16 +134,26 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   getMaskedBalance1(): string {
-    return '*'.repeat(this.balance1.length) ;
+    const formattedBalance = this.formatNumber(this.balance1);
+    return '*'.repeat(formattedBalance.length);
   }
-
+  
   getMaskedBalance2(): string {
-    return '*'.repeat(this.balance2.length);
+    const formattedBalance = this.formatNumber(this.balance2);
+    return '*'.repeat(formattedBalance.length);
   }
-
+  
   getMaskedBalance3(): string {
-    return '*'.repeat(this.balance3.length );
+    const formattedBalance = this.formatNumber(this.balance3);
+    return '*'.repeat(formattedBalance.length);
   }
+  
+
+  formatNumber(value: number): string {
+    return value.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+  }
+  
+  
 
   copyToClipboard(text: string): void {
     console.log('Copy to clipboard', text);
@@ -240,6 +255,31 @@ export class HomeComponent implements OnInit, AfterViewInit {
         link.click();
       },
       (error: any) => {
+        console.error('Error fetching data:', error);
+      });
+  }
+
+  getWalletByCollaboratorId() {
+    this._walletsService.getWalletByCollaboratorId(this.info.id).subscribe(
+      (response: any) => {
+        this.listWalletData = response.data;
+        this.balance1 = this.listWalletData
+        .filter((item: any) => item.walletTypeEnums === 'Source')
+        .reduce((sum: number, item: any) => sum + (item.available || 0), 0);
+
+        // Tính tổng cho balance2 (Sale1, Sale2, Sale3)
+        this.balance2 = this.listWalletData
+          .filter((item: any) => ['Sale1', 'Sale2', 'Sale3'].includes(item.walletTypeEnums))
+          .reduce((sum: number, item: any) => sum + (item.available || 0), 0);
+
+        // Tính tổng cho balance3 (CustomerGratitude, CustomerShare)
+        this.balance3 = this.listWalletData
+          .filter((item: any) => ['CustomerGratitude', 'CustomerShare'].includes(item.walletTypeEnums))
+          .reduce((sum: number, item: any) => sum + (item.available || 0), 0);
+
+      },
+      (error: any) => {
+        this.listWalletData = [];
         console.error('Error fetching data:', error);
       });
   }
