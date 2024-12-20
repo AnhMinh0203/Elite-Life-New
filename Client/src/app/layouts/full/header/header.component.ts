@@ -6,6 +6,8 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { AuthenticateService } from 'src/app/pages/authentication/service/authenticate.service';
 
 
 @Component({
@@ -22,5 +24,13 @@ export class HeaderComponent {
 
   showFiller = false;
 
-  constructor(public dialog: MatDialog) {}
+  constructor(
+    public dialog: MatDialog, 
+    private _authenticateService: AuthenticateService
+  ) {}
+
+
+  logout() {
+    this._authenticateService.logout();
+  }
 }

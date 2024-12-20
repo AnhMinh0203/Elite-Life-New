@@ -1,5 +1,5 @@
 <div class="blank-layout-container justify-content-center align-items-center bg-light-primary">
-  <div class="position-relative row w-100 h-100 bg-gredient justify-content-center" >
+  <div class="position-relative row w-100 h-100 bg-gredient justify-content-center">
     <!-- Form 1 -->
     <p-toast />
     <div class="col-lg-7 p-0" *ngIf="!isSmallScreen">
@@ -49,14 +49,14 @@
             <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Họ và tên <span
                 style="color: red">*</span></mat-label>
             <mat-form-field appearance="outline" class="w-100" color="primary">
-              <input matInput formControlName="userName" />
+              <input matInput formControlName="DisplayName" />
             </mat-form-field>
 
             <!-- Email -->
             <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Email <span
                 style="color: red">*</span></mat-label>
             <mat-form-field appearance="outline" class="w-100" color="primary">
-              <input matInput formControlName="email"/>
+              <input matInput formControlName="Email" />
             </mat-form-field>
 
             <div class="form-row">
@@ -65,7 +65,7 @@
                 <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Số điện thoại <span
                     style="color: red">*</span></mat-label>
                 <mat-form-field appearance="outline" class="w-100" color="primary">
-                  <input matInput formControlName="phoneNumber"/>
+                  <input matInput formControlName="Mobile" />
                 </mat-form-field>
               </div>
               <div class="form-group">
@@ -73,7 +73,7 @@
                 <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Người giới thiệu<span
                     style="color: red">*</span></mat-label>
                 <mat-form-field appearance="outline" class="w-100" color="primary">
-                  <input matInput formControlName="introPerson"/>
+                  <input matInput formControlName="Parent" />
                 </mat-form-field>
               </div>
 
@@ -82,7 +82,7 @@
             <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Số CMTND/ CCCD/ Hộ chiếu<span
                 style="color: red">*</span></mat-label>
             <mat-form-field appearance="outline" class="w-100" color="primary">
-              <input matInput formControlName="identification"/>
+              <input matInput formControlName="Identity" />
             </mat-form-field>
 
             <div class="form-row">
@@ -91,7 +91,7 @@
                 <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Nơi cấp<span
                     style="color: red">*</span></mat-label>
                 <mat-form-field appearance="outline" class="w-100" color="primary">
-                  <input matInput formControlName="providePlace"/>
+                  <input matInput formControlName="IdentityPlace" />
                 </mat-form-field>
               </div>
               <div class="form-group">
@@ -99,7 +99,7 @@
                 <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Ngày cấp<span
                     style="color: red">*</span></mat-label>
                 <mat-form-field>
-                  <input matInput [matDatepicker]="picker" formControlName="provideDate">
+                  <input matInput [matDatepicker]="picker" formControlName="IdentityDate">
                   <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                   <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
@@ -110,7 +110,7 @@
             <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Mật khẩu <span
                 style="color: red">*</span></mat-label>
             <mat-form-field appearance="outline" class="w-100" color="primary">
-              <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" required>
+              <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="Password" required>
               <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" type="button">
                 <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
               </button>
@@ -120,7 +120,8 @@
             <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Xác nhận mật khẩu <span
                 style="color: red">*</span></mat-label>
             <mat-form-field appearance="outline" class="w-100" color="primary">
-              <input matInput [type]="hideComfirmPassword ? 'password' : 'text'" formControlName="confirmPassword" required>
+              <input matInput [type]="hideComfirmPassword ? 'password' : 'text'" formControlName="ConfirmPassword"
+                required>
               <button mat-icon-button matSuffix (click)="hideComfirmPassword = !hideComfirmPassword" type="button">
                 <mat-icon>{{ hideComfirmPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
               </button>
@@ -138,7 +139,7 @@
       </mat-card>
     </div>
 
-  <!-- Form 2 -->
+    <!-- Form 2 -->
     <div class="col-lg-5 d-flex align-items-center p-0 justify-content-center" *ngIf="currentForm === 2">
       <mat-card class="cardWithShadow boxed-auth" style="height: 100%; margin: 0; max-width: none; padding-top: 5%;">
         <mat-card-content style="padding: 10px 80px;">
@@ -168,15 +169,19 @@
             <!-- Ngân hàng -->
             <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Ngân hàng <span
                 style="color: red">*</span></mat-label>
-            <mat-form-field appearance="outline" class="w-100" color="primary">
-              <input matInput formControlName="bank"/>
+            <mat-form-field class="w-100">
+
+              <mat-select disableRipple [(ngModel)]="Bank">
+                <!-- Lặp qua danh sách ngân hàng -->
+                <mat-option *ngFor="let bank of banks" [value]="bank">{{ bank }}</mat-option>
+              </mat-select>
             </mat-form-field>
 
             <!-- Số tài khoản -->
             <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Số tài khoản <span
                 style="color: red">*</span></mat-label>
             <mat-form-field appearance="outline" class="w-100" color="primary">
-              <input matInput formControlName="accountNumber"/>
+              <input matInput formControlName="BankNumber" />
             </mat-form-field>
 
 
@@ -184,14 +189,14 @@
             <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Chủ tài khoản <span
                 style="color: red">*</span></mat-label>
             <mat-form-field appearance="outline" class="w-100" color="primary">
-              <input matInput formControlName="accountOwner"/>
+              <input matInput formControlName="BankOwner" />
             </mat-form-field>
 
             <!-- Chi nhánh -->
             <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Chi nhánh<span
                 style="color: red">*</span></mat-label>
             <mat-form-field appearance="outline" class="w-100" color="primary">
-              <input matInput formControlName="bankBranch"/>
+              <input matInput formControlName="BankBranchName" />
             </mat-form-field>
             <div class="form-row">
               <div class="form-group">

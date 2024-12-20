@@ -10,7 +10,6 @@ namespace Elite_life_repository.Interfaces
 {
     public interface IAuthenticateRepos
     {
-        //UserDto Authenticate(string username, string password);
         Task<CollaboratorDto> FindByUserNameAsync(string Username);
         bool CheckPasswordAsync(string password, string hashPassword);
         Task<bool> UpdateRefreshTokenAsync(int Id, string RefreshToken, DateTime RefreshTokenExpiryTime);

@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, Injector } from '@angular/core';
+import { Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
 import { catchError, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -13,8 +14,8 @@ export class AuthenticateService {
   serviceUri: any;
   _http: HttpClient;
 
-  constructor(http: HttpClient, injector: Injector) {
-    this.serviceUri =  `${environment.EnpointUrl}/Authenticate`;
+  constructor(http: HttpClient, injector: Injector, private router: Router) {
+    this.serviceUri = `${environment.EnpointUrl}/Authenticate`;
     this._http = http;
 
   }
@@ -29,7 +30,7 @@ export class AuthenticateService {
       );
   }
 
-  signUp(model:any){
+  signUp(model: any) {
     const apiUrl = `${this.serviceUri}/register`;
     return this._http.post<ResponseResult>(apiUrl, model)
       .pipe(
@@ -38,15 +39,40 @@ export class AuthenticateService {
         })
       );
   }
+  getBankId(model:any){
+    const apiUrl = `${this.serviceUri}/register-bankId`;
+    return this._http.post<ResponseResult>(apiUrl, model)
+      .pipe(
+        catchError((error: any) => {
+          throw error;
+        })
+      );
+  }
+
+  checkParent(model: any) {
+    const apiUrl = `${this.serviceUri}/register-checkParent`;
+    return this._http.post<ResponseResult>(apiUrl, model)
+      .pipe(
+        catchError((error: any) => {
+          throw error;
+        })
+      );
+  }
+
+  getBanks(): Observable<string[]> {
+    const apiUrl = `${this.serviceUri}/register-getBanks`;
+    return this._http.get<string[]>(apiUrl);
+  }
 
   refreshToken(accessToken: string, refreshToken: string): Observable<{ accessToken: string; refreshToken: string }> {
     const payload = {
       accessToken,
       refreshToken,
     };
+    const apiUrl = `${this.serviceUri}/refresh-token`;
 
     return this._http.post<{ accessToken: string; refreshToken: string }>(
-      '/Authenticate/refresh-token',
+      apiUrl,
       payload
     );
   }
@@ -56,6 +82,7 @@ export class AuthenticateService {
     localStorage.removeItem('refreshToken');
     localStorage.removeItem('refreshTokenExpiryTime');
     localStorage.removeItem('info');
+    this.router.navigate(['/authentication/login']);
   }
 
   isAuthenticated(): boolean {
@@ -63,7 +90,7 @@ export class AuthenticateService {
     if (!token) {
       return false;
     }
-    return !this.isTokenExpired(token);
+    return true; //!this.isTokenExpired(token);
   }
 
   getToken(): string | null {

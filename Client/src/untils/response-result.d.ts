@@ -5,4 +5,5 @@ export interface ResponseResult {
     totalRecord: number;
     metadata?: any;
     success?: boolean;
+    isExistent: boolean;
 }

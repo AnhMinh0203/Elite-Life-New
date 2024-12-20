@@ -18,20 +18,21 @@ export class AppSideRegisterComponent {
   hideComfirmPassword = true;
   uploadedImage: string | null = null;
   currentForm: number = 1;
+  banks: string[] = [];
 
-  userName: any;
-  email: any;
-  phoneNumber: any;
-  introPerson: any;
-  identification: any;
-  providePlace: any;
-  provideDate: any;
-  password: any;
-  confirmPassword: any;
-  bank: any;
-  accountNumber: any;
-  accountOwner: any;
-  bankBranchName: any;
+  DisplayName: any;
+  Email: any;
+  Parent: any;
+  Identity: any;
+  IdentityPlace: any;
+  IdentityDate: any;
+  Password: any;
+  ConfirmPassword: any;
+  Mobile: any;
+  Bank: any;
+  BankNumber: any;
+  BankOwner: any;
+  BankBranchName: any;
   signUpForm: any;
 
   constructor(private http: HttpClient,
@@ -41,19 +42,34 @@ export class AppSideRegisterComponent {
 
     this.checkScreenSize();
     this.signUpForm = new FormGroup({
-      userName: new FormControl('', [Validators.required]),
-      email: new FormControl('', [Validators.required, Validators.email]),
-      phoneNumber: new FormControl('', [Validators.required]),
-      introPerson: new FormControl('', [Validators.required]),
-      identification: new FormControl('', [Validators.required]),
-      providePlace: new FormControl('', [Validators.required]),
-      provideDate: new FormControl('', [Validators.required]),
-      password: new FormControl('', [Validators.required]),
-      confirmPassword: new FormControl('', [Validators.required]),
-      bank: new FormControl('', [Validators.required]),
-      accountNumber: new FormControl('', [Validators.required]),
-      accountOwner: new FormControl('', [Validators.required]),
-      bankBranch: new FormControl('', [Validators.required]),
+      DisplayName: new FormControl('', [Validators.required]),
+      Email: new FormControl('', [Validators.email]),
+      Mobile: new FormControl('', [Validators.required]),
+      Parent: new FormControl('', [Validators.required]),
+      Identity: new FormControl('', [Validators.required]),
+      IdentityPlace: new FormControl('', [Validators.required]),
+      IdentityDate: new FormControl('', [Validators.required]),
+      Password: new FormControl('', [Validators.required]),
+      ConfirmPassword: new FormControl('', [Validators.required]),
+      Bank: new FormControl('', [Validators.required]),
+      BankNumber: new FormControl('', [Validators.required]),
+      BankOwner: new FormControl('', [Validators.required]),
+      BankBranchName: new FormControl('', [Validators.required]),
+    });
+  }
+  ngOnInit() {
+    // Lấy danh sách ngân hàng khi component được khởi tạo
+    this._authenticateService.getBanks().subscribe({
+      next: (response) => {
+        this.banks = response;
+      },
+      error: () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Không thể lấy danh sách ngân hàng',
+        });
+      },
     });
   }
 
@@ -84,33 +100,64 @@ export class AppSideRegisterComponent {
   }
 
   nextForm() {
-    this.currentForm = 2;
-  }
-
-  previousForm() {
-    this.currentForm = 1;
-  }
-
-  signUp(): void {
-    this.messageService.add({
-      severity: 'error',
-      summary: 'Error',
-      detail: 'Vui lòng nhập mã đăng nhập',
-    });
-
-
-    // Check if the form is valid
-    if (this.signUpForm.invalid) {
+    if (!this.signUpForm.get('DisplayName')?.value?.trim()) {
       this.messageService.add({
         severity: 'error',
         summary: 'Error',
-        detail: 'Vui lòng điền đầy đủ thông tin',
+        detail: 'Vui lòng điền họ tên',
+      });
+      return;
+    }
+    if (!this.signUpForm.get('Mobile')?.value?.trim()) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Vui lòng điền số điện thoại',
+      });
+      return;
+    }
+    if (!this.signUpForm.get('Identity')?.value?.trim()) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Vui lòng điền Số CMTND/ CCCD/ Hộ chiếu',
+      });
+      return;
+    }
+    if (!this.signUpForm.get('IdentityPlace')?.value?.trim()) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Vui lòng điền nơi cấp',
+      });
+      return;
+    }
+    if (!this.signUpForm.get('IdentityDate')?.value) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Vui lòng điền ngày cấp',
       });
       return;
     }
 
-    // Validate password and confirm password
-    if (this.signUpForm.get('password')?.value !== this.signUpForm.get('confirmPassword')?.value) {
+    if (!this.signUpForm.get('Password')?.value.trim()) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Vui lòng điền mật khẩu',
+      });
+      return;
+    }
+    if (!this.signUpForm.get('ConfirmPassword')?.value.trim()) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Vui lòng xác nhận mật khẩu',
+      });
+      return;
+    }
+    if (this.signUpForm.get('Password')?.value.trim() !== this.signUpForm.get('ConfirmPassword')?.value.trim()) {
       this.messageService.add({
         severity: 'error',
         summary: 'Error',
@@ -118,6 +165,36 @@ export class AppSideRegisterComponent {
       });
       return;
     }
+    const parentCode = this.signUpForm.get('Parent')?.value;
+    this._authenticateService.checkParent({ UserName: parentCode }).subscribe({
+      next: (response) => {
+        console.log(response);
+        if (response.isExistent) {
+          this.currentForm = 2; // Chuyển sang form tiếp theo nếu mã người dùng tồn tại
+        } else {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Mã người dùng không tồn tại',
+          });
+        }
+      },
+      error: () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Đã xảy ra lỗi khi kiểm tra mã người dùng',
+        });
+      },
+    });
+  }
+
+  previousForm() {
+    this.currentForm = 1;
+  }
+
+  signUp(): void {
+
     if (this.signUpForm.passWord != this.signUpForm.confirmPassword) {
       this.messageService.add({
         severity: 'error',
@@ -127,25 +204,39 @@ export class AppSideRegisterComponent {
       return;
     }
 
+    var BankId = 1 ;
+    this._authenticateService.checkParent({ BankName: this.signUpForm.get('Bank')?.value }).subscribe({
+      next: (response) => {
+        if (response.data) {
+          BankId = parseInt(response.data, 10);
+        }
+      },
+    });
+
+
+    let parentId = this.signUpForm.get('Parent')?.value;
+    if (parentId && parentId.startsWith('EL')) {
+      parentId = parentId.substring(2); // Remove the 'EL' prefix
+    }
+    const parsedParentId = parseInt(parentId, 10);
+
+    // Thêm 1 hàm count số lượng User để thêm EL đằng trước -> UserName
     // Prepare the data to send to the backend
     const signUpData = {
-      userName: this.signUpForm.get('userName')?.value,
-      email: this.signUpForm.get('email')?.value,
-      phoneNumber: this.signUpForm.get('phoneNumber')?.value,
-      introPerson: this.signUpForm.get('introPerson')?.value,
-      Identity: this.signUpForm.get('identification')?.value,
-      IdentityPlace: this.signUpForm.get('providePlace')?.value,
-      provideDate: this.signUpForm.get('provideDate')?.value,
-      password: this.signUpForm.get('password')?.value,
-      bank: this.signUpForm.get('bank')?.value,
-      BankNumber: this.signUpForm.get('accountNumber')?.value,
-      BankOwner: this.signUpForm.get('accountOwner')?.value,
-      BankBranchName: this.signUpForm.get('bankBranch')?.value,
-      Address: "Address Abc",
-      Mobile: "True",
-      Permission: "User",
-      DisplayName: "Abc ",
-      ApplicationType: "Web"
+      Password: this.signUpForm.get('Password')?.value,
+      DisplayName: this.signUpForm.get('DisplayName')?.value,
+      Email: this.signUpForm.get('Email')?.value,
+      Mobile: this.signUpForm.get('Mobile')?.value,
+      ApplicationType: "Sale",
+      Identity: this.signUpForm.get('Identity')?.value,
+      IdentityPlace: this.signUpForm.get('IdentityPlace')?.value,
+      IdentityDate: this.signUpForm.get('IdentityDate')?.value,
+      ParentId: parsedParentId,
+      BankId: BankId,
+      BankNumber: this.signUpForm.get('BankNumber')?.value,
+      BankOwner: this.signUpForm.get('BankOwner')?.value,
+      BankBranchName: this.signUpForm.get('BankBranchName')?.value
+
     };
 
     this._authenticateService.signUp(signUpData).subscribe((res: any) => {

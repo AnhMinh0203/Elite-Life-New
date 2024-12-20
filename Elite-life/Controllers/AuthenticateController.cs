@@ -52,10 +52,10 @@ namespace Elite_life.Controllers
                 var token = _tokenUtils.CreateToken(authClaims);
                 var refreshToken = _tokenUtils.GenerateRefreshToken();
 
-                _ = int.TryParse(_configuration["JWT:RefreshTokenValidityInDays"], out int refreshTokenValidityInDays);
+                _ = int.TryParse(_configuration["JWT:RefreshTokenValidityInHours"], out int refreshTokenValidityInHours);
 
                 user.RefreshToken = refreshToken;
-                user.RefreshTokenExpiryTime = DateTime.Now.AddDays(refreshTokenValidityInDays);
+                user.RefreshTokenExpiryTime = DateTime.Now.AddHours(refreshTokenValidityInHours);
 
                 await _authenticateRepos.UpdateRefreshTokenAsync(user.Id, user.RefreshToken, user.RefreshTokenExpiryTime);
                 LoginRespon loginRespon = new LoginRespon();
