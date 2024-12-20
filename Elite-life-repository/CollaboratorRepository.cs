@@ -266,5 +266,31 @@ namespace Elite_life_repository
                 await connection.CloseAsync();
             }
         }
+
+        public async Task<decimal?> GetTotalValueWithLevelAsync(int inputId)
+        {
+            var connectPostgres = new ConnectToPostgresql(_configuration);
+            using var connection = await connectPostgres.CreateConnectionAsync();
+
+            try
+            {
+                var query = "SELECT * FROM dbo.get_totalValue_with_level(@InputId)";
+                var parameters = new { InputId = inputId };
+
+                // Thực thi truy vấn và lấy kết quả
+                var result = await connection.QueryFirstOrDefaultAsync<decimal?>(query, parameters);
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error fetching GetTotalValueWithLevelAsync: {ex.Message}");
+                return 0;
+            }
+            finally
+            {
+                await connection.CloseAsync();
+            }
+        }
     }
 }

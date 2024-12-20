@@ -10,6 +10,7 @@ export interface NavItem {
     chipClass?: string;
     subtext?: string;
     route?: string;
+    href?: string;
     children?: NavItem[];
     ddType?: string;
 }

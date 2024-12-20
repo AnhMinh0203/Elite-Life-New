@@ -35,6 +35,11 @@ import { ButtonModule } from 'primeng/button';
 import { FooterComponent } from './layouts/full/footer/footer.component';
 import { CustomerManagerComponent } from './elite-life/customer-manager/customer-manager.component';
 import { CalendarModule } from 'primeng/calendar';
+import { SystemManagerComponent } from './elite-life/system-manager/system-manager.component';
+import { TableModule } from 'primeng/table';
+import { TreeModule } from 'primeng/tree';
+import { TutorialComponent } from './elite-life/tutorial/tutorial.component';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 
 @NgModule({
@@ -50,6 +55,8 @@ import { CalendarModule } from 'primeng/calendar';
     //
     HomeComponent,
     CustomerManagerComponent,
+    SystemManagerComponent,
+    TutorialComponent,
   ],
   imports: [
     BrowserModule,
@@ -66,6 +73,9 @@ import { CalendarModule } from 'primeng/calendar';
     NgApexchartsModule,
     ButtonModule,
     CalendarModule,
+    TableModule,
+    TreeModule,
+    PdfViewerModule,
   ],
   exports: [TablerIconsModule],
   bootstrap: [AppComponent],

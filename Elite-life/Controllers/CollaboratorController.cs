@@ -20,7 +20,6 @@ namespace Elite_life.Controllers
         }
 
         [HttpGet]
-        //[Authorize]
         [Route("get-collaborator-by-parentId")]
         public async Task<MethodResult> GetCollaboratorsByParendId(int CollaboratorId)
         {
@@ -34,7 +33,6 @@ namespace Elite_life.Controllers
         }
 
         [HttpGet]
-        //[Authorize]
         [Route("export-excel-collaborator-by-parentId")]
         public async Task<IActionResult> ExportExcelCollaboratorsByParendId(int CollaboratorId)
         {
@@ -63,7 +61,6 @@ namespace Elite_life.Controllers
         }
 
         [HttpPost]
-        //[Authorize]
         [Route("export-excel-all-collaborator-by-parentId")]
         public async Task<IActionResult> ExportExcelAllCollaboratorsByParendId(CollaboratorCustomerManagerModel model)
         {
@@ -79,11 +76,23 @@ namespace Elite_life.Controllers
         }
 
         [HttpGet]
-        //[Authorize]
         [Route("get-collaborator-system-manager")]
         public async Task<MethodResult> GetCollaboratorsSystemManager(int CollaboratorId)
         {
             var result = await _collaboratorRepos.GetCollaboratorsSystemManager(CollaboratorId);
+            if (result != null)
+            {
+                return MethodResult.ResultWithSuccess(result, 200, "Success");
+
+            }
+            return MethodResult.ResultWithError(null, 400, "Not Found");
+        }
+
+        [HttpGet]
+        [Route("get-total-value-with-level")]
+        public async Task<MethodResult> GetTotalValueWithLevelAsync(int inputId)
+        {
+            var result = await _collaboratorRepos.GetTotalValueWithLevelAsync(inputId);
             if (result != null)
             {
                 return MethodResult.ResultWithSuccess(result, 200, "Success");

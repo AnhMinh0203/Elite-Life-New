@@ -67,15 +67,13 @@ export class CustomerManagerComponent implements OnInit {
     this._collaboratorService.getAllCollaboratorByParentId(model).subscribe(
       (response: any) => {
         this.data = response.data;
-        this.dataSource = new MatTableDataSource<PeriodicElement>(this.data);
-        this.dataSource.data = this.dataSource.data.map((item: any, index: any) => ({
+        this.data = this.data.map((item: any, index: any) => ({
           ...item,
           position: index + 1
         }));
-        this.collaboratorNumber = this.dataSource.data.length;
-        this.dataSource.paginator = this.paginator;
       },
       (error: any) => {
+        this.data = [];
         console.error('Error fetching data:', error);
       });
   }

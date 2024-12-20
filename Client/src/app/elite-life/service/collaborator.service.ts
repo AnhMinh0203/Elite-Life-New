@@ -58,4 +58,24 @@ export class CollaboratorService {
       );
   }
 
+  getCollaboratorSystemTree(CollaboratorId: any) {
+    const apiUrl = `${this.serviceUri}/get-collaborator-system-manager?CollaboratorId=${CollaboratorId}`;
+    return this._http.get<ResponseResult>(apiUrl)
+      .pipe(
+        catchError((error: any) => {
+          throw error;
+        })
+      );
+  }
+
+  getTotalValueWithLevel(CollaboratorId: any) {
+    const apiUrl = `${this.serviceUri}/get-total-value-with-level?inputId=${CollaboratorId}`;
+    return this._http.get<ResponseResult>(apiUrl)
+      .pipe(
+        catchError((error: any) => {
+          throw error;
+        })
+      );
+  }
+
 }

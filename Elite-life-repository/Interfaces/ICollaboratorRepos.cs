@@ -17,5 +17,6 @@ namespace Elite_life_repository.Interfaces
         Task<MemoryStream> ExportExcelAllCollaboratorsByParendId(CollaboratorCustomerManagerModel model);
         // System manager
         Task<List<CollaboratorSystemManagerDto>> GetCollaboratorsSystemManager(int CollaboratorId);
+        Task<decimal?> GetTotalValueWithLevelAsync(int inputId);
     }
 }
