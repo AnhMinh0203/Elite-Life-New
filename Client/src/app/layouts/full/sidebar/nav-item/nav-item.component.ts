@@ -26,8 +26,16 @@ export class AppNavItemComponent implements OnChanges {
   }
 
   onItemSelected(item: NavItem) {
-    if (!item.children || !item.children.length) {
+    // if (!item.children || !item.children.length) {
+    //   this.router.navigate([item.route]);
+    // }
+
+    if (item.route) {
+      // Điều hướng bằng Angular Router
       this.router.navigate([item.route]);
+    } else if (item.href) {
+      // Điều hướng theo href
+      window.open(item.href, '_blank', 'noopener,noreferrer');
     }
 
     // scroll

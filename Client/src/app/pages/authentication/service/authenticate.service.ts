@@ -30,9 +30,9 @@ export class AuthenticateService {
       );
   }
 
-  signUp(model: any) {
+  signUp(formData: FormData) {
     const apiUrl = `${this.serviceUri}/register`;
-    return this._http.post<ResponseResult>(apiUrl, model)
+    return this._http.post<ResponseResult>(apiUrl, formData)
       .pipe(
         catchError((error: any) => {
           throw error;

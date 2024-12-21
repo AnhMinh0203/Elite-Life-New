@@ -219,5 +219,44 @@
         </mat-card-content>
       </mat-card>
     </div>
+
+    <!-- Form 3 -->
+    <div class="col-lg-5 d-flex align-items-center p-0 justify-content-center" *ngIf="currentForm === 3">
+      <mat-card class="cardWithShadow boxed-auth" style="height: 100%; margin: 0; max-width: none; padding-top: 5%;">
+        <mat-card-content style="padding: 10px 80px;">
+          <div class="text-center">
+            <a [routerLink]="['/dashboard']">
+              <img src="./assets/images/elite-live/logo-elitelive.svg" class="align-middle m-2" alt="logo" />
+            </a>
+          </div>
+          <div class="or-border m-t-30">
+            <h1 style="color: #004882;">Đăng ký thành công</h1>
+          </div>
+          <span>Thông tin tài khoản</span>
+          <table class="table table-borderless mt-3">
+            <tr>
+              <td><strong>Mã đăng nhập:</strong></td>
+              <td>{{ newUserName }}</td>
+            </tr>
+            <tr>
+              <td><strong>Họ tên:</strong></td>
+              <td>{{ signUpData.DisplayName }}</td>
+            </tr>
+            <tr>
+              <td><strong>Email:</strong></td>
+              <td>{{ signUpData.Email }}</td>
+            </tr>
+            <tr>
+              <td><strong>Số điện thoại:</strong></td>
+              <td>{{ signUpData.Mobile }}</td>
+            </tr>
+            <tr>
+              <td><strong>CCCD:</strong></td>
+              <td>{{ signUpData.Identity }}</td>
+            </tr>
+          </table>
+        </mat-card-content>
+      </mat-card>
+    </div>
   </div>
 </div>

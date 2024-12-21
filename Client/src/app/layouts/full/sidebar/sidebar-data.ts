@@ -9,7 +9,7 @@ export const navItems: NavItem[] = [
   {
     displayName: 'Quản lý khách hàng',
     iconName: 'users-group',
-    route: '/ui-components',
+    route: '/customer-manager',
   },
   {
     displayName: 'Quản lý hệ thống',
@@ -52,12 +52,12 @@ export const navItems: NavItem[] = [
   {
     displayName: 'Hotline: 0967364999',
     iconName: 'file-text',
-    route: '/hotline',
+    href: 'tel:0967364999',
   },
   {
     displayName: 'Zalo hỗ trợ chung',
     iconName: 'file-text',
-    route: '/zalo',
+    href: 'https://zalo.me/g/hcwaid814',
   },
   {
     displayName: 'Đào tạo hướng dẫn',

@@ -19,6 +19,7 @@ export class AppSideRegisterComponent {
   uploadedImage: string | null = null;
   currentForm: number = 1;
   banks: string[] = [];
+  newUserName: any;
 
   DisplayName: any;
   Email: any;
@@ -34,6 +35,8 @@ export class AppSideRegisterComponent {
   BankOwner: any;
   BankBranchName: any;
   signUpForm: any;
+  signUpData: any;
+  selectedFile: any;
 
   constructor(private http: HttpClient,
     private messageService: MessageService,
@@ -54,7 +57,9 @@ export class AppSideRegisterComponent {
       Bank: new FormControl('', [Validators.required]),
       BankNumber: new FormControl('', [Validators.required]),
       BankOwner: new FormControl('', [Validators.required]),
-      BankBranchName: new FormControl('', [Validators.required]),
+      BankBranchName: new FormControl('', [Validators.required],
+
+      ),
     });
   }
   ngOnInit() {
@@ -90,6 +95,7 @@ export class AppSideRegisterComponent {
   onFileChange(event: any) {
     const file: File = event.target.files[0]; // Lấy file đầu tiên
     if (file) {
+      this.selectedFile = file;
       const reader = new FileReader();
       reader.onload = (e: any) => {
         this.uploadedImage = e.target.result; // Cập nhật URL ảnh mới
@@ -194,18 +200,8 @@ export class AppSideRegisterComponent {
   }
 
   signUp(): void {
-
-    if (this.signUpForm.passWord != this.signUpForm.confirmPassword) {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Error',
-        detail: 'Mật khẩu không khớp',
-      });
-      return;
-    }
-
     var BankId = 1 ;
-    this._authenticateService.checkParent({ BankName: this.signUpForm.get('Bank')?.value }).subscribe({
+    this._authenticateService.getBankId({ BankName: this.signUpForm.get('Bank')?.value }).subscribe({
       next: (response) => {
         if (response.data) {
           BankId = parseInt(response.data, 10);
@@ -213,42 +209,50 @@ export class AppSideRegisterComponent {
       },
     });
 
-
     let parentId = this.signUpForm.get('Parent')?.value;
     if (parentId && parentId.startsWith('EL')) {
-      parentId = parentId.substring(2); // Remove the 'EL' prefix
+      parentId = parentId.substring(2);
     }
     const parsedParentId = parseInt(parentId, 10);
 
-    // Thêm 1 hàm count số lượng User để thêm EL đằng trước -> UserName
-    // Prepare the data to send to the backend
-    const signUpData = {
-      Password: this.signUpForm.get('Password')?.value,
+
+    const formData = new FormData();
+
+    formData.append('Password', this.signUpForm.get('Password')?.value);
+    formData.append('DisplayName', this.signUpForm.get('DisplayName')?.value);
+    formData.append('Email', this.signUpForm.get('Email')?.value);
+    formData.append('Mobile', this.signUpForm.get('Mobile')?.value);
+    formData.append('ApplicationType', 'Sale');
+    formData.append('Identity', this.signUpForm.get('Identity')?.value);
+    formData.append('IdentityPlace', this.signUpForm.get('IdentityPlace')?.value);
+    formData.append('IdentityDate', this.signUpForm.get('IdentityDate')?.value.toISOString());
+    formData.append('ParentId', parsedParentId.toString());
+    formData.append('BankId', BankId.toString());
+    formData.append('BankNumber', this.signUpForm.get('BankNumber')?.value);
+    formData.append('BankOwner', this.signUpForm.get('BankOwner')?.value);
+    formData.append('BankBranchName', this.signUpForm.get('BankBranchName')?.value);
+
+    if (this.selectedFile) {
+      formData.append('Avatar', this.selectedFile, this.selectedFile.name);
+    }
+    this.signUpData = {
       DisplayName: this.signUpForm.get('DisplayName')?.value,
       Email: this.signUpForm.get('Email')?.value,
       Mobile: this.signUpForm.get('Mobile')?.value,
-      ApplicationType: "Sale",
-      Identity: this.signUpForm.get('Identity')?.value,
-      IdentityPlace: this.signUpForm.get('IdentityPlace')?.value,
-      IdentityDate: this.signUpForm.get('IdentityDate')?.value,
-      ParentId: parsedParentId,
-      BankId: BankId,
-      BankNumber: this.signUpForm.get('BankNumber')?.value,
-      BankOwner: this.signUpForm.get('BankOwner')?.value,
-      BankBranchName: this.signUpForm.get('BankBranchName')?.value
-
+      Identity: this.signUpForm.get('Identity')?.value
     };
 
-    this._authenticateService.signUp(signUpData).subscribe((res: any) => {
-      if (res && res.statusCode == 200) {
+    this._authenticateService.signUp(formData).subscribe((res: any) => {
+      console.log(res);
+      if (res && res.status == "Success") {
         this.messageService.add({
           severity: 'success',
           summary: 'Success',
           detail: 'Đăng nhập thành công',
         });
-        setTimeout(() => {
-          this.router.navigate(['/home']);
-        }, 500);
+        console.log("New ID: " + res.data) ;
+        this.newUserName = 'EL' + res.data;
+        this.currentForm = 3;
       } else {
         this.messageService.add({
           severity: 'error',

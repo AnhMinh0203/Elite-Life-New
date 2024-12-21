@@ -1,0 +1,18 @@
+.card-content {
+    height: auto;
+    border-radius: 10px;
+    background: conic-gradient(from 311deg at 50% 50%, #144DB5 5deg, #0F3E91 123deg, #00203A 325deg);
+    color: #fff;
+    min-height: 145px;
+}
+
+.balance-text {
+    font-size: 1.2rem;
+    white-space: nowrap;
+}
+
+
+
+
+  
+  

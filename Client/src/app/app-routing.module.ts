@@ -4,6 +4,10 @@ import { BlankComponent } from './layouts/blank/blank.component';
 import { FullComponent } from './layouts/full/full.component';
 import { HomeComponent } from './elite-life/home/home.component';
 import { AuthGuardService } from 'src/untils/AuthGuard.service';
+import { CustomerManagerComponent } from './elite-life/customer-manager/customer-manager.component';
+import { SystemManagerComponent } from './elite-life/system-manager/system-manager.component';
+import { TutorialComponent } from './elite-life/tutorial/tutorial.component';
+import { ProfileComponent } from './pages/profile/profile.component'; // Import component Profile
 
 const routes: Routes = [
   {
@@ -35,7 +39,29 @@ const routes: Routes = [
       },
       {
         path: 'home',component:HomeComponent,
-      }
+      },
+      {
+        path: 'customer-manager', component: CustomerManagerComponent
+      },
+      {
+        path: 'system-manager', component: SystemManagerComponent
+      },
+      {
+        path: 'about-us', component: TutorialComponent
+      },
+      {
+        path: 'guide', component: TutorialComponent
+      },
+      {
+        path: 'policy', component: TutorialComponent
+      },
+      {
+        path: 'legal', component: TutorialComponent
+      },
+      {
+        path: 'culture', component: TutorialComponent
+      },
+      { path: 'profile', component: ProfileComponent, pathMatch: 'full' },
     ],
   },
   {

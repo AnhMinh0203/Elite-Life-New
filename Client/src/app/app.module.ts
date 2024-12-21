@@ -32,8 +32,20 @@ import { ToastModule } from 'primeng/toast';
 import { SendAccessTokenInterceptorService } from 'src/untils/SendAccessTokenInterceptor.service';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { ButtonModule } from 'primeng/button';
+import { FooterComponent } from './layouts/full/footer/footer.component';
+import { CustomerManagerComponent } from './elite-life/customer-manager/customer-manager.component';
+import { CalendarModule } from 'primeng/calendar';
+import { SystemManagerComponent } from './elite-life/system-manager/system-manager.component';
+import { TableModule } from 'primeng/table';
+import { TreeModule } from 'primeng/tree';
+import { TutorialComponent } from './elite-life/tutorial/tutorial.component';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
-
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatNativeDateModule } from '@angular/material/core';
+import {MatSelectModule} from '@angular/material/select';
+import { SidebarProfileComponent } from './layouts/full/sidebar-profile/sidebar-profile.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,11 +53,15 @@ import { ButtonModule } from 'primeng/button';
     BlankComponent,
     SidebarComponent,
     HeaderComponent,
+    FooterComponent,
     BrandingComponent,
     AppNavItemComponent,
     //
     HomeComponent,
-
+    CustomerManagerComponent,
+    SystemManagerComponent,
+    TutorialComponent,
+    SidebarProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -61,6 +77,11 @@ import { ButtonModule } from 'primeng/button';
     ToastModule,
     NgApexchartsModule,
     ButtonModule,
+    CalendarModule,
+    TableModule,
+    TreeModule,
+    PdfViewerModule,
+
   ],
   exports: [TablerIconsModule],
   bootstrap: [AppComponent],

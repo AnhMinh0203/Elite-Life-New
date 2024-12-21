@@ -1,0 +1,96 @@
+<div class="container rounded bg-white mt-5 mb-5">
+  <div class="row">
+    <!-- Cột bên trái: Avatar và thông tin cá nhân -->
+    <div class="col-md-3 border-right">
+      <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+        <img class="rounded-circle mt-5" width="150px"
+          src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
+        <span class="font-weight-bold">Edogaru</span>
+        <span class="text-black-50">edogaru.com.my</span>
+      </div>
+    </div>
+
+    <!-- Cột giữa: Thông tin cá nhân -->
+    <div class="col-md-5 border-right">
+      <div class="p-3 py-5">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h4 class="text-right">Thông tin cá nhân</h4>
+        </div>
+        <form >
+          <!-- Họ và tên -->
+          <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Họ và tên</mat-label>
+          <mat-form-field appearance="outline" class="w-100" color="primary">
+            <input matInput formControlName="fullName" placeholder="Họ và tên">
+          </mat-form-field>
+
+          <!-- Tên đăng nhập -->
+          <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Tên đăng nhập</mat-label>
+          <mat-form-field appearance="outline" class="w-100" color="primary">
+            <input matInput formControlName="username" placeholder="Tên đăng nhập">
+          </mat-form-field>
+
+          <!-- CMND/CCCD/HC -->
+          <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">CMND/CCCD/HC</mat-label>
+          <mat-form-field appearance="outline" class="w-100" color="primary">
+            <input matInput formControlName="identity" placeholder="Số CMND/CCCD/HC">
+          </mat-form-field>
+
+          <!-- Số tài khoản -->
+          <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Số tài khoản</mat-label>
+          <mat-form-field appearance="outline" class="w-100" color="primary">
+            <input matInput formControlName="accountNumber" placeholder="Số tài khoản">
+          </mat-form-field>
+
+          <!-- Ngân hàng -->
+          <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Ngân hàng</mat-label>
+          <mat-form-field appearance="outline" class="w-100" color="primary">
+            <input matInput formControlName="bank" placeholder="Ngân hàng">
+          </mat-form-field>
+
+          <!-- Chủ tài khoản -->
+          <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Chủ tài khoản</mat-label>
+          <mat-form-field appearance="outline" class="w-100" color="primary">
+            <input matInput formControlName="accountOwner" placeholder="Chủ tài khoản">
+          </mat-form-field>
+
+          <!-- Ngày cấp -->
+          <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Ngày cấp</mat-label>
+          <mat-form-field appearance="outline" class="w-100" color="primary">
+            <input matInput [matDatepicker]="picker" formControlName="issueDate" placeholder="Ngày cấp">
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+
+          <!-- Nơi cấp -->
+          <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Nơi cấp</mat-label>
+          <mat-form-field appearance="outline" class="w-100" color="primary">
+            <input matInput formControlName="issuePlace" placeholder="Nơi cấp">
+          </mat-form-field>
+
+          <!-- Chi nhánh -->
+          <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Chi nhánh</mat-label>
+          <mat-form-field appearance="outline" class="w-100" color="primary">
+            <input matInput formControlName="branch" placeholder="Chi nhánh">
+          </mat-form-field>
+
+          <div class="mt-5 text-center">
+            <button mat-raised-button color="primary" type="submit">Save Profile</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Cột phải: Kinh nghiệm -->
+    <div class="col-md-4">
+      <div class="p-3 py-5">
+        <div class="d-flex justify-content-between align-items-center experience">
+          <mat-icon> phone</mat-icon>
+          <span>Số điện thoại và Email</span>
+        </div><br>
+        <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Số điện thoại</mat-label>
+
+        <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Địa chỉ emai</mat-label>
+      </div>
+    </div>
+  </div>
+</div>

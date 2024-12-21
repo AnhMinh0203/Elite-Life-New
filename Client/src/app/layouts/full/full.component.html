@@ -16,7 +16,8 @@
     (closedStart)="onSidenavClosedStart()"
     class="sidebarNav"
   >
-    <app-sidebar></app-sidebar>
+    <app-sidebar *ngIf="!isProfilePage" ></app-sidebar>
+    <app-sidebar-profile *ngIf="isProfilePage" ></app-sidebar-profile>
   </mat-sidenav>
   <!-- ============================================================== -->
   <!-- Main Content -->
@@ -38,5 +39,6 @@
       <!-- ============================================================== -->
       <router-outlet></router-outlet>
     </main>
+    <app-footer></app-footer>
   </mat-sidenav-content>
 </mat-sidenav-container>

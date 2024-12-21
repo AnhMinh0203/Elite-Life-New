@@ -83,3 +83,59 @@
     font-weight: 600;
     line-height: normal;
 }
+
+
+/* Tăng khả năng responsive */
+.card-content {
+    height: auto;
+    border-radius: 10px;
+    background: conic-gradient(from 311deg at 50% 50%, #144DB5 5deg, #0F3E91 123deg, #00203A 325deg);
+    color: #fff;
+}
+
+.balance-text {
+    font-size: 1.2rem;
+    white-space: nowrap;
+}
+
+.avatar-img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
+
+
+  
+  @media (max-width: 768px) {
+    .card-content {
+      height: 200px;
+      text-align: center;
+    }
+  
+    .info {
+      text-align: center;
+    }
+
+    .fullname {
+        color: #F6D361;
+        font-family: "SF Pro Display";
+        font-size: 2.3rem;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        margin: 8px 0;
+        display: flex;
+    }
+
+    .info p {
+        color: #FFF;
+        font-family: Inter;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        margin: 5px 0;
+    }
+  }
+  
