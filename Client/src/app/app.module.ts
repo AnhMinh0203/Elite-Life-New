@@ -41,11 +41,8 @@ import { TreeModule } from 'primeng/tree';
 import { TutorialComponent } from './elite-life/tutorial/tutorial.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import { MatNativeDateModule } from '@angular/material/core';
-import {MatSelectModule} from '@angular/material/select';
 import { SidebarProfileComponent } from './layouts/full/sidebar-profile/sidebar-profile.component';
+
 @NgModule({
   declarations: [
     AppComponent,

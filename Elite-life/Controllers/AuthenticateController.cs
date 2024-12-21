@@ -35,7 +35,7 @@ namespace Elite_life.Controllers
         [Route("login")]
         public async Task<MethodResult> Login([FromBody] LoginModel model)
         {
-                var user = await _authenticateRepos.FindByUserNameAsync(model.Username);
+            var user = await _authenticateRepos.FindByUserNameAsync(model.Username);
             if (user != null && _authenticateRepos.CheckPasswordAsync(model.Password, user.Password))
             {
                 var authClaims = new List<Claim>
@@ -70,9 +70,30 @@ namespace Elite_life.Controllers
 
         [HttpPost]
         [Route("register")]
-        public async Task<IActionResult> Register([FromBody] RegisterModel model)
+        public async Task<IActionResult> Register([FromForm] RegisterModel model)
         {
-            var userExists = await _authenticateRepos.FindByUserNameAsync(model.Username);
+            var isCreated = await _authenticateRepos.CreateUserAsync(model);
+            if (isCreated < 0)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response
+                {
+                    Status = "Error",
+                    Message = "Không thể tạo người dùng! Vui lòng kiểm tra thông tin và thử lại."
+                });
+            }
+            return Ok(new ResponseWithData<int>
+            {
+                Data = isCreated,
+                Status = "Success",
+                Message = "Người dùng đã được tạo thành công!"
+            });
+        }
+
+        [HttpPost]
+        [Route("register-admin")]
+        public async Task<IActionResult> RegisterAdmin([FromBody] RegisterModel model)
+        {
+           /* var userExists = await _authenticateRepos.FindByUserNameAsync(model.Username);
             if (userExists != null)
             {
                 return StatusCode(StatusCodes.Status400BadRequest, new Response
@@ -80,8 +101,8 @@ namespace Elite_life.Controllers
                     Status = "Error",
                     Message = "Tên đăng nhập đã tồn tại!"
                 });
-            }
-            var isCreated = await _authenticateRepos.CreateUserAsync(model);
+            }*/
+            var isCreated = await _authenticateRepos.RegisterAdminAsync(model);
             if (isCreated < 0)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response
@@ -97,33 +118,47 @@ namespace Elite_life.Controllers
             });
         }
 
-        [HttpPost]
-        [Route("register-admin")]
-        public async Task<IActionResult> RegisterAdmin([FromBody] RegisterModel model)
+        [HttpGet]
+        [Route("register-getBanks")]
+        public async Task<IActionResult> GetBank()
         {
-            var userExists = await _authenticateRepos.FindByUserNameAsync(model.Username);
-            if (userExists != null)
+            var banks = await _authenticateRepos.GetBanksAsync();
+            if (banks == null || !banks.Any())
             {
                 return StatusCode(StatusCodes.Status400BadRequest, new Response
                 {
                     Status = "Error",
-                    Message = "Tên đăng nhập đã tồn tại!"
-                });
+                    Message = "Không tìm thấy ngân hàng"
+                }); ;
             }
-            var isCreated = await _authenticateRepos.RegisterAdminAsync(model);
-            if (isCreated < 0)
+            return Ok(banks);
+        }
+
+        [HttpPost]
+        [Route("register-checkParent")]
+        public async Task<IActionResult> CheckParent([FromBody] CheckParentRequestModel request)
+        {
+            var isExistent = await _authenticateRepos.CheckParentAsync(request);
+            return Ok(new
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response
-                {
-                    Status = "Error",
-                    Message = "Không thể tạo người dùng! Vui lòng kiểm tra thông tin và thử lại."
-                });
-            }
-            return Ok(new Response
+                Success = true,
+                IsExistent = isExistent,
+                Message = isExistent ? "User exists in the system." : "User does not exist."
+            }); 
+
+        }
+
+        [HttpPost]
+        [Route("register-bankId")]
+        public async Task<IActionResult> GetBankId([FromBody] GetBankIdRequestModel request)
+        {
+            var data = await _authenticateRepos.GetBankIdAsync(request);
+            return Ok(new
             {
-                Status = "Success",
-                Message = "Người dùng đã được tạo thành công!"
+                Success = true,
+                Data = data
             });
+
         }
 
         [HttpPost]

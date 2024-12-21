@@ -19,4 +19,8 @@
     <ProjectReference Include="..\Elite-life-repository\Elite-life-repository.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Avatar\" />
+  </ItemGroup>
+
 </Project>

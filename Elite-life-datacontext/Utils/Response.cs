@@ -11,4 +11,9 @@ namespace Elite_life_datacontext.Utils
         public string? Status { get; set; }
         public string? Message { get; set; }
     }
+
+    public class ResponseWithData<T>:Response
+    {
+        public T? Data { get; set; }
+    }
 }

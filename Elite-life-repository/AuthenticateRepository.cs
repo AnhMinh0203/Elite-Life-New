@@ -12,6 +12,7 @@ using Elite_life_datacontext.Model;
 using Elite_life_datacontext.Utils;
 using Npgsql;
 using System.Data;
+using NpgsqlTypes;
 
 namespace Elite_life_repository
 {
@@ -21,6 +22,7 @@ namespace Elite_life_repository
         private readonly PasswordManager _passwordManager;
         public AuthenticateRepository(IConfiguration configuration, PasswordManager passwordManager)
         {
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
             _configuration = configuration;
             _passwordManager = passwordManager;
         }
@@ -34,68 +36,66 @@ namespace Elite_life_repository
 
         public async Task<int> CreateUserAsync(RegisterModel model)
         {
+
             var connectPostgres = new ConnectToPostgresql(_configuration);
             using var connection = await connectPostgres.CreateConnectionAsync();
 
-            try
+            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string avatarFolderPath = Path.Combine(baseDirectory, "Avatar");
+
+            if (!Directory.Exists(avatarFolderPath))
             {
-                var salt = _passwordManager.GenerateSalt();
-                var hashedPassword = _passwordManager.HashPassword(model.Password, salt);
+                Directory.CreateDirectory(avatarFolderPath);
+            }
 
-                var query = @"CALL dbo.CreateUser(
-                            @p_Username, 
-                            @p_Password, 
-                            @p_DisplayName, 
-                            @p_Email, 
-                            @p_Mobile, 
-                            @p_Address, 
-                            @p_Permission, 
-                            @p_ApplicationType, 
-                            @p_Identity, 
-                            @p_IdentityDate, 
-                            @p_IdentityPlace, 
-                            @p_ParentId, 
-                            @p_BankId, 
-                            @p_BankOwner, 
-                            @p_BankNumber, 
-                            @p_BankBranchName)";
+            string avatarFileName = null;
 
-                using var command = new NpgsqlCommand(query, connection);
+            // Nếu có tệp Avatar, lưu vào thư mục
+            if (model.Avatar != null && model.Avatar.Length > 0)
+            {
+                // Đặt tên tệp (có thể dùng GUID hoặc tên gốc)
+                avatarFileName = $"{Guid.NewGuid()}{Path.GetExtension(model.Avatar.FileName)}";
 
-                command.Parameters.AddWithValue("@p_Username", model.Username);
-                command.Parameters.AddWithValue("@p_Password", hashedPassword); 
-                command.Parameters.AddWithValue("@p_DisplayName", model.DisplayName);
-                command.Parameters.AddWithValue("@p_Email", model.Email ?? (object)DBNull.Value);
-                command.Parameters.AddWithValue("@p_Mobile", model.Mobile ?? (object)DBNull.Value);
-                command.Parameters.AddWithValue("@p_Address", model.Address);
-                command.Parameters.AddWithValue("@p_Permission", model.Permission);
-                command.Parameters.AddWithValue("@p_ApplicationType", "Sale");
-                command.Parameters.AddWithValue("@p_Identity", model.Identity);
-                command.Parameters.AddWithValue("@p_IdentityDate", model.IdentityDate);
-                command.Parameters.AddWithValue("@p_IdentityPlace", model.IdentityPlace);
-                command.Parameters.AddWithValue("@p_ParentId", model.ParentId);
-                command.Parameters.AddWithValue("@p_BankId", model.BankId);
-                command.Parameters.AddWithValue("@p_BankOwner", model.BankOwner);
-                command.Parameters.AddWithValue("@p_BankNumber", model.BankNumber);
-                command.Parameters.AddWithValue("@p_BankBranchName", model.BankBranchName);
-                var createdIdParam = new NpgsqlParameter("createdId", DbType.Int32)
+                string avatarFilePath = Path.Combine(avatarFolderPath, avatarFileName);
+
+                // Lưu tệp vào đường dẫn
+                await using (var fileStream = new FileStream(avatarFilePath, FileMode.Create))
                 {
-                    Direction = ParameterDirection.Output
-                };
+                    await model.Avatar.CopyToAsync(fileStream);
+                }
+            }
 
-                await command.ExecuteNonQueryAsync();
-                int createdId = (int)createdIdParam.Value;
-                return createdId;
-            }
-            catch (Exception ex)
+
+            var salt = _passwordManager.GenerateSalt();
+            var hashedPassword = _passwordManager.HashPassword(model.Password, salt);
+
+            var query = @"
+                SELECT * FROM dbo.create_user(
+                     @p_password, @p_displayname, @p_email, @p_mobile, 
+                    @p_applicationtype, @p_identity, @p_identitydate, @p_identityplace, 
+                    @p_parentid, @p_bankid, @p_bankowner, @p_banknumber, @p_bankbranchname, @p_avatarpath
+                )";
+
+            var parameters = new
             {
-                Console.WriteLine($"Error creating user: {ex.Message}");
-                return -1;
-            }
-            finally
-            {
-                await connection.CloseAsync();
-            }
+                p_password = hashedPassword,
+                p_displayname = (object?)model.DisplayName ?? DBNull.Value,
+                p_email = (object?)model.Email ?? DBNull.Value,
+                p_mobile = (object?)model.Mobile ?? DBNull.Value,
+                p_applicationtype = model.ApplicationType ?? "Sale",
+                p_identity = (object?)model.Identity ?? DBNull.Value,
+                p_identitydate = model.IdentityDate,
+                p_identityplace = (object?)model.IdentityPlace ?? DBNull.Value,
+                p_parentid = (object?)model.ParentId ?? DBNull.Value,
+                p_bankid = (object?)model.BankId ?? DBNull.Value,
+                p_bankowner = (object?)model.BankOwner ?? DBNull.Value,
+                p_banknumber = (object?)model.BankNumber ?? DBNull.Value,
+                p_bankbranchname = (object?)model.BankBranchName ?? DBNull.Value,
+                p_avatarpath = (object?)avatarFileName ?? DBNull.Value
+            };
+
+            var createdId = await connection.QuerySingleAsync<int>(query, parameters);
+            return createdId;
         }
 
         public async Task<CollaboratorDto> FindByUserNameAsync(string Username)
@@ -168,13 +168,12 @@ namespace Elite_life_repository
 
                 using var command = new NpgsqlCommand(query, connection);
 
-                command.Parameters.AddWithValue("@p_Username", model.Username);
                 command.Parameters.AddWithValue("@p_Password", hashedPassword);
                 command.Parameters.AddWithValue("@p_DisplayName", model.DisplayName);
                 command.Parameters.AddWithValue("@p_Email", model.Email ?? (object)DBNull.Value);
                 command.Parameters.AddWithValue("@p_Mobile", model.Mobile ?? (object)DBNull.Value);
-                command.Parameters.AddWithValue("@p_Address", model.Address);
-                command.Parameters.AddWithValue("@p_Permission", model.Permission);
+/*                command.Parameters.AddWithValue("@p_Address", model.Address);
+                command.Parameters.AddWithValue("@p_Permission", model.Permission);*/
                 command.Parameters.AddWithValue("@p_ApplicationType", model.ApplicationType);
                 command.Parameters.AddWithValue("@p_Identity", model.Identity);
                 command.Parameters.AddWithValue("@p_IdentityDate", model.IdentityDate);
@@ -230,6 +229,77 @@ namespace Elite_life_repository
             finally
             {
                 await connection.CloseAsync();
+            }
+        }
+
+        public async Task<List<string>> GetBanksAsync()
+        {
+            var connectPostgres = new ConnectToPostgresql(_configuration);
+            using var connection = await connectPostgres.CreateConnectionAsync();
+            try
+            {
+                var query = @"SELECT ""Name"" FROM dbo.""Banks""";
+                var banks = await connection.QueryAsync<string>(query);
+                return banks.ToList();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error getting all banks: {ex.Message}");
+                return null;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        public async Task<bool> CheckParentAsync (CheckParentRequestModel request)
+        {
+            var connectPostgres = new ConnectToPostgresql(_configuration);
+            using var connection = await connectPostgres.CreateConnectionAsync();
+            try
+            {
+                var query = @"SELECT COUNT(1) FROM dbo.""Users"" WHERE ""UserName"" = @UserName";
+                var result = await connection.ExecuteScalarAsync<int>(query, new {request.UserName });
+                return result > 0;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error checking parent: {ex.Message}");
+                return false;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        public async Task<int> GetBankIdAsync (GetBankIdRequestModel request)
+        {
+            var connectPostgres = new ConnectToPostgresql(_configuration);
+            using var connection = await connectPostgres.CreateConnectionAsync();
+            try
+            {
+                var query = @"select ""Id"" from dbo.""Banks"" where ""Name"" = @BankName";
+                var result = await connection.ExecuteScalarAsync<int?>(query, new {request.BankName });
+                if (result.HasValue)
+                {
+                    return result.Value;
+                }
+                else
+                {     
+                    Console.WriteLine($"Không tìm thấy ngân hàng: {request.BankName}");
+                    return -1;  
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Lỗi: {ex.Message}");
+                return -1;
+            }
+            finally
+            {
+                connection.Close();
             }
         }
     }

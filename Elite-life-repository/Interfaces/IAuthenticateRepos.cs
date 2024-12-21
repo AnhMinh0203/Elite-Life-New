@@ -16,5 +16,8 @@ namespace Elite_life_repository.Interfaces
         Task<int> CreateUserAsync(RegisterModel model);
         Task<int> RegisterAdminAsync(RegisterModel model);
         Task<List<CollaboratorDto>> GetAllUsersAsync();
+        Task<List<string>> GetBanksAsync();
+        Task<bool> CheckParentAsync(CheckParentRequestModel request);
+        Task<int> GetBankIdAsync(GetBankIdRequestModel request);
     }
 }
