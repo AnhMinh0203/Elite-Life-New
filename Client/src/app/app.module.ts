@@ -46,6 +46,10 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatSelectModule} from '@angular/material/select';
 import { SidebarProfileComponent } from './layouts/full/sidebar-profile/sidebar-profile.component';
+import { ContractManagerComponent } from './elite-life/contract-manager/contract-manager.component';
+import { DialogModule } from 'primeng/dialog';
+import { AvatarModule } from 'primeng/avatar';
+import { InputTextModule } from 'primeng/inputtext';
 @NgModule({
   declarations: [
     AppComponent,
@@ -62,6 +66,7 @@ import { SidebarProfileComponent } from './layouts/full/sidebar-profile/sidebar-
     SystemManagerComponent,
     TutorialComponent,
     SidebarProfileComponent,
+    ContractManagerComponent,
   ],
   imports: [
     BrowserModule,
@@ -81,7 +86,9 @@ import { SidebarProfileComponent } from './layouts/full/sidebar-profile/sidebar-
     TableModule,
     TreeModule,
     PdfViewerModule,
-
+    DialogModule,
+    AvatarModule,
+    InputTextModule,
   ],
   exports: [TablerIconsModule],
   bootstrap: [AppComponent],

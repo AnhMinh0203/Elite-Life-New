@@ -18,5 +18,7 @@ namespace Elite_life_repository.Interfaces
         // System manager
         Task<List<CollaboratorSystemManagerDto>> GetCollaboratorsSystemManager(int CollaboratorId);
         Task<decimal?> GetTotalValueWithLevelAsync(int inputId);
+        // Contract manager
+        Task<CollaboratorDto> GetCollaboratorsContractManager(int CollaboratorId);
     }
 }

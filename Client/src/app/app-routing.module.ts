@@ -17,7 +17,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: '/dashboard',
+        redirectTo: '/home',
         pathMatch: 'full',
       },
       {
@@ -62,6 +62,9 @@ const routes: Routes = [
         path: 'culture', component: TutorialComponent
       },
       { path: 'profile', component: ProfileComponent, pathMatch: 'full' },
+      {
+        path: 'contract', component: ContractManagerComponent
+      }
     ],
   },
   {
