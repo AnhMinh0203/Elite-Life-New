@@ -7,6 +7,7 @@ import { AuthGuardService } from 'src/untils/AuthGuard.service';
 import { CustomerManagerComponent } from './elite-life/customer-manager/customer-manager.component';
 import { SystemManagerComponent } from './elite-life/system-manager/system-manager.component';
 import { TutorialComponent } from './elite-life/tutorial/tutorial.component';
+import { ContractManagerComponent } from './elite-life/contract-manager/contract-manager.component';
 
 const routes: Routes = [
   {
@@ -16,7 +17,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: '/dashboard',
+        redirectTo: '/home',
         pathMatch: 'full',
       },
       {
@@ -59,6 +60,9 @@ const routes: Routes = [
       },
       {
         path: 'culture', component: TutorialComponent
+      },
+      {
+        path: 'contract', component: ContractManagerComponent
       }
     ],
   },

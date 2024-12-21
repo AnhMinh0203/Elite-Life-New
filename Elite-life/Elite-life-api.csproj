@@ -11,6 +11,7 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="13.0.1" />
     <PackageReference Include="Confluent.Kafka" Version="2.6.1" />
+    <PackageReference Include="ConvertApi" Version="3.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
@@ -18,5 +19,11 @@
   <ItemGroup>
     <ProjectReference Include="..\Elite-life-repository\Elite-life-repository.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ContractsFile\" />
+    <Folder Include="ImageSign\" />
+  </ItemGroup>
+  
 
 </Project>

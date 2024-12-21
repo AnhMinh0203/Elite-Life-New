@@ -59,7 +59,7 @@ export class SystemManagerComponent implements OnInit {
       (response: any) => {
         this.treeData = response.data;
         this.treeData.push({id: this.info.id, name: this.info.userName, rank: this.info.rank, levelLabel: "null", parentId: null});
-        this.totalMember = this.treeData.length;
+        this.totalMember = this.treeData.length - 1;
         this.tree = this.buildTree(this.treeData);
         this.expandAll();
       },

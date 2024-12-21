@@ -26,6 +26,7 @@
     "ng-apexcharts": "^1.10.0",
     "ng-recaptcha": "^13.2.1",
     "ng2-pdf-viewer": "^9.0.0",
+    "ngx-doc-viewer": "^15.0.1",
     "pdfjs-dist": "^4.9.155",
     "primeicons": "^7.0.0",
     "primeng": "^17.18.13",

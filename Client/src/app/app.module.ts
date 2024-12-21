@@ -40,7 +40,11 @@ import { TableModule } from 'primeng/table';
 import { TreeModule } from 'primeng/tree';
 import { TutorialComponent } from './elite-life/tutorial/tutorial.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
-
+import { ContractManagerComponent } from './elite-life/contract-manager/contract-manager.component';
+import { NgxDocViewerModule } from 'ngx-doc-viewer';
+import { DialogModule } from 'primeng/dialog';
+import { AvatarModule } from 'primeng/avatar';
+import { InputTextModule } from 'primeng/inputtext';
 
 @NgModule({
   declarations: [
@@ -57,6 +61,7 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
     CustomerManagerComponent,
     SystemManagerComponent,
     TutorialComponent,
+    ContractManagerComponent,
   ],
   imports: [
     BrowserModule,
@@ -76,6 +81,10 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
     TableModule,
     TreeModule,
     PdfViewerModule,
+    NgxDocViewerModule,
+    DialogModule,
+    AvatarModule,
+    InputTextModule,
   ],
   exports: [TablerIconsModule],
   bootstrap: [AppComponent],
