@@ -3,7 +3,7 @@
   <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
     <mat-card class="cardWithShadow">
       <mat-card-content class="p-24 card-content">
-        <mat-card-title>Số dư
+        <mat-card-title>Ví A1
           <i matTooltip="Đây là ví 1" matTooltipPosition="right" class="pi pi-info-circle" style="cursor: pointer;"></i>
         </mat-card-title>
         <div class="row m-t-24">
@@ -24,7 +24,7 @@
   <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
     <mat-card class="cardWithShadow">
       <mat-card-content class="p-24 card-content">
-        <mat-card-title>Số dư</mat-card-title>
+        <mat-card-title>Ví A2</mat-card-title>
         <div class="row m-t-24">
           <div class="col-10 d-flex align-items-center">
             <h4 class="mat-headline-5 balance-text"  style="color: #fff;">
@@ -42,7 +42,7 @@
   <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
     <mat-card class="cardWithShadow">
       <mat-card-content class="p-24 card-content">
-        <mat-card-title>Số dư</mat-card-title>
+        <mat-card-title>Ví B1</mat-card-title>
         <div class="row m-t-24">
           <div class="col-10 d-flex align-items-center">
             <h4 class="mat-headline-5 balance-text"  style="color: #fff;">
@@ -56,6 +56,129 @@
       </mat-card-content>
     </mat-card>
   </div>
+  <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+    <mat-card class="cardWithShadow">
+      <mat-card-content class="p-24 card-content">
+        <mat-card-title>Ví B2</mat-card-title>
+        <div class="row m-t-24">
+          <div class="col-10 d-flex align-items-center">
+            <h4 class="mat-headline-5 balance-text"  style="color: #fff;">
+              {{ hideWallet3 ? getMaskedBalance3() : balance3 | number: '1.0-2' }} ELP
+            </h4>
+            <button mat-icon-button (click)="hideWallet3 = !hideWallet3" type="button">
+              <mat-icon>{{ hideWallet3 ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+    <mat-card class="cardWithShadow">
+      <mat-card-content class="p-24 card-content">
+        <mat-card-title>Ví B3</mat-card-title>
+        <div class="row m-t-24">
+          <div class="col-10 d-flex align-items-center">
+            <h4 class="mat-headline-5 balance-text"  style="color: #fff;">
+              {{ hideWallet3 ? getMaskedBalance3() : balance3 | number: '1.0-2' }} ELP
+            </h4>
+            <button mat-icon-button (click)="hideWallet3 = !hideWallet3" type="button">
+              <mat-icon>{{ hideWallet3 ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+    <mat-card class="cardWithShadow">
+      <mat-card-content class="p-24 card-content">
+        <mat-card-title>Ví V1</mat-card-title>
+        <div class="row m-t-24">
+          <div class="col-10 d-flex align-items-center">
+            <h4 class="mat-headline-5 balance-text"  style="color: #fff;">
+              {{ hideWallet3 ? getMaskedBalance3() : balance3 | number: '1.0-2' }} ELP
+            </h4>
+            <button mat-icon-button (click)="hideWallet3 = !hideWallet3" type="button">
+              <mat-icon>{{ hideWallet3 ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="col-lg-2 col-md-6 col-sm-12 mb-3"></div>
+  <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+    <mat-card class="cardWithShadow">
+      <mat-card-content class="p-24 card-content">
+        <mat-card-title>Ví V2</mat-card-title>
+        <div class="row m-t-24">
+          <div class="col-10 d-flex align-items-center">
+            <h4 class="mat-headline-5 balance-text"  style="color: #fff;">
+              {{ hideWallet3 ? getMaskedBalance3() : balance3 | number: '1.0-2' }} ELP
+            </h4>
+            <button mat-icon-button (click)="hideWallet3 = !hideWallet3" type="button">
+              <mat-icon>{{ hideWallet3 ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+    <mat-card class="cardWithShadow">
+      <mat-card-content class="p-24 card-content">
+        <mat-card-title>Ví V3</mat-card-title>
+        <div class="row m-t-24">
+          <div class="col-10 d-flex align-items-center">
+            <h4 class="mat-headline-5 balance-text"  style="color: #fff;">
+              {{ hideWallet3 ? getMaskedBalance3() : balance3 | number: '1.0-2' }} ELP
+            </h4>
+            <button mat-icon-button (click)="hideWallet3 = !hideWallet3" type="button">
+              <mat-icon>{{ hideWallet3 ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="col-lg-2 col-md-6 col-sm-12 mb-3"></div>
+  <div class="col-lg-2 col-md-6 col-sm-12 mb-3"></div>
+  <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+    <mat-card class="cardWithShadow">
+      <mat-card-content class="p-24 card-content">
+        <mat-card-title>Ví V4</mat-card-title>
+        <div class="row m-t-24">
+          <div class="col-10 d-flex align-items-center">
+            <h4 class="mat-headline-5 balance-text"  style="color: #fff;">
+              {{ hideWallet3 ? getMaskedBalance3() : balance3 | number: '1.0-2' }} ELP
+            </h4>
+            <button mat-icon-button (click)="hideWallet3 = !hideWallet3" type="button">
+              <mat-icon>{{ hideWallet3 ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+    <mat-card class="cardWithShadow">
+      <mat-card-content class="p-24 card-content">
+        <mat-card-title>Ví V5</mat-card-title>
+        <div class="row m-t-24">
+          <div class="col-10 d-flex align-items-center">
+            <h4 class="mat-headline-5 balance-text"  style="color: #fff;">
+              {{ hideWallet3 ? getMaskedBalance3() : balance3 | number: '1.0-2' }} ELP
+            </h4>
+            <button mat-icon-button (click)="hideWallet3 = !hideWallet3" type="button">
+              <mat-icon>{{ hideWallet3 ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="col-lg-2 col-md-6 col-sm-12 mb-3"></div>
 </div>
 
 <!-- Thẻ thông tin -->
