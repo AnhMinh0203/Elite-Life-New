@@ -1,0 +1,262 @@
+<div class="blank-layout-container justify-content-center align-items-center bg-light-primary">
+  <div class="position-relative row w-100 h-100 bg-gredient justify-content-center">
+    <!-- Form 1 -->
+    <p-toast />
+    <div class="col-lg-7 p-0" *ngIf="!isSmallScreen">
+      <img src="/assets/images/elite-live/background-login.jpg" alt="login"
+        style="width: 100%; height: 100vh; display: block;" />
+    </div>
+    <div class="col-lg-5 d-flex align-items-center p-0 justify-content-center" *ngIf="currentForm === 1">
+      <mat-card class="cardWithShadow boxed-auth" style="height: 100%; margin: 0; max-width: none; padding-top: 5%;">
+        <mat-card-content style="padding: 10px 80px;">
+          <div class="text-center">
+            <a [routerLink]="['/dashboard']">
+              <img src="./assets/images/elite-live/logo-elitelive.svg" class="align-middle m-2" alt="logo" />
+            </a>
+          </div>
+          <div class="or-border m-t-30">
+            <h1 style="color: #004882;">Đăng ký</h1>
+          </div>
+          <div class="button_register d-flex justify-content-center">
+            <div class="button_step">
+              <button class="d-flex flex-column format-button active button_step--first">
+                1
+                <span>Thông tin cá nhân</span>
+              </button>
+            </div>
+            <div class="button_step">
+              <button class="d-flex flex-column format-button button_step--">
+                2
+                <span>Thông tin ngân hàng</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="avatar-container" style="text-align: center;margin: 60px 0;">
+            <div class="format_text">Ảnh đại diện</div>
+            <!-- Hiển thị ảnh avatar (hoặc ảnh mặc định) -->
+
+            <img [src]="uploadedImage || 'assets/images/profile/default-avatar.png'" class="avatar-image"
+              style="width: 180px; height: 180px; border-radius: 50%; object-fit: cover; cursor: pointer;"
+              (click)="triggerFileUpload()" />
+            <input type="file" accept="image/*" #fileInput style="display: none;" (change)="onFileChange($event)" />
+          </div>
+
+
+
+          <form [formGroup]="signUpForm" class="m-t-30">
+            <!-- Họ tên -->
+            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Họ và tên <span
+                style="color: red">*</span></mat-label>
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input matInput formControlName="DisplayName" />
+            </mat-form-field>
+
+            <!-- Email -->
+            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Email <span
+                style="color: red">*</span></mat-label>
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input matInput formControlName="Email" />
+            </mat-form-field>
+
+            <div class="form-row">
+              <div class="form-group">
+                <!-- Số điện thoại -->
+                <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Số điện thoại <span
+                    style="color: red">*</span></mat-label>
+                <mat-form-field appearance="outline" class="w-100" color="primary">
+                  <input matInput formControlName="Mobile" />
+                </mat-form-field>
+              </div>
+              <div class="form-group">
+                <!-- Người giới thiệu -->
+                <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Người giới thiệu<span
+                    style="color: red">*</span></mat-label>
+                <mat-form-field appearance="outline" class="w-100" color="primary">
+                  <input matInput formControlName="Parent" />
+                </mat-form-field>
+              </div>
+
+            </div>
+            <!-- Số CMTND/ CCCD/ Hộ chiếu -->
+            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Số CMTND/ CCCD/ Hộ chiếu<span
+                style="color: red">*</span></mat-label>
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input matInput formControlName="Identity" />
+            </mat-form-field>
+
+            <div class="form-row">
+              <div class="form-group">
+                <!-- Nơi cấp -->
+                <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Nơi cấp<span
+                    style="color: red">*</span></mat-label>
+                <mat-form-field appearance="outline" class="w-100" color="primary">
+                  <input matInput formControlName="IdentityPlace" />
+                </mat-form-field>
+              </div>
+              <div class="form-group">
+                <!-- Ngày cấp -->
+                <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Ngày cấp<span
+                    style="color: red">*</span></mat-label>
+                <mat-form-field>
+                  <input matInput [matDatepicker]="picker" formControlName="IdentityDate">
+                  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <!-- Mật khẩu -->
+            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Mật khẩu <span
+                style="color: red">*</span></mat-label>
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="Password" required>
+              <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" type="button">
+                <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+              </button>
+            </mat-form-field>
+
+            <!-- Xác nhận mật khẩu -->
+            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Xác nhận mật khẩu <span
+                style="color: red">*</span></mat-label>
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input matInput [type]="hideComfirmPassword ? 'password' : 'text'" formControlName="ConfirmPassword"
+                required>
+              <button mat-icon-button matSuffix (click)="hideComfirmPassword = !hideComfirmPassword" type="button">
+                <mat-icon>{{ hideComfirmPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+              </button>
+            </mat-form-field>
+
+            <button mat-button style="color: #919191;" class="w-100 button-decor active" (click)="nextForm()">
+              Tiếp tục
+            </button>
+          </form>
+          <span class="d-block f-w-500 text-center m-t-24">Bạn đã có tài khoản?
+            <a [routerLink]="['/authentication/login']" class="text-decoration-none text-primary f-w-500 f-s-14">
+              Click để đăng nhập</a>
+          </span>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <!-- Form 2 -->
+    <div class="col-lg-5 d-flex align-items-center p-0 justify-content-center" *ngIf="currentForm === 2">
+      <mat-card class="cardWithShadow boxed-auth" style="height: 100%; margin: 0; max-width: none; padding-top: 5%;">
+        <mat-card-content style="padding: 10px 80px;">
+          <div class="text-center">
+            <a [routerLink]="['/dashboard']">
+              <img src="./assets/images/elite-live/logo-elitelive.svg" class="align-middle m-2" alt="logo" />
+            </a>
+          </div>
+          <div class="or-border m-t-30">
+            <h1 style="color: #004882;">Đăng ký</h1>
+          </div>
+          <div class="button_register d-flex justify-content-center">
+            <div class="button_step">
+              <button class="d-flex flex-column format-button active button_step--first">
+                1
+                <span>Thông tin cá nhân</span>
+              </button>
+            </div>
+            <div class="button_step">
+              <button class="d-flex flex-column format-button active button_step--second">
+                2
+                <span>Thông tin ngân hàng</span>
+              </button>
+            </div>
+          </div>
+          <form [formGroup]="signUpForm" class="m-t-30">
+            <!-- Ngân hàng -->
+            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Ngân hàng <span
+                style="color: red">*</span></mat-label>
+            <mat-form-field class="w-100">
+
+              <mat-select disableRipple [(ngModel)]="Bank">
+                <!-- Lặp qua danh sách ngân hàng -->
+                <mat-option *ngFor="let bank of banks" [value]="bank">{{ bank }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <!-- Số tài khoản -->
+            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Số tài khoản <span
+                style="color: red">*</span></mat-label>
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input matInput formControlName="BankNumber" />
+            </mat-form-field>
+
+
+            <!-- Chủ tài khoản -->
+            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Chủ tài khoản <span
+                style="color: red">*</span></mat-label>
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input matInput formControlName="BankOwner" />
+            </mat-form-field>
+
+            <!-- Chi nhánh -->
+            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Chi nhánh<span
+                style="color: red">*</span></mat-label>
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input matInput formControlName="BankBranchName" />
+            </mat-form-field>
+            <div class="form-row">
+              <div class="form-group">
+                <button mat-button style="color: #919191;" class="w-100 button-decor" (click)="previousForm()">
+                  Quay lại
+                </button>
+              </div>
+              <div class="form-group">
+                <button mat-button style="color: #919191;" class="w-100 button-decor active" (click)="signUp()">
+                  Đăng ký
+                </button>
+              </div>
+            </div>
+            <!-- input -->
+          </form>
+          <span class="d-block f-w-500 text-center m-t-24">Bạn đã có tài khoản?
+            <a [routerLink]="['/authentication/login']" class="text-decoration-none text-primary f-w-500 f-s-14">
+              Click để đăng nhập</a>
+          </span>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <!-- Form 3 -->
+    <div class="col-lg-5 d-flex align-items-center p-0 justify-content-center" *ngIf="currentForm === 3">
+      <mat-card class="cardWithShadow boxed-auth" style="height: 100%; margin: 0; max-width: none; padding-top: 5%;">
+        <mat-card-content style="padding: 10px 80px;">
+          <div class="text-center">
+            <a [routerLink]="['/dashboard']">
+              <img src="./assets/images/elite-live/logo-elitelive.svg" class="align-middle m-2" alt="logo" />
+            </a>
+          </div>
+          <div class="or-border m-t-30">
+            <h1 style="color: #004882;">Đăng ký thành công</h1>
+          </div>
+          <span>Thông tin tài khoản</span>
+          <table class="table table-borderless mt-3">
+            <tr>
+              <td><strong>Mã đăng nhập:</strong></td>
+              <td>{{ newUserName }}</td>
+            </tr>
+            <tr>
+              <td><strong>Họ tên:</strong></td>
+              <td>{{ signUpData.DisplayName }}</td>
+            </tr>
+            <tr>
+              <td><strong>Email:</strong></td>
+              <td>{{ signUpData.Email }}</td>
+            </tr>
+            <tr>
+              <td><strong>Số điện thoại:</strong></td>
+              <td>{{ signUpData.Mobile }}</td>
+            </tr>
+            <tr>
+              <td><strong>CCCD:</strong></td>
+              <td>{{ signUpData.Identity }}</td>
+            </tr>
+          </table>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

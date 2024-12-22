@@ -8,6 +8,7 @@ import { CustomerManagerComponent } from './elite-life/customer-manager/customer
 import { SystemManagerComponent } from './elite-life/system-manager/system-manager.component';
 import { TutorialComponent } from './elite-life/tutorial/tutorial.component';
 import { ProfileComponent } from './pages/profile/profile.component'; // Import component Profile
+import { ContractManagerComponent } from './elite-life/contract-manager/contract-manager.component';
 
 const routes: Routes = [
   {

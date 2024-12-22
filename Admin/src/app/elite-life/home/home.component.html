@@ -1,0 +1,157 @@
+<div class="row">
+  <!-- Card số dư -->
+  <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+    <mat-card class="cardWithShadow">
+      <mat-card-content class="p-24 card-content">
+        <mat-card-title>Số dư
+          <i matTooltip="Đây là ví 1" matTooltipPosition="right" class="pi pi-info-circle" style="cursor: pointer;"></i>
+        </mat-card-title>
+        <div class="row m-t-24">
+          <div class="col-10 d-flex align-items-center">
+            <h4 class="mat-headline-5 balance-text" style="color: #fff;">
+              {{ hideWallet1 ? getMaskedBalance1() : balance1 | number: '1.0-2' }} ELP
+            </h4>
+            <button mat-icon-button (click)="hideWallet1 = !hideWallet1" type="button">
+              <mat-icon>{{ hideWallet1 ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Lặp lại card cho Wallet 2 và Wallet 3 -->
+  <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+    <mat-card class="cardWithShadow">
+      <mat-card-content class="p-24 card-content">
+        <mat-card-title>Số dư</mat-card-title>
+        <div class="row m-t-24">
+          <div class="col-10 d-flex align-items-center">
+            <h4 class="mat-headline-5 balance-text"  style="color: #fff;">
+              {{ hideWallet2 ? getMaskedBalance2() : balance2 | number: '1.0-2' }} ELP
+            </h4>
+            <button mat-icon-button (click)="hideWallet2 = !hideWallet2" type="button">
+              <mat-icon>{{ hideWallet2 ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+    <mat-card class="cardWithShadow">
+      <mat-card-content class="p-24 card-content">
+        <mat-card-title>Số dư</mat-card-title>
+        <div class="row m-t-24">
+          <div class="col-10 d-flex align-items-center">
+            <h4 class="mat-headline-5 balance-text"  style="color: #fff;">
+              {{ hideWallet3 ? getMaskedBalance3() : balance3 | number: '1.0-2' }} ELP
+            </h4>
+            <button mat-icon-button (click)="hideWallet3 = !hideWallet3" type="button">
+              <mat-icon>{{ hideWallet3 ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+<!-- Thẻ thông tin -->
+<div class="row">
+  <div class="col-12 mb-3">
+    <mat-card class="cardWithShadow">
+      <mat-card-content class="p-24" style="color: #fff; border-radius: 10px; background: #444;">
+        <div class="d-flex flex-wrap align-items-center">
+          <div class="avatar" style="border-radius: 50%; margin-right: 15px;">
+            <img src="https://static.vecteezy.com/system/resources/previews/009/292/244/non_2x/default-avatar-icon-of-social-media-user-vector.jpg" alt="avatar" class="avatar-img">
+          </div>
+          <div class="info">
+            <h4 class="mat-headline-5 fullname">{{info.name}}</h4>
+            <p>Mã hội viên: {{info.userName}}</p>
+            <p>Số thành viên mời:4</p>
+            <p>Ngày tham gia: {{info.createdAt | date: 'dd/MM/yyyy'}}</p>
+          </div>
+           <div class="btn_invite" style="position: absolute; top: 16px; right: 16px;">
+                <span>Mã Mời: </span> 
+                <button (click)="copyToClipboard(baseUrl + '/authentication/login?collaboratorCode=' + info?.userName)">
+                  <i class="pi pi-clone"></i>
+                </button>
+              </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <mat-card class="cardWithShadow">
+      <mat-card-content class="p-24">
+        <div class="d-flex w-100">
+          <mat-card-title style="color: #004882;">Biểu đồ nạp rút</mat-card-title>
+          <div class="m-l-auto">
+            <mat-form-field class="theme-select" appearance="outline">
+              <mat-select value="1" (selectionChange)="onMonthChange($event)">
+                <mat-option *ngFor="let month of months" [value]="month.value">
+                  {{ month.viewValue }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <apx-chart
+        [series]="chartOptions.series"
+        [chart]="chartOptions.chart"
+        [xaxis]="chartOptions.xaxis"
+        [stroke]="chartOptions.stroke"
+        [tooltip]="chartOptions.tooltip"
+        [dataLabels]="chartOptions.dataLabels"
+      ></apx-chart>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-12">
+    <mat-card class="cardWithShadow">
+      <mat-card-content class="p-24">
+        <div class="d-flex w-100">
+          <mat-card-title style="color: #004882;">Bảng thành viên({{collaboratorNumber}})</mat-card-title>
+          <div class="m-l-auto">
+            <p-button (onClick)="exportExcelCollaboratorByParentId()" label="Xuất Excel" icon="pi pi-file-export" styleClass="m-0" [outlined]="true" />
+          </div>
+        </div>
+        <div class="">
+          <table mat-table [dataSource]="dataSource">
+            <ng-container matColumnDef="position">
+              <th style="font-weight: bold;" mat-header-cell *matHeaderCellDef> STT </th>
+              <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+            </ng-container>
+            <ng-container matColumnDef="name">
+              <th style="font-weight: bold;" mat-header-cell *matHeaderCellDef> Họ tên </th>
+              <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+            </ng-container>
+            <ng-container matColumnDef="userName">
+              <th style="font-weight: bold;" mat-header-cell *matHeaderCellDef> Mã số </th>
+              <td mat-cell *matCellDef="let element"> {{element.userName}} </td>
+            </ng-container>
+            <ng-container matColumnDef="rank">
+              <th style="font-weight: bold;" mat-header-cell *matHeaderCellDef> Cấp độ </th>
+              <td mat-cell *matCellDef="let element"> {{element.rank}} </td>
+            </ng-container>
+        
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+        
+          <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                         showFirstLastButtons
+                         aria-label="Select page of periodic elements">
+          </mat-paginator>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
