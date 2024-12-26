@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, Injector } from '@angular/core';
 import { Router } from '@angular/router';
-import { catchError } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ResponseResult } from 'src/untils/response-result';
 
@@ -97,5 +97,86 @@ export class CollaboratorService {
         })
       );
   }
+
+  getCollaboratorTop() {
+    const apiUrl = `${this.serviceUri}/get-collaborator-top`;
+    return this._http.get<ResponseResult>(apiUrl)
+      .pipe(
+        catchError((error: any) => {
+          throw error;
+        })
+      );
+  }
+
+  exportExcelAllCollaboratorTop() {
+    const apiUrl = `${this.serviceUri}/export-excel-all-collaborator-top`;
+    return this._http.get(apiUrl, { responseType: 'blob' })
+      .pipe(
+        catchError((error: any) => {
+          throw error;
+        })
+      );
+  }
+
+  getAllCollaborator(model: any) {
+    const apiUrl = `${this.serviceUri}/get-all-collaborator`;
+    return this._http.post<ResponseResult>(apiUrl, model)
+      .pipe(
+        catchError((error: any) => {
+          throw error;
+        })
+      );
+  }
+
+  exportExcelAllCollaborator(model: any) {
+    const apiUrl = `${this.serviceUri}/export-excel-all-collaborator`;
+    return this._http.post(apiUrl, model, { responseType: 'blob' })
+      .pipe(
+        catchError((error: any) => {
+          throw error;
+        })
+      );
+  }
+
+  deleteCollaborator(Id: any, IdNew: any) {
+    const apiUrl = `${this.serviceUri}/delete-collaborator?id=${Id}&idNew=${IdNew}`;
+    return this._http.delete<ResponseResult>(apiUrl)
+      .pipe(
+        catchError((error: any) => {
+          throw error;
+        })
+      );
+  }
+
+  getTotalWallet() {
+    const apiUrl = `${this.serviceUri}/get-total-wallet-admin`;
+    return this._http.get<ResponseResult>(apiUrl)
+      .pipe(
+        catchError((error: any) => {
+          throw error;
+        })
+      );
+  }
+
+  getContractPdf(fileName: string): Observable<Blob> {
+    const apiUrl = `${this.serviceUri}/get-contract-pdf/${fileName}`;
+    return this._http.get(apiUrl, { responseType: 'blob' }); // Đặt responseType là 'blob'
+  }
+
+  getContractSign(fileName: string): Observable<Blob> {
+    const apiUrl = `${this.serviceUri}/get-contract-sign/${fileName}`;
+    return this._http.get(apiUrl, { responseType: 'blob' }); // Đặt responseType là 'blob'
+  }
+
+  getBinaryTree() {
+    const apiUrl = `${this.serviceUri}/get-collaborator-tree`;
+    return this._http.get<ResponseResult>(apiUrl)
+      .pipe(
+        catchError((error: any) => {
+          throw error;
+        })
+      );
+  }
+
 
 }

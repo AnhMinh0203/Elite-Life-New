@@ -27,6 +27,13 @@ export class ContractManagerComponent implements OnInit, AfterViewInit  {
   context: any;
   sigPadElement: any;
   img: any;
+  search: any;
+  rangeDates: Date[] | undefined;
+  data: any;
+  totalMember: number = 0;
+  startDate: any;
+  endDate: any;
+  isLoading: boolean = false;
 
   constructor(private _collaboratorService: CollaboratorService, private messageService: MessageService) { 
     this.checkScreenSize();
@@ -44,14 +51,7 @@ export class ContractManagerComponent implements OnInit, AfterViewInit  {
   }
 
   ngOnInit() {
-    this.info = JSON.parse(localStorage.getItem('info') || '{}');
-    this.getCollaboratorsContractManager();
-    this.beginDate = new Date(this.info.identityDate);
-    this.fullname = this.info.name;
-    this.address = this.info.address;
-    this.cccd = this.info.identity;
-    this.identityPlace = this.info.identityPlace;
-
+    this.getAllCollaboratorByParentId();
   }
 
   ngAfterViewInit() {
@@ -65,15 +65,90 @@ export class ContractManagerComponent implements OnInit, AfterViewInit  {
     }
   }
 
+  onDateChange(event: any) {
+    if (this.rangeDates && this.rangeDates.length === 2) {
+      const [startDate, endDate] = this.rangeDates;
+      this.startDate = startDate;
+      this.endDate = endDate
+      if(this.startDate && this.endDate) {
+        this. getAllCollaboratorByParentId();
+      }
+    }
+  }
+
+  searchName() {
+    if(this.search) {
+      this.data = this.data.filter((item: any) => item != null);
+      this.data = this.data.filter((item: any) => 
+        (item?.userName?.toLowerCase()?.includes(this.search.toLowerCase()) || 
+         item?.name?.toLowerCase()?.includes(this.search.toLowerCase()))
+      );
+      this.totalMember = this.data.length;
+    } else {
+      this.getAllCollaboratorByParentId();
+      this.data = this.data.filter((item: any) => item != null);
+    }
+  }
+
+  getAllCollaboratorByParentId(){
+    const model = {
+      startDate: this.startDate,
+      endDate: this.endDate
+    }
+    this._collaboratorService.getAllCollaborator(model).subscribe(
+      (response: any) => {
+        this.data = response.data;
+        this.data = this.data.map((item: any, index: any) => ({
+          ...item,
+          position: index + 1
+        }));
+        this.data = this.data.filter((item: any) => item != null);
+        this.totalMember = this.data.length;
+      },
+      (error: any) => {
+        this.data = [];
+        console.error('Error fetching data:', error);
+      });
+  }
+
   getCollaboratorsContractManager() {
+    this.isLoading = true;
     this._collaboratorService.getCollaboratorsContractManager(this.info.id).subscribe(
       (response: any) => {
-        this.src = `/assets/contract/contract_EL${this.info.id}.pdf`;
-        this.imageSignUrl = response.data.imageSignUrl;
+        let fileName = `contract_EL${this.info.id}.pdf`;
+        this.fetchPdf(fileName);
+        fileName = `EL${this.info.id}.png`;
+        this.fetchSign(fileName);
+        this.isLoading = false;
       },
       (error: any) => {
         console.error('Error fetching data:', error);
+        this.isLoading = false;
       });
+  }
+
+  fetchPdf(fileName: string) {
+    this._collaboratorService.getContractPdf(fileName).subscribe({
+      next: (response: Blob) => {
+        const blob = new Blob([response], { type: 'application/pdf' });
+        this.src = URL.createObjectURL(blob); 
+      },
+      error: (err) => {
+        console.error('Error fetching PDF:', err);
+      }
+    });
+  }
+
+  fetchSign(fileName: string) {
+    this._collaboratorService.getContractSign(fileName).subscribe({
+      next: (response: Blob) => {
+        const blob = new Blob([response], { type: 'image/png' });
+        this.imageSignUrl = URL.createObjectURL(blob);
+      },
+      error: (err) => {
+        console.error('Error fetching PDF:', err);
+      }
+    });
   }
 
   // Cập nhật tổng số trang khi PDF được tải xong
@@ -81,95 +156,19 @@ export class ContractManagerComponent implements OnInit, AfterViewInit  {
     this.totalPages = pdf.numPages;
   }
 
-  showDialog() {
+  showDialog(customer: any) {
+    this.info = customer;
+    this.getCollaboratorsContractManager();
+    this.beginDate = new Date(this.info.identityDate);
+    this.fullname = this.info.name;
+    this.address = this.info.address;
+    this.cccd = this.info.identity;
+    this.identityPlace = this.info.identityPlace;
     this.visible = true;
   }
 
-  onMouseDown(e: MouseEvent) {
-    if (this.context) {
-      this.isDrawing = true; // Bắt đầu vẽ
-      const coords = this.relativeCoords(e);
-      this.context.beginPath(); // Bắt đầu vẽ từ vị trí này
-      this.context.moveTo(coords.x, coords.y); // Đặt điểm bắt đầu
-    }
-  }
-  
-  onMouseMove(e: MouseEvent) {
-    if (this.isDrawing && this.context) {
-      const coords = this.relativeCoords(e);
-      this.context.lineTo(coords.x, coords.y); // Vẽ tiếp từ vị trí hiện tại
-      this.context.stroke(); // Vẽ đường
-    }
-  }
-  @HostListener('document:mouseup', ['$event'])
-  onMouseUp(e: MouseEvent) {
-    this.isDrawing = false; // Dừng vẽ khi thả chuột
-    if (this.context) {
-      this.context.closePath(); // Kết thúc vẽ
-    }
-  }
-
-  private relativeCoords(event: any) {
-    const bounds = event.target.getBoundingClientRect();
-    const x = event.clientX - bounds.left;
-    const y = event.clientY - bounds.top;
-    return { x: x, y: y };
-  }
-
-  clear() {
-    this.context.clearRect(0, 0, this.sigPadElement.width, this.sigPadElement.height);
-    this.context.beginPath();
-  }
-
-  confirm() {
-    this.img = this.sigPadElement.toDataURL("image/png");
-    console.log(this.img);
-  }
-
-  save() {
-    console.log(this.beginDate)
-    if(!this.fullname) {
-      this.messageService.add({severity:'error', summary: 'Lỗi', detail: 'Vui lòng nhập họ tên'});
-    }
-
-    if(!this.address) {
-      this.messageService.add({severity:'error', summary: 'Lỗi', detail: 'Vui lòng nhập địa chỉ'});
-    }
-
-    if(!this.cccd) {
-      this.messageService.add({severity:'error', summary: 'Lỗi', detail: 'Vui lòng nhập số CCCD'});
-    }
-
-    if(!this.beginDate) {
-      this.messageService.add({severity:'error', summary: 'Lỗi', detail: 'Vui lòng nhập ngày cấp CCCD'});
-    }
-
-    if(!this.identityPlace) {
-      this.messageService.add({severity:'error', summary: 'Lỗi', detail: 'Vui lòng nhập nơi cấp CCCD'});
-    }
-
-    if(!this.img) {
-      this.messageService.add({severity:'error', summary: 'Lỗi', detail: 'Vui lòng ký tên'});
-    }
-
-    const model = {
-      collaboratorId: this.info.id,
-      imageData: this.img
-    }
-
-    this._collaboratorService.saveSignature(model).subscribe(
-      (response: any) => {
-        if(response.data) {
-          this.visible = false;
-          this.messageService.add({severity:'success', summary: 'Thành công', detail: 'Ký tên thành công'});
-          this.imageSignUrl = response.data.filePath;
-        }
-      },
-      (error: any) => {
-        console.error('Error fetching data:', error);
-      });
-
-
+  onLoadComplete() {
+    this.isLoading = false;
   }
 
 }

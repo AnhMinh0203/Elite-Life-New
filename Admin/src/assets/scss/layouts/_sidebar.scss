@@ -37,6 +37,8 @@
       }
 
       &.activeMenu {
+        background-color: #fff !important;
+
         .mdc-list-item__primary-text {
           color: #004882 !important;
         }

@@ -16,6 +16,8 @@ namespace Elite_life_repository.Configs
             services.AddSingleton<IStatisticalRepos, StatisticalRepository>();
             services.AddSingleton<ICollaboratorRepos, CollaboratorRepository>();
             services.AddSingleton<IWalletsRepos, WalletsRepository>();
+            services.AddSingleton<IOrderRepos, OrderRepository>();
+            services.AddSingleton<IWalletDetailRepos, WalletDetailReoisitory>();
         }
     }
 }

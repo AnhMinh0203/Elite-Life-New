@@ -28,4 +28,14 @@ export class WalletsService {
         );
   }
 
+  recharge(model: any) {
+    const apiUrl = `${this.serviceUri}/recharge`;
+      return this._http.post<ResponseResult>(apiUrl, model)
+        .pipe(
+          catchError((error: any) => {
+            throw error;
+          })
+        );
+  }
+
 }

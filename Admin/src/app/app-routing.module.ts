@@ -9,6 +9,9 @@ import { SystemManagerComponent } from './elite-life/system-manager/system-manag
 import { TutorialComponent } from './elite-life/tutorial/tutorial.component';
 import { ProfileComponent } from './pages/profile/profile.component'; // Import component Profile
 import { ContractManagerComponent } from './elite-life/contract-manager/contract-manager.component';
+import { MemberManagerComponent } from './elite-life/member-manager/member-manager.component';
+import { CartManagerComponent } from './elite-life/cart-manager/cart-manager.component';
+import { BinaryTreeComponent } from './elite-life/binary-tree/binary-tree.component';
 
 const routes: Routes = [
   {
@@ -65,6 +68,15 @@ const routes: Routes = [
       { path: 'profile', component: ProfileComponent, pathMatch: 'full' },
       {
         path: 'contract', component: ContractManagerComponent
+      },
+      {
+        path: 'member-manager', component: MemberManagerComponent
+      },
+      {
+        path: 'cart-manager', component: CartManagerComponent
+      },
+      {
+        path: 'binary-tree', component: BinaryTreeComponent
       }
     ],
   },

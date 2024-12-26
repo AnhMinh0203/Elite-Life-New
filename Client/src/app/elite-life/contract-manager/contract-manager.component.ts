@@ -68,12 +68,38 @@ export class ContractManagerComponent implements OnInit, AfterViewInit  {
   getCollaboratorsContractManager() {
     this._collaboratorService.getCollaboratorsContractManager(this.info.id).subscribe(
       (response: any) => {
-        this.src = `/assets/contract/contract_EL${this.info.id}.pdf`;
-        this.imageSignUrl = response.data.imageSignUrl;
+        let fileName = `contract_EL${this.info.id}.pdf`;
+        this.fetchPdf(fileName);
+        fileName = `EL${this.info.id}.png`;
+        this.fetchSign(fileName);
       },
       (error: any) => {
         console.error('Error fetching data:', error);
       });
+  }
+
+  fetchPdf(fileName: string) {
+    this._collaboratorService.getContractPdf(fileName).subscribe({
+      next: (response: Blob) => {
+        const blob = new Blob([response], { type: 'application/pdf' });
+        this.src = URL.createObjectURL(blob); 
+      },
+      error: (err) => {
+        console.error('Error fetching PDF:', err);
+      }
+    });
+  }
+
+  fetchSign(fileName: string) {
+    this._collaboratorService.getContractSign(fileName).subscribe({
+      next: (response: Blob) => {
+        const blob = new Blob([response], { type: 'image/png' });
+        this.imageSignUrl = URL.createObjectURL(blob);
+      },
+      error: (err) => {
+        console.error('Error fetching PDF:', err);
+      }
+    });
   }
 
   // Cập nhật tổng số trang khi PDF được tải xong
@@ -168,8 +194,6 @@ export class ContractManagerComponent implements OnInit, AfterViewInit  {
       (error: any) => {
         console.error('Error fetching data:', error);
       });
-
-
   }
 
 }

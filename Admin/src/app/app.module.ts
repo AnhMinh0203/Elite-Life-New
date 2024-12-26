@@ -50,6 +50,14 @@ import { ContractManagerComponent } from './elite-life/contract-manager/contract
 import { DialogModule } from 'primeng/dialog';
 import { AvatarModule } from 'primeng/avatar';
 import { InputTextModule } from 'primeng/inputtext';
+import { MemberManagerComponent } from './elite-life/member-manager/member-manager.component';
+import { DropdownModule } from 'primeng/dropdown';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { TieredMenuModule } from 'primeng/tieredmenu';
+import { CartManagerComponent } from './elite-life/cart-manager/cart-manager.component';
+import { BinaryTreeComponent } from './elite-life/binary-tree/binary-tree.component';
+import { OrganizationChartModule } from 'primeng/organizationchart';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 @NgModule({
   declarations: [
     AppComponent,
@@ -67,6 +75,9 @@ import { InputTextModule } from 'primeng/inputtext';
     TutorialComponent,
     SidebarProfileComponent,
     ContractManagerComponent,
+    MemberManagerComponent,
+    CartManagerComponent,
+    BinaryTreeComponent,
   ],
   imports: [
     BrowserModule,
@@ -89,6 +100,11 @@ import { InputTextModule } from 'primeng/inputtext';
     DialogModule,
     AvatarModule,
     InputTextModule,
+    DropdownModule,
+    MultiSelectModule,
+    TieredMenuModule,
+    OrganizationChartModule,
+    ProgressSpinnerModule,
   ],
   exports: [TablerIconsModule],
   bootstrap: [AppComponent],

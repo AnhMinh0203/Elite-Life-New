@@ -1,4 +1,5 @@
 ﻿using Elite_life_datacontext.Dto;
+using Elite_life_datacontext.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +11,6 @@ namespace Elite_life_repository.Interfaces
     public interface IWalletsRepos
     {
         Task<List<WalletsDto>> GetWalletsByCollaboratorId(int CollaboratorId);
+        Task<bool> Recharge(WalletRechargeModel model);
     }
 }

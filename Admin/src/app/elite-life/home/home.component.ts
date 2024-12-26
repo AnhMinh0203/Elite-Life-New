@@ -28,7 +28,9 @@ export interface PeriodicElement {
   position?: number;
   name: string;
   userName: string;
+  creatdAt: Date;
   rank: string;
+  totalCommission: number;
 }
 
 @Component({
@@ -42,19 +44,21 @@ export class HomeComponent implements OnInit, AfterViewInit {
   public chartOptions: ChartOptions;
   data: any;
   months: any;
-  displayedColumns: string[] = ['position','name', 'userName', 'rank'];
+  displayedColumns: string[] = ['position','name', 'userName', 'createdAt', 'rank', 'totalCommission'];
   dataSource: any;
   collaboratorNumber: number = 0;
 
   hideWallet1 = true;  
   hideWallet2 = true;
   hideWallet3 = true;
+  hideWallet4 = true;
 
   listWalletData: any;
 
   balance1: any;  
   balance2: any;
   balance3: any;
+  balance4: any;
   info: any;
   baseUrl: string = window.location.origin;
 
@@ -112,12 +116,11 @@ export class HomeComponent implements OnInit, AfterViewInit {
       value: `${index + 1}`,
       viewValue: `${this.getMonthName(index)} ${currentYear}`
     }));
-    this.getDataForMonth(1);
-    this.getWalletByCollaboratorId();
+    this.getTotalWallet();
   }
 
   ngAfterViewInit(): void {
-    this.getCollaboratorByParentId();
+    this.getCollaboratorTop();
   }
 
   getMonthName(monthIndex: number): string {
@@ -145,6 +148,11 @@ export class HomeComponent implements OnInit, AfterViewInit {
   
   getMaskedBalance3(): string {
     const formattedBalance = this.formatNumber(this.balance3);
+    return '*'.repeat(formattedBalance.length);
+  }
+
+  getMaskedBalance4(): string {
+    const formattedBalance = this.formatNumber(this.balance4);
     return '*'.repeat(formattedBalance.length);
   }
   
@@ -227,8 +235,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
     return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(value);
   }
 
-  getCollaboratorByParentId(){
-    this._collaboratorService.getCollaboratorByParentId(this.info.id).subscribe(
+  getCollaboratorTop(){
+    this._collaboratorService.getCollaboratorTop().subscribe(
       (response: any) => {
         this.data = response.data;
         this.dataSource = new MatTableDataSource<PeriodicElement>(this.data);
@@ -244,14 +252,14 @@ export class HomeComponent implements OnInit, AfterViewInit {
       });
   }
 
-  exportExcelCollaboratorByParentId(){
-    this._collaboratorService.exportExcelCollaboratorByParentId(this.info.id).subscribe(
+  exportExcelCollaboratorTop(){
+    this._collaboratorService.exportExcelAllCollaboratorTop().subscribe(
       (response: any) => {
         const blob = new Blob([response], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
         const url = window.URL.createObjectURL(blob);
         const link = document.createElement('a');
         link.href = url;
-        link.download = 'Danh sách cộng tác viên.xlsx';
+        link.download = 'Danh sách top thành viên.xlsx';
         link.click();
       },
       (error: any) => {
@@ -259,23 +267,15 @@ export class HomeComponent implements OnInit, AfterViewInit {
       });
   }
 
-  getWalletByCollaboratorId() {
-    this._walletsService.getWalletByCollaboratorId(this.info.id).subscribe(
+  getTotalWallet() {
+    this._collaboratorService.getTotalWallet().subscribe(
       (response: any) => {
-        this.listWalletData = response.data;
-        this.balance1 = this.listWalletData
-        .filter((item: any) => item.walletTypeEnums === 'Source')
-        .reduce((sum: number, item: any) => sum + (item.available || 0), 0);
-
-        // Tính tổng cho balance2 (Sale1, Sale2, Sale3)
-        this.balance2 = this.listWalletData
-          .filter((item: any) => ['Sale1', 'Sale2', 'Sale3'].includes(item.walletTypeEnums))
-          .reduce((sum: number, item: any) => sum + (item.available || 0), 0);
-
-        // Tính tổng cho balance3 (CustomerGratitude, CustomerShare)
-        this.balance3 = this.listWalletData
-          .filter((item: any) => ['CustomerGratitude', 'CustomerShare'].includes(item.walletTypeEnums))
-          .reduce((sum: number, item: any) => sum + (item.available || 0), 0);
+        if(response.data) {
+          this.balance1 = response.data.totalSource;
+          this.balance2 = response.data.totalGratitude;
+          this.balance3 = response.data.totalCustomer;
+          this.balance4 = response.data.totalCompany;
+        }
 
       },
       (error: any) => {

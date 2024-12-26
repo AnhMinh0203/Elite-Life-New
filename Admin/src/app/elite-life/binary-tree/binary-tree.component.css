@@ -1,0 +1,7 @@
+.org-chart-container {
+    width: 100%; /* Đảm bảo chiều rộng chiếm hết không gian */
+    max-width: 100%; /* Giới hạn chiều rộng không vượt quá màn hình */
+    overflow-x: auto; /* Thêm thanh cuộn ngang khi nội dung vượt quá chiều rộng */
+    overflow-y: hidden; /* Ẩn thanh cuộn dọc nếu không cần thiết */
+}
+  
