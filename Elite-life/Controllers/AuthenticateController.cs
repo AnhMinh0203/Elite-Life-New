@@ -69,6 +69,53 @@ namespace Elite_life.Controllers
         }
 
         [HttpPost]
+        [Route("login-admin")]
+        public async Task<MethodResult> LoginAdmin([FromBody] LoginModel model)
+        {
+            var user = await _authenticateRepos.FindByUserNameAdminAsync(model.Username);
+            if (user != null && _authenticateRepos.CheckPasswordAsync(model.Password, user.Password))
+            {
+                var permissions = await _authenticateRepos.GetPermissionsAsync(user.UserName);
+                var authClaims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Name, user.UserName),
+                    new Claim(ClaimTypes.Email, user.Email),
+                    new Claim ("PhoneNumber", user.Mobile),
+                    new Claim ("DisplayName", user.Name),
+                    new Claim(ClaimTypes.Role, string.Join(",", permissions)),
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                };
+
+                authClaims.Add(new Claim(ClaimTypes.Role, user.Rank));
+
+                var token = _tokenUtils.CreateToken(authClaims);
+                var refreshToken = _tokenUtils.GenerateRefreshToken();
+
+                _ = int.TryParse(_configuration["JWT:RefreshTokenValidityInHours"], out int refreshTokenValidityInHours);
+
+                user.RefreshToken = refreshToken;
+                user.RefreshTokenExpiryTime = DateTime.Now.AddHours(refreshTokenValidityInHours);
+
+                await _authenticateRepos.UpdateRefreshTokenAsync(user.Id, user.RefreshToken, user.RefreshTokenExpiryTime);
+                LoginRespon loginRespon = new LoginRespon();
+                loginRespon.collaboratorDto = user;
+                loginRespon.Token = new JwtSecurityTokenHandler().WriteToken(token);
+                loginRespon.RefreshToken = refreshToken;
+                loginRespon.RefreshTokenExpiryTime = user.RefreshTokenExpiryTime;
+                return MethodResult.ResultWithSuccess(loginRespon, 200, "Success");
+            }
+            return MethodResult.ResultWithAuthorized("Mã đăng nhập hoặc mật khẩu không đúng", 401, "Error");
+        }
+
+        [HttpGet]
+        [Route("get-permission")]
+        public async Task<MethodResult> GetPermission(string username)
+        {
+            var permissions = await _authenticateRepos.GetPermissionsAsync(username);
+            return MethodResult.ResultWithSuccess(permissions, 200, "Success");
+        }
+
+        [HttpPost]
         [Route("register")]
         public async Task<IActionResult> Register([FromBody] RegisterModel model)
         {

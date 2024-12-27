@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing.Template;
 using Microsoft.Extensions.Configuration;
 using System.Reflection;
+using System.Security.Claims;
 using System.Text.RegularExpressions;
 
 namespace Elite_life.Controllers
@@ -312,9 +313,21 @@ namespace Elite_life.Controllers
 
 
         [HttpGet]
+        [Authorize]
         [Route("get-collaborator-top")]
-        public async Task<MethodResult> GetCollaboratorsTop()
+        public async Task<MethodResult> GetCollaboratorsTop() 
         {
+            var userClaims = HttpContext.User.Claims;
+            //var roles = userClaims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).ToList();
+            var rolesClaim = userClaims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
+
+            // Chuyển chuỗi quyền thành danh sách
+            var roles = rolesClaim?.Split(',').ToList() ?? new List<string>();
+            if (!roles.Contains("collaborator_viewTop"))
+            {
+                return MethodResult.ResultWithError("Bạn không có quyền truy cập", 403, "Forbidden");
+            }
+
             var result = await _collaboratorRepos.GetCollaboratorsTop();
             if (result != null)
             {

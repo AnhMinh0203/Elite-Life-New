@@ -18,9 +18,35 @@ namespace Elite_life.Controllers
 
         [HttpGet]
         [Route("get-value-commission")]
-        public async Task<MethodResult> GetCommissionByCollaboratorId(int CollaboratorId, int? type)
+        public async Task<MethodResult> GetCommissionByCollaboratorId(int? CollaboratorId, int? type)
         {
             var result = await _walletDetailRepos.GetCommissionByCollaboratorId(CollaboratorId, type);
+            if (result != null)
+            {
+                return MethodResult.ResultWithSuccess(result, 200, "Success");
+
+            }
+            return MethodResult.ResultWithError(null, 400, "Not Found");
+        }
+
+        [HttpGet]
+        [Route("get-value-admin")]
+        public async Task<MethodResult> GetWalletDetailAdminAsync(string date, int type)
+        {
+            var result = await _walletDetailRepos.GetWalletDetailAdminAsync(date, type);
+            if (result != null)
+            {
+                return MethodResult.ResultWithSuccess(result, 200, "Success");
+
+            }
+            return MethodResult.ResultWithError(null, 400, "Not Found");
+        }
+
+        [HttpGet]
+        [Route("get-value-report-admin")]
+        public async Task<MethodResult> GetWalletDetailAdminReportAsync(string date, int type)
+        {
+            var result = await _walletDetailRepos.GetWalletDetailAdminReportAsync(date, type);
             if (result != null)
             {
                 return MethodResult.ResultWithSuccess(result, 200, "Success");

@@ -71,15 +71,26 @@ export class AppSideLoginComponent {
     this._authenticateService.login(model).subscribe((res: any) => {
       if(res && res.statusCode == 200) {
         this.token = res.data;
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Success',
-          detail: 'Đăng nhập thành công',
+        this._authenticateService.getPermission(model.username).subscribe((res: any) => {
+          if(res && res.statusCode == 200) {
+            localStorage.setItem('permission', JSON.stringify(res.data));
+          } else {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail:  "Lỗi khi lấy quyền người dùng",
+            });
+          }
         });
         localStorage.setItem('token', res.data.token);
         localStorage.setItem('refreshToken', res.data.refreshToken);
         localStorage.setItem('refreshTokenExpiryTime', res.data.refreshTokenExpiryTime);
         localStorage.setItem('info', JSON.stringify(res.data.collaboratorDto));
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Đăng nhập thành công',
+        });
         setTimeout(() => {
           this.router.navigate(['/home']);
         }, 500);

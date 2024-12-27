@@ -58,6 +58,10 @@ import { CartManagerComponent } from './elite-life/cart-manager/cart-manager.com
 import { BinaryTreeComponent } from './elite-life/binary-tree/binary-tree.component';
 import { OrganizationChartModule } from 'primeng/organizationchart';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { WalletManagerComponent } from './elite-life/wallet-manager/wallet-manager.component';
+import { BoothManagerComponent } from './elite-life/booth-manager/booth-manager.component';
+import { FileUploadModule } from 'primeng/fileupload';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -78,6 +82,8 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
     MemberManagerComponent,
     CartManagerComponent,
     BinaryTreeComponent,
+    WalletManagerComponent,
+    BoothManagerComponent,
   ],
   imports: [
     BrowserModule,
@@ -105,6 +111,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
     TieredMenuModule,
     OrganizationChartModule,
     ProgressSpinnerModule,
+    FileUploadModule,
   ],
   exports: [TablerIconsModule],
   bootstrap: [AppComponent],

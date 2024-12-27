@@ -21,7 +21,7 @@ export class AuthenticateService {
   }
 
   login(model: any) {
-    const apiUrl = `${this.serviceUri}/login`;
+    const apiUrl = `${this.serviceUri}/login-admin`;
     return this._http.post<ResponseResult>(apiUrl, model)
       .pipe(
         catchError((error: any) => {
@@ -105,6 +105,16 @@ export class AuthenticateService {
     expirationDate.setUTCSeconds(decodedToken.exp);
 
     return expirationDate.valueOf() < new Date().valueOf();
+  }
+
+  getPermission(userName: any) {
+    const apiUrl = `${this.serviceUri}/get-permission?username=${userName}`;
+    return this._http.get<ResponseResult>(apiUrl)
+      .pipe(
+        catchError((error: any) => {
+          throw error;
+        })
+      );
   }
 
 }

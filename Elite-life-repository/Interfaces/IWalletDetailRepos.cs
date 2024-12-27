@@ -9,6 +9,8 @@ namespace Elite_life_repository.Interfaces
 {
     public interface IWalletDetailRepos
     {
-        Task<List<WalletDetailCommissionDto>> GetCommissionByCollaboratorId(int CollaboratorId, int? type);
+        Task<List<WalletDetailCommissionDto>> GetCommissionByCollaboratorId(int? CollaboratorId, int? type);
+        Task<List<WalletDetailAdminDto>> GetWalletDetailAdminAsync(string date, int type);
+        Task<List<StatisticalWalletDetailDto>> GetWalletDetailAdminReportAsync(string date, int type);
     }
 }

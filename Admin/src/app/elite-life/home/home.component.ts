@@ -238,6 +238,14 @@ export class HomeComponent implements OnInit, AfterViewInit {
   getCollaboratorTop(){
     this._collaboratorService.getCollaboratorTop().subscribe(
       (response: any) => {
+        if(response.statusCode == 403) {
+          this.messageService.add({ 
+            severity: 'error', 
+            summary: 'Thất bại', 
+            detail: `${response.message}: ${response.data}`, 
+            life: 3000 
+          });
+        }
         this.data = response.data;
         this.dataSource = new MatTableDataSource<PeriodicElement>(this.data);
         this.dataSource.data = this.dataSource.data.map((item: any, index: any) => ({

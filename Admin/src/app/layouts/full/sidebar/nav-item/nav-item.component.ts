@@ -12,6 +12,7 @@ export class AppNavItemComponent implements OnChanges {
   @Input() item: NavItem | any;
   @Input() depth: any;
 
+
   constructor(public navService: NavService, public router: Router) {
     if (this.depth === undefined) {
       this.depth = 0;

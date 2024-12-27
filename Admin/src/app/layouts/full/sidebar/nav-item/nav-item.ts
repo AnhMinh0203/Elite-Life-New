@@ -13,4 +13,5 @@ export interface NavItem {
     href?: string;
     children?: NavItem[];
     ddType?: string;
+    permission?: string;
 }

@@ -12,6 +12,8 @@ import { ContractManagerComponent } from './elite-life/contract-manager/contract
 import { MemberManagerComponent } from './elite-life/member-manager/member-manager.component';
 import { CartManagerComponent } from './elite-life/cart-manager/cart-manager.component';
 import { BinaryTreeComponent } from './elite-life/binary-tree/binary-tree.component';
+import { WalletManagerComponent } from './elite-life/wallet-manager/wallet-manager.component';
+import { BoothManagerComponent } from './elite-life/booth-manager/booth-manager.component';
 
 const routes: Routes = [
   {
@@ -77,6 +79,21 @@ const routes: Routes = [
       },
       {
         path: 'binary-tree', component: BinaryTreeComponent
+      },
+      {
+        path: 'wallet-source-manager', component: WalletManagerComponent
+      },
+      {
+        path: 'wallet-gratitude-manager', component: WalletManagerComponent
+      },
+      {
+        path: 'wallet-sale-manager', component: WalletManagerComponent
+      },
+      {
+        path: 'wallet-c-manager', component: WalletManagerComponent
+      },
+      {
+        path: 'booth-manager', component: BoothManagerComponent
       }
     ],
   },
