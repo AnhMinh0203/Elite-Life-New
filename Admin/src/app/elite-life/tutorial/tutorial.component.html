@@ -1,0 +1,35 @@
+<mat-card class="cardWithShadow">
+  <mat-card-content class="p-24">
+    <div class="d-flex w-100 p-24">
+      <mat-card-title style="color: #004882;">{{titleName}}</mat-card-title> 
+    </div>
+    <div class="row align-items-center" >
+      <pdf-viewer
+        [src]="src"
+        [rotation]="0"
+        [original-size]="false"
+        [show-all]="false"
+        [fit-to-page]="true"
+        [zoom]="1"
+        [zoom-scale]="'page-width'"
+        [stick-to-page]="false"
+        [render-text]="false"
+        [external-link-target]="'blank'"
+        [autoresize]="true"
+        [show-borders]="false"
+        [page]="currentPage"
+        [style]="{ height: height + 'vh', width: '100%' }"
+        (after-load-complete)="afterLoadComplete($event)"
+      ></pdf-viewer>
+    </div>
+    <div class="row justify-content-center mt-3 align-items-center">
+      <div class="col-3"></div>
+      <button class="col-2" mat-raised-button color="primary" (click)="previousPage()">Previous Page</button>
+      <p class="col-2 justify-content-center" style="font-weight: bold; align-items: center; display: flex;">Page {{currentPage}} of {{totalPages}}</p>
+      <button class="col-2" mat-raised-button color="primary" (click)="nextPage()">Next Page</button>
+      <div class="col-3"></div>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+

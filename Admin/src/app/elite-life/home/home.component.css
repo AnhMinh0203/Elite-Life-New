@@ -1,0 +1,141 @@
+.cardWithShadow {
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+    border-radius: 10px;
+}
+
+.avatar-img {
+    border-radius: 50%;
+    max-width: 150px;
+    height: 150px;
+    object-fit: cover;
+}
+
+.fullname {
+    color: #F6D361;
+    font-family: "SF Pro Display";
+    font-size: 3rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin: 17px 0;
+    display: flex;
+}
+
+.info p {
+    color: #FFF;
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin: 5px 0;
+}
+
+.rank {
+    /* margin: 10px;
+    border-radius: 15px;
+    background: var(--gold, conic-gradient(from 180deg at 50% 50%, #907C39 109.43986773490906deg, #DBBC56 183.23987245559692deg, #C2A64C 262.4398612976074deg, #F4D160 311.0398578643799deg)); */
+    color: #382C00;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    border-radius: 30px;
+    background: var(--gold, linear-gradient(95deg, #AF8C0C -6.72%, #FAD85D 23.65%, #AF8C0C 50.58%, #FAD85D 78.65%, #AF8C0C 107.87%));
+    padding: 2px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    margin: 11px 15px;
+}
+
+.rank span {
+    color: #6F5E04;
+    font-family: "SF Pro Display";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.btn_invite {
+    display: flex; 
+    align-items: center; 
+    position: absolute; 
+    top: 16px; 
+    right: 16px;
+    border-radius: 10px;
+    background: #767676;
+    color: #FFF;
+    font-family: Inter;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.btn_invite span {
+    color: #FFF;
+    font-family: Inter;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+
+/* Tăng khả năng responsive */
+.card-content {
+    height: auto;
+    border-radius: 10px;
+    background: conic-gradient(from 311deg at 50% 50%, #144DB5 5deg, #0F3E91 123deg, #00203A 325deg);
+    color: #fff;
+}
+
+.balance-text {
+    font-size: 1.2rem;
+    white-space: nowrap;
+}
+
+.avatar-img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
+
+
+  
+  @media (max-width: 768px) {
+    .card-content {
+      height: 200px;
+      text-align: center;
+    }
+  
+    .info {
+      text-align: center;
+    }
+
+    .fullname {
+        color: #F6D361;
+        font-family: "SF Pro Display";
+        font-size: 2.3rem;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        margin: 8px 0;
+        display: flex;
+    }
+
+    .info p {
+        color: #FFF;
+        font-family: Inter;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        margin: 5px 0;
+    }
+  }
+  

@@ -14,6 +14,7 @@ import { AuthenticateService } from 'src/app/pages/authentication/service/authen
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
+  styleUrl: './header.component.scss',
   encapsulation: ViewEncapsulation.None,
 })
 export class HeaderComponent {
@@ -24,14 +25,19 @@ export class HeaderComponent {
   @Output() toggleCollapsed = new EventEmitter<void>();
 
   showFiller = false;
-
+  isOrder: boolean = false;
+  test: any;
   constructor(
     public dialog: MatDialog,
     private _authenticateService: AuthenticateService,
     private router: Router
-  ) {}
+  ) { }
 
   logout() {
     this._authenticateService.logout();
+  }
+
+  showOrderForm() {
+    this.isOrder = true;
   }
 }

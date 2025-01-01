@@ -1,5 +1,6 @@
 ﻿using Elite_life_datacontext.Dto;
 using Elite_life_datacontext.Model;
+using Elite_life_datacontext.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,5 +21,19 @@ namespace Elite_life_repository.Interfaces
         Task<decimal?> GetTotalValueWithLevelAsync(int inputId);
         // Contract manager
         Task<CollaboratorDto> GetCollaboratorsContractManager(int CollaboratorId);
+
+        //Top collaborator 
+        Task<List<CollaboratorTopDto>> GetCollaboratorsTop();
+        Task<MemoryStream> ExportExcelCollaboratorsTop();
+        //Member manager
+        Task<TotalWalletAdmin> GetTotalWalletAdmin();
+        Task<List<CollaboratorDto>> GetAllCollaborators(CollaboratorMemberManagerModel model);
+        Task<MemoryStream> ExportExcelAllCollaborators(CollaboratorMemberManagerModel model);
+        //Admin delete collaborator
+        Task<bool> DeleteCollaborator(int id, int idNew);
+
+        //Nhị Phân
+        Task<List<CollaboratorTreeDto>> GetCollaborators();
+        List<TreeNode> BuildTree(List<CollaboratorTreeDto> collaborators);
     }
 }

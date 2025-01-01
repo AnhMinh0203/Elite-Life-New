@@ -26,7 +26,7 @@
       <div class="col-6">
         <mat-card-title style="color: #004882;">Bên B</mat-card-title> 
         <button *ngIf="!imageSignUrl" class="col-3" mat-raised-button color="primary" (click)="showDialog()">Ký hợp đồng</button>
-        <img src="/assets/ImageSign/EL{{info.id}}.png" *ngIf="imageSignUrl" alt="Signature">
+        <img [src]="imageSignUrl" *ngIf="imageSignUrl" alt="Signature">
       </div>
       <div class="col-6">
         <mat-card-title style="color: #004882;">Bên A</mat-card-title> 

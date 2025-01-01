@@ -7,6 +7,7 @@ import { AuthGuardService } from 'src/untils/AuthGuard.service';
 import { CustomerManagerComponent } from './elite-life/customer-manager/customer-manager.component';
 import { SystemManagerComponent } from './elite-life/system-manager/system-manager.component';
 import { TutorialComponent } from './elite-life/tutorial/tutorial.component';
+
 import { ContractManagerComponent } from './elite-life/contract-manager/contract-manager.component';
 import { InforComponent } from './elite-life/infor-account/infor.component';
 import { DepositWithdrawManagementComponent } from './elite-life/deposit-withdraw-management/deposit-withdraw-management.component';

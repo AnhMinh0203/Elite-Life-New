@@ -1,4 +1,4 @@
-using AutoMapper;
+﻿using AutoMapper;
 using Elite_life.Startups;
 using Elite_life_datacontext.DataBase;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -25,6 +25,17 @@ builder.Services.AddCors(options => options.AddPolicy(name: MyAllowSpecificOrigi
     .AllowAnyHeader()
     .AllowAnyMethod();
 }));
+
+// Session 
+
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30); // Thời gian session tồn tại
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
 
 // AutoMapper
 var config = new MapperConfiguration(cfg =>
@@ -99,7 +110,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseSwagger();
+app.UseSwaggerUI();
 app.Services.GetRequiredService<ILoggerFactory>();
 /*
 app.UseStartupService(builder.Configuration);
@@ -109,6 +121,7 @@ app.UseCors(MyAllowSpecificOrigins);
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseSession();
 
 app.MapControllers();
 

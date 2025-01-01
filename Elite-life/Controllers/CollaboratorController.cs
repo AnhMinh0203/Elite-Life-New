@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing.Template;
 using Microsoft.Extensions.Configuration;
 using System.Reflection;
+using System.Security.Claims;
 using System.Text.RegularExpressions;
 
 namespace Elite_life.Controllers
@@ -124,7 +125,7 @@ namespace Elite_life.Controllers
 
                 // Đường dẫn file template và file đầu ra
                 string baseDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-                string baseDirData = _configuration.GetValue("dataUrl", "E:\\Customers\\Elite-Life-New\\Client\\src\\assets");
+                string baseDirData = _configuration.GetValue("dataUrl", "E:\\Customers\\Elite-Life-New\\File");
                 string templateFilePath = Path.Combine(baseDir, "wwwroot", "template", "contractTemp.docx");
                 string contractsDir = Path.Combine(baseDirData, "ContractsFile");
                 string imageSignDir = Path.Combine(baseDirData, "ImageSign");
@@ -211,7 +212,7 @@ namespace Elite_life.Controllers
         {
             try
             {
-                string baseDir = _configuration.GetValue("dataUrl", "E:\\Customers\\Elite-Life-New\\Client\\src\\assets");
+                string baseDir = _configuration.GetValue("dataUrl", "E:\\Customers\\Elite-Life-New\\File");
                 if (string.IsNullOrWhiteSpace(signatureDto.ImageData))
                 {
                     return MethodResult.ResultWithError(null, 400, "Image data is required.");
@@ -253,5 +254,172 @@ namespace Elite_life.Controllers
                 return MethodResult.ResultWithError(null, 400, $"An error occurred while saving the signature: {ex.Message}");
             }
         }
+
+        [HttpGet]
+        [Route("get-contract-pdf/{fileName}")]
+        public IActionResult GetContractPdf(string fileName)
+        {
+            try
+            {
+                // Đường dẫn thư mục chứa file PDF
+                string baseDirData = _configuration.GetValue("dataUrl", "E:\\Customers\\Elite-Life-New\\File");
+                string filePath = Path.Combine(baseDirData, "ContractsFile", fileName);
+
+                // Kiểm tra file có tồn tại không
+                if (!System.IO.File.Exists(filePath))
+                {
+                    return NotFound(new { message = "File not found" });
+                }
+
+                // Đọc file PDF và trả về kết quả
+                var fileBytes = System.IO.File.ReadAllBytes(filePath);
+                return File(fileBytes, "application/pdf", fileName);
+            }
+            catch (Exception ex)
+            {
+                // Ghi log nếu có lỗi (tuỳ chọn)
+                //_logger.LogError(ex, "Error retrieving contract PDF");
+
+                // Trả về lỗi
+                return StatusCode(500, new { message = "An error occurred while retrieving the file" });
+            }
+        }
+
+        [HttpGet]
+        [Route("get-contract-sign/{fileName}")]
+        public IActionResult GetContractImage(string fileName)
+        {
+            try
+            {
+                string baseDirData = _configuration.GetValue("dataUrl", "E:\\Customers\\Elite-Life-New\\File");
+                string filePath = Path.Combine(baseDirData, "ImageSign", fileName);
+
+                // Kiểm tra file ảnh có tồn tại không
+                if (!System.IO.File.Exists(filePath))
+                {
+                    return NotFound(new { message = "Image not found" });
+                }
+
+                var fileBytes = System.IO.File.ReadAllBytes(filePath);
+                return File(fileBytes, "image/jpeg", fileName);
+            }
+            catch (Exception ex)
+            {
+                //_logger.LogError(ex, "Error retrieving contract image");
+                return StatusCode(500, new { message = "An error occurred while retrieving the image" });
+            }
+        }
+
+
+
+        [HttpGet]
+        [Authorize]
+        [Route("get-collaborator-top")]
+        public async Task<MethodResult> GetCollaboratorsTop() 
+        {
+            var userClaims = HttpContext.User.Claims;
+            //var roles = userClaims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).ToList();
+            var rolesClaim = userClaims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
+
+            // Chuyển chuỗi quyền thành danh sách
+            var roles = rolesClaim?.Split(',').ToList() ?? new List<string>();
+            if (!roles.Contains("collaborator_viewTop"))
+            {
+                return MethodResult.ResultWithError("Bạn không có quyền truy cập", 403, "Forbidden");
+            }
+
+            var result = await _collaboratorRepos.GetCollaboratorsTop();
+            if (result != null)
+            {
+                return MethodResult.ResultWithSuccess(result, 200, "Success");
+
+            }
+            return MethodResult.ResultWithError(null, 400, "Not Found");
+        }
+
+        [HttpGet]
+        [Route("export-excel-all-collaborator-top")]
+        public async Task<IActionResult> ExportExcelAllCollaboratorsTop()
+        {
+
+            var toDay = DateTime.Today;
+
+            var result = await _collaboratorRepos.ExportExcelCollaboratorsTop();
+            string templateFileURL = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "wwwroot", "template", "Export_Collaborator_Top.xlsx");
+            string fileName = $"{ExtensionFile.GetFileNameWithoutExtension(templateFileURL)}_{toDay.ToString().Replace('/', '_').Replace(':', '_').Replace(' ', '_')}.xlsx";
+
+            Response.Headers.Add("fileName", fileName);
+            return File(result.ToArray(), ExtensionFile.GetContentType(templateFileURL), fileName);
+        }
+
+        [HttpPost]
+        [Route("get-all-collaborator")]
+        public async Task<MethodResult> GetAllCollaborators(CollaboratorMemberManagerModel model)
+        {
+            var result = await _collaboratorRepos.GetAllCollaborators(model);
+            if (result != null)
+            {
+                return MethodResult.ResultWithSuccess(result, 200, "Success");
+
+            }
+            return MethodResult.ResultWithError(null, 400, "Not Found");
+        }
+
+        [HttpPost]
+        [Route("export-excel-all-collaborator")]
+        public async Task<IActionResult> ExportExcelAllCollaborators(CollaboratorMemberManagerModel model)
+        {
+
+            var toDay = DateTime.Today;
+
+            var result = await _collaboratorRepos.ExportExcelAllCollaborators(model);
+            string templateFileURL = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "wwwroot", "template", "Export_Collaborator_CustomerManager.xlsx");
+            string fileName = $"{ExtensionFile.GetFileNameWithoutExtension(templateFileURL)}_{toDay.ToString().Replace('/', '_').Replace(':', '_').Replace(' ', '_')}.xlsx";
+
+            Response.Headers.Add("fileName", fileName);
+            return File(result.ToArray(), ExtensionFile.GetContentType(templateFileURL), fileName);
+        }
+
+        [HttpDelete]
+        [Route("delete-collaborator")]
+        public async Task<MethodResult> DeleteCollaborator(int id, int idNew)
+        {
+            var result = await _collaboratorRepos.DeleteCollaborator(id, idNew);
+            if (result)
+            {
+                return MethodResult.ResultWithSuccess(result, 200, "Success");
+
+            }
+            return MethodResult.ResultWithError(null, 400, "Not Found");
+
+        }
+
+        [HttpGet]
+        [Route("get-total-wallet-admin")]
+        public async Task<MethodResult> GetTotalWalletAdmin()
+        {
+            var result = await _collaboratorRepos.GetTotalWalletAdmin();
+            if (result != null)
+            {
+                return MethodResult.ResultWithSuccess(result, 200, "Success");
+
+            }
+            return MethodResult.ResultWithError(null, 400, "Not Found");
+        }
+
+        [HttpGet]
+        [Route("get-collaborator-tree")]
+        public async Task<MethodResult> GetCollaborators()
+        {
+            var result = await _collaboratorRepos.GetCollaborators();
+            if (result != null)
+            {
+                //var tree = _collaboratorRepos.BuildTree(result);
+                return MethodResult.ResultWithSuccess(result, 200, "Success");
+
+            }
+            return MethodResult.ResultWithError(null, 400, "Not Found");
+        }
+
     }
 }

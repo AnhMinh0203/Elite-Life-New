@@ -118,6 +118,35 @@ namespace Elite_life_repository
             }
         }
 
+        public async Task<CollaboratorDto> FindByUserNameAdminAsync(string Username)
+        {
+            var connectPostgres = new ConnectToPostgresql(_configuration);
+            using var connection = await connectPostgres.CreateConnectionAsync();
+            try
+            {
+                var query = @"SELECT * FROM dbo.""Collaborators"" 
+                      WHERE ""UserName"" = @UserName 
+                      AND ""ApplicationType"" = @ApplicationType";
+
+                var parameters = new
+                {
+                    UserName = Username, // Giá trị được truyền vào từ biến
+                    ApplicationType = "User"
+                };
+                var user = await connection.QueryFirstOrDefaultAsync<CollaboratorDto>(query, parameters);
+                return user;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error finding user: {ex.Message}");
+                return null;
+            }
+            finally
+            {
+                await connection.CloseAsync();
+            }
+        }
+
         public async Task<List<CollaboratorDto>> GetAllUsersAsync()
         {
             var connectPostgres = new ConnectToPostgresql(_configuration);
@@ -296,6 +325,31 @@ namespace Elite_life_repository
             {
                 Console.WriteLine($"Lỗi: {ex.Message}");
                 return -1;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        public async Task<List<string>> GetPermissionsAsync(string Username)
+        {
+            var connectPostgres = new ConnectToPostgresql(_configuration);
+            using var connection = connectPostgres.CreateConnection();
+            try
+            {
+                var query = @"select * from dbo.get_user_permissions(@username_input)";
+                var parameters = new
+                {
+                    username_input = Username,
+                };
+                var users = await connection.QueryAsync<string>(query, parameters);
+                return users.ToList();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error getting all users: {ex.Message}");
+                return null;
             }
             finally
             {

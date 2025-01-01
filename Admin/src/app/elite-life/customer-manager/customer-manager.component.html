@@ -1,0 +1,47 @@
+<mat-card class="cardWithShadow">
+  <mat-card-content class="p-24">
+    <div class="d-flex w-100">
+      <mat-card-title style="color: #004882;">Quản lý khách hàng</mat-card-title>
+      <div class="m-l-auto">
+        <p-calendar 
+          [(ngModel)]="rangeDates" 
+          selectionMode="range" 
+          (onSelect)="onDateChange($event)"
+          [readonlyInput]="true" />
+        <p-button (onClick)="exportExcelAllCollaboratorByParentId()" label="Xuất Excel" icon="pi pi-file-export" styleClass="m-0" [outlined]="true" />
+      </div>
+    </div>
+    <div class="">
+      <p-table
+        [value]="data"
+        [paginator]="true"
+        [rows]="5"
+        [tableStyle]="{ 'min-width': '50rem' }"
+        [rowsPerPageOptions]="[5, 10, 20]"
+    >
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width:5%">STT</th>
+                <th style="width:15%">Họ tên</th>
+                <th style="width:10%">Tên đăng nhập</th>
+                <th style="width:15%">Email</th>
+                <th style="width:15%">SĐT</th>
+                <th style="width:5%">Cấp độ</th>
+                <th style="width:15%">Ngày tham gia</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-customer>
+            <tr>
+                <td>{{ customer.position }}</td>
+                <td>{{ customer.name }}</td>
+                <td>{{ customer.userName }}</td>
+                <td>{{ customer.email }}</td>
+                <td>{{ customer.mobile }}</td>
+                <td>{{ customer.rank }}</td>
+                <td>{{ customer.createdAt | date: 'dd/MM/yyyy hh:mm:ss' }}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+    </div>
+  </mat-card-content>
+</mat-card>

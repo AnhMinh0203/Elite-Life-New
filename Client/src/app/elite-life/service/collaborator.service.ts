@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, Injector } from '@angular/core';
 import { Router } from '@angular/router';
-import { catchError } from 'rxjs';
+import { catchError, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ResponseResult } from 'src/untils/response-result';
 
@@ -96,6 +96,16 @@ export class CollaboratorService {
           throw error;
         })
       );
+  }
+
+  getContractPdf(fileName: string): Observable<Blob> {
+    const apiUrl = `${this.serviceUri}/get-contract-pdf/${fileName}`;
+    return this._http.get(apiUrl, { responseType: 'blob' }); // Đặt responseType là 'blob'
+  }
+
+  getContractSign(fileName: string): Observable<Blob> {
+    const apiUrl = `${this.serviceUri}/get-contract-sign/${fileName}`;
+    return this._http.get(apiUrl, { responseType: 'blob' }); // Đặt responseType là 'blob'
   }
 
 }

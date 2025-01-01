@@ -1,0 +1,101 @@
+<div class="row">
+  <div class="col-lg-12">
+    <mat-card class="cardWithShadow">
+      <mat-card-content class="p-24">
+        <div class="d-flex w-100">
+          <mat-card-title style="color: #004882;">Danh sách thành viên ({{totalMember}})</mat-card-title>
+          <div class="m-l-auto">
+            <input type="text" pInputText [(ngModel)]="search" (keydown.enter)="searchName()" />
+            <p-calendar 
+              [(ngModel)]="rangeDates" 
+              selectionMode="range" 
+              [showIcon]="true"
+              (onSelect)="onDateChange($event)"
+              [readonlyInput]="true" />
+            <!-- <p-button (onClick)="exportExcelCollaboratorTop()" label="Xuất Excel" icon="pi pi-file-export" styleClass="m-0" [outlined]="true" /> -->
+          </div>
+        </div>
+        <div class="">
+          <p-table
+            [value]="data"
+            [paginator]="true"
+            [rows]="5"
+            [tableStyle]="{ 'min-width': '50rem' }"
+            [rowsPerPageOptions]="[5, 10, 20]"
+          >
+              <ng-template pTemplate="header">
+                  <tr>
+                      <th style="width:5%">Hành động</th>
+                      <th style="width:10%">Mã thành viên</th>
+                      <th style="width:15%">Họ tên</th>
+                      <th style="width:15%">Địa chỉ</th>
+                      <th style="width:5%">CMTND/CCCD</th>
+                  </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-customer>
+                  <tr>
+                      <td style="align-items: center;">
+                        <i class="pi pi-bars" style="color: #fff; background-color: green; padding: 5px 5px; cursor: pointer;" (click)="showDialog(customer)"></i>
+                      </td>
+                      <td>{{ customer.userName }}</td>
+                      <td>{{ customer.name }}</td>
+                      <td>{{ customer.address}}</td>
+                      <td>{{ customer.identity }}</td>
+                  </tr>
+              </ng-template>
+          </p-table>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+<p-dialog 
+    header="Header" 
+    [(visible)]="visible" 
+    [modal]="true" 
+    [style]="{ width: '50rem' }">
+        <ng-template pTemplate="header">
+            <div class="inline-flex align-items-center justify-content-center gap-2">
+                <h3 class="font-bold white-space-nowrap">
+                  Chi tiết hợp đồng
+                </h3>
+            </div>
+        </ng-template>
+        <div *ngIf="isLoading" class="loading-overlay">
+          <span>Loading...</span> <!-- Bạn có thể thay thế bằng một biểu tượng loading -->
+        </div>
+        <div *ngIf="!isLoading" class="row align-items-center" >
+          <pdf-viewer
+            [src]="src"
+            [rotation]="0"
+            [original-size]="false"
+            [show-all]="true"
+            [fit-to-page]="true"
+            [zoom]="0.7"
+            [zoom-scale]="'page-width'"
+            [stick-to-page]="false"
+            [render-text]="false"
+            [external-link-target]="'blank'"
+            [autoresize]="true"
+            [show-borders]="false"
+            [page]="currentPage"
+            [style]="{ height: height + 'vh', width: '100%' }"
+          ></pdf-viewer>
+        </div>
+        <div  *ngIf="!isLoading" class="row justify-content-center m-3 p-3" style="margin-top: 30px;">
+          <div class="col-6">
+            <mat-card-title style="color: #004882;">Bên B</mat-card-title> 
+            <img [src]="imageSignUrl" *ngIf="imageSignUrl" alt="Signature">
+            <h5 style="align-items: center; display: flex; justify-content: center;">{{info?.name}}</h5>
+          </div>
+          <div class="col-6">
+            <mat-card-title style="color: #004882;">Bên A</mat-card-title> 
+              <p>CÔNG TY TNHH NGHIÊN CỨU VÀ SẢN XUẤT SINH HỌC HANA, THỰC THUỘC CTY CP TẬP ĐOÀN ELITE LIFE - JAPAN.</p>
+              <p>Mã số doanh nghiệp: 0901155104, cấp ngày 15 tháng 02 năm 2024.</p>
+              <p>Đại diện: Ông LƯƠNG VĂN NGHỊ.</p>
+              <p>Chức vụ: Tổng giám đốc</p>
+              <p>Điện thoại: 0909679955</p>
+          </div>
+        </div>
+</p-dialog>

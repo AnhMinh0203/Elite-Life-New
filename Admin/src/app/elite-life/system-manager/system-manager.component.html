@@ -1,0 +1,96 @@
+<mat-card class="cardWithShadow">
+  <mat-card-content class="p-24">
+    <div class="d-flex w-100 p-24">
+      <mat-card-title style="color: #004882;">Quản lý hệ thống</mat-card-title>
+      
+    </div>
+    <div class="row align-items-center" >
+      <!-- Card số dư -->
+      <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+        <mat-card class="cardWithShadow">
+          <mat-card-content class="p-24 card-content">
+            <mat-card-title>Tổng doanh thu
+              <i matTooltip="Tổng doanh thu của cả hệ thống" matTooltipPosition="right" class="pi pi-info-circle" style="cursor: pointer;"></i>
+            </mat-card-title>
+            <div class="row m-t-24">
+              <div class="col-10 d-flex align-items-center">
+                <h4 class="mat-headline-5 balance-text" style="color: #fff;">
+                  {{ hideWallet1 ? getMaskedBalance1() : balance1 | number: '1.0-2' }} ELP
+                </h4>
+                <button mat-icon-button (click)="hideWallet1 = !hideWallet1" type="button">
+                  <mat-icon>{{ hideWallet1 ? 'visibility_off' : 'visibility' }}</mat-icon>
+                </button>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    
+      <!-- Lặp lại card cho Wallet 2 và Wallet 3 -->
+      <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+        <mat-card class="cardWithShadow">
+          <mat-card-content class="p-24 card-content">
+            <mat-card-title>Tổng số thành viên</mat-card-title>
+            <div class="row m-t-24">
+              <div class="col-10 d-flex align-items-center">
+                <h4 class="mat-headline-5 balance-text" style="color: #fff;">
+                  {{totalMember || 0}}
+                </h4>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    
+      <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+        <mat-card class="cardWithShadow">
+          <mat-card-content class="p-24 card-content">
+            <mat-card-title>Thành viên DL0</mat-card-title>
+            <div class="row m-t-24">
+              <div class="col-10 d-flex align-items-center">
+                <h4 class="mat-headline-5 balance-text" style="color: #fff;">
+                  {{this.countChildren['DL0'] || 0}}
+                </h4>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+        <mat-card class="cardWithShadow">
+          <mat-card-content class="p-24 card-content">
+            <mat-card-title>Thành viên DL1</mat-card-title>
+            <div class="row m-t-24">
+              <div class="col-10 d-flex align-items-center">
+                <h4 class="mat-headline-5 balance-text" style="color: #fff;">
+                  {{this.countChildren['DL1'] || 0}}
+                </h4>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+        <mat-card class="cardWithShadow">
+          <mat-card-content class="p-24 card-content">
+            <mat-card-title>Thành viên DL2</mat-card-title>
+            <div class="row m-t-24">
+              <div class="col-10 d-flex align-items-center">
+                <h4 class="mat-headline-5 balance-text" style="color: #fff;">
+                  {{this.countChildren['DL2'] || 0}}
+                </h4>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
+<mat-card class="cardWithShadow">
+  <mat-card-content class="p-24">
+    <p-tree class="w-full md:w-30rem" [value]="tree"  />
+  </mat-card-content>
+</mat-card>
+
+

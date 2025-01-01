@@ -11,6 +11,8 @@ namespace Elite_life_repository.Interfaces
     public interface IAuthenticateRepos
     {
         Task<CollaboratorDto> FindByUserNameAsync(string Username);
+        Task<CollaboratorDto> FindByUserNameAdminAsync(string Username);
+        Task<List<string>> GetPermissionsAsync(string Username);
         bool CheckPasswordAsync(string password, string hashPassword);
         Task<bool> UpdateRefreshTokenAsync(int Id, string RefreshToken, DateTime RefreshTokenExpiryTime);
         Task<int> CreateUserAsync(RegisterModel model);

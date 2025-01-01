@@ -29,5 +29,18 @@ namespace Elite_life.Controllers
             }
             return MethodResult.ResultWithError(null, 400, "Not Found");
         }
+
+        [HttpPost]
+        [Route("recharge")]
+        public async Task<MethodResult> Recharge(WalletRechargeModel model)
+        {
+            var result = await _walletsRepos.Recharge(model);
+            if (result)
+            {
+                return MethodResult.ResultWithSuccess(result, 200, "Success");
+
+            }
+            return MethodResult.ResultWithError(null, 400, "Not Found");
+        }
     }
 }

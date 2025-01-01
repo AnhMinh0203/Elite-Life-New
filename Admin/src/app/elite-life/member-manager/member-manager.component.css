@@ -1,0 +1,5 @@
+.p-dropdown-panel {
+    max-height: 300px; /* Đảm bảo chiều cao không bị quá nhỏ */
+    overflow-y: auto;
+  }
+  
