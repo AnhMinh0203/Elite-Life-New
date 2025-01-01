@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <Folder Include="Avatar\" />
+    <Folder Include="wwwroot\template\" />
   </ItemGroup>
 
   <ItemGroup>
