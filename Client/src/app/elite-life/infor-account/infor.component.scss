@@ -1,0 +1,22 @@
+.my-25{
+  margin: 25px 0px;
+}
+.py-3{
+  padding: 0px 3px;
+}
+.ms-10{
+  margin-left: 10px;
+}
+.m-5{
+  margin: 5px 0px;
+}
+.mt-5{
+  margin-top: 5px;
+}
+
+:host ::ng-deep .mt-5{
+  margin-top: 5px;
+}
+:host ::ng-deep .format-input {
+  width: 100%;
+}

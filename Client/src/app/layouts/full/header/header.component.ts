@@ -31,9 +31,6 @@ export class HeaderComponent {
     private router: Router
   ) {}
 
-  goToProfile() {
-    this.router.navigate(['/profile']); // Change '/profile' with the route you want
-  }
   logout() {
     this._authenticateService.logout();
   }

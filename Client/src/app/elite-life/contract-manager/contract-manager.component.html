@@ -1,0 +1,122 @@
+<mat-card class="cardWithShadow">
+  <mat-card-content class="p-24">
+    <div class="d-flex w-100 p-24">
+      <mat-card-title style="color: #004882;">{{titleName}}</mat-card-title> 
+    </div>
+    <div class="row align-items-center" >
+      <pdf-viewer
+        [src]="src"
+        [rotation]="0"
+        [original-size]="false"
+        [show-all]="true"
+        [fit-to-page]="true"
+        [zoom]="0.7"
+        [zoom-scale]="'page-width'"
+        [stick-to-page]="false"
+        [render-text]="false"
+        [external-link-target]="'blank'"
+        [autoresize]="true"
+        [show-borders]="false"
+        [page]="currentPage"
+        [style]="{ height: height + 'vh', width: '100%' }"
+        (after-load-complete)="afterLoadComplete($event)"
+      ></pdf-viewer>
+    </div>
+    <div class="row justify-content-center m-3 p-3" style="margin-top: 30px;">
+      <div class="col-6">
+        <mat-card-title style="color: #004882;">Bên B</mat-card-title> 
+        <button *ngIf="!imageSignUrl" class="col-3" mat-raised-button color="primary" (click)="showDialog()">Ký hợp đồng</button>
+        <img src="/assets/ImageSign/EL{{info.id}}.png" *ngIf="imageSignUrl" alt="Signature">
+      </div>
+      <div class="col-6">
+        <mat-card-title style="color: #004882;">Bên A</mat-card-title> 
+          <p>CÔNG TY TNHH NGHIÊN CỨU VÀ SẢN XUẤT SINH HỌC HANA, THỰC THUỘC CTY CP TẬP ĐOÀN ELITE LIFE - JAPAN.</p>
+          <p>Mã số doanh nghiệp: 0901155104, cấp ngày 15 tháng 02 năm 2024.</p>
+          <p>Đại diện: Ông LƯƠNG VĂN NGHỊ.</p>
+          <p>Chức vụ: Tổng giám đốc</p>
+          <p>Điện thoại: 0909679955</p>
+      </div>
+      <!-- <button class="col-2" mat-raised-button color="primary" (click)="previousPage()">Previous Page</button>
+      <p class="col-2 justify-content-center" style="font-weight: bold; align-items: center; display: flex;">Page {{currentPage}} of {{totalPages}}</p>
+      <button class="col-2" mat-raised-button color="primary" (click)="nextPage()">Next Page</button>
+      <div class="col-3"></div> -->
+    </div>
+  </mat-card-content>
+</mat-card>
+
+<p-dialog 
+    header="Header" 
+    [(visible)]="visible" 
+    [modal]="true" 
+    [style]="{ width: '50rem' }">
+        <ng-template pTemplate="header">
+            <div class="inline-flex align-items-center justify-content-center gap-2">
+                <h3 class="font-bold white-space-nowrap">
+                  Ký hợp đồng
+                </h3>
+            </div>
+        </ng-template>
+        <div class="row">
+          <div class="d-flex col-6" style="flex-direction: column;">
+            <label for="fullname" class="font-semibold">
+              Họ và tên <span style="color: red">*</span>
+            </label>
+            <input type="text" pInputText [(ngModel)]="fullname" />
+          </div>
+          <div class="d-flex col-6" style="flex-direction: column;">
+            <label for="address" class="font-semibold">
+              Địa chỉ <span style="color: red">*</span>
+            </label>
+            <input type="text" pInputText [(ngModel)]="address" />
+          </div>
+          <div class="d-flex col-6" style="flex-direction: column;">
+            <label for="cccd" class="font-semibold">
+              CMTND/ CCCD/ HC <span style="color: red">*</span>
+            </label>
+            <input type="text" pInputText [(ngModel)]="cccd" />
+          </div>
+          <div class="d-flex col-6" style="flex-direction: column;">
+            <label for="beginDate" class="font-semibold">
+              Ngày cấp <span style="color: red">*</span>
+            </label>
+            <p-calendar 
+              [(ngModel)]="beginDate" 
+              [iconDisplay]="'input'" 
+              [showIcon]="true" 
+              dateFormat="dd/mm/yy"
+              inputId="icondisplay" />
+          </div>
+          <div class="d-flex col-6" style="flex-direction: column;">
+            <label for="identityPlace" class="font-semibold">
+              Ngày cấp <span style="color: red">*</span>
+            </label>
+            <input type="text" pInputText [(ngModel)]="identityPlace" />
+          </div>
+          <div class="d-flex col-6" style="flex-direction: column;"></div>
+          <div class="d-flex col-6" style="flex-direction: column; margin-top: 10px;">
+            <canvas #sigPad width="300" height="150" (mousedown)="onMouseDown($event)"
+            (mousemove)="onMouseMove($event)"></canvas>
+          </div>
+          <div class="d-flex col-6" style="flex-direction: column; border: 1px solid #000;  margin-top: 10px;">
+            <img [src]="img">
+          </div>
+          <div class="d-flex col-6" style="margin-top: 10px;">
+            <button class="col-5" mat-raised-button color="primary" (click)="confirm()">Xác nhận chữ ký</button>
+            <div class="col-1"></div>
+            <button class="col-5" mat-raised-button color="primary" (click)="clear()">Clear</button>
+          </div>
+        </div>
+        <ng-template pTemplate="footer">
+            <p-button 
+                label="Cancel" 
+                [text]="true" 
+                severity="secondary" 
+                (onClick)="visible = false" />
+            <p-button 
+                label="Save" 
+                [outlined]="true"
+                (onClick)="save()" 
+                severity="secondary" 
+              />
+        </ng-template>
+</p-dialog>

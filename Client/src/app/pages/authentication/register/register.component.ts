@@ -199,6 +199,21 @@ export class AppSideRegisterComponent {
     this.currentForm = 1;
   }
 
+  saveAvatarLocally(): void {
+    if (this.selectedFile) {
+      const url = URL.createObjectURL(this.selectedFile);
+
+      // Create a link element to download the file
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = this.selectedFile.name;
+      a.click();
+
+      // Revoke the URL to free up resources
+      URL.revokeObjectURL(url);
+    }
+  }
+
   signUp(): void {
     var BankId = 1 ;
     this._authenticateService.getBankId({ BankName: this.signUpForm.get('Bank')?.value }).subscribe({
@@ -225,7 +240,9 @@ export class AppSideRegisterComponent {
     formData.append('ApplicationType', 'Sale');
     formData.append('Identity', this.signUpForm.get('Identity')?.value);
     formData.append('IdentityPlace', this.signUpForm.get('IdentityPlace')?.value);
-    formData.append('IdentityDate', this.signUpForm.get('IdentityDate')?.value.toISOString());
+    // formData.append('IdentityDate', this.signUpForm.get('IdentityDate')?.value.toISOString());
+    formData.append('IdentityDate', this.signUpForm.get('IdentityDate')?.value ? new Date(this.signUpForm.get('IdentityDate')?.value).toLocaleDateString('en-CA'): ''
+    );
     formData.append('ParentId', parsedParentId.toString());
     formData.append('BankId', BankId.toString());
     formData.append('BankNumber', this.signUpForm.get('BankNumber')?.value);
@@ -243,16 +260,18 @@ export class AppSideRegisterComponent {
     };
 
     this._authenticateService.signUp(formData).subscribe((res: any) => {
-      console.log(res);
+
       if (res && res.status == "Success") {
         this.messageService.add({
           severity: 'success',
           summary: 'Success',
-          detail: 'Đăng nhập thành công',
+          detail: 'Đăng ký thành công',
         });
-        console.log("New ID: " + res.data) ;
         this.newUserName = 'EL' + res.data;
+        // Lưu ảnh hiện tại vào đường dẫn tôi chỉ định với tên mới là giá trị của newUserName.png
         this.currentForm = 3;
+
+
       } else {
         this.messageService.add({
           severity: 'error',

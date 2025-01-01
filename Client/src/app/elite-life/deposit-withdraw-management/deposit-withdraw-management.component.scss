@@ -1,0 +1,43 @@
+:host ::ng-deep .format-input {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+:host ::ng-deep .format-button{
+  width: 100%;
+
+}
+
+:host ::ng-deep .format-button button{
+  width: 100%;
+  background: #B0903E;
+  border: #B0903E;
+}
+
+:host ::ng-deep .m-5{
+  margin-top: 5px;
+}
+:host ::ng-deep .m-25{
+  margin-top: 25px;
+}
+.custom-label {
+  font-weight: bold;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  display: block;
+}
+
+.row.no-gutter {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.row.no-gutter .col {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.export-button {
+  margin-left: 30px !important;
+}
+

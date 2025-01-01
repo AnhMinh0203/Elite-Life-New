@@ -1,0 +1,797 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FontFamilies>
+    <changed>2024-01-30T16:52:33.2215812Z</changed>
+    <Family name="Agency FB">
+        <Font style="Regular" type="TTF" name="Agency FB" localizedFamilyNames="" path="C:\WINDOWS\Fonts\AGENCYR.TTF" offset="0" />
+        <Font style="Bold" type="TTF" name="Agency FB Bold" localizedFamilyNames="" path="C:\WINDOWS\Fonts\AGENCYB.TTF" offset="0" />
+    </Family>
+    <Family name="Algerian">
+        <Font style="Regular" type="TTF" name="Algerian" localizedFamilyNames="" path="C:\WINDOWS\Fonts\ALGER.TTF" offset="0" />
+    </Family>
+    <Family name="Book Antiqua">
+        <Font style="Regular" type="TTF" name="Book Antiqua" localizedFamilyNames="" path="C:\WINDOWS\Fonts\BKANT.TTF" offset="0" />
+        <Font style="Italic" type="TTF" name="Book Antiqua Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\ANTQUAI.TTF" offset="0" />
+        <Font style="Bold" type="TTF" name="Book Antiqua Bold" localizedFamilyNames="" path="C:\WINDOWS\Fonts\ANTQUAB.TTF" offset="0" />
+        <Font style="Bold Italic" type="TTF" name="Book Antiqua Bold Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\ANTQUABI.TTF" offset="0" />
+    </Family>
+    <Family name="Arial">
+        <Font style="Regular" type="TTF" name="Arial" localizedFamilyNames="" path="C:\WINDOWS\Fonts\arial.ttf" offset="0" />
+        <Font style="Italic" type="TTF" name="Arial Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\ariali.ttf" offset="0" />
+        <Font style="Bold" type="TTF" name="Arial Bold" localizedFamilyNames="" path="C:\WINDOWS\Fonts\arialbd.ttf" offset="0" />
+        <Font style="Bold Italic" type="TTF" name="Arial Bold Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\arialbi.ttf" offset="0" />
+    </Family>
+    <Family name="Arial Narrow">
+        <Font style="Regular" type="TTF" name="Arial Narrow" localizedFamilyNames="" path="C:\WINDOWS\Fonts\ARIALN.TTF" offset="0" />
+        <Font style="Italic" type="TTF" name="Arial Narrow Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\ARIALNI.TTF" offset="0" />
+        <Font style="Bold" type="TTF" name="Arial Narrow Bold" localizedFamilyNames="" path="C:\WINDOWS\Fonts\ARIALNB.TTF" offset="0" />
+        <Font style="Bold Italic" type="TTF" name="Arial Narrow Bold Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\ARIALNBI.TTF" offset="0" />
+    </Family>
+    <Family name="Arial Black">
+        <Font style="Regular" type="TTF" name="Arial Black" localizedFamilyNames="" path="C:\WINDOWS\Fonts\ariblk.ttf" offset="0" />
+    </Family>
+    <Family name="Arial Rounded MT Bold">
+        <Font style="Regular" type="TTF" name="Arial Rounded MT Bold" localizedFamilyNames="" path="C:\WINDOWS\Fonts\ARLRDBD.TTF" offset="0" />
+    </Family>
+    <Family name="Bahnschrift">
+        <Font style="Regular" type="TTF" name="Bahnschrift" localizedFamilyNames="" path="C:\WINDOWS\Fonts\bahnschrift.ttf" offset="0" />
+    </Family>
+    <Family name="Baskerville Old Face">
+        <Font style="Regular" type="TTF" name="Baskerville Old Face" localizedFamilyNames="" path="C:\WINDOWS\Fonts\BASKVILL.TTF" offset="0" />
+    </Family>
+    <Family name="Bauhaus 93">
+        <Font style="Regular" type="TTF" name="Bauhaus 93" localizedFamilyNames="" path="C:\WINDOWS\Fonts\BAUHS93.TTF" offset="0" />
+    </Family>
+    <Family name="Bell MT">
+        <Font style="Regular" type="TTF" name="Bell MT" localizedFamilyNames="" path="C:\WINDOWS\Fonts\BELL.TTF" offset="0" />
+        <Font style="Italic" type="TTF" name="Bell MT Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\BELLI.TTF" offset="0" />
+        <Font style="Bold" type="TTF" name="Bell MT Bold" localizedFamilyNames="" path="C:\WINDOWS\Fonts\BELLB.TTF" offset="0" />
+    </Family>
+    <Family name="Bernard MT Condensed">
+        <Font style="Regular" type="TTF" name="Bernard MT Condensed" localizedFamilyNames="" path="C:\WINDOWS\Fonts\BERNHC.TTF" offset="0" />
+    </Family>
+    <Family name="Bodoni MT">
+        <Font style="Regular" type="TTF" name="Bodoni MT" localizedFamilyNames="" path="C:\WINDOWS\Fonts\BOD_R.TTF" offset="0" />
+        <Font style="Italic" type="TTF" name="Bodoni MT Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\BOD_I.TTF" offset="0" />
+        <Font style="Bold" type="TTF" name="Bodoni MT Bold" localizedFamilyNames="" path="C:\WINDOWS\Fonts\BOD_B.TTF" offset="0" />
+        <Font style="Bold Italic" type="TTF" name="Bodoni MT Bold Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\BOD_BI.TTF" offset="0" />
+    </Family>
+    <Family name="Bodoni MT Black">
+        <Font style="Regular" type="TTF" name="Bodoni MT Black" localizedFamilyNames="" path="C:\WINDOWS\Fonts\BOD_BLAR.TTF" offset="0" />
+        <Font style="Italic" type="TTF" name="Bodoni MT Black Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\BOD_BLAI.TTF" offset="0" />
+    </Family>
+    <Family name="Bodoni MT Condensed">
+        <Font style="Regular" type="TTF" name="Bodoni MT Condensed" localizedFamilyNames="" path="C:\WINDOWS\Fonts\BOD_CR.TTF" offset="0" />
+        <Font style="Italic" type="TTF" name="Bodoni MT Condensed Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\BOD_CI.TTF" offset="0" />
+        <Font style="Bold" type="TTF" name="Bodoni MT Condensed Bold" localizedFamilyNames="" path="C:\WINDOWS\Fonts\BOD_CB.TTF" offset="0" />
+        <Font style="Bold Italic" type="TTF" name="Bodoni MT Condensed Bold Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\BOD_CBI.TTF" offset="0" />
+    </Family>
+    <Family name="Bodoni MT Poster Compressed">
+        <Font style="Regular" type="TTF" name="Bodoni MT Poster Compressed" localizedFamilyNames="" path="C:\WINDOWS\Fonts\BOD_PSTC.TTF" offset="0" />
+    </Family>
+    <Family name="Bookman Old Style">
+        <Font style="Regular" type="TTF" name="Bookman Old Style" localizedFamilyNames="" path="C:\WINDOWS\Fonts\BOOKOS.TTF" offset="0" />
+        <Font style="Italic" type="TTF" name="Bookman Old Style Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\BOOKOSI.TTF" offset="0" />
+        <Font style="Bold" type="TTF" name="Bookman Old Style Bold" localizedFamilyNames="" path="C:\WINDOWS\Fonts\BOOKOSB.TTF" offset="0" />
+        <Font style="Bold Italic" type="TTF" name="Bookman Old Style Bold Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\BOOKOSBI.TTF" offset="0" />
+    </Family>
+    <Family name="Bradley Hand ITC">
+        <Font style="Regular" type="TTF" name="Bradley Hand ITC" localizedFamilyNames="" path="C:\WINDOWS\Fonts\BRADHITC.TTF" offset="0" />
+    </Family>
+    <Family name="Britannic Bold">
+        <Font style="Regular" type="TTF" name="Britannic Bold" localizedFamilyNames="" path="C:\WINDOWS\Fonts\BRITANIC.TTF" offset="0" />
+    </Family>
+    <Family name="Berlin Sans FB">
+        <Font style="Regular" type="TTF" name="Berlin Sans FB" localizedFamilyNames="" path="C:\WINDOWS\Fonts\BRLNSR.TTF" offset="0" />
+        <Font style="Bold" type="TTF" name="Berlin Sans FB Bold" localizedFamilyNames="" path="C:\WINDOWS\Fonts\BRLNSB.TTF" offset="0" />
+    </Family>
+    <Family name="Berlin Sans FB Demi">
+        <Font style="Bold" type="TTF" name="Berlin Sans FB Demi Bold" localizedFamilyNames="" path="C:\WINDOWS\Fonts\BRLNSDB.TTF" offset="0" />
+    </Family>
+    <Family name="Broadway">
+        <Font style="Regular" type="TTF" name="Broadway" localizedFamilyNames="" path="C:\WINDOWS\Fonts\BROADW.TTF" offset="0" />
+    </Family>
+    <Family name="Brush Script MT">
+        <Font style="Italic" type="TTF" name="Brush Script MT Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\BRUSHSCI.TTF" offset="0" />
+    </Family>
+    <Family name="Bookshelf Symbol 7">
+        <Font style="Regular" type="TTF" name="Bookshelf Symbol 7" localizedFamilyNames="" path="C:\WINDOWS\Fonts\BSSYM7.TTF" offset="0" />
+    </Family>
+    <Family name="Calibri">
+        <Font style="Regular" type="TTF" name="Calibri" localizedFamilyNames="" path="C:\WINDOWS\Fonts\calibri.ttf" offset="0" />
+        <Font style="Italic" type="TTF" name="Calibri Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\calibrii.ttf" offset="0" />
+        <Font style="Bold" type="TTF" name="Calibri Bold" localizedFamilyNames="" path="C:\WINDOWS\Fonts\calibrib.ttf" offset="0" />
+        <Font style="Bold Italic" type="TTF" name="Calibri Bold Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\calibriz.ttf" offset="0" />
+    </Family>
+    <Family name="Calibri Light">
+        <Font style="Regular" type="TTF" name="Calibri Light" localizedFamilyNames="" path="C:\WINDOWS\Fonts\calibril.ttf" offset="0" />
+        <Font style="Italic" type="TTF" name="Calibri Light Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\calibrili.ttf" offset="0" />
+    </Family>
+    <Family name="Californian FB">
+        <Font style="Regular" type="TTF" name="Californian FB" localizedFamilyNames="" path="C:\WINDOWS\Fonts\CALIFR.TTF" offset="0" />
+        <Font style="Italic" type="TTF" name="Californian FB Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\CALIFI.TTF" offset="0" />
+        <Font style="Bold" type="TTF" name="Californian FB Bold" localizedFamilyNames="" path="C:\WINDOWS\Fonts\CALIFB.TTF" offset="0" />
+    </Family>
+    <Family name="Calisto MT">
+        <Font style="Regular" type="TTF" name="Calisto MT" localizedFamilyNames="" path="C:\WINDOWS\Fonts\CALIST.TTF" offset="0" />
+        <Font style="Italic" type="TTF" name="Calisto MT Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\CALISTI.TTF" offset="0" />
+        <Font style="Bold" type="TTF" name="Calisto MT Bold" localizedFamilyNames="" path="C:\WINDOWS\Fonts\CALISTB.TTF" offset="0" />
+        <Font style="Bold Italic" type="TTF" name="Calisto MT Bold Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\CALISTBI.TTF" offset="0" />
+    </Family>
+    <Family name="Cambria">
+        <Font style="Regular" type="TTF" name="Cambria" localizedFamilyNames="" path="C:\WINDOWS\Fonts\cambria.ttc" offset="32" />
+        <Font style="Italic" type="TTF" name="Cambria Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\cambriai.ttf" offset="0" />
+        <Font style="Bold" type="TTF" name="Cambria Bold" localizedFamilyNames="" path="C:\WINDOWS\Fonts\cambriab.ttf" offset="0" />
+        <Font style="Bold Italic" type="TTF" name="Cambria Bold Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\cambriaz.ttf" offset="0" />
+    </Family>
+    <Family name="Cambria Math">
+        <Font style="Regular" type="TTF" name="Cambria Math" localizedFamilyNames="" path="C:\WINDOWS\Fonts\cambria.ttc" offset="380" />
+    </Family>
+    <Family name="Candara">
+        <Font style="Regular" type="TTF" name="Candara" localizedFamilyNames="" path="C:\WINDOWS\Fonts\Candara.ttf" offset="0" />
+        <Font style="Italic" type="TTF" name="Candara Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\Candarai.ttf" offset="0" />
+        <Font style="Bold" type="TTF" name="Candara Bold" localizedFamilyNames="" path="C:\WINDOWS\Fonts\Candarab.ttf" offset="0" />
+        <Font style="Bold Italic" type="TTF" name="Candara Bold Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\Candaraz.ttf" offset="0" />
+    </Family>
+    <Family name="Candara Light">
+        <Font style="Regular" type="TTF" name="Candara Light" localizedFamilyNames="" path="C:\WINDOWS\Fonts\Candaral.ttf" offset="0" />
+        <Font style="Italic" type="TTF" name="Candara Light Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\Candarali.ttf" offset="0" />
+    </Family>
+    <Family name="Cascadia Code">
+        <Font style="Regular" type="TTF" name="Cascadia Code Regular" localizedFamilyNames="" path="C:\WINDOWS\Fonts\CascadiaCode.ttf" offset="0" />
+    </Family>
+    <Family name="Cascadia Mono">
+        <Font style="Regular" type="TTF" name="Cascadia Mono Regular" localizedFamilyNames="" path="C:\WINDOWS\Fonts\CascadiaMono.ttf" offset="0" />
+    </Family>
+    <Family name="Castellar">
+        <Font style="Regular" type="TTF" name="Castellar" localizedFamilyNames="" path="C:\WINDOWS\Fonts\CASTELAR.TTF" offset="0" />
+    </Family>
+    <Family name="Century Schoolbook">
+        <Font style="Regular" type="TTF" name="Century Schoolbook" localizedFamilyNames="" path="C:\WINDOWS\Fonts\CENSCBK.TTF" offset="0" />
+        <Font style="Italic" type="TTF" name="Century Schoolbook Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\SCHLBKI.TTF" offset="0" />
+        <Font style="Bold" type="TTF" name="Century Schoolbook Bold" localizedFamilyNames="" path="C:\WINDOWS\Fonts\SCHLBKB.TTF" offset="0" />
+        <Font style="Bold Italic" type="TTF" name="Century Schoolbook Bold Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\SCHLBKBI.TTF" offset="0" />
+    </Family>
+    <Family name="Centaur">
+        <Font style="Regular" type="TTF" name="Centaur" localizedFamilyNames="" path="C:\WINDOWS\Fonts\CENTAUR.TTF" offset="0" />
+    </Family>
+    <Family name="Century">
+        <Font style="Regular" type="TTF" name="Century" localizedFamilyNames="" path="C:\WINDOWS\Fonts\CENTURY.TTF" offset="0" />
+    </Family>
+    <Family name="Chiller">
+        <Font style="Regular" type="TTF" name="Chiller" localizedFamilyNames="" path="C:\WINDOWS\Fonts\CHILLER.TTF" offset="0" />
+    </Family>
+    <Family name="Colonna MT">
+        <Font style="Regular" type="TTF" name="Colonna MT" localizedFamilyNames="" path="C:\WINDOWS\Fonts\COLONNA.TTF" offset="0" />
+    </Family>
+    <Family name="Comic Sans MS">
+        <Font style="Regular" type="TTF" name="Comic Sans MS" localizedFamilyNames="" path="C:\WINDOWS\Fonts\comic.ttf" offset="0" />
+        <Font style="Italic" type="TTF" name="Comic Sans MS Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\comici.ttf" offset="0" />
+        <Font style="Bold" type="TTF" name="Comic Sans MS Bold" localizedFamilyNames="" path="C:\WINDOWS\Fonts\comicbd.ttf" offset="0" />
+        <Font style="Bold Italic" type="TTF" name="Comic Sans MS Bold Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\comicz.ttf" offset="0" />
+    </Family>
+    <Family name="Consolas">
+        <Font style="Regular" type="TTF" name="Consolas" localizedFamilyNames="" path="C:\WINDOWS\Fonts\consola.ttf" offset="0" />
+        <Font style="Italic" type="TTF" name="Consolas Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\consolai.ttf" offset="0" />
+        <Font style="Bold" type="TTF" name="Consolas Bold" localizedFamilyNames="" path="C:\WINDOWS\Fonts\consolab.ttf" offset="0" />
+        <Font style="Bold Italic" type="TTF" name="Consolas Bold Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\consolaz.ttf" offset="0" />
+    </Family>
+    <Family name="Constantia">
+        <Font style="Regular" type="TTF" name="Constantia" localizedFamilyNames="" path="C:\WINDOWS\Fonts\constan.ttf" offset="0" />
+        <Font style="Italic" type="TTF" name="Constantia Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\constani.ttf" offset="0" />
+        <Font style="Bold" type="TTF" name="Constantia Bold" localizedFamilyNames="" path="C:\WINDOWS\Fonts\constanb.ttf" offset="0" />
+        <Font style="Bold Italic" type="TTF" name="Constantia Bold Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\constanz.ttf" offset="0" />
+    </Family>
+    <Family name="Cooper Black">
+        <Font style="Regular" type="TTF" name="Cooper Black" localizedFamilyNames="" path="C:\WINDOWS\Fonts\COOPBL.TTF" offset="0" />
+    </Family>
+    <Family name="Copperplate Gothic Bold">
+        <Font style="Regular" type="TTF" name="Copperplate Gothic Bold" localizedFamilyNames="" path="C:\WINDOWS\Fonts\COPRGTB.TTF" offset="0" />
+    </Family>
+    <Family name="Copperplate Gothic Light">
+        <Font style="Regular" type="TTF" name="Copperplate Gothic Light" localizedFamilyNames="" path="C:\WINDOWS\Fonts\COPRGTL.TTF" offset="0" />
+    </Family>
+    <Family name="Corbel">
+        <Font style="Regular" type="TTF" name="Corbel" localizedFamilyNames="" path="C:\WINDOWS\Fonts\corbel.ttf" offset="0" />
+        <Font style="Italic" type="TTF" name="Corbel Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\corbeli.ttf" offset="0" />
+        <Font style="Bold" type="TTF" name="Corbel Bold" localizedFamilyNames="" path="C:\WINDOWS\Fonts\corbelb.ttf" offset="0" />
+        <Font style="Bold Italic" type="TTF" name="Corbel Bold Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\corbelz.ttf" offset="0" />
+    </Family>
+    <Family name="Corbel Light">
+        <Font style="Regular" type="TTF" name="Corbel Light" localizedFamilyNames="" path="C:\WINDOWS\Fonts\corbell.ttf" offset="0" />
+        <Font style="Italic" type="TTF" name="Corbel Light Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\corbelli.ttf" offset="0" />
+    </Family>
+    <Family name="Courier New">
+        <Font style="Regular" type="TTF" name="Courier New" localizedFamilyNames="" path="C:\WINDOWS\Fonts\cour.ttf" offset="0" />
+        <Font style="Italic" type="TTF" name="Courier New Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\couri.ttf" offset="0" />
+        <Font style="Bold" type="TTF" name="Courier New Bold" localizedFamilyNames="" path="C:\WINDOWS\Fonts\courbd.ttf" offset="0" />
+        <Font style="Bold Italic" type="TTF" name="Courier New Bold Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\courbi.ttf" offset="0" />
+    </Family>
+    <Family name="Curlz MT">
+        <Font style="Regular" type="TTF" name="Curlz MT" localizedFamilyNames="" path="C:\WINDOWS\Fonts\CURLZ___.TTF" offset="0" />
+    </Family>
+    <Family name="Dubai">
+        <Font style="Regular" type="TTF" name="Dubai Regular" localizedFamilyNames="" path="C:\WINDOWS\Fonts\DUBAI-REGULAR.TTF" offset="0" />
+        <Font style="Bold" type="TTF" name="Dubai Bold" localizedFamilyNames="" path="C:\WINDOWS\Fonts\DUBAI-BOLD.TTF" offset="0" />
+    </Family>
+    <Family name="Dubai Light">
+        <Font style="Regular" type="TTF" name="Dubai Light" localizedFamilyNames="" path="C:\WINDOWS\Fonts\DUBAI-LIGHT.TTF" offset="0" />
+    </Family>
+    <Family name="Dubai Medium">
+        <Font style="Regular" type="TTF" name="Dubai Medium" localizedFamilyNames="" path="C:\WINDOWS\Fonts\DUBAI-MEDIUM.TTF" offset="0" />
+    </Family>
+    <Family name="Ebrima">
+        <Font style="Regular" type="TTF" name="Ebrima" localizedFamilyNames="" path="C:\WINDOWS\Fonts\ebrima.ttf" offset="0" />
+        <Font style="Bold" type="TTF" name="Ebrima Bold" localizedFamilyNames="" path="C:\WINDOWS\Fonts\ebrimabd.ttf" offset="0" />
+    </Family>
+    <Family name="Elephant">
+        <Font style="Regular" type="TTF" name="Elephant" localizedFamilyNames="" path="C:\WINDOWS\Fonts\ELEPHNT.TTF" offset="0" />
+        <Font style="Italic" type="TTF" name="Elephant Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\ELEPHNTI.TTF" offset="0" />
+    </Family>
+    <Family name="Engravers MT">
+        <Font style="Regular" type="TTF" name="Engravers MT" localizedFamilyNames="" path="C:\WINDOWS\Fonts\ENGR.TTF" offset="0" />
+    </Family>
+    <Family name="Eras Bold ITC">
+        <Font style="Regular" type="TTF" name="Eras Bold ITC" localizedFamilyNames="" path="C:\WINDOWS\Fonts\ERASBD.TTF" offset="0" />
+    </Family>
+    <Family name="Eras Demi ITC">
+        <Font style="Regular" type="TTF" name="Eras Demi ITC" localizedFamilyNames="" path="C:\WINDOWS\Fonts\ERASDEMI.TTF" offset="0" />
+    </Family>
+    <Family name="Eras Light ITC">
+        <Font style="Regular" type="TTF" name="Eras Light ITC" localizedFamilyNames="" path="C:\WINDOWS\Fonts\ERASLGHT.TTF" offset="0" />
+    </Family>
+    <Family name="Eras Medium ITC">
+        <Font style="Regular" type="TTF" name="Eras Medium ITC" localizedFamilyNames="" path="C:\WINDOWS\Fonts\ERASMD.TTF" offset="0" />
+    </Family>
+    <Family name="Felix Titling">
+        <Font style="Regular" type="TTF" name="Felix Titling" localizedFamilyNames="" path="C:\WINDOWS\Fonts\FELIXTI.TTF" offset="0" />
+    </Family>
+    <Family name="Forte">
+        <Font style="Regular" type="TTF" name="Forte" localizedFamilyNames="" path="C:\WINDOWS\Fonts\FORTE.TTF" offset="0" />
+    </Family>
+    <Family name="Franklin Gothic Book">
+        <Font style="Regular" type="TTF" name="Franklin Gothic Book" localizedFamilyNames="" path="C:\WINDOWS\Fonts\FRABK.TTF" offset="0" />
+        <Font style="Italic" type="TTF" name="Franklin Gothic Book Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\FRABKIT.TTF" offset="0" />
+    </Family>
+    <Family name="Franklin Gothic Demi">
+        <Font style="Regular" type="TTF" name="Franklin Gothic Demi" localizedFamilyNames="" path="C:\WINDOWS\Fonts\FRADM.TTF" offset="0" />
+        <Font style="Italic" type="TTF" name="Franklin Gothic Demi Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\FRADMIT.TTF" offset="0" />
+    </Family>
+    <Family name="Franklin Gothic Demi Cond">
+        <Font style="Regular" type="TTF" name="Franklin Gothic Demi Cond" localizedFamilyNames="" path="C:\WINDOWS\Fonts\FRADMCN.TTF" offset="0" />
+    </Family>
+    <Family name="Franklin Gothic Heavy">
+        <Font style="Regular" type="TTF" name="Franklin Gothic Heavy" localizedFamilyNames="" path="C:\WINDOWS\Fonts\FRAHV.TTF" offset="0" />
+        <Font style="Italic" type="TTF" name="Franklin Gothic Heavy Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\FRAHVIT.TTF" offset="0" />
+    </Family>
+    <Family name="Franklin Gothic Medium">
+        <Font style="Regular" type="TTF" name="Franklin Gothic Medium" localizedFamilyNames="" path="C:\WINDOWS\Fonts\framd.ttf" offset="0" />
+        <Font style="Italic" type="TTF" name="Franklin Gothic Medium Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\framdit.ttf" offset="0" />
+    </Family>
+    <Family name="Franklin Gothic Medium Cond">
+        <Font style="Regular" type="TTF" name="Franklin Gothic Medium Cond" localizedFamilyNames="" path="C:\WINDOWS\Fonts\FRAMDCN.TTF" offset="0" />
+    </Family>
+    <Family name="Freestyle Script">
+        <Font style="Regular" type="TTF" name="Freestyle Script" localizedFamilyNames="" path="C:\WINDOWS\Fonts\FREESCPT.TTF" offset="0" />
+    </Family>
+    <Family name="French Script MT">
+        <Font style="Regular" type="TTF" name="French Script MT" localizedFamilyNames="" path="C:\WINDOWS\Fonts\FRSCRIPT.TTF" offset="0" />
+    </Family>
+    <Family name="Footlight MT Light">
+        <Font style="Regular" type="TTF" name="Footlight MT Light" localizedFamilyNames="" path="C:\WINDOWS\Fonts\FTLTLT.TTF" offset="0" />
+    </Family>
+    <Family name="Gabriola">
+        <Font style="Regular" type="TTF" name="Gabriola" localizedFamilyNames="" path="C:\WINDOWS\Fonts\Gabriola.ttf" offset="0" />
+    </Family>
+    <Family name="Gadugi">
+        <Font style="Regular" type="TTF" name="Gadugi" localizedFamilyNames="" path="C:\WINDOWS\Fonts\gadugi.ttf" offset="0" />
+        <Font style="Bold" type="TTF" name="Gadugi Bold" localizedFamilyNames="" path="C:\WINDOWS\Fonts\gadugib.ttf" offset="0" />
+    </Family>
+    <Family name="Garamond">
+        <Font style="Regular" type="TTF" name="Garamond" localizedFamilyNames="" path="C:\WINDOWS\Fonts\GARA.TTF" offset="0" />
+        <Font style="Italic" type="TTF" name="Garamond Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\GARAIT.TTF" offset="0" />
+        <Font style="Bold" type="TTF" name="Garamond Bold" localizedFamilyNames="" path="C:\WINDOWS\Fonts\GARABD.TTF" offset="0" />
+    </Family>
+    <Family name="Georgia">
+        <Font style="Regular" type="TTF" name="Georgia" localizedFamilyNames="" path="C:\WINDOWS\Fonts\georgia.ttf" offset="0" />
+        <Font style="Italic" type="TTF" name="Georgia Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\georgiai.ttf" offset="0" />
+        <Font style="Bold" type="TTF" name="Georgia Bold" localizedFamilyNames="" path="C:\WINDOWS\Fonts\georgiab.ttf" offset="0" />
+        <Font style="Bold Italic" type="TTF" name="Georgia Bold Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\georgiaz.ttf" offset="0" />
+    </Family>
+    <Family name="Gigi">
+        <Font style="Regular" type="TTF" name="Gigi" localizedFamilyNames="" path="C:\WINDOWS\Fonts\GIGI.TTF" offset="0" />
+    </Family>
+    <Family name="Gill Sans MT">
+        <Font style="Regular" type="TTF" name="Gill Sans MT" localizedFamilyNames="" path="C:\WINDOWS\Fonts\GIL_____.TTF" offset="0" />
+        <Font style="Italic" type="TTF" name="Gill Sans MT Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\GILI____.TTF" offset="0" />
+        <Font style="Bold" type="TTF" name="Gill Sans MT Bold" localizedFamilyNames="" path="C:\WINDOWS\Fonts\GILB____.TTF" offset="0" />
+        <Font style="Bold Italic" type="TTF" name="Gill Sans MT Bold Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\GILBI___.TTF" offset="0" />
+    </Family>
+    <Family name="Gill Sans MT Condensed">
+        <Font style="Regular" type="TTF" name="Gill Sans MT Condensed" localizedFamilyNames="" path="C:\WINDOWS\Fonts\GILC____.TTF" offset="0" />
+    </Family>
+    <Family name="Gill Sans Ultra Bold Condensed">
+        <Font style="Regular" type="TTF" name="Gill Sans Ultra Bold Condensed" localizedFamilyNames="" path="C:\WINDOWS\Fonts\GILLUBCD.TTF" offset="0" />
+    </Family>
+    <Family name="Gill Sans Ultra Bold">
+        <Font style="Regular" type="TTF" name="Gill Sans Ultra Bold" localizedFamilyNames="" path="C:\WINDOWS\Fonts\GILSANUB.TTF" offset="0" />
+    </Family>
+    <Family name="Gloucester MT Extra Condensed">
+        <Font style="Regular" type="TTF" name="Gloucester MT Extra Condensed" localizedFamilyNames="" path="C:\WINDOWS\Fonts\GLECB.TTF" offset="0" />
+    </Family>
+    <Family name="Gill Sans MT Ext Condensed Bold">
+        <Font style="Regular" type="TTF" name="Gill Sans MT Ext Condensed Bold" localizedFamilyNames="" path="C:\WINDOWS\Fonts\GLSNECB.TTF" offset="0" />
+    </Family>
+    <Family name="Century Gothic">
+        <Font style="Regular" type="TTF" name="Century Gothic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\GOTHIC.TTF" offset="0" />
+        <Font style="Italic" type="TTF" name="Century Gothic Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\GOTHICI.TTF" offset="0" />
+        <Font style="Bold" type="TTF" name="Century Gothic Bold" localizedFamilyNames="" path="C:\WINDOWS\Fonts\GOTHICB.TTF" offset="0" />
+        <Font style="Bold Italic" type="TTF" name="Century Gothic Bold Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\GOTHICBI.TTF" offset="0" />
+    </Family>
+    <Family name="Goudy Old Style">
+        <Font style="Regular" type="TTF" name="Goudy Old Style" localizedFamilyNames="" path="C:\WINDOWS\Fonts\GOUDOS.TTF" offset="0" />
+        <Font style="Italic" type="TTF" name="Goudy Old Style Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\GOUDOSI.TTF" offset="0" />
+        <Font style="Bold" type="TTF" name="Goudy Old Style Bold" localizedFamilyNames="" path="C:\WINDOWS\Fonts\GOUDOSB.TTF" offset="0" />
+    </Family>
+    <Family name="Goudy Stout">
+        <Font style="Regular" type="TTF" name="Goudy Stout" localizedFamilyNames="" path="C:\WINDOWS\Fonts\GOUDYSTO.TTF" offset="0" />
+    </Family>
+    <Family name="Harlow Solid Italic">
+        <Font style="Italic" type="TTF" name="Harlow Solid Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\HARLOWSI.TTF" offset="0" />
+    </Family>
+    <Family name="Harrington">
+        <Font style="Regular" type="TTF" name="Harrington" localizedFamilyNames="" path="C:\WINDOWS\Fonts\HARNGTON.TTF" offset="0" />
+    </Family>
+    <Family name="Haettenschweiler">
+        <Font style="Regular" type="TTF" name="Haettenschweiler" localizedFamilyNames="" path="C:\WINDOWS\Fonts\HATTEN.TTF" offset="0" />
+    </Family>
+    <Family name="Microsoft Himalaya">
+        <Font style="Regular" type="TTF" name="Microsoft Himalaya" localizedFamilyNames="" path="C:\WINDOWS\Fonts\himalaya.ttf" offset="0" />
+    </Family>
+    <Family name="HoloLens MDL2 Assets">
+        <Font style="Regular" type="TTF" name="HoloLens MDL2 Assets" localizedFamilyNames="" path="C:\WINDOWS\Fonts\holomdl2.ttf" offset="0" />
+    </Family>
+    <Family name="High Tower Text">
+        <Font style="Regular" type="TTF" name="High Tower Text" localizedFamilyNames="" path="C:\WINDOWS\Fonts\HTOWERT.TTF" offset="0" />
+        <Font style="Italic" type="TTF" name="High Tower Text Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\HTOWERTI.TTF" offset="0" />
+    </Family>
+    <Family name="Impact">
+        <Font style="Regular" type="TTF" name="Impact" localizedFamilyNames="" path="C:\WINDOWS\Fonts\impact.ttf" offset="0" />
+    </Family>
+    <Family name="Imprint MT Shadow">
+        <Font style="Regular" type="TTF" name="Imprint MT Shadow" localizedFamilyNames="" path="C:\WINDOWS\Fonts\IMPRISHA.TTF" offset="0" />
+    </Family>
+    <Family name="Informal Roman">
+        <Font style="Regular" type="TTF" name="Informal Roman" localizedFamilyNames="" path="C:\WINDOWS\Fonts\INFROMAN.TTF" offset="0" />
+    </Family>
+    <Family name="Ink Free">
+        <Font style="Regular" type="TTF" name="Ink Free" localizedFamilyNames="" path="C:\WINDOWS\Fonts\Inkfree.ttf" offset="0" />
+    </Family>
+    <Family name="Blackadder ITC">
+        <Font style="Regular" type="TTF" name="Blackadder ITC" localizedFamilyNames="" path="C:\WINDOWS\Fonts\ITCBLKAD.TTF" offset="0" />
+    </Family>
+    <Family name="Edwardian Script ITC">
+        <Font style="Regular" type="TTF" name="Edwardian Script ITC" localizedFamilyNames="" path="C:\WINDOWS\Fonts\ITCEDSCR.TTF" offset="0" />
+    </Family>
+    <Family name="Kristen ITC">
+        <Font style="Regular" type="TTF" name="Kristen ITC" localizedFamilyNames="" path="C:\WINDOWS\Fonts\ITCKRIST.TTF" offset="0" />
+    </Family>
+    <Family name="Javanese Text">
+        <Font style="Regular" type="TTF" name="Javanese Text" localizedFamilyNames="" path="C:\WINDOWS\Fonts\javatext.ttf" offset="0" />
+    </Family>
+    <Family name="Jokerman">
+        <Font style="Regular" type="TTF" name="Jokerman" localizedFamilyNames="" path="C:\WINDOWS\Fonts\JOKERMAN.TTF" offset="0" />
+    </Family>
+    <Family name="Juice ITC">
+        <Font style="Regular" type="TTF" name="Juice ITC" localizedFamilyNames="" path="C:\WINDOWS\Fonts\JUICE___.TTF" offset="0" />
+    </Family>
+    <Family name="Kunstler Script">
+        <Font style="Regular" type="TTF" name="Kunstler Script" localizedFamilyNames="" path="C:\WINDOWS\Fonts\KUNSTLER.TTF" offset="0" />
+    </Family>
+    <Family name="Wide Latin">
+        <Font style="Regular" type="TTF" name="Wide Latin" localizedFamilyNames="" path="C:\WINDOWS\Fonts\LATINWD.TTF" offset="0" />
+    </Family>
+    <Family name="Lucida Bright">
+        <Font style="Regular" type="TTF" name="Lucida Bright" localizedFamilyNames="" path="C:\WINDOWS\Fonts\LBRITE.TTF" offset="0" />
+        <Font style="Italic" type="TTF" name="Lucida Bright Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\LBRITEI.TTF" offset="0" />
+    </Family>
+    <Family name="Lucida Calligraphy">
+        <Font style="Italic" type="TTF" name="Lucida Calligraphy Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\LCALLIG.TTF" offset="0" />
+    </Family>
+    <Family name="Leelawadee UI">
+        <Font style="Regular" type="TTF" name="Leelawadee UI" localizedFamilyNames="" path="C:\WINDOWS\Fonts\LeelawUI.ttf" offset="0" />
+        <Font style="Bold" type="TTF" name="Leelawadee UI Bold" localizedFamilyNames="" path="C:\WINDOWS\Fonts\LeelaUIb.ttf" offset="0" />
+    </Family>
+    <Family name="Leelawadee">
+        <Font style="Regular" type="TTF" name="Leelawadee" localizedFamilyNames="" path="C:\WINDOWS\Fonts\LEELAWAD.TTF" offset="0" />
+        <Font style="Bold" type="TTF" name="Leelawadee Bold" localizedFamilyNames="" path="C:\WINDOWS\Fonts\LEELAWDB.TTF" offset="0" />
+    </Family>
+    <Family name="Leelawadee UI Semilight">
+        <Font style="Regular" type="TTF" name="Leelawadee UI Semilight" localizedFamilyNames="" path="C:\WINDOWS\Fonts\LeelUIsl.ttf" offset="0" />
+    </Family>
+    <Family name="Lucida Fax">
+        <Font style="Regular" type="TTF" name="Lucida Fax Regular" localizedFamilyNames="" path="C:\WINDOWS\Fonts\LFAX.TTF" offset="0" />
+        <Font style="Italic" type="TTF" name="Lucida Fax Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\LFAXI.TTF" offset="0" />
+    </Family>
+    <Family name="Lucida Handwriting">
+        <Font style="Italic" type="TTF" name="Lucida Handwriting Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\LHANDW.TTF" offset="0" />
+    </Family>
+    <Family name="Lucida Sans">
+        <Font style="Regular" type="TTF" name="Lucida Sans Regular" localizedFamilyNames="" path="C:\WINDOWS\Fonts\LSANS.TTF" offset="0" />
+        <Font style="Italic" type="TTF" name="Lucida Sans Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\LSANSI.TTF" offset="0" />
+    </Family>
+    <Family name="Lucida Sans Typewriter">
+        <Font style="Regular" type="TTF" name="Lucida Sans Typewriter Regular" localizedFamilyNames="" path="C:\WINDOWS\Fonts\LTYPE.TTF" offset="0" />
+        <Font style="Bold" type="TTF" name="Lucida Sans Typewriter Bold" localizedFamilyNames="" path="C:\WINDOWS\Fonts\LTYPEB.TTF" offset="0" />
+    </Family>
+    <Family name="Lucida Console">
+        <Font style="Regular" type="TTF" name="Lucida Console" localizedFamilyNames="" path="C:\WINDOWS\Fonts\lucon.ttf" offset="0" />
+    </Family>
+    <Family name="Lucida Sans Unicode">
+        <Font style="Regular" type="TTF" name="Lucida Sans Unicode" localizedFamilyNames="" path="C:\WINDOWS\Fonts\l_10646.ttf" offset="0" />
+    </Family>
+    <Family name="Magneto">
+        <Font style="Bold" type="TTF" name="Magneto Bold" localizedFamilyNames="" path="C:\WINDOWS\Fonts\MAGNETOB.TTF" offset="0" />
+    </Family>
+    <Family name="Maiandra GD">
+        <Font style="Regular" type="TTF" name="Maiandra GD" localizedFamilyNames="" path="C:\WINDOWS\Fonts\MAIAN.TTF" offset="0" />
+    </Family>
+    <Family name="Malgun Gothic">
+        <Font style="Regular" type="TTF" name="Malgun Gothic" localizedFamilyNames="맑은 고딕" path="C:\WINDOWS\Fonts\malgun.ttf" offset="0" />
+        <Font style="Bold" type="TTF" name="Malgun Gothic Bold" localizedFamilyNames="맑은 고딕" path="C:\WINDOWS\Fonts\malgunbd.ttf" offset="0" />
+    </Family>
+    <Family name="Malgun Gothic Semilight">
+        <Font style="Regular" type="TTF" name="Malgun Gothic Semilight" localizedFamilyNames="맑은 고딕 Semilight" path="C:\WINDOWS\Fonts\malgunsl.ttf" offset="0" />
+    </Family>
+    <Family name="Marlett">
+        <Font style="Regular" type="TTF" name="Marlett" localizedFamilyNames="" path="C:\WINDOWS\Fonts\marlett.ttf" offset="0" />
+    </Family>
+    <Family name="Matura MT Script Capitals">
+        <Font style="Regular" type="TTF" name="Matura MT Script Capitals" localizedFamilyNames="" path="C:\WINDOWS\Fonts\MATURASC.TTF" offset="0" />
+    </Family>
+    <Family name="Microsoft Sans Serif">
+        <Font style="Regular" type="TTF" name="Microsoft Sans Serif" localizedFamilyNames="" path="C:\WINDOWS\Fonts\micross.ttf" offset="0" />
+    </Family>
+    <Family name="MingLiU-ExtB">
+        <Font style="Regular" type="TTF" name="MingLiU-ExtB" localizedFamilyNames="細明體-ExtB;細明體-ExtB" path="C:\WINDOWS\Fonts\mingliub.ttc" offset="36" />
+    </Family>
+    <Family name="PMingLiU-ExtB">
+        <Font style="Regular" type="TTF" name="PMingLiU-ExtB" localizedFamilyNames="新細明體-ExtB;新細明體-ExtB" path="C:\WINDOWS\Fonts\mingliub.ttc" offset="336" />
+    </Family>
+    <Family name="MingLiU_HKSCS-ExtB">
+        <Font style="Regular" type="TTF" name="MingLiU_HKSCS-ExtB" localizedFamilyNames="細明體_HKSCS-ExtB;細明體_HKSCS-ExtB" path="C:\WINDOWS\Fonts\mingliub.ttc" offset="636" />
+    </Family>
+    <Family name="Mistral">
+        <Font style="Regular" type="TTF" name="Mistral" localizedFamilyNames="" path="C:\WINDOWS\Fonts\MISTRAL.TTF" offset="0" />
+    </Family>
+    <Family name="Myanmar Text">
+        <Font style="Regular" type="TTF" name="Myanmar Text" localizedFamilyNames="" path="C:\WINDOWS\Fonts\mmrtext.ttf" offset="0" />
+        <Font style="Bold" type="TTF" name="Myanmar Text Bold" localizedFamilyNames="" path="C:\WINDOWS\Fonts\mmrtextb.ttf" offset="0" />
+    </Family>
+    <Family name="Modern No. 20">
+        <Font style="Regular" type="TTF" name="Modern No. 20" localizedFamilyNames="" path="C:\WINDOWS\Fonts\MOD20.TTF" offset="0" />
+    </Family>
+    <Family name="Mongolian Baiti">
+        <Font style="Regular" type="TTF" name="Mongolian Baiti" localizedFamilyNames="" path="C:\WINDOWS\Fonts\monbaiti.ttf" offset="0" />
+    </Family>
+    <Family name="MS Gothic">
+        <Font style="Regular" type="TTF" name="MS Gothic" localizedFamilyNames="ＭＳ ゴシック;ＭＳ ゴシック" path="C:\WINDOWS\Fonts\msgothic.ttc" offset="36" />
+    </Family>
+    <Family name="MS UI Gothic">
+        <Font style="Regular" type="TTF" name="MS UI Gothic" localizedFamilyNames="MS UI Gothic;MS UI Gothic" path="C:\WINDOWS\Fonts\msgothic.ttc" offset="416" />
+    </Family>
+    <Family name="MS PGothic">
+        <Font style="Regular" type="TTF" name="MS PGothic" localizedFamilyNames="ＭＳ Ｐゴシック;ＭＳ Ｐゴシック" path="C:\WINDOWS\Fonts\msgothic.ttc" offset="812" />
+    </Family>
+    <Family name="Microsoft JhengHei">
+        <Font style="Regular" type="TTF" name="Microsoft JhengHei" localizedFamilyNames="微軟正黑體;微軟正黑體" path="C:\WINDOWS\Fonts\msjh.ttc" offset="32" />
+        <Font style="Bold" type="TTF" name="Microsoft JhengHei Bold" localizedFamilyNames="微軟正黑體;微軟正黑體" path="C:\WINDOWS\Fonts\msjhbd.ttc" offset="32" />
+    </Family>
+    <Family name="Microsoft JhengHei UI">
+        <Font style="Regular" type="TTF" name="Microsoft JhengHei UI" localizedFamilyNames="Microsoft JhengHei UI;Microsoft JhengHei UI" path="C:\WINDOWS\Fonts\msjh.ttc" offset="444" />
+        <Font style="Bold" type="TTF" name="Microsoft JhengHei UI Bold" localizedFamilyNames="Microsoft JhengHei UI;Microsoft JhengHei UI" path="C:\WINDOWS\Fonts\msjhbd.ttc" offset="444" />
+    </Family>
+    <Family name="Microsoft JhengHei Light">
+        <Font style="Regular" type="TTF" name="Microsoft JhengHei Light" localizedFamilyNames="微軟正黑體 Light;微軟正黑體 Light" path="C:\WINDOWS\Fonts\msjhl.ttc" offset="32" />
+    </Family>
+    <Family name="Microsoft JhengHei UI Light">
+        <Font style="Regular" type="TTF" name="Microsoft JhengHei UI Light" localizedFamilyNames="Microsoft JhengHei UI Light;Microsoft JhengHei UI Light" path="C:\WINDOWS\Fonts\msjhl.ttc" offset="444" />
+    </Family>
+    <Family name="Microsoft Uighur">
+        <Font style="Regular" type="TTF" name="Microsoft Uighur" localizedFamilyNames="" path="C:\WINDOWS\Fonts\MSUIGHUR.TTF" offset="0" />
+        <Font style="Bold" type="TTF" name="Microsoft Uighur Bold" localizedFamilyNames="" path="C:\WINDOWS\Fonts\MSUIGHUB.TTF" offset="0" />
+    </Family>
+    <Family name="Microsoft YaHei">
+        <Font style="Regular" type="TTF" name="Microsoft YaHei" localizedFamilyNames="微软雅黑" path="C:\WINDOWS\Fonts\msyh.ttc" offset="32" />
+        <Font style="Bold" type="TTF" name="Microsoft YaHei Bold" localizedFamilyNames="微软雅黑" path="C:\WINDOWS\Fonts\msyhbd.ttc" offset="32" />
+    </Family>
+    <Family name="Microsoft YaHei UI">
+        <Font style="Regular" type="TTF" name="Microsoft YaHei UI" localizedFamilyNames="Microsoft YaHei UI" path="C:\WINDOWS\Fonts\msyh.ttc" offset="444" />
+        <Font style="Bold" type="TTF" name="Microsoft YaHei UI Bold" localizedFamilyNames="Microsoft YaHei UI" path="C:\WINDOWS\Fonts\msyhbd.ttc" offset="444" />
+    </Family>
+    <Family name="Microsoft YaHei Light">
+        <Font style="Regular" type="TTF" name="Microsoft YaHei Light" localizedFamilyNames="微软雅黑 Light" path="C:\WINDOWS\Fonts\msyhl.ttc" offset="32" />
+    </Family>
+    <Family name="Microsoft YaHei UI Light">
+        <Font style="Regular" type="TTF" name="Microsoft YaHei UI Light" localizedFamilyNames="Microsoft YaHei UI Light" path="C:\WINDOWS\Fonts\msyhl.ttc" offset="444" />
+    </Family>
+    <Family name="Microsoft Yi Baiti">
+        <Font style="Regular" type="TTF" name="Microsoft Yi Baiti" localizedFamilyNames="" path="C:\WINDOWS\Fonts\msyi.ttf" offset="0" />
+    </Family>
+    <Family name="Monotype Corsiva">
+        <Font style="Regular" type="TTF" name="Monotype Corsiva" localizedFamilyNames="" path="C:\WINDOWS\Fonts\MTCORSVA.TTF" offset="0" />
+    </Family>
+    <Family name="MT Extra">
+        <Font style="Regular" type="TTF" name="MT Extra" localizedFamilyNames="" path="C:\WINDOWS\Fonts\MTEXTRA.TTF" offset="0" />
+    </Family>
+    <Family name="MV Boli">
+        <Font style="Regular" type="TTF" name="MV Boli" localizedFamilyNames="" path="C:\WINDOWS\Fonts\mvboli.ttf" offset="0" />
+    </Family>
+    <Family name="Niagara Engraved">
+        <Font style="Regular" type="TTF" name="Niagara Engraved" localizedFamilyNames="" path="C:\WINDOWS\Fonts\NIAGENG.TTF" offset="0" />
+    </Family>
+    <Family name="Niagara Solid">
+        <Font style="Regular" type="TTF" name="Niagara Solid" localizedFamilyNames="" path="C:\WINDOWS\Fonts\NIAGSOL.TTF" offset="0" />
+    </Family>
+    <Family name="Nina">
+        <Font style="Regular" type="TTF" name="Nina" localizedFamilyNames="" path="C:\WINDOWS\Fonts\nina.ttf" offset="0" />
+        <Font style="Bold" type="TTF" name="Nina Bold" localizedFamilyNames="" path="C:\WINDOWS\Fonts\ninab.ttf" offset="0" />
+    </Family>
+    <Family name="Nirmala UI">
+        <Font style="Regular" type="TTF" name="Nirmala UI" localizedFamilyNames="" path="C:\WINDOWS\Fonts\Nirmala.ttf" offset="0" />
+        <Font style="Bold" type="TTF" name="Nirmala UI Bold" localizedFamilyNames="" path="C:\WINDOWS\Fonts\NirmalaB.ttf" offset="0" />
+    </Family>
+    <Family name="Nirmala UI Semilight">
+        <Font style="Regular" type="TTF" name="Nirmala UI Semilight" localizedFamilyNames="" path="C:\WINDOWS\Fonts\NirmalaS.ttf" offset="0" />
+    </Family>
+    <Family name="Microsoft New Tai Lue">
+        <Font style="Regular" type="TTF" name="Microsoft New Tai Lue" localizedFamilyNames="" path="C:\WINDOWS\Fonts\ntailu.ttf" offset="0" />
+        <Font style="Bold" type="TTF" name="Microsoft New Tai Lue Bold" localizedFamilyNames="" path="C:\WINDOWS\Fonts\ntailub.ttf" offset="0" />
+    </Family>
+    <Family name="OCR A Extended">
+        <Font style="Regular" type="TTF" name="OCR A Extended" localizedFamilyNames="" path="C:\WINDOWS\Fonts\OCRAEXT.TTF" offset="0" />
+    </Family>
+    <Family name="Old English Text MT">
+        <Font style="Regular" type="TTF" name="Old English Text MT" localizedFamilyNames="" path="C:\WINDOWS\Fonts\OLDENGL.TTF" offset="0" />
+    </Family>
+    <Family name="Onyx">
+        <Font style="Regular" type="TTF" name="Onyx" localizedFamilyNames="" path="C:\WINDOWS\Fonts\ONYX.TTF" offset="0" />
+    </Family>
+    <Family name="MS Outlook">
+        <Font style="Regular" type="TTF" name="MS Outlook" localizedFamilyNames="" path="C:\WINDOWS\Fonts\OUTLOOK.TTF" offset="0" />
+    </Family>
+    <Family name="Palatino Linotype">
+        <Font style="Regular" type="TTF" name="Palatino Linotype" localizedFamilyNames="" path="C:\WINDOWS\Fonts\pala.ttf" offset="0" />
+        <Font style="Italic" type="TTF" name="Palatino Linotype Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\palai.ttf" offset="0" />
+        <Font style="Bold" type="TTF" name="Palatino Linotype Bold" localizedFamilyNames="" path="C:\WINDOWS\Fonts\palab.ttf" offset="0" />
+        <Font style="Bold Italic" type="TTF" name="Palatino Linotype Bold Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\palabi.ttf" offset="0" />
+    </Family>
+    <Family name="Palace Script MT">
+        <Font style="Regular" type="TTF" name="Palace Script MT" localizedFamilyNames="" path="C:\WINDOWS\Fonts\PALSCRI.TTF" offset="0" />
+    </Family>
+    <Family name="Papyrus">
+        <Font style="Regular" type="TTF" name="Papyrus" localizedFamilyNames="" path="C:\WINDOWS\Fonts\PAPYRUS.TTF" offset="0" />
+    </Family>
+    <Family name="Parchment">
+        <Font style="Regular" type="TTF" name="Parchment" localizedFamilyNames="" path="C:\WINDOWS\Fonts\PARCHM.TTF" offset="0" />
+    </Family>
+    <Family name="Perpetua">
+        <Font style="Regular" type="TTF" name="Perpetua" localizedFamilyNames="" path="C:\WINDOWS\Fonts\PER_____.TTF" offset="0" />
+        <Font style="Italic" type="TTF" name="Perpetua Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\PERI____.TTF" offset="0" />
+        <Font style="Bold" type="TTF" name="Perpetua Bold" localizedFamilyNames="" path="C:\WINDOWS\Fonts\PERB____.TTF" offset="0" />
+        <Font style="Bold Italic" type="TTF" name="Perpetua Bold Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\PERBI___.TTF" offset="0" />
+    </Family>
+    <Family name="Perpetua Titling MT">
+        <Font style="Light" type="TTF" name="Perpetua Titling MT Light" localizedFamilyNames="" path="C:\WINDOWS\Fonts\PERTILI.TTF" offset="0" />
+        <Font style="Bold" type="TTF" name="Perpetua Titling MT Bold" localizedFamilyNames="" path="C:\WINDOWS\Fonts\PERTIBD.TTF" offset="0" />
+    </Family>
+    <Family name="Microsoft PhagsPa">
+        <Font style="Regular" type="TTF" name="Microsoft PhagsPa" localizedFamilyNames="" path="C:\WINDOWS\Fonts\phagspa.ttf" offset="0" />
+        <Font style="Bold" type="TTF" name="Microsoft PhagsPa Bold" localizedFamilyNames="" path="C:\WINDOWS\Fonts\phagspab.ttf" offset="0" />
+    </Family>
+    <Family name="Playbill">
+        <Font style="Regular" type="TTF" name="Playbill" localizedFamilyNames="" path="C:\WINDOWS\Fonts\PLAYBILL.TTF" offset="0" />
+    </Family>
+    <Family name="Poor Richard">
+        <Font style="Regular" type="TTF" name="Poor Richard" localizedFamilyNames="" path="C:\WINDOWS\Fonts\POORICH.TTF" offset="0" />
+    </Family>
+    <Family name="Pristina">
+        <Font style="Regular" type="TTF" name="Pristina" localizedFamilyNames="" path="C:\WINDOWS\Fonts\PRISTINA.TTF" offset="0" />
+    </Family>
+    <Family name="Rage Italic">
+        <Font style="Regular" type="TTF" name="Rage Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\RAGE.TTF" offset="0" />
+    </Family>
+    <Family name="Ravie">
+        <Font style="Regular" type="TTF" name="Ravie" localizedFamilyNames="" path="C:\WINDOWS\Fonts\RAVIE.TTF" offset="0" />
+    </Family>
+    <Family name="MS Reference Sans Serif">
+        <Font style="Regular" type="TTF" name="MS Reference Sans Serif" localizedFamilyNames="" path="C:\WINDOWS\Fonts\REFSAN.TTF" offset="0" />
+    </Family>
+    <Family name="MS Reference Specialty">
+        <Font style="Regular" type="TTF" name="MS Reference Specialty" localizedFamilyNames="" path="C:\WINDOWS\Fonts\REFSPCL.TTF" offset="0" />
+    </Family>
+    <Family name="Rockwell Condensed">
+        <Font style="Regular" type="TTF" name="Rockwell Condensed" localizedFamilyNames="" path="C:\WINDOWS\Fonts\ROCC____.TTF" offset="0" />
+        <Font style="Bold" type="TTF" name="Rockwell Condensed Bold" localizedFamilyNames="" path="C:\WINDOWS\Fonts\ROCCB___.TTF" offset="0" />
+    </Family>
+    <Family name="Rockwell">
+        <Font style="Regular" type="TTF" name="Rockwell" localizedFamilyNames="" path="C:\WINDOWS\Fonts\ROCK.TTF" offset="0" />
+        <Font style="Italic" type="TTF" name="Rockwell Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\ROCKI.TTF" offset="0" />
+        <Font style="Bold" type="TTF" name="Rockwell Bold" localizedFamilyNames="" path="C:\WINDOWS\Fonts\ROCKB.TTF" offset="0" />
+        <Font style="Bold Italic" type="TTF" name="Rockwell Bold Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\ROCKBI.TTF" offset="0" />
+    </Family>
+    <Family name="Rockwell Extra Bold">
+        <Font style="Regular" type="TTF" name="Rockwell Extra Bold" localizedFamilyNames="" path="C:\WINDOWS\Fonts\ROCKEB.TTF" offset="0" />
+    </Family>
+    <Family name="Sans Serif Collection">
+        <Font style="Regular" type="TTF" name="Sans Serif Collection" localizedFamilyNames="" path="C:\WINDOWS\Fonts\SansSerifCollection.ttf" offset="0" />
+    </Family>
+    <Family name="Script MT Bold">
+        <Font style="Regular" type="TTF" name="Script MT Bold" localizedFamilyNames="" path="C:\WINDOWS\Fonts\SCRIPTBL.TTF" offset="0" />
+    </Family>
+    <Family name="Segoe MDL2 Assets">
+        <Font style="Regular" type="TTF" name="Segoe MDL2 Assets" localizedFamilyNames="" path="C:\WINDOWS\Fonts\segmdl2.ttf" offset="0" />
+    </Family>
+    <Family name="Segoe Condensed">
+        <Font style="Regular" type="TTF" name="Segoe Condensed" localizedFamilyNames="" path="C:\WINDOWS\Fonts\segoe.ttf" offset="0" />
+        <Font style="Bold" type="TTF" name="Segoe Condensed Bold" localizedFamilyNames="" path="C:\WINDOWS\Fonts\segoeb.ttf" offset="0" />
+    </Family>
+    <Family name="Segoe Fluent Icons">
+        <Font style="Regular" type="TTF" name="Segoe Fluent Icons" localizedFamilyNames="" path="C:\WINDOWS\Fonts\SegoeIcons.ttf" offset="0" />
+    </Family>
+    <Family name="Segoe Print">
+        <Font style="Regular" type="TTF" name="Segoe Print" localizedFamilyNames="" path="C:\WINDOWS\Fonts\segoepr.ttf" offset="0" />
+        <Font style="Bold" type="TTF" name="Segoe Print Bold" localizedFamilyNames="" path="C:\WINDOWS\Fonts\segoeprb.ttf" offset="0" />
+    </Family>
+    <Family name="Segoe Script">
+        <Font style="Regular" type="TTF" name="Segoe Script" localizedFamilyNames="" path="C:\WINDOWS\Fonts\segoesc.ttf" offset="0" />
+        <Font style="Bold" type="TTF" name="Segoe Script Bold" localizedFamilyNames="" path="C:\WINDOWS\Fonts\segoescb.ttf" offset="0" />
+    </Family>
+    <Family name="Segoe UI">
+        <Font style="Regular" type="TTF" name="Segoe UI" localizedFamilyNames="" path="C:\WINDOWS\Fonts\segoeui.ttf" offset="0" />
+        <Font style="Italic" type="TTF" name="Segoe UI Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\segoeuii.ttf" offset="0" />
+        <Font style="Bold" type="TTF" name="Segoe UI Bold" localizedFamilyNames="" path="C:\WINDOWS\Fonts\segoeuib.ttf" offset="0" />
+        <Font style="Bold Italic" type="TTF" name="Segoe UI Bold Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\segoeuiz.ttf" offset="0" />
+    </Family>
+    <Family name="Segoe UI Light">
+        <Font style="Regular" type="TTF" name="Segoe UI Light" localizedFamilyNames="" path="C:\WINDOWS\Fonts\segoeuil.ttf" offset="0" />
+        <Font style="Italic" type="TTF" name="Segoe UI Light Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\seguili.ttf" offset="0" />
+    </Family>
+    <Family name="Segoe UI Semilight">
+        <Font style="Regular" type="TTF" name="Segoe UI Semilight" localizedFamilyNames="" path="C:\WINDOWS\Fonts\segoeuisl.ttf" offset="0" />
+        <Font style="Italic" type="TTF" name="Segoe UI Semilight Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\seguisli.ttf" offset="0" />
+    </Family>
+    <Family name="Segoe UI Black">
+        <Font style="Regular" type="TTF" name="Segoe UI Black" localizedFamilyNames="" path="C:\WINDOWS\Fonts\seguibl.ttf" offset="0" />
+        <Font style="Italic" type="TTF" name="Segoe UI Black Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\seguibli.ttf" offset="0" />
+    </Family>
+    <Family name="Segoe UI Emoji">
+        <Font style="Regular" type="TTF" name="Segoe UI Emoji" localizedFamilyNames="" path="C:\WINDOWS\Fonts\seguiemj.ttf" offset="0" />
+    </Family>
+    <Family name="Segoe UI Historic">
+        <Font style="Regular" type="TTF" name="Segoe UI Historic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\seguihis.ttf" offset="0" />
+    </Family>
+    <Family name="Segoe UI Semibold">
+        <Font style="Regular" type="TTF" name="Segoe UI Semibold" localizedFamilyNames="" path="C:\WINDOWS\Fonts\seguisb.ttf" offset="0" />
+        <Font style="Italic" type="TTF" name="Segoe UI Semibold Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\seguisbi.ttf" offset="0" />
+    </Family>
+    <Family name="Segoe UI Symbol">
+        <Font style="Regular" type="TTF" name="Segoe UI Symbol" localizedFamilyNames="" path="C:\WINDOWS\Fonts\seguisym.ttf" offset="0" />
+    </Family>
+    <Family name="Segoe UI Variable">
+        <Font style="Regular" type="TTF" name="Segoe UI Variable" localizedFamilyNames="" path="C:\WINDOWS\Fonts\SegUIVar.ttf" offset="0" />
+    </Family>
+    <Family name="Showcard Gothic">
+        <Font style="Regular" type="TTF" name="Showcard Gothic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\SHOWG.TTF" offset="0" />
+    </Family>
+    <Family name="SimSun">
+        <Font style="Regular" type="TTF" name="SimSun" localizedFamilyNames="宋体;宋体" path="C:\WINDOWS\Fonts\simsun.ttc" offset="32" />
+    </Family>
+    <Family name="NSimSun">
+        <Font style="Regular" type="TTF" name="NSimSun" localizedFamilyNames="新宋体;新宋体" path="C:\WINDOWS\Fonts\simsun.ttc" offset="396" />
+    </Family>
+    <Family name="SimSun-ExtB">
+        <Font style="Regular" type="TTF" name="SimSun-ExtB" localizedFamilyNames="" path="C:\WINDOWS\Fonts\simsunb.ttf" offset="0" />
+    </Family>
+    <Family name="Sitka Text">
+        <Font style="Regular" type="TTF" name="Sitka Text" localizedFamilyNames="" path="C:\WINDOWS\Fonts\SitkaVF.ttf" offset="0" />
+        <Font style="Italic" type="TTF" name="Sitka Text Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\SitkaVF-Italic.ttf" offset="0" />
+    </Family>
+    <Family name="Snap ITC">
+        <Font style="Regular" type="TTF" name="Snap ITC" localizedFamilyNames="" path="C:\WINDOWS\Fonts\SNAP____.TTF" offset="0" />
+    </Family>
+    <Family name="Stencil">
+        <Font style="Regular" type="TTF" name="Stencil" localizedFamilyNames="" path="C:\WINDOWS\Fonts\STENCIL.TTF" offset="0" />
+    </Family>
+    <Family name="Sylfaen">
+        <Font style="Regular" type="TTF" name="Sylfaen" localizedFamilyNames="" path="C:\WINDOWS\Fonts\sylfaen.ttf" offset="0" />
+    </Family>
+    <Family name="Symbol">
+        <Font style="Regular" type="TTF" name="Symbol" localizedFamilyNames="" path="C:\WINDOWS\Fonts\symbol.ttf" offset="0" />
+    </Family>
+    <Family name="Tahoma">
+        <Font style="Regular" type="TTF" name="Tahoma" localizedFamilyNames="" path="C:\WINDOWS\Fonts\tahoma.ttf" offset="0" />
+        <Font style="Bold" type="TTF" name="Tahoma Bold" localizedFamilyNames="" path="C:\WINDOWS\Fonts\tahomabd.ttf" offset="0" />
+    </Family>
+    <Family name="Microsoft Tai Le">
+        <Font style="Regular" type="TTF" name="Microsoft Tai Le" localizedFamilyNames="" path="C:\WINDOWS\Fonts\taile.ttf" offset="0" />
+        <Font style="Bold" type="TTF" name="Microsoft Tai Le Bold" localizedFamilyNames="" path="C:\WINDOWS\Fonts\taileb.ttf" offset="0" />
+    </Family>
+    <Family name="Tw Cen MT">
+        <Font style="Regular" type="TTF" name="Tw Cen MT" localizedFamilyNames="" path="C:\WINDOWS\Fonts\TCM_____.TTF" offset="0" />
+        <Font style="Italic" type="TTF" name="Tw Cen MT Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\TCMI____.TTF" offset="0" />
+        <Font style="Bold" type="TTF" name="Tw Cen MT Bold" localizedFamilyNames="" path="C:\WINDOWS\Fonts\TCB_____.TTF" offset="0" />
+        <Font style="Bold Italic" type="TTF" name="Tw Cen MT Bold Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\TCBI____.TTF" offset="0" />
+    </Family>
+    <Family name="Tw Cen MT Condensed">
+        <Font style="Regular" type="TTF" name="Tw Cen MT Condensed" localizedFamilyNames="" path="C:\WINDOWS\Fonts\TCCM____.TTF" offset="0" />
+        <Font style="Bold" type="TTF" name="Tw Cen MT Condensed Bold" localizedFamilyNames="" path="C:\WINDOWS\Fonts\TCCB____.TTF" offset="0" />
+    </Family>
+    <Family name="Tw Cen MT Condensed Extra Bold">
+        <Font style="Regular" type="TTF" name="Tw Cen MT Condensed Extra Bold" localizedFamilyNames="" path="C:\WINDOWS\Fonts\TCCEB.TTF" offset="0" />
+    </Family>
+    <Family name="Tempus Sans ITC">
+        <Font style="Regular" type="TTF" name="Tempus Sans ITC" localizedFamilyNames="" path="C:\WINDOWS\Fonts\TEMPSITC.TTF" offset="0" />
+    </Family>
+    <Family name="Times New Roman">
+        <Font style="Regular" type="TTF" name="Times New Roman" localizedFamilyNames="" path="C:\WINDOWS\Fonts\times.ttf" offset="0" />
+        <Font style="Italic" type="TTF" name="Times New Roman Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\timesi.ttf" offset="0" />
+        <Font style="Bold" type="TTF" name="Times New Roman Bold" localizedFamilyNames="" path="C:\WINDOWS\Fonts\timesbd.ttf" offset="0" />
+        <Font style="Bold Italic" type="TTF" name="Times New Roman Bold Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\timesbi.ttf" offset="0" />
+    </Family>
+    <Family name="Trebuchet MS">
+        <Font style="Regular" type="TTF" name="Trebuchet MS" localizedFamilyNames="" path="C:\WINDOWS\Fonts\trebuc.ttf" offset="0" />
+        <Font style="Italic" type="TTF" name="Trebuchet MS Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\trebucit.ttf" offset="0" />
+        <Font style="Bold" type="TTF" name="Trebuchet MS Bold" localizedFamilyNames="" path="C:\WINDOWS\Fonts\trebucbd.ttf" offset="0" />
+        <Font style="Bold Italic" type="TTF" name="Trebuchet MS Bold Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\trebucbi.ttf" offset="0" />
+    </Family>
+    <Family name="Verdana">
+        <Font style="Regular" type="TTF" name="Verdana" localizedFamilyNames="" path="C:\WINDOWS\Fonts\verdana.ttf" offset="0" />
+        <Font style="Italic" type="TTF" name="Verdana Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\verdanai.ttf" offset="0" />
+        <Font style="Bold" type="TTF" name="Verdana Bold" localizedFamilyNames="" path="C:\WINDOWS\Fonts\verdanab.ttf" offset="0" />
+        <Font style="Bold Italic" type="TTF" name="Verdana Bold Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\verdanaz.ttf" offset="0" />
+    </Family>
+    <Family name="Viner Hand ITC">
+        <Font style="Regular" type="TTF" name="Viner Hand ITC" localizedFamilyNames="" path="C:\WINDOWS\Fonts\VINERITC.TTF" offset="0" />
+    </Family>
+    <Family name="Vivaldi">
+        <Font style="Italic" type="TTF" name="Vivaldi Italic" localizedFamilyNames="" path="C:\WINDOWS\Fonts\VIVALDII.TTF" offset="0" />
+    </Family>
+    <Family name="Vladimir Script">
+        <Font style="Regular" type="TTF" name="Vladimir Script" localizedFamilyNames="" path="C:\WINDOWS\Fonts\VLADIMIR.TTF" offset="0" />
+    </Family>
+    <Family name="Webdings">
+        <Font style="Regular" type="TTF" name="Webdings" localizedFamilyNames="" path="C:\WINDOWS\Fonts\webdings.ttf" offset="0" />
+    </Family>
+    <Family name="Wingdings">
+        <Font style="Regular" type="TTF" name="Wingdings" localizedFamilyNames="" path="C:\WINDOWS\Fonts\wingding.ttf" offset="0" />
+    </Family>
+    <Family name="Wingdings 2">
+        <Font style="Regular" type="TTF" name="Wingdings 2" localizedFamilyNames="" path="C:\WINDOWS\Fonts\WINGDNG2.TTF" offset="0" />
+    </Family>
+    <Family name="Wingdings 3">
+        <Font style="Regular" type="TTF" name="Wingdings 3" localizedFamilyNames="" path="C:\WINDOWS\Fonts\WINGDNG3.TTF" offset="0" />
+    </Family>
+    <Family name="Yu Gothic">
+        <Font style="Regular" type="TTF" name="Yu Gothic Regular" localizedFamilyNames="游ゴシック" path="C:\WINDOWS\Fonts\YuGothR.ttc" offset="32" />
+        <Font style="Bold" type="TTF" name="Yu Gothic Bold" localizedFamilyNames="游ゴシック" path="C:\WINDOWS\Fonts\YuGothB.ttc" offset="36" />
+    </Family>
+    <Family name="Yu Gothic UI">
+        <Font style="Regular" type="TTF" name="Yu Gothic UI Regular" localizedFamilyNames="" path="C:\WINDOWS\Fonts\YuGothM.ttc" offset="380" />
+        <Font style="Bold" type="TTF" name="Yu Gothic UI Bold" localizedFamilyNames="" path="C:\WINDOWS\Fonts\YuGothB.ttc" offset="384" />
+    </Family>
+    <Family name="Yu Gothic UI Semibold">
+        <Font style="Regular" type="TTF" name="Yu Gothic UI Semibold" localizedFamilyNames="" path="C:\WINDOWS\Fonts\YuGothB.ttc" offset="748" />
+    </Family>
+    <Family name="Yu Gothic Light">
+        <Font style="Regular" type="TTF" name="Yu Gothic Light" localizedFamilyNames="游ゴシック Light" path="C:\WINDOWS\Fonts\YuGothL.ttc" offset="32" />
+    </Family>
+    <Family name="Yu Gothic UI Light">
+        <Font style="Regular" type="TTF" name="Yu Gothic UI Light" localizedFamilyNames="" path="C:\WINDOWS\Fonts\YuGothL.ttc" offset="380" />
+    </Family>
+    <Family name="Yu Gothic Medium">
+        <Font style="Regular" type="TTF" name="Yu Gothic Medium" localizedFamilyNames="游ゴシック Medium" path="C:\WINDOWS\Fonts\YuGothM.ttc" offset="32" />
+    </Family>
+    <Family name="Yu Gothic UI Semilight">
+        <Font style="Regular" type="TTF" name="Yu Gothic UI Semilight" localizedFamilyNames="" path="C:\WINDOWS\Fonts\YuGothR.ttc" offset="380" />
+    </Family>
+</FontFamilies>

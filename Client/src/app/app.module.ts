@@ -42,6 +42,28 @@ import { TutorialComponent } from './elite-life/tutorial/tutorial.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 import { SidebarProfileComponent } from './layouts/full/sidebar-profile/sidebar-profile.component';
+import { ContractManagerComponent } from './elite-life/contract-manager/contract-manager.component';
+import { DialogModule } from 'primeng/dialog';
+import { AvatarModule } from 'primeng/avatar';
+import { InputTextModule } from 'primeng/inputtext';
+import { InforComponent } from './elite-life/infor-account/infor.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { DropdownModule } from 'primeng/dropdown';
+import { FloatLabelModule } from 'primeng/floatlabel';
+import { DepositWithdrawManagementComponent } from './elite-life/deposit-withdraw-management/deposit-withdraw-management.component';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { ProfileContainerComponent } from './elite-life/profile-container/profile-container.component';
+
+
+// primeng
+import { CardModule } from 'primeng/card';
+import { TabViewModule } from 'primeng/tabview';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { NumberFormatPipe } from './Core/pipes/number-format.pipe';
+import { DatePipe } from '@angular/common';
+
+
 
 @NgModule({
   declarations: [
@@ -59,6 +81,11 @@ import { SidebarProfileComponent } from './layouts/full/sidebar-profile/sidebar-
     SystemManagerComponent,
     TutorialComponent,
     SidebarProfileComponent,
+    ContractManagerComponent,
+    InforComponent,
+    DepositWithdrawManagementComponent,
+    ProfileContainerComponent,
+    NumberFormatPipe
   ],
   imports: [
     BrowserModule,
@@ -78,11 +105,22 @@ import { SidebarProfileComponent } from './layouts/full/sidebar-profile/sidebar-
     TableModule,
     TreeModule,
     PdfViewerModule,
+    DialogModule,
+    AvatarModule,
+    InputTextModule,
+    MatDatepickerModule,
+    DropdownModule,
+    FloatLabelModule,
+    CommonModule,
+    RouterModule,
+    CardModule,
+    TabViewModule,
+    InputNumberModule,
 
   ],
   exports: [TablerIconsModule],
   bootstrap: [AppComponent],
-  providers: [
+  providers: [DatePipe,
       {
         provide: RECAPTCHA_SETTINGS,
         useValue: {

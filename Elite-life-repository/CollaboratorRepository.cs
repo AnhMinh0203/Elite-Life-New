@@ -292,5 +292,35 @@ namespace Elite_life_repository
                 await connection.CloseAsync();
             }
         }
+
+        public async Task<CollaboratorDto> GetCollaboratorsContractManager(int CollaboratorId)
+        {
+            var connectPostgres = new ConnectToPostgresql(_configuration);
+            using var connection = await connectPostgres.CreateConnectionAsync();
+
+            try
+            {
+                var query = @"SELECT * FROM dbo.get_collaborators_contract_manager(@input_id)";
+
+                var parameters = new
+                {
+                    input_id = CollaboratorId
+                };
+
+                var result = (await connection.QueryFirstOrDefaultAsync<CollaboratorDto>(query, parameters));
+                return result;
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error fetching GetCollaboratorsContractManager: {ex.Message}");
+                return new CollaboratorDto();
+            }
+            finally
+            {
+                await connection.CloseAsync();
+            }
+
+        }
     }
 }

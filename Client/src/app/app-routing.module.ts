@@ -7,7 +7,10 @@ import { AuthGuardService } from 'src/untils/AuthGuard.service';
 import { CustomerManagerComponent } from './elite-life/customer-manager/customer-manager.component';
 import { SystemManagerComponent } from './elite-life/system-manager/system-manager.component';
 import { TutorialComponent } from './elite-life/tutorial/tutorial.component';
-import { ProfileComponent } from './pages/profile/profile.component'; // Import component Profile
+import { ContractManagerComponent } from './elite-life/contract-manager/contract-manager.component';
+import { InforComponent } from './elite-life/infor-account/infor.component';
+import { DepositWithdrawManagementComponent } from './elite-life/deposit-withdraw-management/deposit-withdraw-management.component';
+import { ProfileContainerComponent } from './elite-life/profile-container/profile-container.component';
 
 const routes: Routes = [
   {
@@ -17,7 +20,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: '/dashboard',
+        redirectTo: '/home',
         pathMatch: 'full',
       },
       {
@@ -61,7 +64,29 @@ const routes: Routes = [
       {
         path: 'culture', component: TutorialComponent
       },
-      { path: 'profile', component: ProfileComponent, pathMatch: 'full' },
+      {
+        path: 'contract', component: ContractManagerComponent
+      },
+
+      { path: 'profile',
+        component: ProfileContainerComponent,
+        children: [
+          {
+            path: '',
+            redirectTo: 'info', // Mặc định chuyển đến trang thông tin cá nhân
+            pathMatch: 'full',
+          },
+          {
+            path: 'info',
+            component: InforComponent, // Trang thông tin cá nhân
+          },
+          {
+            path: 'deposit-withdraw-management',
+            component: DepositWithdrawManagementComponent, // Quản lý nạp/rút
+          },
+        ],
+      },
+
     ],
   },
   {

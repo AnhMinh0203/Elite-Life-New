@@ -78,4 +78,24 @@ export class CollaboratorService {
       );
   }
 
+  getCollaboratorsContractManager(CollaboratorId: any) {
+    const apiUrl = `${this.serviceUri}/get-collaborator-contract-manager?CollaboratorId=${CollaboratorId}`;
+    return this._http.get<ResponseResult>(apiUrl)
+      .pipe(
+        catchError((error: any) => {
+          throw error;
+        })
+      );
+  }
+
+  saveSignature(model: any) { 
+    const apiUrl = `${this.serviceUri}/save-signature`;
+    return this._http.post<ResponseResult>(apiUrl, model)
+      .pipe(
+        catchError((error: any) => {
+          throw error;
+        })
+      );
+  }
+
 }
