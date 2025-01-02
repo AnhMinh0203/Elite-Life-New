@@ -28,7 +28,7 @@ namespace Elite_life.Controllers
                     return MethodResult.ResultWithError("No file was provided");
                 }
 
-                string baseDirData = _configuration.GetValue("dataUrl", "E:\\Customers\\Elite-Life-New\\File");
+                string baseDirData = _configuration.GetValue("dataUrl", "/var/www/Elite-Life-New/File");
                 string imageDir = Path.Combine(baseDirData, "Booth");
 
                 if (!Directory.Exists(imageDir))
@@ -62,7 +62,7 @@ namespace Elite_life.Controllers
                     return MethodResult.ResultWithError("No file name was provided");
                 }
 
-                string baseDirData = _configuration.GetValue("dataUrl", "E:\\Customers\\Elite-Life-New\\File");
+                string baseDirData = _configuration.GetValue("dataUrl", "/var/www/Elite-Life-New/File");
                 string imageDir = Path.Combine(baseDirData, "Booth");
 
                 string filePath = Path.Combine(imageDir, fileName);
@@ -90,7 +90,7 @@ namespace Elite_life.Controllers
         {
             try
             {
-                string baseDirData = _configuration.GetValue("dataUrl", "E:\\Customers\\Elite-Life-New\\File");
+                string baseDirData = _configuration.GetValue("dataUrl", "/var/www/Elite-Life-New/File");
                 string filePath = Path.Combine(baseDirData, "Booth", fileName);
 
                 // Kiểm tra file ảnh có tồn tại không

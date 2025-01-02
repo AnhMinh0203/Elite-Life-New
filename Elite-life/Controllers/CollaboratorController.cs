@@ -125,7 +125,7 @@ namespace Elite_life.Controllers
 
                 // Đường dẫn file template và file đầu ra
                 string baseDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-                string baseDirData = _configuration.GetValue("dataUrl", "E:\\Customers\\Elite-Life-New\\File");
+                string baseDirData = _configuration.GetValue("dataUrl", "/var/www/Elite-Life-New/File");
                 string templateFilePath = Path.Combine(baseDir, "wwwroot", "template", "contractTemp.docx");
                 string contractsDir = Path.Combine(baseDirData, "ContractsFile");
                 string imageSignDir = Path.Combine(baseDirData, "ImageSign");
@@ -212,7 +212,7 @@ namespace Elite_life.Controllers
         {
             try
             {
-                string baseDir = _configuration.GetValue("dataUrl", "E:\\Customers\\Elite-Life-New\\File");
+                string baseDir = _configuration.GetValue("dataUrl", "/var/www/Elite-Life-New/File");
                 if (string.IsNullOrWhiteSpace(signatureDto.ImageData))
                 {
                     return MethodResult.ResultWithError(null, 400, "Image data is required.");
@@ -262,7 +262,7 @@ namespace Elite_life.Controllers
             try
             {
                 // Đường dẫn thư mục chứa file PDF
-                string baseDirData = _configuration.GetValue("dataUrl", "E:\\Customers\\Elite-Life-New\\File");
+                string baseDirData = _configuration.GetValue("dataUrl", "/var/www/Elite-Life-New/File");
                 string filePath = Path.Combine(baseDirData, "ContractsFile", fileName);
 
                 // Kiểm tra file có tồn tại không
@@ -291,7 +291,7 @@ namespace Elite_life.Controllers
         {
             try
             {
-                string baseDirData = _configuration.GetValue("dataUrl", "E:\\Customers\\Elite-Life-New\\File");
+                string baseDirData = _configuration.GetValue("dataUrl", "/var/www/Elite-Life-New/File");
                 string filePath = Path.Combine(baseDirData, "ImageSign", fileName);
 
                 // Kiểm tra file ảnh có tồn tại không
