@@ -61,6 +61,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { WalletManagerComponent } from './elite-life/wallet-manager/wallet-manager.component';
 import { BoothManagerComponent } from './elite-life/booth-manager/booth-manager.component';
 import { FileUploadModule } from 'primeng/fileupload';
+import { WarehouseManagerComponent } from './elite-life/warehouse-manager/warehouse-manager.component';
 
 @NgModule({
   declarations: [
@@ -84,6 +85,7 @@ import { FileUploadModule } from 'primeng/fileupload';
     BinaryTreeComponent,
     WalletManagerComponent,
     BoothManagerComponent,
+    WarehouseManagerComponent,
   ],
   imports: [
     BrowserModule,
