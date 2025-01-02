@@ -147,5 +147,18 @@ namespace Elite_life.Controllers
             }
             return MethodResult.ResultWithError(null, 400, "Not Found");
         }
+
+        [HttpDelete]
+        [Route("delete-booth/{id}")]
+        public async Task<MethodResult> DeleteBooth(int id)
+        {
+            var result = await _boothRepos.DeleteBoothAsync(id);
+            if (result)
+            {
+                return MethodResult.ResultWithSuccess(result, 200, "Success");
+
+            }
+            return MethodResult.ResultWithError(null, 400, "Not Found");
+        }
     }
 }

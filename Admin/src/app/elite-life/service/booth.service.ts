@@ -55,7 +55,17 @@ export class BoothService {
 
   updateBooth(model: any) {
     const apiUrl = `${this.serviceUri}/update-booth`;
-    return this._http.put<ResponseResult>(apiUrl, model)
+    return this._http.post<ResponseResult>(apiUrl, model)
+      .pipe(
+        catchError((error: any) => {
+          throw error;
+        })
+      );
+  }
+
+  deleteBooth(id: any) {
+    const apiUrl = `${this.serviceUri}/delete-booth/${id}`;
+    return this._http.delete<ResponseResult>(apiUrl)
       .pipe(
         catchError((error: any) => {
           throw error;

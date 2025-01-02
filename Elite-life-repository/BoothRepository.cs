@@ -106,5 +106,33 @@ namespace Elite_life_repository
                 await connection.CloseAsync();
             }
         }
+
+        public async Task<bool> DeleteBoothAsync(int id)
+        {
+            var connectPostgres = new ConnectToPostgresql(_configuration);
+            using var connection = await connectPostgres.CreateConnectionAsync();
+
+            try
+            {
+                var query = @"SELECT dbo.delete_booth(@id)";
+                using var command = new NpgsqlCommand(query, connection);
+                command.Parameters.AddWithValue("id", id);
+
+                var result = (bool)await command.ExecuteScalarAsync();
+                if (result)
+                {
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            finally
+            {
+                await connection.CloseAsync();
+            }
+        }
     }
 }

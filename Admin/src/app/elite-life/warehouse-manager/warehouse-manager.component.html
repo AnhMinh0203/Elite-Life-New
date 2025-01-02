@@ -1,0 +1,173 @@
+<div class="row">
+  <div class="col-lg-12">
+    <mat-card class="cardWithShadow">
+      <mat-card-content class="p-24">
+        <div class="d-flex w-100">
+          <mat-card-title style="color: #004882;">Quản lý kho hàng</mat-card-title>
+          <div class="m-l-auto">
+            <input type="text" pInputText [(ngModel)]="search" />
+            <p-button label="Thêm mới" icon="pi pi-plus" styleClass="m-0" [outlined]="true" />
+            <p-button label="Xuất Excel" icon="pi pi-file-export" styleClass="m-0" [outlined]="true" />
+          </div>
+        </div>
+        <div class="">
+          <p-table
+            [value]="data"
+            [paginator]="true"
+            [rows]="5"
+            [showCurrentPageReport]="true"
+            [tableStyle]="{ 'min-width': '50rem' }"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [rowsPerPageOptions]="[5, 10, 20]"
+          >
+            <ng-template pTemplate="header">
+              <tr>
+                  <th style="width:5%">Hành động</th>
+                  <th style="width:10%">Tên kho</th>
+                  <th style="width:15%">
+                    Địa chỉ
+                  </th>
+                  <th style="width:10%">Số lượng</th>
+                  <th style="width:10%">Số điện thoại</th>
+                  <th style="width:15%">Người quản lý</th>
+                  <th style="width:10%">SĐT người quản lý</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-customer>
+              <tr>
+                  <td style="align-items: center;">
+                    <i class="pi pi-bars" style="color: #fff; background-color: green; padding: 5px 5px; cursor: pointer;" (click)="menu.toggle($event)" (click)="changId(customer)"></i>
+                    <p-tieredMenu 
+                      #menu 
+                      [model]="items" 
+                      [popup]="true" 
+                      appendTo="body" 
+                      [baseZIndex]="1000">
+                    </p-tieredMenu>
+                  </td>
+                  <td style="color: #144DB5; cursor: pointer;" >Chọn ngày gửi đơn</td>
+                  <td>{{ customer.name }}</td>
+                  <td>{{ customer.address}}</td>
+                  <td>{{ customer.mobile }}</td>
+                  <td>{{ customer.name }}</td>
+                  <td>{{ customer.address}}</td>
+                  <td>{{ customer.mobile }}</td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+<!-- <p-dialog 
+  header="Header" 
+  [(visible)]="visibleDate" 
+  [modal]="true" 
+  [style]="{ width: '50%', height: '100%' }">
+    <ng-template pTemplate="header">
+      <h3>Chọn ngày gửi đơn</h3>
+    </ng-template>
+    <div class="row">
+      <div class="d-flex" style="flex-direction: column;">
+        <label for="parentId" class="font-semibold">
+          Ngày gửi đơn <span style="color: red">*</span>
+        </label>
+        <p-calendar 
+          [(ngModel)]="deliveryDate" 
+          [iconDisplay]="'input'" 
+          [showIcon]="true" 
+          inputId="icondisplay" />
+      </div>
+    </div>
+    <ng-template pTemplate="footer">
+      <p-button 
+          label="Hủy" 
+          [text]="true" 
+          severity="secondary" 
+          (onClick)="visibleDate = false" />
+      <p-button 
+          label="Xác nhận" 
+          [outlined]="true" 
+          severity="secondary"
+          (onClick)="UpdateOrderDeliveryDate()"
+        />
+  </ng-template>
+</p-dialog>
+
+<p-dialog 
+  header="Header" 
+  [(visible)]="visibleBill" 
+  [modal]="true" >
+    <ng-template pTemplate="header">
+      <h3>Chi tiết hoá đơn</h3>
+    </ng-template>
+    <div class="row">
+      <p-table
+        [value]="listBill"
+        [paginator]="true"
+        [rows]="5"
+        [loading]="isLoading"
+        [(first)]="first"
+        [rowsPerPageOptions]="[5, 10, 20]"
+      >
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width:33%">STT</th>
+                <th style="width:33%">Ngày thanh toán</th>
+                <th style="width:33%">Số tiền</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-customer let-index="rowIndex">
+            <tr>
+                <td>{{ first + index + 1 }}</td>
+                <td>{{ customer.completedDate | date: 'dd/MM/yyyy' }}</td>
+                <td>{{ customer.value | number: '1.0-2' }}</td>
+            </tr>
+        </ng-template>
+      </p-table>
+    </div>
+</p-dialog>
+
+<p-dialog 
+  header="Header" 
+  [(visible)]="visibleCommission" 
+  [modal]="true" 
+  [style]="{ width: '60%'}">
+    <ng-template pTemplate="header">
+      <h3>Chi tiết chi hoa hồng</h3>
+    </ng-template>
+    <div class="row">
+      <p-table
+        [value]="listCommission"
+        [paginator]="true"
+        [rows]="5"
+        [(first)]="first"
+        [loading]="isLoading"
+        [tableStyle]="{ 'min-width': '55%' }"
+        [rowsPerPageOptions]="[5, 10, 20]"
+      >
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width:5%">STT</th>
+                <th style="width:10%">Ngày thanh toán</th>
+                <th style="width:10%">Số tiền</th>
+                <th style="width:25%">Nội dung</th>
+                <th style="width:20%">Người nhận hoa hồng</th>
+                <th style="width:10%">Mã người nhận hoa hồng</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-customer let-index="rowIndex">
+            <tr>
+                <td>{{ first + index + 1 }}</td>
+                <td>{{ customer.createdAt | date: 'dd/MM/yyyy' }}</td>
+                <td>{{ customer.value | number: '1.0-2' }}</td>
+                <td>{{ customer.note }}</td>
+                <td>{{ customer.name }}</td>
+                <td>{{ customer.userName }}</td>
+            </tr>
+        </ng-template>
+      </p-table>
+    </div>
+</p-dialog> -->

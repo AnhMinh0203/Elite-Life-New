@@ -231,29 +231,30 @@ export class BoothManagerComponent implements OnInit {
     }
     this.fileEditBooth = new File([this.fileEditBooth], `${this.nameEdit}.png`, { type: this.fileEditBooth.type });
     const model = {
+      id: this.boothEdit.id,
       title: this.nameEdit,
       description: this.descriptionEdit,
       contact: this.contactEdit,
       image: `${this.nameEdit}.png`
     }
-    this.boothService.deleteImage(`${this.boothEdit.name}.png`).subscribe({
+    this.boothService.deleteImage(`${this.boothEdit.title}.png`).subscribe({
       next: (response) => {
         if(this.fileEditBooth) {
           this.boothService.uploadImage(this.fileEditBooth).subscribe({
             next: (response) => {
               this.boothService.updateBooth(model).subscribe({
                 next: (response) => {
-                  this.messageService.add({ severity: 'success', summary: 'Thêm hàng hóa thành công', detail: response.message });
-                  this.visible = false;
+                  this.messageService.add({ severity: 'success', summary: 'Chỉnh sửa hàng hóa thành công', detail: response.message });
+                  this.visibleEdit = false;
                   this.getBooths();
                 },
                 error: (error) => {
-                  this.messageService.add({ severity: 'error', summary: 'Thêm hàng hóa thất bại', detail: error.message });
+                  this.messageService.add({ severity: 'error', summary: 'Chỉnh sửa hàng hóa thất bại', detail: error.message });
                 }
               });
             },
             error: (error) => {
-              this.messageService.add({ severity: 'error', summary: 'Thêm hàng hóa thất bại', detail: error.message });
+              this.messageService.add({ severity: 'error', summary: 'Chỉnh sửa hàng hóa thất bại', detail: error.message });
             }
           });
         }
@@ -261,7 +262,24 @@ export class BoothManagerComponent implements OnInit {
       error: (error) => {
       }
     });
-    
+  }
+
+  onDelete(item: any) {
+    this.boothService.deleteImage(`${item.title}.png`).subscribe({
+      next: (response) => {
+        this.boothService.deleteBooth(item.id).subscribe({
+          next: (response) => {
+            this.messageService.add({ severity: 'success', summary: 'Xóa hàng hóa thành công', detail: response.message });
+            this.getBooths();
+          },
+          error: (error) => {
+            this.messageService.add({ severity: 'error', summary: 'Xóa hàng hóa thất bại', detail: error.message });
+          }
+        });
+      },
+      error: (error) => {
+      }
+    });
   }
 
 }
