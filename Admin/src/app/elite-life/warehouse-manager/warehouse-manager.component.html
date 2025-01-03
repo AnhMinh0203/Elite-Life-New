@@ -5,8 +5,8 @@
         <div class="d-flex w-100">
           <mat-card-title style="color: #004882;">Quản lý kho hàng</mat-card-title>
           <div class="m-l-auto">
-            <input type="text" pInputText [(ngModel)]="search" />
-            <p-button label="Thêm mới" icon="pi pi-plus" styleClass="m-0" [outlined]="true" />
+            <input type="text" pInputText [(ngModel)]="search" (change)="searchWarehouse()"/>
+            <p-button label="Thêm mới" icon="pi pi-plus" styleClass="m-0" [outlined]="true" (onClick)="showAdd()" />
             <p-button label="Xuất Excel" icon="pi pi-file-export" styleClass="m-0" [outlined]="true" />
           </div>
         </div>
@@ -42,16 +42,16 @@
                       [model]="items" 
                       [popup]="true" 
                       appendTo="body" 
+                      (onclick)="changId(customer)"
                       [baseZIndex]="1000">
                     </p-tieredMenu>
                   </td>
-                  <td style="color: #144DB5; cursor: pointer;" >Chọn ngày gửi đơn</td>
                   <td>{{ customer.name }}</td>
-                  <td>{{ customer.address}}</td>
+                  <td>{{ customer.location}}</td>
+                  <td>{{ customer.capacity }}</td>
                   <td>{{ customer.mobile }}</td>
-                  <td>{{ customer.name }}</td>
-                  <td>{{ customer.address}}</td>
-                  <td>{{ customer.mobile }}</td>
+                  <td>{{ customer.manager}}</td>
+                  <td>{{ customer.managerMobile }}</td>
               </tr>
             </ng-template>
           </p-table>
@@ -61,24 +61,50 @@
   </div>
 </div>
 
-<!-- <p-dialog 
+<p-dialog 
   header="Header" 
-  [(visible)]="visibleDate" 
+  [(visible)]="visibleAdd" 
   [modal]="true" 
-  [style]="{ width: '50%', height: '100%' }">
+  [style]="{ width: '50rem' }">
     <ng-template pTemplate="header">
-      <h3>Chọn ngày gửi đơn</h3>
+      <h3>Thêm mới kho hàng</h3>
     </ng-template>
     <div class="row">
-      <div class="d-flex" style="flex-direction: column;">
-        <label for="parentId" class="font-semibold">
-          Ngày gửi đơn <span style="color: red">*</span>
+      <div class="d-flex col-6" style="flex-direction: column;">
+        <label class="font-semibold">
+          Tên kho <span style="color: red">*</span>
         </label>
-        <p-calendar 
-          [(ngModel)]="deliveryDate" 
-          [iconDisplay]="'input'" 
-          [showIcon]="true" 
-          inputId="icondisplay" />
+        <input type="text" pInputText [(ngModel)]="name" />
+      </div>
+      <div class="d-flex col-6" style="flex-direction: column;">
+        <label class="font-semibold">
+          Địa chỉ <span style="color: red">*</span>
+        </label>
+        <input type="text" pInputText [(ngModel)]="address" />
+      </div>
+      <div class="d-flex col-6" style="flex-direction: column;">
+        <label class="font-semibold">
+          Số lượng <span style="color: red">*</span>
+        </label>
+        <input type="number" pInputText [(ngModel)]="amount" />
+      </div>
+      <div class="d-flex col-6" style="flex-direction: column;">
+        <label class="font-semibold">
+          SĐT <span style="color: red">*</span>
+        </label>
+        <input type="text" pInputText [(ngModel)]="mobile" />
+      </div>
+      <div class="d-flex col-6" style="flex-direction: column;">
+        <label class="font-semibold">
+          Người quản lý <span style="color: red">*</span>
+        </label>
+        <input type="text" pInputText [(ngModel)]="manager" />
+      </div>
+      <div class="d-flex col-6" style="flex-direction: column;">
+        <label class="font-semibold">
+          SĐT người quản lý <span style="color: red">*</span>
+        </label>
+        <input type="text" pInputText [(ngModel)]="managerMobile" />
       </div>
     </div>
     <ng-template pTemplate="footer">
@@ -86,88 +112,73 @@
           label="Hủy" 
           [text]="true" 
           severity="secondary" 
-          (onClick)="visibleDate = false" />
+          (onClick)="visibleAdd = false" />
       <p-button 
           label="Xác nhận" 
           [outlined]="true" 
           severity="secondary"
-          (onClick)="UpdateOrderDeliveryDate()"
+          (onClick)="add()"
         />
   </ng-template>
 </p-dialog>
 
 <p-dialog 
   header="Header" 
-  [(visible)]="visibleBill" 
-  [modal]="true" >
-    <ng-template pTemplate="header">
-      <h3>Chi tiết hoá đơn</h3>
-    </ng-template>
-    <div class="row">
-      <p-table
-        [value]="listBill"
-        [paginator]="true"
-        [rows]="5"
-        [loading]="isLoading"
-        [(first)]="first"
-        [rowsPerPageOptions]="[5, 10, 20]"
-      >
-        <ng-template pTemplate="header">
-            <tr>
-                <th style="width:33%">STT</th>
-                <th style="width:33%">Ngày thanh toán</th>
-                <th style="width:33%">Số tiền</th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-customer let-index="rowIndex">
-            <tr>
-                <td>{{ first + index + 1 }}</td>
-                <td>{{ customer.completedDate | date: 'dd/MM/yyyy' }}</td>
-                <td>{{ customer.value | number: '1.0-2' }}</td>
-            </tr>
-        </ng-template>
-      </p-table>
-    </div>
-</p-dialog>
-
-<p-dialog 
-  header="Header" 
-  [(visible)]="visibleCommission" 
+  [(visible)]="visibleEdit" 
   [modal]="true" 
-  [style]="{ width: '60%'}">
+  [style]="{ width: '50rem' }">
     <ng-template pTemplate="header">
-      <h3>Chi tiết chi hoa hồng</h3>
+      <h3>Sửa thông tin kho hàng</h3>
     </ng-template>
     <div class="row">
-      <p-table
-        [value]="listCommission"
-        [paginator]="true"
-        [rows]="5"
-        [(first)]="first"
-        [loading]="isLoading"
-        [tableStyle]="{ 'min-width': '55%' }"
-        [rowsPerPageOptions]="[5, 10, 20]"
-      >
-        <ng-template pTemplate="header">
-            <tr>
-                <th style="width:5%">STT</th>
-                <th style="width:10%">Ngày thanh toán</th>
-                <th style="width:10%">Số tiền</th>
-                <th style="width:25%">Nội dung</th>
-                <th style="width:20%">Người nhận hoa hồng</th>
-                <th style="width:10%">Mã người nhận hoa hồng</th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-customer let-index="rowIndex">
-            <tr>
-                <td>{{ first + index + 1 }}</td>
-                <td>{{ customer.createdAt | date: 'dd/MM/yyyy' }}</td>
-                <td>{{ customer.value | number: '1.0-2' }}</td>
-                <td>{{ customer.note }}</td>
-                <td>{{ customer.name }}</td>
-                <td>{{ customer.userName }}</td>
-            </tr>
-        </ng-template>
-      </p-table>
+      <div class="d-flex col-6" style="flex-direction: column;">
+        <label class="font-semibold">
+          Tên kho <span style="color: red">*</span>
+        </label>
+        <input type="text" pInputText [(ngModel)]="nameEdit" />
+      </div>
+      <div class="d-flex col-6" style="flex-direction: column;">
+        <label class="font-semibold">
+          Địa chỉ <span style="color: red">*</span>
+        </label>
+        <input type="text" pInputText [(ngModel)]="addressEdit" />
+      </div>
+      <div class="d-flex col-6" style="flex-direction: column;">
+        <label class="font-semibold">
+          Số lượng <span style="color: red">*</span>
+        </label>
+        <input type="number" pInputText [(ngModel)]="amountEdit" />
+      </div>
+      <div class="d-flex col-6" style="flex-direction: column;">
+        <label class="font-semibold">
+          SĐT <span style="color: red">*</span>
+        </label>
+        <input type="text" pInputText [(ngModel)]="mobileEdit" />
+      </div>
+      <div class="d-flex col-6" style="flex-direction: column;">
+        <label class="font-semibold">
+          Người quản lý <span style="color: red">*</span>
+        </label>
+        <input type="text" pInputText [(ngModel)]="managerEdit" />
+      </div>
+      <div class="d-flex col-6" style="flex-direction: column;">
+        <label class="font-semibold">
+          SĐT người quản lý <span style="color: red">*</span>
+        </label>
+        <input type="text" pInputText [(ngModel)]="managerMobileEdit" />
+      </div>
     </div>
-</p-dialog> -->
+    <ng-template pTemplate="footer">
+      <p-button 
+          label="Hủy" 
+          [text]="true" 
+          severity="secondary" 
+          (onClick)="visibleEdit = false" />
+      <p-button 
+          label="Xác nhận" 
+          [outlined]="true" 
+          severity="secondary"
+          (onClick)="update()"
+        />
+  </ng-template>
+</p-dialog>

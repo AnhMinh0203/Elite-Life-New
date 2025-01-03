@@ -56,5 +56,21 @@ namespace Elite_life.Controllers
             }
             return MethodResult.ResultWithError(null, 400, "Not Found");
         }
+
+        [HttpGet]
+        [Route("get-purchase-statistics")]
+        public async Task<MethodResult> GetPurchaseStatisticsAsync(int month, int year)
+        {
+            var result = await _orderRepos.GetPurchaseStatisticsAsync(month, year);
+            if (result != (0, 0))
+            {
+                return MethodResult.ResultWithSuccess(
+                    new { NotPurchased = result.NotPurchased, Purchased = result.Purchased }
+                , 200
+                , "Success");
+
+            }
+            return MethodResult.ResultWithError(null, 400, "Not Found");
+        }
     }
 }

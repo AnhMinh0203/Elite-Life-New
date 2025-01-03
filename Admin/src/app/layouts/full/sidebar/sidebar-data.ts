@@ -66,9 +66,12 @@ export const navItems: NavItem[] = [
     route: '/binary-tree',
   },
   {
-    displayName: 'Quản lý ID',
+    navCap: 'Quản lý ID',
+  },
+  {
+    displayName: 'Quản lý đơn hàng ID',
     iconName: 'file-text',
-    route: '/legal',
+    route: '/order-manager',
   },
   {
     displayName: 'Quản trị hệ thống',

@@ -58,4 +58,14 @@ export class WarehouseService {
       );
   }
 
+  search(search: any) {
+    const apiUrl = `${this.serviceUri}/search-warehouse/${search}`;
+    return this._http.get<ResponseResult>(apiUrl)
+      .pipe(
+        catchError((error: any) => {
+          throw error;
+        })
+      );
+  }
+
 }

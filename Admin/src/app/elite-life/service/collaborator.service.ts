@@ -178,5 +178,25 @@ export class CollaboratorService {
       );
   }
 
+  getRePackageCollaborator() {
+    const apiUrl = `${this.serviceUri}/get-all-repackage-collaborator`;
+    return this._http.get<ResponseResult>(apiUrl)
+      .pipe(
+        catchError((error: any) => {
+          throw error;
+        })
+      );
+  }
+
+  getAllCollaboratorsMultiOrder() {
+    const apiUrl = `${this.serviceUri}/get-all-collaborator-multi-order`;
+    return this._http.get<ResponseResult>(apiUrl)
+      .pipe(
+        catchError((error: any) => {
+          throw error;
+        })
+      );
+  }
+
 
 }

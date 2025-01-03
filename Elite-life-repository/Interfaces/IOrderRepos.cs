@@ -13,5 +13,6 @@ namespace Elite_life_repository.Interfaces
         Task<List<OrderInfoDto>> GetOrderInfoAsync(CollaboratorMemberManagerModel model);
         Task<List<OrderBillDto>> GetBillOrderInfoAsync(int OrderId);
         Task<bool> UpdateOrderDeliveryDate(OrderDeliveryDateModel model);
+        Task<(int NotPurchased, int Purchased)> GetPurchaseStatisticsAsync(int month, int year);
     }
 }

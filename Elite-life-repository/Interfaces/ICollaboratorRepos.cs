@@ -21,6 +21,8 @@ namespace Elite_life_repository.Interfaces
         Task<decimal?> GetTotalValueWithLevelAsync(int inputId);
         // Contract manager
         Task<CollaboratorDto> GetCollaboratorsContractManager(int CollaboratorId);
+        Task<bool> UpdateContractsAsync(CollaboratorDto model);
+        Task<bool> UpdateContractsImageAsync(int Id);
 
         //Top collaborator 
         Task<List<CollaboratorTopDto>> GetCollaboratorsTop();
@@ -35,5 +37,9 @@ namespace Elite_life_repository.Interfaces
         //Nhị Phân
         Task<List<CollaboratorTreeDto>> GetCollaborators();
         List<TreeNode> BuildTree(List<CollaboratorTreeDto> collaborators);
+
+        // Re-package
+        Task<List<CollaboratorDto>> GetAllRePackageCollaborators();
+        Task<List<CollaboratorDto>> GetAllCollaboratorsMultiOrder();
     }
 }

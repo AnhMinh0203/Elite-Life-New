@@ -638,5 +638,109 @@ namespace Elite_life_repository
 
             return result;
         }
+
+        public async Task<bool> UpdateContractsAsync(CollaboratorDto model)
+        {
+            var query = @"SELECT dbo.insert_contract(@p_username, @p_name, @p_identity, @p_identitydate, @p_identityplace, @p_address, @p_begindate, @p_issign)";
+            var connectPostgres = new ConnectToPostgresql(_configuration);
+            using var connection = await connectPostgres.CreateConnectionAsync();
+            try
+            {
+                using var command = new NpgsqlCommand(query, connection);
+
+                command.Parameters.AddWithValue("p_username", model.UserName);
+                command.Parameters.AddWithValue("p_name", model.Name ?? (object)DBNull.Value);
+                command.Parameters.AddWithValue("p_identity", model.Identity ?? (object)DBNull.Value);
+                command.Parameters.AddWithValue("p_identitydate", model.IdentityDate ?? (object)DBNull.Value);
+                command.Parameters.AddWithValue("p_identityplace", model.IdentityPlace ?? (object)DBNull.Value);
+                command.Parameters.AddWithValue("p_address", model.Address ?? (object)DBNull.Value);
+                command.Parameters.AddWithValue("p_begindate", DateTime.Now);
+                command.Parameters.AddWithValue("p_issign", false);
+
+                return (bool)await command.ExecuteScalarAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error updating warehouse: {ex.Message}");
+                return false;
+            }
+            finally
+            {
+                await connection.CloseAsync();
+            }
+        }
+
+        public async Task<bool> UpdateContractsImageAsync(int Id)
+        {
+            var query = @"SELECT dbo.update_contract_image(@p_username, @p_imagesign, @p_issign)";
+            var connectPostgres = new ConnectToPostgresql(_configuration);
+            using var connection = await connectPostgres.CreateConnectionAsync();
+            try
+            {
+                using var command = new NpgsqlCommand(query, connection);
+                var UserName = "EL" + Id.ToString();
+                var ImageName = "EL" + Id.ToString()+".png";
+                command.Parameters.AddWithValue("p_username", UserName);
+                command.Parameters.AddWithValue("p_imagesign", ImageName);
+                command.Parameters.AddWithValue("p_issign", true);
+
+                return (bool)await command.ExecuteScalarAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error updating warehouse: {ex.Message}");
+                return false;
+            }
+            finally
+            {
+                await connection.CloseAsync();
+            }
+        }
+
+        public async Task<List<CollaboratorDto>> GetAllRePackageCollaborators()
+        {
+            var connectPostgres = new ConnectToPostgresql(_configuration);
+            using var connection = await connectPostgres.CreateConnectionAsync();
+
+            try
+            {
+                var query = @"SELECT * FROM dbo.get_repackage_collaborators()";
+
+                var result = (await connection.QueryAsync<CollaboratorDto>(query)).AsList();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error fetching GetAllRePackageCollaborators: {ex.Message}");
+                return new List<CollaboratorDto>();
+            }
+            finally
+            {
+                await connection.CloseAsync();
+            }
+        }
+
+        public async Task<List<CollaboratorDto>> GetAllCollaboratorsMultiOrder()
+        {
+            var connectPostgres = new ConnectToPostgresql(_configuration);
+            using var connection = await connectPostgres.CreateConnectionAsync();
+
+            try
+            {
+                var query = @"SELECT * FROM dbo.get_customers_with_multiple_orders()";
+
+                var result = (await connection.QueryAsync<CollaboratorDto>(query)).AsList();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error fetching GetAllCollaboratorsMultiOrder: {ex.Message}");
+                return new List<CollaboratorDto>();
+            }
+            finally
+            {
+                await connection.CloseAsync();
+            }
+        }
     }
 }

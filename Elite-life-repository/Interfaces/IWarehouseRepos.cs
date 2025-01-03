@@ -14,6 +14,7 @@ namespace Elite_life_repository.Interfaces
         Task<bool> UpdateWarehouseAsync(WarehouseModel model);
         Task<bool> DeleteWarehouseAsync(int id);
         Task<List<WarehouseDto>> GetAllWarehousesAsync();
+        Task<List<WarehouseDto>> SearchWarehousesAsync(string key);
         Task<WarehouseDto?> GetWarehouseByIdAsync(int id);
     }
 }

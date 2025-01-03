@@ -62,6 +62,8 @@ import { WalletManagerComponent } from './elite-life/wallet-manager/wallet-manag
 import { BoothManagerComponent } from './elite-life/booth-manager/booth-manager.component';
 import { FileUploadModule } from 'primeng/fileupload';
 import { WarehouseManagerComponent } from './elite-life/warehouse-manager/warehouse-manager.component';
+import { OrderManagerComponent } from './elite-life/order-manager/order-manager.component';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @NgModule({
   declarations: [
@@ -86,6 +88,7 @@ import { WarehouseManagerComponent } from './elite-life/warehouse-manager/wareho
     WalletManagerComponent,
     BoothManagerComponent,
     WarehouseManagerComponent,
+    OrderManagerComponent,
   ],
   imports: [
     BrowserModule,
@@ -114,6 +117,7 @@ import { WarehouseManagerComponent } from './elite-life/warehouse-manager/wareho
     OrganizationChartModule,
     ProgressSpinnerModule,
     FileUploadModule,
+    ScrollingModule,
   ],
   exports: [TablerIconsModule],
   bootstrap: [AppComponent],

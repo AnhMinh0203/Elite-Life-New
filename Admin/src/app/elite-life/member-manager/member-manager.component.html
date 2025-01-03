@@ -206,19 +206,19 @@
     <ng-template pTemplate="header">
         <h3>Vui lòng xác nhận và chuyển nhánh cho các mã bên dưới</h3>
     </ng-template>
-    <div class="row">
-      <div class="d-flex" style="flex-direction: column;">
+    <div class="row w-100">
+      <div class="d-flex w-100" style="flex-direction: column;">
         <label for="parentId" class="font-semibold">
           Chọn nhánh
         </label>
-        <p-dropdown 
-          [options]="dataCombobox" 
-          [(ngModel)]="parentId" 
-          [lazy]="true"
-          [filter]="true"
-          filterBy="label,value"
-          placeholder="Chọn nhánh">
-        </p-dropdown>
+        <mat-select [formControl]="singleSelectControl" (selectionChange)="onSelectionChange($event)">
+          <input class="w-100" type="text" pInputText placeholder="Search" [(ngModel)]="searchTerm" (input)="filterOptions()" />
+          <cdk-virtual-scroll-viewport itemSize="50" [style.height.px]="5 * 48">
+            <mat-option *cdkVirtualFor="let topping of filteredToppingList" [value]="topping">
+              {{ topping.label }}
+            </mat-option>
+          </cdk-virtual-scroll-viewport>
+        </mat-select>
       </div>
     </div>
     <ng-template pTemplate="footer">

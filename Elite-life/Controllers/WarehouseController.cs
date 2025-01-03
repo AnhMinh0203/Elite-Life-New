@@ -32,7 +32,7 @@ namespace Elite_life.Controllers
                 var result = await _warehouseRepos.AddWarehouseAsync(model);
                 if (result)
                 {
-                    return MethodResult.ResultWithSuccess(null, 200, "Warehouse added successfully");
+                    return MethodResult.ResultWithSuccess(result, 200, "Warehouse added successfully");
                 }
                 return MethodResult.ResultWithError(null, 400, "Failed to add warehouse");
             }
@@ -55,7 +55,7 @@ namespace Elite_life.Controllers
                 var result = await _warehouseRepos.DeleteWarehouseAsync(id);
                 if (result)
                 {
-                    return MethodResult.ResultWithSuccess(null, 200, "Warehouse deleted successfully");
+                    return MethodResult.ResultWithSuccess(result, 200, "Warehouse deleted successfully");
                 }
                 return MethodResult.ResultWithError(null, 400, "Failed to delete warehouse");
             }
@@ -83,7 +83,7 @@ namespace Elite_life.Controllers
             }
         }
 
-        [HttpPut("update-warehouse")]
+        [HttpPost("update-warehouse")]
         public async Task<MethodResult> UpdateWarehouse(WarehouseModel model)
         {
             try
@@ -96,13 +96,36 @@ namespace Elite_life.Controllers
                 var result = await _warehouseRepos.UpdateWarehouseAsync(model);
                 if (result)
                 {
-                    return MethodResult.ResultWithSuccess(null, 200, "Warehouse updated successfully");
+                    return MethodResult.ResultWithSuccess(result, 200, "Warehouse updated successfully");
                 }
                 return MethodResult.ResultWithError(null, 400, "Failed to update warehouse");
             }
             catch (Exception ex)
             {
                 return MethodResult.ResultWithError("An error occurred while updating the warehouse: " + ex.Message);
+            }
+        }
+
+        [HttpGet("search-warehouse/{key}")]
+        public async Task<MethodResult> SearchWarehouse(string key)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(key))
+                {
+                    return MethodResult.ResultWithError("No search key was provided");
+                }
+
+                var result = await _warehouseRepos.SearchWarehousesAsync(key);
+                if (result != null)
+                {
+                    return MethodResult.ResultWithSuccess(result, 200, "Success");
+                }
+                return MethodResult.ResultWithError(null, 400, "No warehouse found");
+            }
+            catch (Exception ex)
+            {
+                return MethodResult.ResultWithError("An error occurred while searching the warehouse: " + ex.Message);
             }
         }
     }

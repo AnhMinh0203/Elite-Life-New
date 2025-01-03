@@ -35,6 +35,8 @@ namespace Elite_life_repository
                 command.Parameters.AddWithValue("Mobile", model.Mobile ?? (object)DBNull.Value);
                 command.Parameters.AddWithValue("Manager", model.Manager ?? (object)DBNull.Value);
                 command.Parameters.AddWithValue("ManagerMobile", model.ManagerMobile ?? (object)DBNull.Value);
+
+                return (bool)await command.ExecuteScalarAsync();
             }
             catch (Exception ex)
             {
@@ -45,8 +47,6 @@ namespace Elite_life_repository
             {
                 await connection.CloseAsync();
             }
-
-            return false;
         }
 
         public async Task<bool> DeleteWarehouseAsync(int id)
@@ -98,6 +98,29 @@ namespace Elite_life_repository
         public Task<WarehouseDto?> GetWarehouseByIdAsync(int id)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<List<WarehouseDto>> SearchWarehousesAsync(string key)
+        {
+            var connectPostgres = new ConnectToPostgresql(_configuration);
+            using var connection = await connectPostgres.CreateConnectionAsync();
+            try
+            {
+                var query = @"SELECT * FROM dbo.search_warehouses(@search)";
+                var parameters = new { search = key };
+                var result = (await connection.QueryAsync<WarehouseDto>(query, parameters)).AsList();
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error fetching GetAllWarehousesAsync: {ex.Message}");
+                return new List<WarehouseDto>();
+            }
+            finally
+            {
+                await connection.CloseAsync();
+            }
         }
 
         public async Task<bool> UpdateWarehouseAsync(WarehouseModel model)
