@@ -56,5 +56,91 @@ namespace Elite_life.Controllers
             }
             return MethodResult.ResultWithError(null, 400, "Not Found");
         }
+
+        [HttpPost]
+        [Route("place-order")]
+        public async Task<MethodResult> PlaceOrder(PlaceOrderModel model)
+        {
+            OrderResultModel result = await _orderRepos.PlaceOrderAsync(model);
+            if (string.IsNullOrEmpty(result.Message) || result.Message.Contains("Lỗi"))
+            {
+                return MethodResult.ResultWithError(result, 400, "Not Found");
+            }
+
+            return MethodResult.ResultWithSuccess(result, 200, "Success");
+        }
+
+        [HttpPost]
+        [Route("get-WalletHistory")]
+        public async Task<MethodResult> GetWalletHistory(WithdrawMoneyRange withdrawMoneyRange)
+        {
+            var result = await _orderRepos.GetWalletHistoryAsync(withdrawMoneyRange);
+            if (result == null || !result.Any())
+            {
+                return MethodResult.ResultWithError(null, 400, "Not Found");
+            }
+            return MethodResult.ResultWithSuccess(result, 200, "Success");
+        }
+
+
+        [HttpPost]
+        [Route("create-WithdrawHistory")]
+        public async Task<MethodResult> CreateWithdrawHistory(CreateWalletHistory createWalletHistory)
+        {
+            var result = await _orderRepos.CreateWalletHistoryAsync(createWalletHistory);
+            if (result == null || !result.Any())
+            {
+                return MethodResult.ResultWithError(null, 400, "Not Found");
+            }
+            return MethodResult.ResultWithSuccess(result, 200, "Success");
+        }
+
+        [HttpPost]
+        [Route("caculate-shareCommission")]
+        public async Task<MethodResult> CaculateShareCommission(CommissionModel shareCommissionModel)
+        {
+            var result = await _orderRepos.CaculateShareCommissionAsync(shareCommissionModel);
+            if (string.IsNullOrEmpty(result) || result.Contains("Lỗi"))
+            {
+                return MethodResult.ResultWithError(result, 400, "Not Found");
+            }
+            return MethodResult.ResultWithSuccess(result, 200, "Success");
+        }
+
+        [HttpPost]
+        [Route("caculate-gratitudeCommission")]
+        public async Task<MethodResult> CaculateGratitudeCommission(GratitudeCommissionModel gratitudeCommissionModel)
+        {
+            var result = await _orderRepos.CaculateGratitudeCommissionAsync(gratitudeCommissionModel);
+            if (string.IsNullOrEmpty(result) || result.Contains("Lỗi"))
+            {
+                return MethodResult.ResultWithError(result, 400, "Not Found");
+            }
+            return MethodResult.ResultWithSuccess(result, 200, "Success");
+        }
+
+        [HttpPost]
+        [Route("caculate-introCommission")]
+        public async Task<MethodResult> CaculateIntroCommission(CommissionModel introCommissionModel)
+        {
+            var result = await _orderRepos.CaculateIntroCommissionAsync(introCommissionModel);
+            if (string.IsNullOrEmpty(result) || result.Contains("Lỗi"))
+            {
+                return MethodResult.ResultWithError(result, 400, "Not Found");
+            }
+            return MethodResult.ResultWithSuccess(result, 200, "Success");
+        }
+
+        [HttpPost]
+        [Route("caculate-leaderCommission")]
+        public async Task<MethodResult> CaculateLeaderCommission(CommissionModel introCommissionModel)
+        {
+            var result = await _orderRepos.CaculateLeaderCommissionAsync(introCommissionModel);
+            if (string.IsNullOrEmpty(result) || result.Contains("Lỗi"))
+            {
+                return MethodResult.ResultWithError(result, 400, "Not Found");
+            }
+            return MethodResult.ResultWithSuccess(result, 200, "Success");
+        }
     }
 }

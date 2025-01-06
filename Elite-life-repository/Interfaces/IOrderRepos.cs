@@ -13,5 +13,12 @@ namespace Elite_life_repository.Interfaces
         Task<List<OrderInfoDto>> GetOrderInfoAsync(CollaboratorMemberManagerModel model);
         Task<List<OrderBillDto>> GetBillOrderInfoAsync(int OrderId);
         Task<bool> UpdateOrderDeliveryDate(OrderDeliveryDateModel model);
+        Task<List<WalletHistoryModel>> GetWalletHistoryAsync(WithdrawMoneyRange withdrawMoneyRange);
+        Task<string> CreateWalletHistoryAsync(CreateWalletHistory createWalletHistory);
+        Task<OrderResultModel> PlaceOrderAsync(PlaceOrderModel placeOrderModel);
+        Task<string> CaculateShareCommissionAsync(CommissionModel shareCommissionModel);
+        Task<string> CaculateGratitudeCommissionAsync(GratitudeCommissionModel gratitudeCommissionModel);
+        Task<string> CaculateIntroCommissionAsync(CommissionModel introCommissionModel);
+        Task<string> CaculateLeaderCommissionAsync(CommissionModel introCommissionModel);
     }
 }

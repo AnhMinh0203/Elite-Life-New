@@ -26,18 +26,18 @@ namespace Elite_life_repository
             _configuration = configuration;
         }
 
-/*        public async Task<int> GetCollaboratorIdByUserNameAsync(string userName)
-        {
-            var connectPostgres = new ConnectToPostgresql(_configuration);
-            using var connection = await connectPostgres.CreateConnectionAsync();
+        /*        public async Task<int> GetCollaboratorIdByUserNameAsync(string userName)
+                {
+                    var connectPostgres = new ConnectToPostgresql(_configuration);
+                    using var connection = await connectPostgres.CreateConnectionAsync();
 
-            var query = "SELECT dbo.get_collaborator_by_username(@UserName);";
-            int collaboratorId = await connection.QuerySingleOrDefaultAsync<int>(
-                    query,
-                    new { UserName = userName }
-                );
-            return collaboratorId;
-        }*/
+                    var query = "SELECT dbo.get_collaborator_by_username(@UserName);";
+                    int collaboratorId = await connection.QuerySingleOrDefaultAsync<int>(
+                            query,
+                            new { UserName = userName }
+                        );
+                    return collaboratorId;
+                }*/
 
         public async Task<WithdrawMoneyModel?> WithdrawMoneyAsync(string userName)
         {
@@ -190,7 +190,7 @@ namespace Elite_life_repository
             }
         }
 
-        public async Task<decimal?> GetWalletByTypeAsync (WalletType wallet)
+        public async Task<decimal?> GetWalletByTypeAsync(WalletType wallet)
         {
             var connectPostgres = new ConnectToPostgresql(_configuration);
             using var connection = await connectPostgres.CreateConnectionAsync();
@@ -251,7 +251,7 @@ namespace Elite_life_repository
         {
             var connectPostgres = new ConnectToPostgresql(_configuration);
             using var connection = await connectPostgres.CreateConnectionAsync();
-            using var transaction = await connection.BeginTransactionAsync();  
+            using var transaction = await connection.BeginTransactionAsync();
 
             try
             {
@@ -306,7 +306,7 @@ namespace Elite_life_repository
             }
         }
 
-        public async Task<string> CreateWalletHistoryAsync (CreateWalletHistory createWalletHistory)
+        public async Task<string> CreateWalletHistoryAsync(CreateWalletHistory createWalletHistory)
         {
             var connectPostgres = new ConnectToPostgresql(_configuration);
             using var connection = await connectPostgres.CreateConnectionAsync();
@@ -400,7 +400,7 @@ namespace Elite_life_repository
             {
                 throw new FileNotFoundException("Template file not found", templatePath);
             }
-           
+
 
             // Đọc file template Excel
             var fileInfo = new FileInfo(templatePath);
@@ -473,6 +473,4 @@ namespace Elite_life_repository
             }
         }
     }
-
-   
 }

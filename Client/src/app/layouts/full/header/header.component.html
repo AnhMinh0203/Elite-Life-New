@@ -59,7 +59,7 @@
   <div class="row my-10">
     <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 d-flex flex-column w-100 my-10" >
       <label for="">Số tiền</label>
-      <p-inputNumber inputId="integeronly" [(ngModel)]="test"  styleClass="format-input" class="format-input" />
+      <p-inputNumber inputId="integeronly" [(ngModel)]="payed"  styleClass="format-input" class="format-input" />
     </div>
 
     <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 d-flex my-10">
@@ -72,12 +72,12 @@
     <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 d-flex my-10">
       <div class="d-flex flex-column w-100">
         <label for="">Số lượng</label>
-        <p-inputNumber inputId="integeronly" [(ngModel)]="test"  styleClass="format-input" class="format-input" />
+        <p-inputNumber inputId="integeronly" [(ngModel)]="amountOrder"  styleClass="format-input" class="format-input" />
       </div>
     </div>
 
     <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 d-flex my-10 flex-column justify-content-end align-items-end">
-      <p-button label="Mua combo" [raised]="true" severity="success" class="m-b-4"/>
+      <p-button label="Mua combo" [raised]="true" severity="success" class="m-b-4" (click)="placeOrder()"/>
     </div>
 
   </div>
