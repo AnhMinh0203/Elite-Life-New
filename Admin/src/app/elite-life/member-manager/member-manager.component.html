@@ -3,7 +3,7 @@
     <mat-card class="cardWithShadow">
       <mat-card-content class="p-24">
         <div class="d-flex w-100">
-          <mat-card-title style="color: #004882;">Danh sách thành viên</mat-card-title>
+          <mat-card-title style="color: #B0903E;">Danh sách thành viên</mat-card-title>
         </div>
       </mat-card-content>
     </mat-card>
@@ -14,7 +14,7 @@
     <mat-card class="cardWithShadow">
       <mat-card-content class="p-24">
         <div class="d-flex w-100">
-          <mat-card-title style="color: #004882;">Danh sách thành viên ({{totalMember}})</mat-card-title>
+          <mat-card-title style="color: #B0903E;">Danh sách thành viên ({{totalMember}})</mat-card-title>
           <div class="m-l-auto">
             <input type="text" pInputText [(ngModel)]="search" (keydown.enter)="searchName()" />
             <p-calendar 
@@ -34,7 +34,7 @@
             [tableStyle]="{ 'min-width': '50rem' }"
             [rowsPerPageOptions]="[5, 10, 20]"
           >
-              <ng-template pTemplate="header">
+              <ng-template pTemplate="header" style="color: #B0903E;">
                   <tr>
                       <th style="width:5%">Hành động</th>
                       <th style="width:15%">
@@ -48,7 +48,7 @@
               <ng-template pTemplate="body" let-customer>
                   <tr>
                       <td style="align-items: center;">
-                        <i class="pi pi-pen-to-square" style="color: #004882; padding: 0 5px; cursor: pointer;"></i>
+                        <i class="pi pi-pen-to-square" style="color: #B0903E; padding: 0 5px; cursor: pointer;"></i>
                         <i class="pi pi-trash" style="color: red; padding: 0 5px;cursor: pointer;" (click)="showDialogDelete(customer)"></i>
                         <i class="pi pi-bars" style=" padding: 0 5px;cursor: pointer;" (click)="menu.toggle($event)" (click)="changId(customer)"></i>
                         <p-tieredMenu 
@@ -77,7 +77,7 @@
     <mat-card class="cardWithShadow">
       <mat-card-content class="p-24">
         <div class="d-flex w-100">
-          <mat-card-title style="color: #004882;">Danh sách thành viên lên vip ({{totalMember}})</mat-card-title>
+          <mat-card-title style="color: #B0903E;">Danh sách thành viên lên vip ({{totalMember}})</mat-card-title>
           <div class="m-l-auto">
             <input type="text" pInputText [(ngModel)]="search" (keydown.enter)="searchName()" />
             <p-calendar 
@@ -97,7 +97,7 @@
             [tableStyle]="{ 'min-width': '50rem' }"
             [rowsPerPageOptions]="[5, 10, 20]"
           >
-              <ng-template pTemplate="header">
+              <ng-template pTemplate="header" style="color: #B0903E;">
                   <tr>
                       <th style="width:5%">Hành động</th>
                       <th style="width:15%">
@@ -111,7 +111,7 @@
               <ng-template pTemplate="body" let-customer>
                   <tr>
                       <td style="align-items: center;">
-                        <i class="pi pi-pen-to-square" style="color: #004882; padding: 0 5px; cursor: pointer;"></i>
+                        <i class="pi pi-pen-to-square" style="color: #B0903E; padding: 0 5px; cursor: pointer;"></i>
                         <i class="pi pi-trash" style="color: red; padding: 0 5px;cursor: pointer;" (click)="showDialogDelete(customer)"></i>
                         <i class="pi pi-bars" style=" padding: 0 5px;cursor: pointer;" (click)="menu.toggle($event)" (click)="changId(customer)"></i>
                         <p-tieredMenu 
@@ -140,7 +140,7 @@
     <mat-card class="cardWithShadow">
       <mat-card-content class="p-24">
         <div class="d-flex w-100">
-          <mat-card-title style="color: #004882;">Danh sách thành viên hạ vip ({{totalMember}})</mat-card-title>
+          <mat-card-title style="color: #B0903E;">Danh sách thành viên hạ vip ({{totalMember}})</mat-card-title>
           <div class="m-l-auto">
             <input type="text" pInputText [(ngModel)]="search" (keydown.enter)="searchName()" />
             <p-calendar 
@@ -160,7 +160,7 @@
             [tableStyle]="{ 'min-width': '50rem' }"
             [rowsPerPageOptions]="[5, 10, 20]"
           >
-              <ng-template pTemplate="header">
+              <ng-template pTemplate="header" style="color: #B0903E;">
                   <tr>
                       <th style="width:5%">Hành động</th>
                       <th style="width:15%">
@@ -174,7 +174,7 @@
               <ng-template pTemplate="body" let-customer>
                   <tr>
                       <td style="align-items: center;">
-                        <i class="pi pi-pen-to-square" style="color: #004882; padding: 0 5px; cursor: pointer;"></i>
+                        <i class="pi pi-pen-to-square" style="color: #B0903E; padding: 0 5px; cursor: pointer;"></i>
                         <i class="pi pi-trash" style="color: red; padding: 0 5px;cursor: pointer;" (click)="showDialogDelete(customer)"></i>
                         <i class="pi pi-bars" style=" padding: 0 5px;cursor: pointer;" (click)="menu.toggle($event)" (click)="changId(customer)"></i>
                         <p-tieredMenu 
@@ -204,14 +204,14 @@
   [modal]="true" 
   [style]="{ width: '50rem', height: '50rem' }">
     <ng-template pTemplate="header">
-        <h3>Vui lòng xác nhận và chuyển nhánh cho các mã bên dưới</h3>
+        <h3 style="color: #B0903E;">Vui lòng xác nhận và chuyển nhánh cho các mã bên dưới</h3>
     </ng-template>
     <div class="row w-100">
       <div class="d-flex w-100" style="flex-direction: column;">
-        <label for="parentId" class="font-semibold">
+        <label for="parentId" class="font-semibold" style="color: #B0903E;">
           Chọn nhánh
         </label>
-        <mat-select [formControl]="singleSelectControl" (selectionChange)="onSelectionChange($event)">
+        <mat-select [formControl]="singleSelectControl" placeholder="Search"  (selectionChange)="onSelectionChange($event)">
           <input class="w-100" type="text" pInputText placeholder="Search" [(ngModel)]="searchTerm" (input)="filterOptions()" />
           <cdk-virtual-scroll-viewport itemSize="50" [style.height.px]="5 * 48">
             <mat-option *cdkVirtualFor="let topping of filteredToppingList" [value]="topping">
@@ -245,7 +245,7 @@
   [modal]="true" 
   [style]="{ width: '50rem' }">
     <ng-template pTemplate="header">
-      <h3>Sơ đồ cây hệ thống</h3>
+      <h3 style="color: #B0903E;">Sơ đồ cây hệ thống</h3>
     </ng-template>
     <p-tree [loading]="isLoading" class="w-full md:w-30rem" [value]="tree"  />
 </p-dialog>
@@ -257,7 +257,7 @@ header="Header"
 [modal]="true" 
 [style]="{ width: '60%'}">
   <ng-template pTemplate="header">
-    <h3>Chi tiết chi hoa hồng</h3>
+    <h3 style="color: #B0903E;">Chi tiết chi hoa hồng</h3>
   </ng-template>
   <div class="row">
     <p-table
@@ -269,7 +269,7 @@ header="Header"
       [tableStyle]="{ 'min-width': '55%' }"
       [rowsPerPageOptions]="[5, 10, 20]"
     >
-      <ng-template pTemplate="header">
+      <ng-template pTemplate="header" style="color: #B0903E;">
           <tr>
               <th style="width:5%">STT</th>
               <th style="width:10%">Ngày thanh toán</th>
@@ -299,11 +299,11 @@ header="Header"
 [(visible)]="visibleMoney" 
 [modal]="true" >
   <ng-template pTemplate="header">
-      <h3>Nạp tiền</h3>
+      <h3 style="color: #B0903E;">Nạp tiền</h3>
   </ng-template>
   <div class="row" style="margin: 10px 0;">
     <div class="d-flex w-100" style="flex-direction: column;">
-      <label for="money" class="font-semibold">
+      <label for="money" class="font-semibold" style="color: #B0903E;">
         Số tiền
       </label>
       <input type="number" min="0.1" pInputText [(ngModel)]="money" id="money" class="flex-auto" autocomplete="off" />
@@ -326,7 +326,7 @@ header="Header"
       [loading]="isLoading"
       [rowsPerPageOptions]="[5, 10, 20]"
     >
-      <ng-template pTemplate="header">
+      <ng-template pTemplate="header" style="color: #B0903E;">
           <tr>
               <th style="width:5%">STT</th>
               <th style="width:10%">Số tiền</th>

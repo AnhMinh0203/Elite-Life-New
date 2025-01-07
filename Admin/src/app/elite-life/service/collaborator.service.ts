@@ -198,5 +198,18 @@ export class CollaboratorService {
       );
   }
 
+  getAllCollaboratorContract(startDate: any, endDate: any) {
+    let apiUrl = `${this.serviceUri}/get-all-collaborator-contract`;
+    if(startDate && endDate) {
+      apiUrl = `${this.serviceUri}/get-all-collaborator-contract?startDate=${startDate}&endDate=${endDate}`;
+    }
+    return this._http.get<ResponseResult>(apiUrl)
+      .pipe(
+        catchError((error: any) => {
+          throw error;
+        })
+      );
+  }
+
 
 }

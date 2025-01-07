@@ -452,5 +452,18 @@ namespace Elite_life.Controllers
             return MethodResult.ResultWithError(null, 400, "Not Found");
 
         }
+
+        [HttpGet]
+        [Route("get-all-collaborator-contract")]
+        public async Task<MethodResult> GetAllCollaboratorsContract(DateTime? startDate, DateTime? endDate)
+        {
+            var result = await _collaboratorRepos.GetAllCollaboratorsContractManager(startDate, endDate);
+            if (result != null)
+            {
+                return MethodResult.ResultWithSuccess(result, 200, "Success");
+
+            }
+            return MethodResult.ResultWithError(null, 400, "Not Found");
+        }
     }
 }

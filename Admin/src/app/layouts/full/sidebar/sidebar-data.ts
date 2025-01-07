@@ -54,7 +54,7 @@ export const navItems: NavItem[] = [
     displayName: 'Quản lý ví C',
     iconName: 'file-text',
     route: '/wallet-c-manager',
-  },//
+  },
   {
     displayName: 'Quản lý hợp đồng đại lý',
     iconName: 'file-text',
@@ -69,24 +69,32 @@ export const navItems: NavItem[] = [
     navCap: 'Quản lý ID',
   },
   {
+    displayName: 'Quản lý tổng ID',
+    iconName: 'file-text',
+    route: '/id-manager',
+  },
+  {
     displayName: 'Quản lý đơn hàng ID',
     iconName: 'file-text',
     route: '/order-manager',
   },
   {
-    displayName: 'Quản trị hệ thống',
-    iconName: 'file-text',
-    route: '/culture',
+    navCap: 'Quản trị hệ thống',
   },
   {
-    displayName: 'Hotline: 0967364999',
+    displayName: 'Quản lý tài khoản',
     iconName: 'file-text',
-    href: 'tel:0967364999',
+    route: 'account-manager',
   },
   {
-    displayName: 'Zalo hỗ trợ chung',
+    displayName: 'Danh mục quyền',
     iconName: 'file-text',
-    href: 'https://zalo.me/g/hcwaid814',
+    route: 'permission-manager',
+  },
+  {
+    displayName: 'Quản lý nhóm quyền',
+    iconName: 'file-text',
+    route: 'role-manager',
   },
   {
     displayName: 'Đào tạo hướng dẫn',

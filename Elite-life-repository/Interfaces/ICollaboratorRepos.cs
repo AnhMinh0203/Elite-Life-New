@@ -21,6 +21,7 @@ namespace Elite_life_repository.Interfaces
         Task<decimal?> GetTotalValueWithLevelAsync(int inputId);
         // Contract manager
         Task<CollaboratorDto> GetCollaboratorsContractManager(int CollaboratorId);
+        Task<List<CollaboratorDto>> GetAllCollaboratorsContractManager(DateTime? startDate, DateTime? endDate);
         Task<bool> UpdateContractsAsync(CollaboratorDto model);
         Task<bool> UpdateContractsImageAsync(int Id);
 
