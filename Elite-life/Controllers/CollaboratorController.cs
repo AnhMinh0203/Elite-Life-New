@@ -125,7 +125,7 @@ namespace Elite_life.Controllers
 
                 // Đường dẫn file template và file đầu ra
                 string baseDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-                string baseDirData = _configuration.GetValue("dataUrl", "E:\\Customers\\Elite-Life-New\\File");
+                string baseDirData = _configuration.GetValue("dataUrl", "/var/www/Elite-Life-New/File");
                 string templateFilePath = Path.Combine(baseDir, "wwwroot", "template", "contractTemp.docx");
                 string contractsDir = Path.Combine(baseDirData, "ContractsFile");
                 string imageSignDir = Path.Combine(baseDirData, "ImageSign");
@@ -189,6 +189,8 @@ namespace Elite_life.Controllers
 
                 string finalImageSignExists = System.IO.File.Exists(imageSignPath) ? imageSignPath : null;
 
+                await _collaboratorRepos.UpdateContractsAsync(collaborator);
+
                 // Trả kết quả thành công với đường dẫn file đầu ra
                 return MethodResult.ResultWithSuccess(new
                 {
@@ -208,11 +210,11 @@ namespace Elite_life.Controllers
         }
 
         [HttpPost("save-signature")]
-        public MethodResult SaveSignature([FromBody] SignatureDto signatureDto)
+        public async Task<MethodResult> SaveSignature([FromBody] SignatureDto signatureDto)
         {
             try
             {
-                string baseDir = _configuration.GetValue("dataUrl", "E:\\Customers\\Elite-Life-New\\File");
+                string baseDir = _configuration.GetValue("dataUrl", "/var/www/Elite-Life-New/File");
                 if (string.IsNullOrWhiteSpace(signatureDto.ImageData))
                 {
                     return MethodResult.ResultWithError(null, 400, "Image data is required.");
@@ -240,6 +242,8 @@ namespace Elite_life.Controllers
                 // Lưu tệp ảnh vào ổ đĩa
                 System.IO.File.WriteAllBytes(filePath, imageBytes);
 
+                await _collaboratorRepos.UpdateContractsImageAsync(signatureDto.CollaboratorId);
+
                 return MethodResult.ResultWithSuccess(new
                 {
                     FilePath = filePath
@@ -262,7 +266,7 @@ namespace Elite_life.Controllers
             try
             {
                 // Đường dẫn thư mục chứa file PDF
-                string baseDirData = _configuration.GetValue("dataUrl", "E:\\Customers\\Elite-Life-New\\File");
+                string baseDirData = _configuration.GetValue("dataUrl", "/var/www/Elite-Life-New/File");
                 string filePath = Path.Combine(baseDirData, "ContractsFile", fileName);
 
                 // Kiểm tra file có tồn tại không
@@ -291,7 +295,7 @@ namespace Elite_life.Controllers
         {
             try
             {
-                string baseDirData = _configuration.GetValue("dataUrl", "E:\\Customers\\Elite-Life-New\\File");
+                string baseDirData = _configuration.GetValue("dataUrl", "/var/www/Elite-Life-New/File");
                 string filePath = Path.Combine(baseDirData, "ImageSign", fileName);
 
                 // Kiểm tra file ảnh có tồn tại không
@@ -315,7 +319,7 @@ namespace Elite_life.Controllers
         [HttpGet]
         [Authorize]
         [Route("get-collaborator-top")]
-        public async Task<MethodResult> GetCollaboratorsTop() 
+        public async Task<MethodResult> GetCollaboratorsTop()
         {
             var userClaims = HttpContext.User.Claims;
             //var roles = userClaims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).ToList();
@@ -421,5 +425,45 @@ namespace Elite_life.Controllers
             return MethodResult.ResultWithError(null, 400, "Not Found");
         }
 
+        [HttpGet]
+        [Route("get-all-repackage-collaborator")]
+        public async Task<MethodResult> GetAllRePackageCollaborators()
+        {
+            var result = await _collaboratorRepos.GetAllRePackageCollaborators();
+            if (result != null)
+            {
+                return MethodResult.ResultWithSuccess(result, 200, "Success");
+
+            }
+            return MethodResult.ResultWithError(null, 400, "Not Found");
+
+        }
+
+        [HttpGet]
+        [Route("get-all-collaborator-multi-order")]
+        public async Task<MethodResult> GetAllCollaboratorsMultiOrder()
+        {
+            var result = await _collaboratorRepos.GetAllCollaboratorsMultiOrder();
+            if (result != null)
+            {
+                return MethodResult.ResultWithSuccess(result, 200, "Success");
+
+            }
+            return MethodResult.ResultWithError(null, 400, "Not Found");
+
+        }
+
+        [HttpGet]
+        [Route("get-all-collaborator-contract")]
+        public async Task<MethodResult> GetAllCollaboratorsContract(DateTime? startDate, DateTime? endDate)
+        {
+            var result = await _collaboratorRepos.GetAllCollaboratorsContractManager(startDate, endDate);
+            if (result != null)
+            {
+                return MethodResult.ResultWithSuccess(result, 200, "Success");
+
+            }
+            return MethodResult.ResultWithError(null, 400, "Not Found");
+        }
     }
 }

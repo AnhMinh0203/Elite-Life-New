@@ -77,6 +77,32 @@ namespace Elite_life_repository
             }
         }
 
+        public async Task<(int NotPurchased, int Purchased)> GetPurchaseStatisticsAsync(int month, int year)
+        {
+            var connectPostgres = new ConnectToPostgresql(_configuration);
+            using var connection = await connectPostgres.CreateConnectionAsync();
+            try
+            {
+                var query = @"SELECT * FROM dbo.get_purchase_statistics(@p_month, @p_year)";
+                var parameters = new
+                {
+                    p_month = month,
+                    p_year = year
+                };
+                var result = (await connection.QueryFirstOrDefaultAsync<(int NotPurchased, int Purchased)>(query, parameters));
+
+                return (result);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error fetching GetBillOrderInfoAsync: {ex.Message}");
+                return (0,0);
+            }
+            finally
+            {
+                await connection.CloseAsync();
+            }
+        }
 
         public async Task<bool> UpdateOrderDeliveryDate(OrderDeliveryDateModel model)
         {
