@@ -15,6 +15,10 @@ import { BinaryTreeComponent } from './elite-life/binary-tree/binary-tree.compon
 import { WalletManagerComponent } from './elite-life/wallet-manager/wallet-manager.component';
 import { BoothManagerComponent } from './elite-life/booth-manager/booth-manager.component';
 import { WarehouseManagerComponent } from './elite-life/warehouse-manager/warehouse-manager.component';
+import { OrderManagerComponent } from './elite-life/order-manager/order-manager.component';
+import { IdManagerComponent } from './elite-life/id-manager/id-manager.component';
+import { PermissionManagerComponent } from './elite-life/permission-manager/permission-manager.component';
+import { RoleManagerComponent } from './elite-life/role-manager/role-manager.component';
 
 const routes: Routes = [
   {
@@ -97,6 +101,10 @@ const routes: Routes = [
         path: 'booth-manager', component: BoothManagerComponent
       },
       { path: 'warehouse-manager', component: WarehouseManagerComponent },
+      { path: 'order-manager', component: OrderManagerComponent },
+      { path: 'id-manager', component: IdManagerComponent },
+      { path: 'permission-manager', component: PermissionManagerComponent },
+      { path: 'role-manager', component: RoleManagerComponent },
     ],
   },
   {

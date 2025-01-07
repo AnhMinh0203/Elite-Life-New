@@ -3,7 +3,7 @@
     <mat-card class="cardWithShadow">
       <mat-card-content class="p-24">
         <div class="d-flex w-100">
-          <mat-card-title style="color: #004882;">Danh sách thành viên ({{totalMember}})</mat-card-title>
+          <mat-card-title style="color: #B0903E;">Danh sách thành viên ({{totalMember}})</mat-card-title>
           <div class="m-l-auto">
             <input type="text" pInputText [(ngModel)]="search" (keydown.enter)="searchName()" />
             <p-calendar 
@@ -57,7 +57,7 @@
     [style]="{ width: '50rem' }">
         <ng-template pTemplate="header">
             <div class="inline-flex align-items-center justify-content-center gap-2">
-                <h3 class="font-bold white-space-nowrap">
+                <h3 class="font-bold white-space-nowrap" style="color: #B0903E;">
                   Chi tiết hợp đồng
                 </h3>
             </div>
@@ -85,17 +85,17 @@
         </div>
         <div  *ngIf="!isLoading" class="row justify-content-center m-3 p-3" style="margin-top: 30px;">
           <div class="col-6">
-            <mat-card-title style="color: #004882;">Bên B</mat-card-title> 
+            <mat-card-title style="color: #B0903E;">Bên B</mat-card-title> 
             <img [src]="imageSignUrl" *ngIf="imageSignUrl" alt="Signature">
             <h5 style="align-items: center; display: flex; justify-content: center;">{{info?.name}}</h5>
           </div>
           <div class="col-6">
-            <mat-card-title style="color: #004882;">Bên A</mat-card-title> 
+            <mat-card-title style="color: #B0903E;">Bên A</mat-card-title> 
               <p>CÔNG TY TNHH NGHIÊN CỨU VÀ SẢN XUẤT SINH HỌC HANA, THỰC THUỘC CTY CP TẬP ĐOÀN ELITE LIFE - JAPAN.</p>
               <p>Mã số doanh nghiệp: 0901155104, cấp ngày 15 tháng 02 năm 2024.</p>
-              <p>Đại diện: Ông LƯƠNG VĂN NGHỊ.</p>
-              <p>Chức vụ: Tổng giám đốc</p>
-              <p>Điện thoại: 0909679955</p>
+              <p>Đại diện: </p>
+              <p>Chức vụ: </p>
+              <p>Điện thoại:</p>
           </div>
         </div>
 </p-dialog>

@@ -3,7 +3,7 @@
     <mat-card class="cardWithShadow">
       <mat-card-content class="p-24">
         <div class="d-flex w-100">
-          <mat-card-title style="color: #004882;">Quản lý đơn hàng</mat-card-title>
+          <mat-card-title style="color: #B0903E;">Quản lý đơn hàng</mat-card-title>
         </div>
       </mat-card-content>
     </mat-card>
@@ -14,7 +14,7 @@
     <mat-card class="cardWithShadow">
       <mat-card-content class="p-24">
         <div class="d-flex w-100">
-          <mat-card-title style="color: #004882;">Quản lý đơn hàng ()</mat-card-title>
+          <mat-card-title style="color: #B0903E;">Quản lý đơn hàng ()</mat-card-title>
           <div class="m-l-auto">
             <input type="text" pInputText [(ngModel)]="search" (keydown.enter)="searchName()" />
             <p-calendar 
@@ -59,7 +59,7 @@
                       [baseZIndex]="1000">
                     </p-tieredMenu>
                   </td>
-                  <td style="color: #144DB5; cursor: pointer;" (click)="showDialogDate(customer)" >Chọn ngày gửi đơn</td>
+                  <td style="color: #B0903E; cursor: pointer;" (click)="showDialogDate(customer)" >Chọn ngày gửi đơn</td>
                   <td>{{ customer.name }}</td>
                   <td>{{ customer.address}}</td>
                   <td>{{ customer.mobile }}</td>
@@ -78,7 +78,7 @@
   [modal]="true" 
   [style]="{ width: '50%', height: '100%' }">
     <ng-template pTemplate="header">
-      <h3>Chọn ngày gửi đơn</h3>
+      <h3 style="color: #B0903E;">Chọn ngày gửi đơn</h3>
     </ng-template>
     <div class="row">
       <div class="d-flex" style="flex-direction: column;">
@@ -112,7 +112,7 @@
   [(visible)]="visibleBill" 
   [modal]="true" >
     <ng-template pTemplate="header">
-      <h3>Chi tiết hoá đơn</h3>
+      <h3 style="color: #B0903E;">Chi tiết hoá đơn</h3>
     </ng-template>
     <div class="row">
       <p-table
@@ -147,7 +147,7 @@
   [modal]="true" 
   [style]="{ width: '60%'}">
     <ng-template pTemplate="header">
-      <h3>Chi tiết chi hoa hồng</h3>
+      <h3 style="color: #B0903E;">Chi tiết chi hoa hồng</h3>
     </ng-template>
     <div class="row">
       <p-table

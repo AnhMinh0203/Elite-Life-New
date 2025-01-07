@@ -421,5 +421,46 @@ namespace Elite_life.Controllers
             return MethodResult.ResultWithError(null, 400, "Not Found");
         }
 
+        [HttpGet]
+        [Route("get-all-repackage-collaborator")]
+        public async Task<MethodResult> GetAllRePackageCollaborators()
+        {
+            var result = await _collaboratorRepos.GetAllRePackageCollaborators();
+            if (result != null)
+            {
+                return MethodResult.ResultWithSuccess(result, 200, "Success");
+
+            }
+            return MethodResult.ResultWithError(null, 400, "Not Found");
+
+        }
+
+        [HttpGet]
+        [Route("get-all-collaborator-multi-order")]
+        public async Task<MethodResult> GetAllCollaboratorsMultiOrder()
+        {
+            var result = await _collaboratorRepos.GetAllCollaboratorsMultiOrder();
+            if (result != null)
+            {
+                return MethodResult.ResultWithSuccess(result, 200, "Success");
+
+            }
+            return MethodResult.ResultWithError(null, 400, "Not Found");
+
+        }
+
+        [HttpGet]
+        [Route("get-all-collaborator-contract")]
+        public async Task<MethodResult> GetAllCollaboratorsContract(DateTime? startDate, DateTime? endDate)
+        {
+            var result = await _collaboratorRepos.GetAllCollaboratorsContractManager(startDate, endDate);
+            if (result != null)
+            {
+                return MethodResult.ResultWithSuccess(result, 200, "Success");
+
+            }
+            return MethodResult.ResultWithError(null, 400, "Not Found");
+        }
+
     }
 }
