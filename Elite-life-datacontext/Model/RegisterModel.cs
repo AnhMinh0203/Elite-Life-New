@@ -22,6 +22,6 @@ namespace Elite_life_datacontext.Model
         public string BankOwner { get; set; }
         public string BankNumber { get; set; }
         public string BankBranchName { get; set; }
-        public IFormFile Avatar { get; set; }
+        public IFormFile? Avatar { get; set; }
     }
 }

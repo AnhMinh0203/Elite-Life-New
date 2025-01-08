@@ -89,4 +89,24 @@ export class OrderService {
         })
       );
   }
+
+  getOrderHistoryService(collaboratorId: number){
+    const apiUrl = `${this.serviceUri}/get-orderHistory?collaboratorId=${collaboratorId}`;
+    return this._http.get<ResponseResult>(apiUrl)
+      .pipe(
+        catchError((error: any) => {
+          throw error;
+        })
+      );
+  }
+
+  getWarehouseService(){
+    const apiUrl = `${this.serviceUri}/get-warehouse`;
+    return this._http.get<ResponseResult>(apiUrl)
+      .pipe(
+        catchError((error: any) => {
+          throw error;
+        })
+      );
+  }
 }

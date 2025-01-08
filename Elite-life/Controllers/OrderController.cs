@@ -3,6 +3,7 @@ using Elite_life_datacontext.Model;
 using Elite_life_datacontext.Utils;
 using Elite_life_repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace Elite_life.Controllers
 {
@@ -137,6 +138,30 @@ namespace Elite_life.Controllers
         {
             var result = await _orderRepos.CaculateLeaderCommissionAsync(introCommissionModel);
             if (string.IsNullOrEmpty(result) || result.Contains("Lỗi"))
+            {
+                return MethodResult.ResultWithError(result, 400, "Not Found");
+            }
+            return MethodResult.ResultWithSuccess(result, 200, "Success");
+        }
+
+        [HttpGet]
+        [Route("get-orderHistory")]
+        public async Task<MethodResult> GetOrderHistory(int collaboratorId)
+        {
+            var result = await _orderRepos.GetOrderHistoryAsync(collaboratorId);
+            if (result == null && !result.Any())
+            {
+                return MethodResult.ResultWithError(result, 400, "Not Found");
+            }
+            return MethodResult.ResultWithSuccess(result, 200, "Success");
+        }
+
+        [HttpGet]
+        [Route("get-warehouse")]
+        public async Task<MethodResult> GetWarehouse()
+        {
+            var result = await _orderRepos.GetWarehouseAsync();
+            if (result == null && !result.Any())
             {
                 return MethodResult.ResultWithError(result, 400, "Not Found");
             }

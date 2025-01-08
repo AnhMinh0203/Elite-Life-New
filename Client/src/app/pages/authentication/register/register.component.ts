@@ -122,6 +122,34 @@ export class AppSideRegisterComponent {
       });
       return;
     }
+
+    // Kiểm tra lỗi email từ form control
+    const emailControl = this.signUpForm.get('Email');
+    if (!emailControl?.value?.trim()) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Vui lòng điền Email',
+      });
+      return;
+    }
+    if (emailControl?.hasError('email')) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Email không hợp lệ',
+      });
+      return;
+    }
+
+    if (!this.signUpForm.get('Parent')?.value?.trim()) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Vui lòng điền mã người giới thiệu',
+      });
+      return;
+    }
     if (!this.signUpForm.get('Identity')?.value?.trim()) {
       this.messageService.add({
         severity: 'error',
@@ -138,7 +166,21 @@ export class AppSideRegisterComponent {
       });
       return;
     }
-    if (!this.signUpForm.get('IdentityDate')?.value) {
+
+    // Kiểm tra ngày cấp
+    const identityDate = this.signUpForm.get('IdentityDate')?.value;
+    if (identityDate) {
+      const currentDate = new Date();
+      const selectedDate = new Date(identityDate);
+      if (selectedDate > currentDate) {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Ngày cấp không hợp lệ',
+        });
+        return;
+      }
+    } else {
       this.messageService.add({
         severity: 'error',
         summary: 'Error',
@@ -171,10 +213,10 @@ export class AppSideRegisterComponent {
       });
       return;
     }
+
     const parentCode = this.signUpForm.get('Parent')?.value;
     this._authenticateService.checkParent({ UserName: parentCode }).subscribe({
       next: (response) => {
-        console.log(response);
         if (response.isExistent) {
           this.currentForm = 2; // Chuyển sang form tiếp theo nếu mã người dùng tồn tại
         } else {
@@ -194,6 +236,8 @@ export class AppSideRegisterComponent {
       },
     });
   }
+
+
 
   previousForm() {
     this.currentForm = 1;

@@ -33,6 +33,12 @@ export class HeaderComponent {
   orderId: any;
   data: any;
 
+  listWarehouse:any;
+  selectedWarehouse: any;
+
+  orderHistory: any[] = []; // Lưu dữ liệu trả về từ API
+  columns: any[] = []; // Khai báo các cột
+
   constructor(
     public dialog: MatDialog,
     private _authenticateService: AuthenticateService,
@@ -43,6 +49,7 @@ export class HeaderComponent {
 
   ngOnInit() {
     this.userInfo = localStorage.getItem('info');
+    this.loadFormOrder();
   }
 
   logout() {
@@ -263,6 +270,51 @@ export class HeaderComponent {
           console.error(err);
         },
       });
+    }
+  }
+
+  loadFormOrder(){
+    this.getOrderHistory();
+    this.getWarehouse();
+  }
+
+  getOrderHistory(){
+    if (this.userInfo) {
+      const parsedInfo = JSON.parse(this.userInfo);
+      this.collaboratorId = parsedInfo.id;
+      this._orderService.getOrderHistoryService(this.collaboratorId).subscribe({
+        next: async (response: any) => {
+          this.orderHistory = response.data
+        },
+        error: (err) => {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Có lỗi sảy ra khi tải dữ liệu' });
+          console.error(err);
+        },
+      });
+    }
+  }
+
+  getWarehouse(){
+    this._orderService.getWarehouseService().subscribe({
+      next: (response: any) => {
+        this.listWarehouse = response.data;
+
+        if (this.listWarehouse.length > 0) {
+          this.selectedWarehouse = this.listWarehouse[0];
+        }
+      },
+      error: (err) => {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Có lỗi sảy ra khi tải dữ liệu' });
+        console.error(err);
+      },
+    });
+  }
+
+  updateTotalMoney(){
+    if (this.amountOrder) {
+      this.payed = this.amountOrder * 3450000;
+    } else {
+      this.payed = 0;
     }
   }
 }
