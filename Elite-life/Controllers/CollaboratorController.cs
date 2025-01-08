@@ -329,7 +329,7 @@ namespace Elite_life.Controllers
             var roles = rolesClaim?.Split(',').ToList() ?? new List<string>();
             if (!roles.Contains("collaborator_viewTop"))
             {
-                return MethodResult.ResultWithError("Bạn không có quyền truy cập", 403, "Forbidden");
+                return MethodResult.ResultWithError("Top thành viên", 403, "Bạn không có quyền truy cập");
             }
 
             var result = await _collaboratorRepos.GetCollaboratorsTop();
@@ -360,6 +360,16 @@ namespace Elite_life.Controllers
         [Route("get-all-collaborator")]
         public async Task<MethodResult> GetAllCollaborators(CollaboratorMemberManagerModel model)
         {
+            var userClaims = HttpContext.User.Claims;
+            //var roles = userClaims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).ToList();
+            var rolesClaim = userClaims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
+
+            // Chuyển chuỗi quyền thành danh sách
+            var roles = rolesClaim?.Split(',').ToList() ?? new List<string>();
+            if (!roles.Contains("member-manager-view"))
+            {
+                return MethodResult.ResultWithError("Danh sách thành viên", 403, "Bạn không có quyền truy cập");
+            }
             var result = await _collaboratorRepos.GetAllCollaborators(model);
             if (result != null)
             {
@@ -378,6 +388,21 @@ namespace Elite_life.Controllers
 
             var result = await _collaboratorRepos.ExportExcelAllCollaborators(model);
             string templateFileURL = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "wwwroot", "template", "Export_Collaborator_CustomerManager.xlsx");
+            string fileName = $"{ExtensionFile.GetFileNameWithoutExtension(templateFileURL)}_{toDay.ToString().Replace('/', '_').Replace(':', '_').Replace(' ', '_')}.xlsx";
+
+            Response.Headers.Add("fileName", fileName);
+            return File(result.ToArray(), ExtensionFile.GetContentType(templateFileURL), fileName);
+        }
+
+        [HttpPost]
+        [Route("export-excel-collaborator-id-manager")]
+        public async Task<IActionResult> ExportExcelAllCollaboratorsIDManager(CollaboratorMemberManagerModel model)
+        {
+
+            var toDay = DateTime.Today;
+
+            var result = await _collaboratorRepos.ExportExcelAllCollaboratorsIDManager(model);
+            string templateFileURL = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "wwwroot", "template", "Export_ID_Manager.xlsx");
             string fileName = $"{ExtensionFile.GetFileNameWithoutExtension(templateFileURL)}_{toDay.ToString().Replace('/', '_').Replace(':', '_').Replace(' ', '_')}.xlsx";
 
             Response.Headers.Add("fileName", fileName);
@@ -440,6 +465,21 @@ namespace Elite_life.Controllers
         }
 
         [HttpGet]
+        [Route("export-excel-all-repackage-collaborator")]
+        public async Task<IActionResult> ExportExcelAllRePackageCollaborators()
+        {
+
+            var toDay = DateTime.Today;
+
+            var result = await _collaboratorRepos.ExportExcelAllRePackageCollaborators();
+            string templateFileURL = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "wwwroot", "template", "Export_repackage_Manager.xlsx");
+            string fileName = $"{ExtensionFile.GetFileNameWithoutExtension(templateFileURL)}_{toDay.ToString().Replace('/', '_').Replace(':', '_').Replace(' ', '_')}.xlsx";
+
+            Response.Headers.Add("fileName", fileName);
+            return File(result.ToArray(), ExtensionFile.GetContentType(templateFileURL), fileName);
+        }
+
+        [HttpGet]
         [Route("get-all-collaborator-multi-order")]
         public async Task<MethodResult> GetAllCollaboratorsMultiOrder()
         {
@@ -454,16 +494,46 @@ namespace Elite_life.Controllers
         }
 
         [HttpGet]
-        [Route("get-all-collaborator-contract")]
-        public async Task<MethodResult> GetAllCollaboratorsContract(DateTime? startDate, DateTime? endDate)
+        [Route("export-excel-all-collaborator-multi-order")]
+        public async Task<IActionResult> ExportExcelAllCollaboratorsMultiOrder()
         {
-            var result = await _collaboratorRepos.GetAllCollaboratorsContractManager(startDate, endDate);
+
+            var toDay = DateTime.Today;
+
+            var result = await _collaboratorRepos.ExportExcelAllCollaboratorsMultiOrder();
+            string templateFileURL = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "wwwroot", "template", "Export_multi_order_Manager.xlsx");
+            string fileName = $"{ExtensionFile.GetFileNameWithoutExtension(templateFileURL)}_{toDay.ToString().Replace('/', '_').Replace(':', '_').Replace(' ', '_')}.xlsx";
+
+            Response.Headers.Add("fileName", fileName);
+            return File(result.ToArray(), ExtensionFile.GetContentType(templateFileURL), fileName);
+        }
+
+        [HttpPost]
+        [Route("get-all-collaborator-contract")]
+        public async Task<MethodResult> GetAllCollaboratorsContract(CollaboratorMemberManagerModel model)
+        {
+            var result = await _collaboratorRepos.GetAllCollaboratorsContractManager(model.StartDate, model.EndDate);
             if (result != null)
             {
                 return MethodResult.ResultWithSuccess(result, 200, "Success");
 
             }
             return MethodResult.ResultWithError(null, 400, "Not Found");
+        }
+
+        [HttpPost]
+        [Route("export-excel-all-collaborator-contract")]
+        public async Task<IActionResult> ExportExcelAllCollaboratorsContract(CollaboratorMemberManagerModel model)
+        {
+
+            var toDay = DateTime.Today;
+
+            var result = await _collaboratorRepos.ExportExcelAllCollaboratorsContractManager(model.StartDate, model.EndDate);
+            string templateFileURL = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "wwwroot", "template", "Export_contract_Manager.xlsx");
+            string fileName = $"{ExtensionFile.GetFileNameWithoutExtension(templateFileURL)}_{toDay.ToString().Replace('/', '_').Replace(':', '_').Replace(' ', '_')}.xlsx";
+
+            Response.Headers.Add("fileName", fileName);
+            return File(result.ToArray(), ExtensionFile.GetContentType(templateFileURL), fileName);
         }
     }
 }

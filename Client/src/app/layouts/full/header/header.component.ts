@@ -243,7 +243,6 @@ export class HeaderComponent {
             await this.calculateTotalCommission(this.orderId)
             // tạo lịch sử
             await this.createHistory(this.collaboratorId, 'Source', -this.payed, `Mua ${this.amountOrder} combo`)
-
             // load lại web
             this.refreshWalletData();
             this.messageService.add({

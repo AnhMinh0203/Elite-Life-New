@@ -5,9 +5,8 @@
         <div class="d-flex w-100">
           <mat-card-title style="color: #B0903E;">Quản lý kho hàng</mat-card-title>
           <div class="m-l-auto">
-            <input type="text" pInputText [(ngModel)]="search" (change)="searchWarehouse()"/>
-            <p-button label="Thêm mới" icon="pi pi-plus" styleClass="m-0" [outlined]="true" (onClick)="showAdd()" />
-            <p-button label="Xuất Excel" icon="pi pi-file-export" styleClass="m-0" [outlined]="true" />
+            <p-button *ngIf="isPermissionAdd" label="Thêm mới" icon="pi pi-plus" styleClass="m-0" [outlined]="true" (onClick)="showAdd()" />
+            <p-button *ngIf="isPermissionExport" label="Xuất Excel" icon="pi pi-file-export" styleClass="m-0" [outlined]="true" (onClick)="exportExcel()" />
           </div>
         </div>
         <div class="">
@@ -31,6 +30,51 @@
                   <th style="width:10%">Số điện thoại</th>
                   <th style="width:15%">Người quản lý</th>
                   <th style="width:10%">SĐT người quản lý</th>
+              </tr>
+              <tr>
+                <th></th>
+                <th>
+                  <p-columnFilter 
+                    type="text"
+                    field="name" 
+                    placeholder="" 
+                    ariaLabel="Filter Name" />
+                </th>
+                <th>
+                  <p-columnFilter 
+                    type="text"
+                    field="location"
+                    placeholder="" 
+                    ariaLabel="Filter Country" />
+                </th>
+                <th>
+                  <p-columnFilter 
+                    type="text"
+                    field="capacity"
+                    placeholder="" 
+                    ariaLabel="Filter Country" />
+                </th>
+                <th>
+                  <p-columnFilter 
+                    type="text"
+                    field="mobile"
+                    placeholder="" 
+                    ariaLabel="Filter Country" />
+                </th>
+                <th>
+                  <p-columnFilter 
+                    type="text"
+                    field="manager"
+                    placeholder="" 
+                    ariaLabel="Filter Country" />
+                </th>
+                <th>
+                  <p-columnFilter 
+                    type="text"
+                    field="managerMobile"
+                    placeholder="" 
+                    ariaLabel="Filter Country" />
+                </th>
               </tr>
             </ng-template>
             <ng-template pTemplate="body" let-customer>

@@ -75,7 +75,7 @@
           </div>
            <div class="btn_invite" style="position: absolute; top: 16px; right: 16px;">
                 <span>Mã Mời: </span> 
-                <button (click)="copyToClipboard(baseUrl + '/authentication/login?collaboratorCode=' + info?.userName)">
+                <button (click)="copyToClipboard(baseUrl + '/authentication/register?collaboratorCode=' + info?.userName)">
                   <i class="pi pi-clone"></i>
                 </button>
               </div>
@@ -90,7 +90,7 @@
     <mat-card class="cardWithShadow">
       <mat-card-content class="p-24">
         <div class="d-flex w-100">
-          <mat-card-title style="color: #004882;">Biểu đồ nạp rút</mat-card-title>
+          <mat-card-title style="color: #B0903E;">Biểu đồ nạp rút</mat-card-title>
           <div class="m-l-auto">
             <mat-form-field class="theme-select" appearance="outline">
               <mat-select value="1" (selectionChange)="onMonthChange($event)">
@@ -118,7 +118,7 @@
     <mat-card class="cardWithShadow">
       <mat-card-content class="p-24">
         <div class="d-flex w-100">
-          <mat-card-title style="color: #004882;">Bảng thành viên({{collaboratorNumber}})</mat-card-title>
+          <mat-card-title style="color: #B0903E;">Bảng thành viên({{collaboratorNumber}})</mat-card-title>
           <div class="m-l-auto">
             <p-button (onClick)="exportExcelCollaboratorByParentId()" label="Xuất Excel" icon="pi pi-file-export" styleClass="m-0" [outlined]="true" />
           </div>

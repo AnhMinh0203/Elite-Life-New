@@ -1,8 +1,10 @@
 ﻿using Elite_life_datacontext.Model;
 using Elite_life_datacontext.Utils;
+using Elite_life_repository.Common;
 using Elite_life_repository.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Reflection;
 
 namespace Elite_life.Controllers
 {
@@ -82,6 +84,21 @@ namespace Elite_life.Controllers
                 return MethodResult.ResultWithError("An error occurred while fetching the warehouse: " + ex.Message);
             }
         }
+
+        [HttpGet("export-excel-warehouse")]
+        public async Task<IActionResult> ExportExcelWarehouse()
+        {
+            var toDay = DateTime.Today;
+
+            var result = await _warehouseRepos.ExportExcelAllWarehousesAsync();
+            string templateFileURL = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "wwwroot", "template", "Export_Warehouse.xlsx"); ;
+            string fileName = $"{ExtensionFile.GetFileNameWithoutExtension(templateFileURL)}_{toDay.ToString().Replace('/', '_').Replace(':', '_').Replace(' ', '_')}.xlsx";
+
+            Response.Headers.Add("fileName", fileName);
+            return File(result.ToArray(), ExtensionFile.GetContentType(templateFileURL), fileName);
+        }
+
+
 
         [HttpPost("update-warehouse")]
         public async Task<MethodResult> UpdateWarehouse(WarehouseModel model)

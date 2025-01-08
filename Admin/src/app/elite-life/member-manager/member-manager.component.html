@@ -16,21 +16,22 @@
         <div class="d-flex w-100">
           <mat-card-title style="color: #B0903E;">Danh sách thành viên ({{totalMember}})</mat-card-title>
           <div class="m-l-auto">
-            <input type="text" pInputText [(ngModel)]="search" (keydown.enter)="searchName()" />
             <p-calendar 
               [(ngModel)]="rangeDates" 
               selectionMode="range" 
               [showIcon]="true"
               (onSelect)="onDateChange($event)"
               [readonlyInput]="true" />
-            <p-button (onClick)="exportExcelCollaboratorTop()" label="Xuất Excel" icon="pi pi-file-export" styleClass="m-0" [outlined]="true" />
+            <p-button *ngIf="isPermissionExport" (onClick)="exportExcelCollaboratorTop()" label="Xuất Excel" icon="pi pi-file-export" styleClass="m-0" [outlined]="true" />
           </div>
         </div>
         <div class="">
           <p-table
+            #dt2
             [value]="data"
             [paginator]="true"
             [rows]="5"
+            [globalFilterFields]="['name', 'userName', 'createdAt', 'rank']"
             [tableStyle]="{ 'min-width': '50rem' }"
             [rowsPerPageOptions]="[5, 10, 20]"
           >
@@ -44,11 +45,42 @@
                       <th style="width:15%">Ngày gia nhập</th>
                       <th style="width:5%">Cấp độ</th>
                   </tr>
+                  <tr>
+                    <th></th>
+                    <th>
+                      <p-columnFilter 
+                        type="text"
+                        field="name" 
+                        placeholder="" 
+                        ariaLabel="Filter Name" />
+                    </th>
+                    <th>
+                      <p-columnFilter 
+                        type="text"
+                        field="userName"
+                        placeholder="" 
+                        ariaLabel="Filter Country" />
+                    </th>
+                    <th>
+                      <p-columnFilter 
+                        type="text"
+                        field="createdAt"
+                        placeholder="" 
+                        ariaLabel="Filter Country" />
+                    </th>
+                    <th>
+                      <p-columnFilter 
+                        type="text"
+                        field="rank"
+                        placeholder="" 
+                        ariaLabel="Filter Country" />
+                    </th>
+                  </tr>
               </ng-template>
               <ng-template pTemplate="body" let-customer>
                   <tr>
                       <td style="align-items: center;">
-                        <i class="pi pi-pen-to-square" style="color: #B0903E; padding: 0 5px; cursor: pointer;"></i>
+                        <i class="pi pi-pen-to-square" *ngIf="editMember" style="color: #B0903E; padding: 0 5px; cursor: pointer;"></i>
                         <i class="pi pi-trash" style="color: red; padding: 0 5px;cursor: pointer;" (click)="showDialogDelete(customer)"></i>
                         <i class="pi pi-bars" style=" padding: 0 5px;cursor: pointer;" (click)="menu.toggle($event)" (click)="changId(customer)"></i>
                         <p-tieredMenu 
@@ -79,14 +111,13 @@
         <div class="d-flex w-100">
           <mat-card-title style="color: #B0903E;">Danh sách thành viên lên vip ({{totalMember}})</mat-card-title>
           <div class="m-l-auto">
-            <input type="text" pInputText [(ngModel)]="search" (keydown.enter)="searchName()" />
             <p-calendar 
               [(ngModel)]="rangeDates" 
               selectionMode="range" 
               [showIcon]="true"
               (onSelect)="onDateChange($event)"
               [readonlyInput]="true" />
-            <p-button (onClick)="exportExcelCollaboratorTop()" label="Xuất Excel" icon="pi pi-file-export" styleClass="m-0" [outlined]="true" />
+            <p-button *ngIf="isPermissionExport" (onClick)="exportExcelCollaboratorTop()" label="Xuất Excel" icon="pi pi-file-export" styleClass="m-0" [outlined]="true" />
           </div>
         </div>
         <div class="">
@@ -107,11 +138,42 @@
                       <th style="width:15%">Ngày gia nhập</th>
                       <th style="width:5%">Cấp độ</th>
                   </tr>
+                  <tr>
+                    <th></th>
+                    <th>
+                      <p-columnFilter 
+                        type="text"
+                        field="name" 
+                        placeholder="" 
+                        ariaLabel="Filter Name" />
+                    </th>
+                    <th>
+                      <p-columnFilter 
+                        type="text"
+                        field="userName"
+                        placeholder="" 
+                        ariaLabel="Filter Country" />
+                    </th>
+                    <th>
+                      <p-columnFilter 
+                        type="text"
+                        field="createdAt"
+                        placeholder="" 
+                        ariaLabel="Filter Country" />
+                    </th>
+                    <th>
+                      <p-columnFilter 
+                        type="text"
+                        field="rank"
+                        placeholder="" 
+                        ariaLabel="Filter Country" />
+                    </th>
+                  </tr>
               </ng-template>
               <ng-template pTemplate="body" let-customer>
                   <tr>
                       <td style="align-items: center;">
-                        <i class="pi pi-pen-to-square" style="color: #B0903E; padding: 0 5px; cursor: pointer;"></i>
+                        <i class="pi pi-pen-to-square" *ngIf="editMember" style="color: #B0903E; padding: 0 5px; cursor: pointer;"></i>
                         <i class="pi pi-trash" style="color: red; padding: 0 5px;cursor: pointer;" (click)="showDialogDelete(customer)"></i>
                         <i class="pi pi-bars" style=" padding: 0 5px;cursor: pointer;" (click)="menu.toggle($event)" (click)="changId(customer)"></i>
                         <p-tieredMenu 
@@ -142,14 +204,13 @@
         <div class="d-flex w-100">
           <mat-card-title style="color: #B0903E;">Danh sách thành viên hạ vip ({{totalMember}})</mat-card-title>
           <div class="m-l-auto">
-            <input type="text" pInputText [(ngModel)]="search" (keydown.enter)="searchName()" />
             <p-calendar 
               [(ngModel)]="rangeDates" 
               selectionMode="range" 
               [showIcon]="true"
               (onSelect)="onDateChange($event)"
               [readonlyInput]="true" />
-            <p-button (onClick)="exportExcelCollaboratorTop()" label="Xuất Excel" icon="pi pi-file-export" styleClass="m-0" [outlined]="true" />
+            <p-button *ngIf="isPermissionExport" (onClick)="exportExcelCollaboratorTop()" label="Xuất Excel" icon="pi pi-file-export" styleClass="m-0" [outlined]="true" />
           </div>
         </div>
         <div class="">
@@ -170,11 +231,37 @@
                       <th style="width:15%">Ngày gia nhập</th>
                       <th style="width:5%">Cấp độ</th>
                   </tr>
+                  <tr>
+                    <th></th>
+                    <th>
+                      <p-columnFilter 
+                        type="text"
+                        field="name" 
+                        placeholder="" 
+                        ariaLabel="Filter Name" />
+                    </th>
+                    <th>
+                      <p-columnFilter 
+                        type="text"
+                        field="userName"
+                        placeholder="" 
+                        ariaLabel="Filter Country" />
+                    </th>
+                    <th>
+                    </th>
+                    <th>
+                      <p-columnFilter 
+                        type="text"
+                        field="rank"
+                        placeholder="" 
+                        ariaLabel="Filter Country" />
+                    </th>
+                  </tr>
               </ng-template>
               <ng-template pTemplate="body" let-customer>
                   <tr>
                       <td style="align-items: center;">
-                        <i class="pi pi-pen-to-square" style="color: #B0903E; padding: 0 5px; cursor: pointer;"></i>
+                        <i class="pi pi-pen-to-square" *ngIf="editMember" style="color: #B0903E; padding: 0 5px; cursor: pointer;"></i>
                         <i class="pi pi-trash" style="color: red; padding: 0 5px;cursor: pointer;" (click)="showDialogDelete(customer)"></i>
                         <i class="pi pi-bars" style=" padding: 0 5px;cursor: pointer;" (click)="menu.toggle($event)" (click)="changId(customer)"></i>
                         <p-tieredMenu 

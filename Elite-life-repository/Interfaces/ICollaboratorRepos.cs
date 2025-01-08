@@ -22,6 +22,7 @@ namespace Elite_life_repository.Interfaces
         // Contract manager
         Task<CollaboratorDto> GetCollaboratorsContractManager(int CollaboratorId);
         Task<List<CollaboratorDto>> GetAllCollaboratorsContractManager(DateTime? startDate, DateTime? endDate);
+        Task<MemoryStream> ExportExcelAllCollaboratorsContractManager(DateTime? startDate, DateTime? endDate);
         Task<bool> UpdateContractsAsync(CollaboratorDto model);
         Task<bool> UpdateContractsImageAsync(int Id);
 
@@ -32,6 +33,7 @@ namespace Elite_life_repository.Interfaces
         Task<TotalWalletAdmin> GetTotalWalletAdmin();
         Task<List<CollaboratorDto>> GetAllCollaborators(CollaboratorMemberManagerModel model);
         Task<MemoryStream> ExportExcelAllCollaborators(CollaboratorMemberManagerModel model);
+        Task<MemoryStream> ExportExcelAllCollaboratorsIDManager(CollaboratorMemberManagerModel model);
         //Admin delete collaborator
         Task<bool> DeleteCollaborator(int id, int idNew);
 
@@ -41,6 +43,8 @@ namespace Elite_life_repository.Interfaces
 
         // Re-package
         Task<List<CollaboratorDto>> GetAllRePackageCollaborators();
+        Task<MemoryStream> ExportExcelAllRePackageCollaborators();
         Task<List<CollaboratorDto>> GetAllCollaboratorsMultiOrder();
+        Task<MemoryStream> ExportExcelAllCollaboratorsMultiOrder();
     }
 }

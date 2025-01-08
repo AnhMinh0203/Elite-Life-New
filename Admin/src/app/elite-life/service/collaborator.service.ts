@@ -138,6 +138,16 @@ export class CollaboratorService {
       );
   }
 
+  exportExcelCollaboratorIDManager(model: any) {
+    const apiUrl = `${this.serviceUri}/export-excel-collaborator-id-manager`;
+    return this._http.post(apiUrl, model, { responseType: 'blob' })
+      .pipe(
+        catchError((error: any) => {
+          throw error;
+        })
+      );
+  }
+
   deleteCollaborator(Id: any, IdNew: any) {
     const apiUrl = `${this.serviceUri}/delete-collaborator?id=${Id}&idNew=${IdNew}`;
     return this._http.delete<ResponseResult>(apiUrl)
@@ -188,6 +198,16 @@ export class CollaboratorService {
       );
   }
 
+  exportExcelRePackageCollaborator() {
+    const apiUrl = `${this.serviceUri}/export-excel-all-repackage-collaborator`;
+    return this._http.get(apiUrl, { responseType: 'blob' })
+      .pipe(
+        catchError((error: any) => {
+          throw error;
+        })
+      );
+  }
+
   getAllCollaboratorsMultiOrder() {
     const apiUrl = `${this.serviceUri}/get-all-collaborator-multi-order`;
     return this._http.get<ResponseResult>(apiUrl)
@@ -198,12 +218,29 @@ export class CollaboratorService {
       );
   }
 
-  getAllCollaboratorContract(startDate: any, endDate: any) {
+  exportExcelAllCollaboratorsMultiOrder() {
+    const apiUrl = `${this.serviceUri}/export-excel-all-collaborator-multi-order`;
+    return this._http.get(apiUrl, { responseType: 'blob' })
+      .pipe(
+        catchError((error: any) => {
+          throw error;
+        })
+      );
+  }
+
+  getAllCollaboratorContract(model: any) {
     let apiUrl = `${this.serviceUri}/get-all-collaborator-contract`;
-    if(startDate && endDate) {
-      apiUrl = `${this.serviceUri}/get-all-collaborator-contract?startDate=${startDate}&endDate=${endDate}`;
-    }
-    return this._http.get<ResponseResult>(apiUrl)
+    return this._http.post<ResponseResult>(apiUrl, model)
+      .pipe(
+        catchError((error: any) => {
+          throw error;
+        })
+      );
+  }
+
+  exportExcelAllCollaboratorContract(model: any) {
+    let apiUrl = `${this.serviceUri}/export-excel-all-collaborator-contract`;
+    return this._http.post(apiUrl, model, { responseType: 'blob' })
       .pipe(
         catchError((error: any) => {
           throw error;

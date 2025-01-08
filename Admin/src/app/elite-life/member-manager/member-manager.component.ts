@@ -54,12 +54,24 @@ export class MemberManagerComponent implements OnInit {
   singleSelectControl  = new FormControl();
   filteredToppingList: any[] = [];
   searchTerm: string = '';
+  permission: any;
+  isPermissionExport: boolean = false;
+  editMember: boolean = false;
+  rechargeMember: boolean = false;
 
   constructor(
     private _collaboratorService: CollaboratorService, 
     private messageService: MessageService,
     private _walletDetailService: WalletDetailService,
     private _walletsService: WalletsService) { 
+    
+  }
+
+  ngOnInit() {
+    this.permission = JSON.parse(localStorage.getItem('permission') || '{}');
+    this.isPermissionExport = this.permission.includes('member-manager-export-member');
+    this.editMember = this.permission.includes('member-manager-edit-member');
+    this.rechargeMember = this.permission.includes('member-manager-recharge-member');
     this.items = [
       {
           label: 'Sơ đồ cây hệ thống',
@@ -72,16 +84,15 @@ export class MemberManagerComponent implements OnInit {
           command: () => this.showDialogComission()
           
       },
-      {
-          label: 'Nạp tiền',
-          icon: 'pi pi-dollar',
-          command: () => this.showDialogMoney()
-      }
+      ...(this.rechargeMember
+        ? [{
+            label: 'Nạp tiền',
+            icon: 'pi pi-dollar',
+            command: () => this.showDialogMoney()
+          }]
+        : []
+      )
     ]
-    
-  }
-
-  ngOnInit() {
     this.info = JSON.parse(localStorage.getItem('info') || '{}');
     this.getAllCollaboratorByParentId();
   }

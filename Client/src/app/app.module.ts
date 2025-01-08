@@ -62,6 +62,8 @@ import { TabViewModule } from 'primeng/tabview';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { NumberFormatPipe } from './Core/pipes/number-format.pipe';
 import { DatePipe } from '@angular/common';
+import { BoothManagerComponent } from './elite-life/booth-manager/booth-manager.component';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 
 
@@ -85,7 +87,8 @@ import { DatePipe } from '@angular/common';
     InforComponent,
     DepositWithdrawManagementComponent,
     ProfileContainerComponent,
-    NumberFormatPipe
+    NumberFormatPipe,
+    BoothManagerComponent,
   ],
   imports: [
     BrowserModule,
@@ -116,6 +119,7 @@ import { DatePipe } from '@angular/common';
     CardModule,
     TabViewModule,
     InputNumberModule,
+    ScrollingModule,
 
   ],
   exports: [TablerIconsModule],

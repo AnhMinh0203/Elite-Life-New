@@ -11,6 +11,7 @@ namespace Elite_life_repository.Interfaces
     public interface IOrderRepos
     {
         Task<List<OrderInfoDto>> GetOrderInfoAsync(CollaboratorMemberManagerModel model);
+        Task<MemoryStream> ExportExcelOrderInfo(CollaboratorMemberManagerModel model);
         Task<List<OrderBillDto>> GetBillOrderInfoAsync(int OrderId);
         Task<bool> UpdateOrderDeliveryDate(OrderDeliveryDateModel model);
         Task<List<WalletHistoryModel>> GetWalletHistoryAsync(WithdrawMoneyRange withdrawMoneyRange);

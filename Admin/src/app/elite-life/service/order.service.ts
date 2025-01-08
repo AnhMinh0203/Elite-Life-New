@@ -28,6 +28,16 @@ export class OrderService {
       );
   }
 
+  exportExcelOrder(model: any) {
+    const apiUrl = `${this.serviceUri}/export-excel-order`;
+    return this._http.post(apiUrl, model, { responseType: 'blob' })
+      .pipe(
+        catchError((error: any) => {
+          throw error;
+        })
+      );
+  }
+
   updateOrderDeliveryDate(model: any) {
     const apiUrl = `${this.serviceUri}/update_order_delivery_date`;
     return this._http.post<ResponseResult>(apiUrl, model)

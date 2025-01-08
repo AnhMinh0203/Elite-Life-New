@@ -156,16 +156,38 @@ export class HomeComponent implements OnInit, AfterViewInit {
   
 
   copyToClipboard(text: string): void {
-    console.log('Copy to clipboard', text);
-    navigator.clipboard.writeText(text).then(() => {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.style.position = 'fixed'; // Đảm bảo không làm ảnh hưởng giao diện
+    textarea.style.opacity = '0';
+    document.body.appendChild(textarea);
+    textarea.select();
+  
+    try {
+      const success = document.execCommand('copy');
+      if (success) {
+        this.messageService.add({ 
+          severity: 'success', 
+          summary: 'Thành công', 
+          detail: 'Bạn đã copy thành công', 
+          life: 3000 
+        });
+      } else {
+        throw new Error('Không thể sao chép');
+      }
+    } catch (err) {
+      console.error('Lỗi khi sao chép:', err);
       this.messageService.add({ 
-        severity: 'success', 
-        summary: 'Thành công', 
-        detail: 'Bạn đã copy thành công', 
+        severity: 'error', 
+        summary: 'Lỗi', 
+        detail: 'Không thể sao chép vào clipboard', 
         life: 3000 
       });
-    });
+    }
+  
+    document.body.removeChild(textarea);
   }
+  
 
   confirmActivateAccount(): void {
     // Logic to activate account

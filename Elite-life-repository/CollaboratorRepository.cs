@@ -16,6 +16,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Xceed.Document.NET;
 
 namespace Elite_life_repository
 {
@@ -769,6 +770,694 @@ namespace Elite_life_repository
             {
                 await connection.CloseAsync();
             }
+        }
+
+        public async Task<DataTable> ExportExcelAllCollaboratorsIDManagerDataTable(CollaboratorMemberManagerModel model)
+        {
+            DataTable dataTable = new DataTable();
+            dataTable.Columns.Add("Name", typeof(string));
+            dataTable.Columns.Add("UserName", typeof(string));
+            dataTable.Columns.Add("Email", typeof(string));
+            dataTable.Columns.Add("Mobile", typeof(string));
+
+            var connectPostgres = new ConnectToPostgresql(_configuration);
+
+            using (var conn = await connectPostgres.CreateConnectionAsync())
+            {
+                using (var command = new NpgsqlCommand("SELECT * FROM dbo.get_all_collaborators(@p_start_date, @p_end_date)", conn))
+                {
+                    command.Parameters.AddWithValue("@p_start_date", model?.StartDate ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@p_end_date", model?.EndDate ?? (object)DBNull.Value);
+                    command.CommandTimeout = 400;
+
+                    using (var adapter = new NpgsqlDataAdapter(command))
+                    {
+                        adapter.Fill(dataTable);
+                    }
+                }
+
+                await conn.CloseAsync();
+            }
+            if (dataTable.Columns.Contains("Id"))
+            {
+                dataTable.Columns.Remove("Id");
+            }
+            if (dataTable.Columns.Contains("CreatedBy"))
+            {
+                dataTable.Columns.Remove("CreatedBy");
+            }
+            if (dataTable.Columns.Contains("CreatedAt"))
+            {
+                dataTable.Columns.Remove("CreatedAt");
+            }
+            if (dataTable.Columns.Contains("UpdatedAt"))
+            {
+                dataTable.Columns.Remove("UpdatedAt");
+            }
+            if (dataTable.Columns.Contains("DeletedAt"))
+            {
+                dataTable.Columns.Remove("DeletedAt");
+            }
+            if (dataTable.Columns.Contains("Identity"))
+            {
+                dataTable.Columns.Remove("Identity");
+            }
+            if (dataTable.Columns.Contains("IdentityDate"))
+            {
+                dataTable.Columns.Remove("IdentityDate");
+            }
+            if (dataTable.Columns.Contains("IdentityPlace"))
+            {
+                dataTable.Columns.Remove("IdentityPlace");
+            }
+            if (dataTable.Columns.Contains("BeginDate"))
+            {
+                dataTable.Columns.Remove("BeginDate");
+            }
+            if (dataTable.Columns.Contains("Level"))
+            {
+                dataTable.Columns.Remove("Level");
+            }
+            if (dataTable.Columns.Contains("Rank"))
+            {
+                dataTable.Columns.Remove("Rank");
+            }
+            if (dataTable.Columns.Contains("IsSale"))
+            {
+                dataTable.Columns.Remove("IsSale");
+            }
+            if (dataTable.Columns.Contains("ParentId"))
+            {
+                dataTable.Columns.Remove("ParentId");
+            }
+            if (dataTable.Columns.Contains("BankId"))
+            {
+                dataTable.Columns.Remove("BankId");
+            }
+            if (dataTable.Columns.Contains("BankBranchName"))
+            {
+                dataTable.Columns.Remove("BankBranchName");
+            }
+            if (dataTable.Columns.Contains("BankOwner"))
+            {
+                dataTable.Columns.Remove("BankOwner");
+            }
+            if (dataTable.Columns.Contains("BankNumber"))
+            {
+                dataTable.Columns.Remove("BankNumber");
+            }
+            if (dataTable.Columns.Contains("Note"))
+            {
+                dataTable.Columns.Remove("Note");
+            }
+            if (dataTable.Columns.Contains("Password"))
+            {
+                dataTable.Columns.Remove("Password");
+            }
+            if (dataTable.Columns.Contains("NameSale"))
+            {
+                dataTable.Columns.Remove("NameSale");
+            }
+            if (dataTable.Columns.Contains("AddressSale"))
+            {
+                dataTable.Columns.Remove("AddressSale");
+            }
+            if (dataTable.Columns.Contains("MobileSale"))
+            {
+                dataTable.Columns.Remove("MobileSale");
+            }
+            if (dataTable.Columns.Contains("RefreshToken"))
+            {
+                dataTable.Columns.Remove("RefreshToken");
+            }
+            if (dataTable.Columns.Contains("RefreshTokenExpiryTime"))
+            {
+                dataTable.Columns.Remove("RefreshTokenExpiryTime");
+            }
+
+            return dataTable;
+        }
+
+        public async Task<MemoryStream> ExportExcelAllCollaboratorsIDManager(CollaboratorMemberManagerModel model)
+        {
+            var exportFile = new MemoryStream();
+
+            #region Call data API
+            var collaborators = await ExportExcelAllCollaboratorsIDManagerDataTable(model);
+            #endregion
+
+            #region Export Excel from template
+            // Đường dẫn tới file template
+            string templatePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "wwwroot", "template", "Export_ID_Manager.xlsx");
+
+            // Đọc file template Excel
+            var fileInfo = new FileInfo(templatePath);
+            using (var package = new OfficeOpenXml.ExcelPackage(fileInfo))
+            {
+                // Lấy worksheet đầu tiên
+                var worksheet = package.Workbook.Worksheets[0];
+                worksheet.Cells["A4"].LoadFromDataTable(collaborators, false);
+
+                // Tự động điều chỉnh kích thước cột
+                worksheet.Cells[worksheet.Dimension.Address].AutoFitColumns();
+
+                if (collaborators.Rows.Count > 0)
+                {
+                    var range = worksheet.Cells["A4:D" + (collaborators.Rows.Count + 6).ToString()];
+                    foreach (var cell in range)
+                    {
+                        var border = cell.Style.Border;
+                        border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                    }
+                }
+
+                // Lưu lại file Excel vào MemoryStream
+                package.SaveAs(exportFile);
+            }
+
+            exportFile.Position = 0;
+            return exportFile;
+            #endregion
+        }
+
+        public async Task<DataTable> ExportExcelAllCollaboratorsContractManagerDataTable(DateTime? startDate, DateTime? endDate)
+        {
+            DataTable dataTable = new DataTable();
+            dataTable.Columns.Add("Name", typeof(string));
+            dataTable.Columns.Add("UserName", typeof(string));
+            dataTable.Columns.Add("Email", typeof(string));
+            dataTable.Columns.Add("Mobile", typeof(string));
+
+            var connectPostgres = new ConnectToPostgresql(_configuration);
+
+            using (var conn = await connectPostgres.CreateConnectionAsync())
+            {
+                using (var command = new NpgsqlCommand("SELECT * FROM dbo.get_collaborator_contract(@StartDate, @EndDate)", conn))
+                {
+                    command.Parameters.AddWithValue("@StartDate", startDate ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@EndDate", endDate ?? (object)DBNull.Value);
+                    command.CommandTimeout = 400;
+
+                    using (var adapter = new NpgsqlDataAdapter(command))
+                    {
+                        adapter.Fill(dataTable);
+                    }
+                }
+
+                await conn.CloseAsync();
+            }
+            if (dataTable.Columns.Contains("Id"))
+            {
+                dataTable.Columns.Remove("Id");
+            }
+            if (dataTable.Columns.Contains("CreatedBy"))
+            {
+                dataTable.Columns.Remove("CreatedBy");
+            }
+            if (dataTable.Columns.Contains("CreatedAt"))
+            {
+                dataTable.Columns.Remove("CreatedAt");
+            }
+            if (dataTable.Columns.Contains("UpdatedAt"))
+            {
+                dataTable.Columns.Remove("UpdatedAt");
+            }
+            if (dataTable.Columns.Contains("DeletedAt"))
+            {
+                dataTable.Columns.Remove("DeletedAt");
+            }
+            if (dataTable.Columns.Contains("Identity"))
+            {
+                dataTable.Columns.Remove("Identity");
+            }
+            if (dataTable.Columns.Contains("IdentityDate"))
+            {
+                dataTable.Columns.Remove("IdentityDate");
+            }
+            if (dataTable.Columns.Contains("IdentityPlace"))
+            {
+                dataTable.Columns.Remove("IdentityPlace");
+            }
+            if (dataTable.Columns.Contains("BeginDate"))
+            {
+                dataTable.Columns.Remove("BeginDate");
+            }
+            if (dataTable.Columns.Contains("Level"))
+            {
+                dataTable.Columns.Remove("Level");
+            }
+            if (dataTable.Columns.Contains("Rank"))
+            {
+                dataTable.Columns.Remove("Rank");
+            }
+            if (dataTable.Columns.Contains("IsSale"))
+            {
+                dataTable.Columns.Remove("IsSale");
+            }
+            if (dataTable.Columns.Contains("ParentId"))
+            {
+                dataTable.Columns.Remove("ParentId");
+            }
+            if (dataTable.Columns.Contains("BankId"))
+            {
+                dataTable.Columns.Remove("BankId");
+            }
+            if (dataTable.Columns.Contains("BankBranchName"))
+            {
+                dataTable.Columns.Remove("BankBranchName");
+            }
+            if (dataTable.Columns.Contains("BankOwner"))
+            {
+                dataTable.Columns.Remove("BankOwner");
+            }
+            if (dataTable.Columns.Contains("BankNumber"))
+            {
+                dataTable.Columns.Remove("BankNumber");
+            }
+            if (dataTable.Columns.Contains("Note"))
+            {
+                dataTable.Columns.Remove("Note");
+            }
+            if (dataTable.Columns.Contains("Password"))
+            {
+                dataTable.Columns.Remove("Password");
+            }
+            if (dataTable.Columns.Contains("NameSale"))
+            {
+                dataTable.Columns.Remove("NameSale");
+            }
+            if (dataTable.Columns.Contains("AddressSale"))
+            {
+                dataTable.Columns.Remove("AddressSale");
+            }
+            if (dataTable.Columns.Contains("MobileSale"))
+            {
+                dataTable.Columns.Remove("MobileSale");
+            }
+            if (dataTable.Columns.Contains("RefreshToken"))
+            {
+                dataTable.Columns.Remove("RefreshToken");
+            }
+            if (dataTable.Columns.Contains("RefreshTokenExpiryTime"))
+            {
+                dataTable.Columns.Remove("RefreshTokenExpiryTime");
+            }
+
+            return dataTable;
+        }
+
+        public async Task<MemoryStream> ExportExcelAllCollaboratorsContractManager(DateTime? startDate, DateTime? endDate)
+        {
+            var exportFile = new MemoryStream();
+
+            #region Call data API
+            var collaborators = await ExportExcelAllCollaboratorsContractManagerDataTable(startDate, endDate);
+            #endregion
+
+            #region Export Excel from template
+            // Đường dẫn tới file template
+            string templatePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "wwwroot", "template", "Export_contract_Manager.xlsx");
+
+            // Đọc file template Excel
+            var fileInfo = new FileInfo(templatePath);
+            using (var package = new OfficeOpenXml.ExcelPackage(fileInfo))
+            {
+                // Lấy worksheet đầu tiên
+                var worksheet = package.Workbook.Worksheets[0];
+                worksheet.Cells["A4"].LoadFromDataTable(collaborators, false);
+
+                // Tự động điều chỉnh kích thước cột
+                worksheet.Cells[worksheet.Dimension.Address].AutoFitColumns();
+
+                if (collaborators.Rows.Count > 0)
+                {
+                    var range = worksheet.Cells["A4:D" + (collaborators.Rows.Count + 6).ToString()];
+                    foreach (var cell in range)
+                    {
+                        var border = cell.Style.Border;
+                        border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                    }
+                }
+
+                // Lưu lại file Excel vào MemoryStream
+                package.SaveAs(exportFile);
+            }
+
+            exportFile.Position = 0;
+            return exportFile;
+            #endregion
+        }
+
+        public async Task<DataTable> ExportExcelAllRePackageCollaboratorsDataTable()
+        {
+            DataTable dataTable = new DataTable();
+            dataTable.Columns.Add("Name", typeof(string));
+            dataTable.Columns.Add("UserName", typeof(string));
+            dataTable.Columns.Add("Email", typeof(string));
+            dataTable.Columns.Add("Mobile", typeof(string));
+
+            var connectPostgres = new ConnectToPostgresql(_configuration);
+
+            using (var conn = await connectPostgres.CreateConnectionAsync())
+            {
+                using (var command = new NpgsqlCommand("SELECT * FROM dbo.get_repackage_collaborators()", conn))
+                {
+                    command.CommandTimeout = 400;
+
+                    using (var adapter = new NpgsqlDataAdapter(command))
+                    {
+                        adapter.Fill(dataTable);
+                    }
+                }
+
+                await conn.CloseAsync();
+            }
+            if (dataTable.Columns.Contains("Id"))
+            {
+                dataTable.Columns.Remove("Id");
+            }
+            if (dataTable.Columns.Contains("CreatedBy"))
+            {
+                dataTable.Columns.Remove("CreatedBy");
+            }
+            if (dataTable.Columns.Contains("CreatedAt"))
+            {
+                dataTable.Columns.Remove("CreatedAt");
+            }
+            if (dataTable.Columns.Contains("UpdatedAt"))
+            {
+                dataTable.Columns.Remove("UpdatedAt");
+            }
+            if (dataTable.Columns.Contains("DeletedAt"))
+            {
+                dataTable.Columns.Remove("DeletedAt");
+            }
+            if (dataTable.Columns.Contains("Identity"))
+            {
+                dataTable.Columns.Remove("Identity");
+            }
+            if (dataTable.Columns.Contains("IdentityDate"))
+            {
+                dataTable.Columns.Remove("IdentityDate");
+            }
+            if (dataTable.Columns.Contains("IdentityPlace"))
+            {
+                dataTable.Columns.Remove("IdentityPlace");
+            }
+            if (dataTable.Columns.Contains("BeginDate"))
+            {
+                dataTable.Columns.Remove("BeginDate");
+            }
+            if (dataTable.Columns.Contains("Level"))
+            {
+                dataTable.Columns.Remove("Level");
+            }
+            if (dataTable.Columns.Contains("Rank"))
+            {
+                dataTable.Columns.Remove("Rank");
+            }
+            if (dataTable.Columns.Contains("IsSale"))
+            {
+                dataTable.Columns.Remove("IsSale");
+            }
+            if (dataTable.Columns.Contains("ParentId"))
+            {
+                dataTable.Columns.Remove("ParentId");
+            }
+            if (dataTable.Columns.Contains("BankId"))
+            {
+                dataTable.Columns.Remove("BankId");
+            }
+            if (dataTable.Columns.Contains("BankBranchName"))
+            {
+                dataTable.Columns.Remove("BankBranchName");
+            }
+            if (dataTable.Columns.Contains("BankOwner"))
+            {
+                dataTable.Columns.Remove("BankOwner");
+            }
+            if (dataTable.Columns.Contains("BankNumber"))
+            {
+                dataTable.Columns.Remove("BankNumber");
+            }
+            if (dataTable.Columns.Contains("Note"))
+            {
+                dataTable.Columns.Remove("Note");
+            }
+            if (dataTable.Columns.Contains("Password"))
+            {
+                dataTable.Columns.Remove("Password");
+            }
+            if (dataTable.Columns.Contains("NameSale"))
+            {
+                dataTable.Columns.Remove("NameSale");
+            }
+            if (dataTable.Columns.Contains("AddressSale"))
+            {
+                dataTable.Columns.Remove("AddressSale");
+            }
+            if (dataTable.Columns.Contains("MobileSale"))
+            {
+                dataTable.Columns.Remove("MobileSale");
+            }
+            if (dataTable.Columns.Contains("RefreshToken"))
+            {
+                dataTable.Columns.Remove("RefreshToken");
+            }
+            if (dataTable.Columns.Contains("RefreshTokenExpiryTime"))
+            {
+                dataTable.Columns.Remove("RefreshTokenExpiryTime");
+            }
+
+            return dataTable;
+        }
+
+        public async Task<MemoryStream> ExportExcelAllRePackageCollaborators()
+        {
+            var exportFile = new MemoryStream();
+
+            #region Call data API
+            var collaborators = await ExportExcelAllRePackageCollaboratorsDataTable();
+            #endregion
+
+            #region Export Excel from template
+            // Đường dẫn tới file template
+            string templatePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "wwwroot", "template", "Export_repackage_Manager.xlsx");
+
+            // Đọc file template Excel
+            var fileInfo = new FileInfo(templatePath);
+            using (var package = new OfficeOpenXml.ExcelPackage(fileInfo))
+            {
+                // Lấy worksheet đầu tiên
+                var worksheet = package.Workbook.Worksheets[0];
+                worksheet.Cells["A4"].LoadFromDataTable(collaborators, false);
+
+                // Tự động điều chỉnh kích thước cột
+                worksheet.Cells[worksheet.Dimension.Address].AutoFitColumns();
+
+                if (collaborators.Rows.Count > 0)
+                {
+                    var range = worksheet.Cells["A4:D" + (collaborators.Rows.Count + 6).ToString()];
+                    foreach (var cell in range)
+                    {
+                        var border = cell.Style.Border;
+                        border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                    }
+                }
+
+                // Lưu lại file Excel vào MemoryStream
+                package.SaveAs(exportFile);
+            }
+
+            exportFile.Position = 0;
+            return exportFile;
+            #endregion
+        }
+
+        public async Task<DataTable> ExportExcelAllCollaboratorsMultiOrderDataTable()
+        {
+            DataTable dataTable = new DataTable();
+            dataTable.Columns.Add("Name", typeof(string));
+            dataTable.Columns.Add("UserName", typeof(string));
+            dataTable.Columns.Add("Email", typeof(string));
+            dataTable.Columns.Add("Mobile", typeof(string));
+
+            var connectPostgres = new ConnectToPostgresql(_configuration);
+
+            using (var conn = await connectPostgres.CreateConnectionAsync())
+            {
+                using (var command = new NpgsqlCommand("SELECT * FROM dbo.get_customers_with_multiple_orders()", conn))
+                {
+                    command.CommandTimeout = 400;
+
+                    using (var adapter = new NpgsqlDataAdapter(command))
+                    {
+                        adapter.Fill(dataTable);
+                    }
+                }
+
+                await conn.CloseAsync();
+            }
+            if (dataTable.Columns.Contains("Id"))
+            {
+                dataTable.Columns.Remove("Id");
+            }
+            if (dataTable.Columns.Contains("CreatedBy"))
+            {
+                dataTable.Columns.Remove("CreatedBy");
+            }
+            if (dataTable.Columns.Contains("CreatedAt"))
+            {
+                dataTable.Columns.Remove("CreatedAt");
+            }
+            if (dataTable.Columns.Contains("UpdatedAt"))
+            {
+                dataTable.Columns.Remove("UpdatedAt");
+            }
+            if (dataTable.Columns.Contains("DeletedAt"))
+            {
+                dataTable.Columns.Remove("DeletedAt");
+            }
+            if (dataTable.Columns.Contains("Identity"))
+            {
+                dataTable.Columns.Remove("Identity");
+            }
+            if (dataTable.Columns.Contains("IdentityDate"))
+            {
+                dataTable.Columns.Remove("IdentityDate");
+            }
+            if (dataTable.Columns.Contains("IdentityPlace"))
+            {
+                dataTable.Columns.Remove("IdentityPlace");
+            }
+            if (dataTable.Columns.Contains("BeginDate"))
+            {
+                dataTable.Columns.Remove("BeginDate");
+            }
+            if (dataTable.Columns.Contains("Level"))
+            {
+                dataTable.Columns.Remove("Level");
+            }
+            if (dataTable.Columns.Contains("Rank"))
+            {
+                dataTable.Columns.Remove("Rank");
+            }
+            if (dataTable.Columns.Contains("IsSale"))
+            {
+                dataTable.Columns.Remove("IsSale");
+            }
+            if (dataTable.Columns.Contains("ParentId"))
+            {
+                dataTable.Columns.Remove("ParentId");
+            }
+            if (dataTable.Columns.Contains("BankId"))
+            {
+                dataTable.Columns.Remove("BankId");
+            }
+            if (dataTable.Columns.Contains("BankBranchName"))
+            {
+                dataTable.Columns.Remove("BankBranchName");
+            }
+            if (dataTable.Columns.Contains("BankOwner"))
+            {
+                dataTable.Columns.Remove("BankOwner");
+            }
+            if (dataTable.Columns.Contains("BankNumber"))
+            {
+                dataTable.Columns.Remove("BankNumber");
+            }
+            if (dataTable.Columns.Contains("Note"))
+            {
+                dataTable.Columns.Remove("Note");
+            }
+            if (dataTable.Columns.Contains("Password"))
+            {
+                dataTable.Columns.Remove("Password");
+            }
+            if (dataTable.Columns.Contains("NameSale"))
+            {
+                dataTable.Columns.Remove("NameSale");
+            }
+            if (dataTable.Columns.Contains("AddressSale"))
+            {
+                dataTable.Columns.Remove("AddressSale");
+            }
+            if (dataTable.Columns.Contains("MobileSale"))
+            {
+                dataTable.Columns.Remove("MobileSale");
+            }
+            if (dataTable.Columns.Contains("RefreshToken"))
+            {
+                dataTable.Columns.Remove("RefreshToken");
+            }
+            if (dataTable.Columns.Contains("RefreshTokenExpiryTime"))
+            {
+                dataTable.Columns.Remove("RefreshTokenExpiryTime");
+            }
+            if (dataTable.Columns.Contains("CollaboratorId"))
+            {
+                dataTable.Columns.Remove("CollaboratorId");
+            }
+            if (dataTable.Columns.Contains("OrderCount"))
+            {
+                dataTable.Columns.Remove("OrderCount");
+            }
+
+            return dataTable;
+        }
+
+        public async Task<MemoryStream> ExportExcelAllCollaboratorsMultiOrder()
+        {
+            var exportFile = new MemoryStream();
+
+            #region Call data API
+            var collaborators = await ExportExcelAllCollaboratorsMultiOrderDataTable();
+            #endregion
+
+            #region Export Excel from template
+            // Đường dẫn tới file template
+            string templatePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "wwwroot", "template", "Export_multi_order_Manager.xlsx");
+
+            // Đọc file template Excel
+            var fileInfo = new FileInfo(templatePath);
+            using (var package = new OfficeOpenXml.ExcelPackage(fileInfo))
+            {
+                // Lấy worksheet đầu tiên
+                var worksheet = package.Workbook.Worksheets[0];
+                worksheet.Cells["A4"].LoadFromDataTable(collaborators, false);
+
+                // Tự động điều chỉnh kích thước cột
+                worksheet.Cells[worksheet.Dimension.Address].AutoFitColumns();
+
+                if (collaborators.Rows.Count > 0)
+                {
+                    var range = worksheet.Cells["A4:D" + (collaborators.Rows.Count + 6).ToString()];
+                    foreach (var cell in range)
+                    {
+                        var border = cell.Style.Border;
+                        border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                    }
+                }
+
+                // Lưu lại file Excel vào MemoryStream
+                package.SaveAs(exportFile);
+            }
+
+            exportFile.Position = 0;
+            return exportFile;
+            #endregion
         }
     }
 }

@@ -24,6 +24,8 @@ export class OrderManagerComponent implements OnInit {
   dataSource: any;
   filteredDataSource: any[] = [];
   dataSourceMulti: any;
+  permission: any;
+  isPermissionExport: boolean = false
 
   constructor(private _orderService: OrderService, private _collaboratorService: CollaboratorService) {
     this.chartOptions = {
@@ -50,6 +52,8 @@ export class OrderManagerComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.permission = JSON.parse(localStorage.getItem('permission') || '{}');
+    this.isPermissionExport = this.permission.includes('order-manager-export');
     const currentYear = new Date().getFullYear();
     this.months = Array.from({ length: 12 }, (_, index) => ({
       value: `${index + 1}`,
@@ -125,10 +129,42 @@ export class OrderManagerComponent implements OnInit {
     );
   }
 
+  exportExcelRePackageData() {
+    this._collaboratorService.exportExcelRePackageCollaborator().subscribe(
+      (response: any) => {
+        const blob = new Blob([response], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'Tổng ID chưa thực hiện tái mua theo quy định theo thời gian.xlsx';
+        link.click();
+      },
+      (error: any) => {
+        console.error(error);
+      }
+    );
+  }
+
   getMultiOrderData() {
     this._collaboratorService.getAllCollaboratorsMultiOrder().subscribe(
       (response: any) => {
         this.dataSourceMulti = response.data;
+      },
+      (error: any) => {
+        console.error(error);
+      }
+    );
+  }
+
+  exportExcelMultiOrderData() {
+    this._collaboratorService.exportExcelAllCollaboratorsMultiOrder().subscribe(
+      (response: any) => {
+        const blob = new Blob([response], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'Tổng ID đã tái mua đơn hàng thứ 2,3,4,5,6,7,8,9,10.xlsx';
+        link.click();
       },
       (error: any) => {
         console.error(error);

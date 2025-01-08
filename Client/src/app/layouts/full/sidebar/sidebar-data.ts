@@ -22,6 +22,11 @@ export const navItems: NavItem[] = [
     route: '/about-us',
   },
   {
+    displayName: 'Gian hàng',
+    iconName: 'building',
+    route: '/booth',
+  },
+  {
     displayName: 'Hướng dẫn sử dụng',
     iconName: 'file-text',
     route: '/guide',

@@ -46,6 +46,8 @@ export class WalletManagerComponent implements OnInit {
   typeWallet: any;
   isLoading: boolean = false;
   date: any;
+  permission: any;
+  isPermissionExport: boolean = false
 
   constructor(
     private route: ActivatedRoute,
@@ -163,6 +165,8 @@ export class WalletManagerComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.permission = JSON.parse(localStorage.getItem('permission') || '{}');
+    
     const currentPath = this.route.snapshot.routeConfig?.path;
     switch (currentPath) {
       case 'wallet-source-manager':
@@ -170,6 +174,7 @@ export class WalletManagerComponent implements OnInit {
         this.titleTable = 'Quản lý ví tài khoản';
         this.titleChart = 'Biểu đồ ví tài khoản';
         this.typeWallet = 3;
+        this.isPermissionExport = this.permission.includes('wallet-source-manager-export');
         break;
 
       case 'wallet-gratitude-manager':
@@ -177,6 +182,7 @@ export class WalletManagerComponent implements OnInit {
         this.titleTable = 'Quản lý ví tri ân khách hàng';
         this.titleChart = 'Biểu đồ ví tri ân khách hàng';
         this.typeWallet = 2;
+        this.isPermissionExport = this.permission.includes('wallet-gratitude-manager-export');
         break;
 
       case 'wallet-sale-manager':
@@ -184,6 +190,7 @@ export class WalletManagerComponent implements OnInit {
         this.titleTable = 'Quản lý ví hoa hồng CTV';
         this.titleChart = 'Biểu đồ ví hoa hồng CTV';
         this.typeWallet = 1;
+        this.isPermissionExport = this.permission.includes('wallet-sale-manager-export');
         break;
 
       case 'wallet-c-manager':
@@ -191,11 +198,13 @@ export class WalletManagerComponent implements OnInit {
         this.titleTable = 'Quản lý ví C';
         this.titleChart = 'Biểu đồ ví C';
         this.typeWallet = 4;
+        this.isPermissionExport = this.permission.includes('wallet-c-manager-export');
         break;
       default:
         this.title = '';
         this.titleTable = '';
         this.titleChart = '';
+        this.isPermissionExport = false;
         break;
     }
     this.date = new Date();
@@ -217,6 +226,35 @@ export class WalletManagerComponent implements OnInit {
         console.error('Error fetching data:', error);
       });
   }
+
+  exportWalletDetailAdmin() {
+    this.isLoading = true;
+    this._walletDetailService.exportWalletDetailAdmin(formatDate(this.date, 'yyyy-MM-dd', 'en-US').toString(), this.typeWallet).subscribe(
+      (response: any) => {
+        const blob = new Blob([response], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        if(this.typeWallet == 1) {
+          link.download = `Bao_Cao_Vi_Hoa_Hong-${formatDate(this.date, 'dd-MM-yyyy', 'en-US')}.xlsx`;
+        } else if(this.typeWallet == 2) {
+          link.download = `Bao_Cao_Vi_tri_an_khach_hang-${formatDate(this.date, 'dd-MM-yyyy', 'en-US')}.xlsx`;
+        }
+        else if(this.typeWallet == 3) {
+          link.download = `Bao_Cao_Vi_tai_Khoan-${formatDate(this.date, 'dd-MM-yyyy', 'en-US')}.xlsx`;
+        }
+        else if(this.typeWallet == 4) {
+          link.download = `Bao_Cao_Vi_tai_Khoan_C-${formatDate(this.date, 'dd-MM-yyyy', 'en-US')}.xlsx`;
+        }
+        link.click();
+        this.isLoading = false;
+      },
+      (error: any) =>  {
+        this.isLoading = false;
+        console.error('Error fetching data:', error);
+      });
+  }
+
 
   onDateChange(newDate: Date): void {
     this.date = newDate;

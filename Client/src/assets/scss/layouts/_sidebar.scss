@@ -7,7 +7,7 @@
 }
 
 .branding {
-  padding: 20px;
+  padding: 0px;
 }
 
 .sidebar-list {
@@ -39,16 +39,16 @@
       &.activeMenu {
         background-color: #fff !important;
         .mdc-list-item__primary-text {
-          color: #004882 !important;
+          color: #B0903E !important;
         }
 
         .mat-mdc-list-item-icon {
-          color: #004882 !important;
+          color: #B0903E !important;
           font-weight: bold;
         }
 
         .hide-menu {
-          color: #004882 !important;
+          color: #B0903E !important;
           font-weight: bold;
         }
       }
@@ -81,4 +81,8 @@
 
 .side-img {
   margin-top: -60px;
+}
+
+.p-inputotp input {
+  padding: 5px;
 }

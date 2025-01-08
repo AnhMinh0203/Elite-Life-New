@@ -41,6 +41,16 @@ export class WalletDetailService {
       );
   }
 
+  exportWalletDetailAdmin(date: any, type: any) {
+    let apiUrl = `${this.serviceUri}/export-excel-value-admin?date=${date}&type=${type}`;
+    return this._http.get(apiUrl, {responseType: 'blob'})
+      .pipe(
+        catchError((error: any) => {
+          throw error;
+        })
+      );
+  }
+
   getWalletDetailReportAdmin(date: any, type: any) {
     let apiUrl = `${this.serviceUri}/get-value-report-admin?date=${date}&type=${type}`;
     return this._http.get<ResponseResult>(apiUrl)

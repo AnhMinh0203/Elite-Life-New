@@ -28,6 +28,16 @@ export class WarehouseService {
       );
   }
 
+  exportExcelWarehouse() {
+    const apiUrl = `${this.serviceUri}/export-excel-warehouse`;
+    return this._http.get(apiUrl, { responseType: 'blob' })
+      .pipe(
+        catchError((error: any) => {
+          throw error;
+        })
+      );
+    }
+  
   add(model: any) {
     const apiUrl = `${this.serviceUri}/add-warehouse`;
     return this._http.post<ResponseResult>(apiUrl, model)

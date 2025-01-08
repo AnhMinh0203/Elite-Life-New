@@ -1,8 +1,10 @@
 ﻿using Elite_life_datacontext.Dto;
 using Elite_life_datacontext.Model;
 using Elite_life_datacontext.Utils;
+using Elite_life_repository.Common;
 using Elite_life_repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Reflection;
 
 namespace Elite_life.Controllers
 {
@@ -29,6 +31,21 @@ namespace Elite_life.Controllers
 
             }
             return MethodResult.ResultWithError(null, 400, "Not Found");
+        }
+
+        [HttpPost]
+        [Route("export-excel-order")]
+        public async Task<IActionResult> ExportExcelOrderInfor(CollaboratorMemberManagerModel model)
+        {
+
+            var toDay = DateTime.Today;
+
+            var result = await _orderRepos.ExportExcelOrderInfo(model);
+            string templateFileURL = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "wwwroot", "template", "Export_Order.xlsx"); ;
+            string fileName = $"{ExtensionFile.GetFileNameWithoutExtension(templateFileURL)}_{toDay.ToString().Replace('/', '_').Replace(':', '_').Replace(' ', '_')}.xlsx";
+
+            Response.Headers.Add("fileName", fileName);
+            return File(result.ToArray(), ExtensionFile.GetContentType(templateFileURL), fileName);
         }
 
         [HttpPost]
