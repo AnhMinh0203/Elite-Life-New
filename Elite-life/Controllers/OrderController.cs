@@ -167,5 +167,18 @@ namespace Elite_life.Controllers
             }
             return MethodResult.ResultWithSuccess(result, 200, "Success");
         }
+
+        [HttpGet]
+        [Route("check-rank")]
+        public async Task<MethodResult> CheckRank(int collaboratorId)
+        {
+            var result = await _orderRepos.CheckRankAsync(collaboratorId);
+            if (string.IsNullOrEmpty(result) || result.Contains("Lỗi"))
+            {
+                return MethodResult.ResultWithError(result, 400, "Not Found");
+            }
+
+            return MethodResult.ResultWithSuccess(result, 200, "Success");
+        }
     }
 }

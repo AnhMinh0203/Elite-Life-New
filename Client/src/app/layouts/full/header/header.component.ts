@@ -208,6 +208,7 @@ export class HeaderComponent {
     await this.gratitudeCommission(orderId);
     await this.introductionCommission();
     await this.leadershipCommission();
+    await this.checkRank();
   }
 
 
@@ -316,5 +317,21 @@ export class HeaderComponent {
     } else {
       this.payed = 0;
     }
+  }
+
+  checkRank(){
+    this._orderService.checkRankService(this.collaboratorId).subscribe({
+      next: (response: any) => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: response.data
+        });
+      },
+      error: (err) => {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Có lỗi sảy ra khi tải dữ liệu' });
+        console.error(err);
+      },
+    });
   }
 }

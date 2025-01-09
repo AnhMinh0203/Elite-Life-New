@@ -22,5 +22,6 @@ namespace Elite_life_repository.Interfaces
         Task<string> CaculateLeaderCommissionAsync(CommissionModel introCommissionModel);
         Task<List<OrderHistoryModel>> GetOrderHistoryAsync(int collaboratorId);
         Task<List<string>> GetWarehouseAsync();
+        Task<string> CheckRankAsync(int collaboratorId);
     }
 }

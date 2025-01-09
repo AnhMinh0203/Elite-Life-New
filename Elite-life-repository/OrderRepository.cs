@@ -615,5 +615,258 @@ namespace Elite_life_repository
             }
         }
 
+        /*        public async Task<string> CheckRankAsync (int collaboratorId)
+                {
+                    var connectPostgres = new ConnectToPostgresql(_configuration);
+                    using var connection = await connectPostgres.CreateConnectionAsync();
+
+                    try
+                    {
+                        var query = @"Select * from dbo.check_rank (@collaboratorId)";
+                        var result = await connection.ExecuteScalarAsync<string>(query, new { CollaboratorId = collaboratorId });
+
+                        return result;
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception($"Lỗi: {ex.Message}", ex);
+                    }
+                    finally
+                    {
+                        await connection.CloseAsync();
+                    }
+                }*/
+
+        // Check rank - logic backend
+        public async Task<string> CheckRankAsync(int collaboratorId)
+        {
+            var connectPostgres = new ConnectToPostgresql(_configuration);
+            using var connection = await connectPostgres.CreateConnectionAsync();
+
+            try
+            {
+                // Lấy ParentCode của cộng tác viên hiện tại
+                var parentId = await connection.QuerySingleOrDefaultAsync<int?>(
+                    "SELECT \"ParentId\" FROM dbo.\"Collaborators\" WHERE \"Id\" = @CollaboratorId",
+                    new { CollaboratorId = collaboratorId });
+
+                if (!parentId.HasValue)
+                {
+                    return "No Parent"; // Nếu không có ParentCode, trả về "No Parent"
+                }
+
+                // Lấy Rank hiện tại của Parent
+                var parentRank = await connection.QuerySingleOrDefaultAsync<string>(
+                    "SELECT \"Rank\" FROM dbo.\"Collaborators\" WHERE \"Id\" = @ParentId",
+                    new { ParentId = parentId });
+
+                // Xác định ngưỡng rank cần kiểm tra
+                int? rankThreshold = null;
+                switch (parentRank)
+                {
+                    case "None":
+                        rankThreshold = null;
+                        break;
+                    case "V":
+                        rankThreshold = 1;
+                        break;
+                    case "V1":
+                        rankThreshold = 2;
+                        break;
+                    case "V2":
+                        rankThreshold = 3;
+                        break;
+                    case "V3":
+                        rankThreshold = 4;
+                        break;
+                    case "V4":
+                        rankThreshold = 5;
+                        break;
+                }
+
+                // Lấy danh sách F1
+                var f1Ids = await connection.QueryAsync<int>(
+                    "SELECT \"Id\" FROM dbo.\"Collaborators\" WHERE \"ParentId\" = @ParentId",
+                    new { ParentId = parentId });
+
+                // Nếu không có F1 hoặc ít hơn 3 F1, trả về lỗi
+                if (f1Ids == null || f1Ids.Count() < 3)
+                {
+                    return "Lỗi: Chưa đủ điều kiện thăng hạng";
+                }
+
+                // Trường hợp Rank của Parent là 'None'
+                string newRank = null;
+                if (parentRank == "None")
+                {
+                    // Tính tổng doanh thu từ F1
+                    var totalPayed = await connection.QuerySingleOrDefaultAsync<decimal>(
+                        "SELECT COALESCE(SUM(\"Payed\"), 0) FROM dbo.\"Orders\" WHERE \"CollaboratorId\" = ANY(@F1Ids)",
+                        new { F1Ids = f1Ids });
+
+                    if (totalPayed >= 10350000)
+                    {
+                        newRank = "V";
+                    }
+                    else
+                    {
+                        return "No Rank Update";
+                    }
+                }
+                else
+                {
+                    // Duyệt qua từng F1 và lấy các rank con cháu
+                    var mergedRanks = new List<string>();
+
+                    foreach (var f1Id in f1Ids)
+                    {
+                        var ranks = await connection.QueryAsync<string>(
+                            "SELECT DISTINCT \"rank\" FROM dbo.get_collaborators_with_level(@F1Id)",
+                            new { F1Id = f1Id });
+
+                        mergedRanks.AddRange(ranks);
+                    }
+
+                    // Đếm số rank >= rankThreshold trong mảng mergedRanks
+                    var rankCount = mergedRanks.Count(rank =>
+                    {
+                        int rankValue = 0;
+                        switch (rank)
+                        {
+                            case "V":
+                                rankValue = 1;
+                                break;
+                            case "V1":
+                                rankValue = 2;
+                                break;
+                            case "V2":
+                                rankValue = 3;
+                                break;
+                            case "V3":
+                                rankValue = 4;
+                                break;
+                            case "V4":
+                                rankValue = 5;
+                                break;
+                        }
+                        return rankValue >= rankThreshold;
+                    });
+
+                    // Tổng thu nhập từ F1
+                    var totalPayedFromF1 = await connection.QuerySingleOrDefaultAsync<decimal>(
+                        "SELECT COALESCE(SUM(\"Payed\"), 0) FROM dbo.\"Orders\" WHERE \"CollaboratorId\" = ANY(@F1Ids)",
+                        new { F1Ids = f1Ids });
+
+                    if (rankCount >= 3 && totalPayedFromF1 >= 69000000)
+                    {
+                        switch (rankThreshold)
+                        {
+                            case 1:
+                                newRank = "V1";
+                                break;
+                            case 2:
+                                newRank = "V2";
+                                break;
+                            case 3:
+                                newRank = "V3";
+                                break;
+                            case 4:
+                                newRank = "V4";
+                                break;
+                            case 5:
+                                newRank = "V5";
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        return "Lỗi: Chưa đủ điều kiện thăng hạng";
+                    }
+                }
+
+                // Cập nhật rank mới cho Parent nếu cần
+                if (newRank != null && newRank != parentRank)
+                {
+                    // Cập nhật Rank cho Parent
+                    await connection.ExecuteAsync(
+                        "UPDATE dbo.\"Collaborators\" SET \"Rank\" = @NewRank WHERE \"Id\" = @ParentId",
+                        new { NewRank = newRank, ParentId = parentId });
+
+                    // Xác định trạng thái thay đổi rank
+                    short? newRankStatus = null;
+                    switch (newRank)
+                    {
+                        case "V":
+                            newRankStatus = 0;
+                            break;
+                        case "V1":
+                            newRankStatus = 1;
+                            break;
+                        case "V2":
+                            newRankStatus = 2;
+                            break;
+                        case "V3":
+                            newRankStatus = 3;
+                            break;
+                        case "V4":
+                            newRankStatus = 4;
+                            break;
+                        case "V5":
+                            newRankStatus = 5;
+                            break;
+                    }
+
+                    short? parentRankStatus = null;
+                    switch (parentRank)
+                    {
+                        case "None":
+                            parentRankStatus = -1;
+                            break;
+                        case "V":
+                            parentRankStatus = 0;
+                            break;
+                        case "V1":
+                            parentRankStatus = 1;
+                            break;
+                        case "V2":
+                            parentRankStatus = 2;
+                            break;
+                        case "V3":
+                            parentRankStatus = 3;
+                            break;
+                        case "V4":
+                            parentRankStatus = 4;
+                            break;
+                        case "V5":
+                            parentRankStatus = 5;
+                            break;
+                    }
+
+                    // Xác định trạng thái thay đổi rank
+                    var rankStatus = newRankStatus > parentRankStatus ? 1 :
+                                     newRankStatus < parentRankStatus ? -1 : 0;
+
+                    // Cập nhật RankStatus
+                    await connection.ExecuteAsync(
+                        "UPDATE dbo.\"Collaborators\" SET \"RankStatus\" = @RankStatus WHERE \"Id\" = @ParentId",
+                        new { RankStatus = rankStatus, ParentId = parentId });
+
+                    return "Cập nhật rank thành công";
+                }
+
+                return "Lỗi: Chưa đủ điều kiện thăng hạng";
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Lỗi: {ex.Message}", ex);
+            }
+            finally
+            {
+                await connection.CloseAsync();
+            }
+        }
+
+
+
     }
 }

@@ -109,4 +109,14 @@ export class OrderService {
         })
       );
   }
+
+  checkRankService(collaboratorId: number){
+    const apiUrl = `${this.serviceUri}/check-rank?collaboratorId=${collaboratorId}`;
+    return this._http.get<ResponseResult>(apiUrl)
+      .pipe(
+        catchError((error: any) => {
+          throw error;
+        })
+      );
+  }
 }
