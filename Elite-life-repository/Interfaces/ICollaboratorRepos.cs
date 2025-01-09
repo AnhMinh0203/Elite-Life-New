@@ -32,7 +32,10 @@ namespace Elite_life_repository.Interfaces
         //Member manager
         Task<TotalWalletAdmin> GetTotalWalletAdmin();
         Task<List<CollaboratorDto>> GetAllCollaborators(CollaboratorMemberManagerModel model);
+        Task<List<CollaboratorDto>> GetAllCollaboratorsRankUp(CollaboratorMemberManagerModel model);
+        Task<List<CollaboratorDto>> GetAllCollaboratorsRankDown(CollaboratorMemberManagerModel model);
         Task<MemoryStream> ExportExcelAllCollaborators(CollaboratorMemberManagerModel model);
+        Task<MemoryStream> ExportExcelAllCollaboratorsRank(CollaboratorMemberManagerRankModel model);
         Task<MemoryStream> ExportExcelAllCollaboratorsIDManager(CollaboratorMemberManagerModel model);
         //Admin delete collaborator
         Task<bool> DeleteCollaborator(int id, int idNew);

@@ -19,6 +19,7 @@ import { OrderManagerComponent } from './elite-life/order-manager/order-manager.
 import { IdManagerComponent } from './elite-life/id-manager/id-manager.component';
 import { PermissionManagerComponent } from './elite-life/permission-manager/permission-manager.component';
 import { RoleManagerComponent } from './elite-life/role-manager/role-manager.component';
+import { WithdrawalRequestComponent } from './elite-life/withdrawal-request/withdrawal-request.component';
 
 const routes: Routes = [
   {
@@ -105,6 +106,7 @@ const routes: Routes = [
       { path: 'id-manager', component: IdManagerComponent },
       { path: 'permission-manager', component: PermissionManagerComponent },
       { path: 'role-manager', component: RoleManagerComponent },
+      { path: 'withdrawal-request', component: WithdrawalRequestComponent },
     ],
   },
   {

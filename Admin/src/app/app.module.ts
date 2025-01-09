@@ -69,6 +69,7 @@ import { PermissionManagerComponent } from './elite-life/permission-manager/perm
 import { RoleManagerComponent } from './elite-life/role-manager/role-manager.component';
 import { PickListModule } from 'primeng/picklist';
 import { ChipModule } from 'primeng/chip';
+import { WithdrawalRequestComponent } from './elite-life/withdrawal-request/withdrawal-request.component';
 
 @NgModule({
   declarations: [
@@ -97,6 +98,7 @@ import { ChipModule } from 'primeng/chip';
     IdManagerComponent,
     PermissionManagerComponent,
     RoleManagerComponent,
+    WithdrawalRequestComponent,
   ],
   imports: [
     BrowserModule,

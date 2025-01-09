@@ -128,8 +128,38 @@ export class CollaboratorService {
       );
   }
 
+  getAllCollaboratorRankUp(model: any) {
+    const apiUrl = `${this.serviceUri}/get-all-collaborator-up`;
+    return this._http.post<ResponseResult>(apiUrl, model)
+      .pipe(
+        catchError((error: any) => {
+          throw error;
+        })
+      );
+  }
+
+  getAllCollaboratorRankDown(model: any) {
+    const apiUrl = `${this.serviceUri}/get-all-collaborator-down`;
+    return this._http.post<ResponseResult>(apiUrl, model)
+      .pipe(
+        catchError((error: any) => {
+          throw error;
+        })
+      );
+  }
+
   exportExcelAllCollaborator(model: any) {
     const apiUrl = `${this.serviceUri}/export-excel-all-collaborator`;
+    return this._http.post(apiUrl, model, { responseType: 'blob' })
+      .pipe(
+        catchError((error: any) => {
+          throw error;
+        })
+      );
+  }
+
+  exportExcelAllCollaboratorRank(model: any) {
+    const apiUrl = `${this.serviceUri}/export-excel-all-collaborator-rank`;
     return this._http.post(apiUrl, model, { responseType: 'blob' })
       .pipe(
         catchError((error: any) => {

@@ -1,0 +1,210 @@
+<div class="row">
+  <div class="col-lg-12">
+    <mat-card class="cardWithShadow">
+      <mat-card-content class="p-24">
+        <div class="d-flex w-100">
+          <mat-card-title style="color: #B0903E;">Quản lý yêu cầu rút tiền</mat-card-title>
+          <div class="m-l-auto">
+            <p-calendar 
+              [(ngModel)]="rangeDates" 
+              selectionMode="range" 
+              [showIcon]="true"
+              (onSelect)="onDateChange($event)"
+              [readonlyInput]="true" />
+            <!-- <p-button (onClick)="exportExcelCollaboratorTop()" label="Xuất Excel" icon="pi pi-file-export" styleClass="m-0" [outlined]="true" /> -->
+          </div>
+        </div>
+        <div class="">
+          <p-table
+            [value]="data"
+            [paginator]="true"
+            [rows]="5"
+            [tableStyle]="{ 'min-width': '100rem' }"
+            [rowsPerPageOptions]="[5, 10, 20]"
+          >
+              <ng-template pTemplate="header">
+                  <tr>
+                    <th style="width:25%">Hành động</th>
+                    <th style="width:10%">Mã thành viên</th>
+                    <th style="width:20%">Chủ tài khoản</th>
+                    <th style="width:15%">Số tài khoản</th>
+                    <th style="width:20%">Ngân hàng</th>
+                    <th style="width:15%">Chi nhánh</th>
+                    <th style="width:15%">Số tiền</th>
+                    <th style="width:15%">Thuế</th>
+                    <th style="width:15%">Số tiền thực nhận</th>
+                    <th style="width:15%">Lưu ý</th>
+                    <th style="width:15%">Trạng thái</th>
+                    <th style="width:15%">Lý do từ chối</th>
+                    <th style="width:15%">Ngày tạo</th>
+                  </tr>
+                  <tr>
+                    <th></th>
+                    <th>
+                      <p-columnFilter 
+                        type="text"
+                        field="collaboratorId" 
+                        placeholder="" 
+                        ariaLabel="Filter Name" />
+                    </th>
+                    <th>
+                      <p-columnFilter 
+                        type="text"
+                        field="bankOwner"
+                        placeholder="" 
+                        ariaLabel="Filter Country" />
+                    </th>
+                    <th>
+                      <p-columnFilter 
+                        type="text"
+                        field="bankNumber"
+                        placeholder="" 
+                        ariaLabel="Filter Country" />
+                    </th>
+                    <th>
+                      <p-columnFilter 
+                        type="text"
+                        field="bankName"
+                        placeholder="" 
+                        ariaLabel="Filter Country" />
+                    </th>
+                    <th>
+                      <p-columnFilter 
+                        type="text"
+                        field="bankBranchName" 
+                        placeholder="" 
+                        ariaLabel="Filter Name" />
+                    </th>
+                    <th>
+                      <p-columnFilter 
+                        type="text"
+                        field="withdrawalAmount"
+                        placeholder="" 
+                        ariaLabel="Filter Country" />
+                    </th>
+                    <th>
+                      <p-columnFilter 
+                        type="text"
+                        field="tax"
+                        placeholder="" 
+                        ariaLabel="Filter Country" />
+                    </th>
+                    <th>
+                      <p-columnFilter 
+                        type="text"
+                        field="actualNumberReceived"
+                        placeholder="" 
+                        ariaLabel="Filter Country" />
+                    </th>
+                    <th>
+                      <p-columnFilter 
+                        type="text"
+                        field="note" 
+                        placeholder="" 
+                        ariaLabel="Filter Name" />
+                    </th>
+                    <th>
+                      <p-columnFilter 
+                        type="text"
+                        field="status"
+                        placeholder="" 
+                        ariaLabel="Filter Country" />
+                    </th>
+                    <th>
+                      <p-columnFilter 
+                        type="text"
+                        field="noteRejection"
+                        placeholder="" 
+                        ariaLabel="Filter Country" />
+                    </th>
+                    <th>
+                    </th>
+                  </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-customer>
+                  <tr>
+                      <td style="align-items: center;">
+                        <p-button *ngIf="customer.status == 'Processing'" label="Duyệt" icon="pi pi-check" severity="secondary"  styleClass="m-0" (onClick)="showDialogAcceptRequest(customer)" />
+                        <p-button *ngIf="customer.status == 'Processing'" label="Từ chối" icon="pi pi-ban" severity="danger" styleClass="m-0" (onClick)="showDialogRejectRequest(customer)" />
+                      </td>
+                      <td>{{ "EL" + customer.collaboratorId }}</td>
+                      <td>{{ customer.bankOwner }}</td>
+                      <td>{{ customer.bankNumber}}</td>
+                      <td>{{ customer.bankName }}</td>
+                      <td>{{ customer.bankBranchName }}</td>
+                      <td>{{ customer.withdrawalAmount | number: '1.0-2' }}</td>
+                      <td>{{ customer.tax | number: '1.0-2'}}</td>
+                      <td>{{ customer.actualNumberReceived | number: '1.0-2' }}</td>
+                      <td>{{ customer.note }}</td>
+                      <td [ngStyle]="{ color: customer.status === 'Reject' ? 'red' : (customer.status === 'Accept' ? 'green' : '#B0903E') }">{{ customer.status }}</td>
+                      <td>{{ customer.noteRejection}}</td>
+                      <td>{{ customer.createdAt | date: 'dd/MM/yyyy' }}</td>
+                  </tr>
+              </ng-template>
+          </p-table>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+
+<p-dialog 
+  header="Header" 
+  [(visible)]="visibleAccept" 
+  [modal]="true">
+    <ng-template pTemplate="header">
+      <h3 style="color: #B0903E;">Phê duyệt yêu cầu rút tiền</h3>
+    </ng-template>
+    <div class="row">
+      <div class="d-flex" style="flex-direction: column;">
+        <label for="note" class="font-semibold">
+          Lưu ý 
+        </label>
+        <input pInputText [(ngModel)]="note" id="note" class="flex-auto" autocomplete="off" />
+      </div>
+      
+    </div>
+    <ng-template pTemplate="footer">
+      <p-button 
+        label="Hủy" 
+        [text]="true" 
+        severity="secondary" 
+        (onClick)="visibleAccept = false" />
+      <p-button 
+        label="Phê duyệt" 
+        [outlined]="true" 
+        severity="secondary"
+        (onClick)="acceptRequest()"/>
+  </ng-template>
+</p-dialog>
+
+<p-dialog 
+  header="Header" 
+  [(visible)]="visibleReject" 
+  [modal]="true">
+    <ng-template pTemplate="header">
+      <h3 style="color: #B0903E;">Từ chối yêu cầu rút tiền</h3>
+    </ng-template>
+    <div class="row">
+      <div class="d-flex" style="flex-direction: column;">
+        <label for="noteReject" class="font-semibold">
+          Lý do từ chối <span style="color: red">*</span>
+        </label>
+        <input pInputText [(ngModel)]="noteReject" id="noteReject" class="flex-auto" autocomplete="off" />
+      </div>
+      
+    </div>
+    <ng-template pTemplate="footer">
+      <p-button 
+        label="Hủy" 
+        [text]="true" 
+        severity="secondary" 
+        (onClick)="visibleReject = false" />
+      <p-button 
+        label="Từ chối" 
+        [outlined]="true" 
+        severity="secondary"
+        (onClick)="rejectRequest()"/>
+  </ng-template>
+</p-dialog>

@@ -4,6 +4,7 @@ using Elite_life_datacontext.Dto;
 using Elite_life_datacontext.Model;
 using Elite_life_datacontext.Utils;
 using Elite_life_repository.Interfaces;
+using IdentityModel.Client;
 using Microsoft.Extensions.Configuration;
 using Npgsql;
 using OfficeOpenXml.Style;
@@ -14,6 +15,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Elite_life_repository
@@ -466,6 +468,92 @@ namespace Elite_life_repository
             catch (Exception ex)
             {
                 return $"Lỗi khi xử lý: {ex.Message}";
+            }
+            finally
+            {
+                await connection.CloseAsync();
+            }
+        }
+
+        public async Task<List<WithdrawalRequestDto>> GetProcessingWithdrawalRequestsAsync(CollaboratorMemberManagerModel model)
+        {
+            var connectPostgres = new ConnectToPostgresql(_configuration);
+            using var connection = await connectPostgres.CreateConnectionAsync();
+
+            try
+            {
+                var query = @"SELECT * FROM dbo.get_processing_withdrawal_requests(@p_start_date, @p_end_date)";
+                var parameters = new
+                {
+                    p_start_date = model.StartDate?.ToString("yyyy-MM-dd"),
+                    p_end_date = model.EndDate?.ToString("yyyy-MM-dd"),
+                };
+
+                var result = (await connection.QueryAsync<WithdrawalRequestDto>(query, parameters)).AsList();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error fetching GetProcessingWithdrawalRequestsAsync: {ex.Message}");
+                return new List<WithdrawalRequestDto>();
+            }
+            finally
+            {
+                await connection.CloseAsync();
+            }
+        }
+
+        public async Task<bool> ApproveWithdrawal(int WithdrawalRequestId, string? note)
+        {
+            var connectPostgres = new ConnectToPostgresql(_configuration);
+            using var connection = await connectPostgres.CreateConnectionAsync();
+
+            try
+            {
+                var query = @"SELECT * FROM dbo.approve_withdrawal(@p_withdrawal_request_id, @p_note);";
+
+                var parameters = new
+                {
+                    p_withdrawal_request_id = WithdrawalRequestId,
+                    p_note = note,
+                };
+
+                var result = await connection.ExecuteScalarAsync<bool>(query, parameters);
+                return result;
+
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            finally
+            {
+                await connection.CloseAsync();
+            }
+        }
+
+        public async Task<bool> RejectWithdrawal(int WithdrawalRequestId, string note)
+        {
+            var connectPostgres = new ConnectToPostgresql(_configuration);
+            using var connection = await connectPostgres.CreateConnectionAsync();
+
+            try
+            {
+                var query = @"SELECT * FROM dbo.reject_withdrawal(@p_withdrawal_request_id, @p_note_rejection);";
+
+                var parameters = new
+                {
+                    p_withdrawal_request_id = WithdrawalRequestId,
+                    p_note_rejection = note,
+                };
+
+                var result = await connection.ExecuteScalarAsync<bool>(query, parameters);
+                return result;
+
+            }
+            catch (Exception ex)
+            {
+                return false;
             }
             finally
             {

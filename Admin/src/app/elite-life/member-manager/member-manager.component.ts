@@ -58,6 +58,14 @@ export class MemberManagerComponent implements OnInit {
   isPermissionExport: boolean = false;
   editMember: boolean = false;
   rechargeMember: boolean = false;
+  dataUp: any;
+  rangeDatesUp: Date[] | undefined;
+  startDateUp: any;
+  endDateUp: any;
+  dataDown: any;
+  rangeDatesDown: Date[] | undefined;
+  startDateDown: any;
+  endDateDown: any;
 
   constructor(
     private _collaboratorService: CollaboratorService, 
@@ -95,6 +103,8 @@ export class MemberManagerComponent implements OnInit {
     ]
     this.info = JSON.parse(localStorage.getItem('info') || '{}');
     this.getAllCollaboratorByParentId();
+    this.getAllCollaboratorRankUp();
+    this.getAllCollaboratorRankDown();
   }
 
   changId(customer: any) {
@@ -120,6 +130,28 @@ export class MemberManagerComponent implements OnInit {
       this.endDate = endDate
       if(this.startDate && this.endDate) {
         this. getAllCollaboratorByParentId();
+      }
+    }
+  }
+
+  onDateChangeUp(event: any) {
+    if (this.rangeDatesUp && this.rangeDatesUp.length === 2) {
+      const [startDate, endDate] = this.rangeDatesUp;
+      this.startDateUp = startDate;
+      this.endDateUp = endDate
+      if(this.startDateUp && this.endDateUp) {
+        this.getAllCollaboratorRankUp();
+      }
+    }
+  }
+
+  onDateChangeDown(event: any) {
+    if (this.rangeDatesDown && this.rangeDatesDown.length === 2) {
+      const [startDate, endDate] = this.rangeDatesDown;
+      this.startDateDown = startDate;
+      this.endDateDown = endDate
+      if(this.startDateDown && this.endDateDown) {
+        this.getAllCollaboratorRankDown();
       }
     }
   }
@@ -165,6 +197,44 @@ export class MemberManagerComponent implements OnInit {
       });
   }
 
+  getAllCollaboratorRankUp(){
+    const model = {
+      startDate: this.startDateUp,
+      endDate: this.endDateUp
+    }
+    this._collaboratorService.getAllCollaboratorRankUp(model).subscribe(
+      (response: any) => {
+        this.dataUp = response.data;
+        this.dataUp = this.dataUp.map((item: any, index: any) => ({
+          ...item,
+          position: index + 1
+        }));
+      },
+      (error: any) => {
+        this.data = [];
+        console.error('Error fetching data:', error);
+      });
+  }
+
+  getAllCollaboratorRankDown(){
+    const model = {
+      startDate: this.startDateDown,
+      endDate: this.endDateDown
+    }
+    this._collaboratorService.getAllCollaboratorRankDown(model).subscribe(
+      (response: any) => {
+        this.dataDown = response.data;
+        this.dataDown = this.dataDown.map((item: any, index: any) => ({
+          ...item,
+          position: index + 1
+        }));
+      },
+      (error: any) => {
+        this.data = [];
+        console.error('Error fetching data:', error);
+      });
+  }
+
   exportExcelCollaboratorTop(){
     const model = {
       startDate: this.startDate,
@@ -178,6 +248,40 @@ export class MemberManagerComponent implements OnInit {
         const link = document.createElement('a');
         link.href = url;
         link.download = 'Danh sách thành viên.xlsx';
+        link.click();
+      },
+      (error: any) => {
+        console.error('Error fetching data:', error);
+      });
+  }
+
+  exportExcelCollaboratorRank(type: any){
+    let datestart = null;
+    let dateend = null;
+    if(type == 1) {
+      datestart = this.startDateUp;
+      dateend = this.endDateUp;
+    }else {
+      datestart = this.startDateDown;
+      dateend = this.endDateDown;
+    }
+    const model = {
+      startDate: datestart,
+      endDate: dateend,
+      type: type
+    }
+
+    this._collaboratorService.exportExcelAllCollaboratorRank(model).subscribe(
+      (response: any) => {
+        const blob = new Blob([response], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        if(type == 1) {
+          link.download = 'Danh sách thành viên lên vip.xlsx';
+        } else {
+          link.download = 'Danh sách thành viên hạ vip.xlsx';
+        }
         link.click();
       },
       (error: any) => {

@@ -1,4 +1,5 @@
-﻿using Elite_life_datacontext.Model;
+﻿using Elite_life_datacontext.Dto;
+using Elite_life_datacontext.Model;
 using Elite_life_datacontext.Utils;
 using Elite_life_repository;
 using Elite_life_repository.Common;
@@ -115,7 +116,7 @@ namespace Elite_life.Controllers
             var result = await _withdrawalRepos.WithdrawCommissionWalletAsync(request);
             if (string.IsNullOrEmpty(result) || result.Contains("Lỗi"))
             {
-                return MethodResult.ResultWithError(null, 400, result);  
+                return MethodResult.ResultWithError(null, 400, result);
             }
             return MethodResult.ResultWithSuccess(result, 200, "Success");
         }
@@ -157,6 +158,42 @@ namespace Elite_life.Controllers
                 return MethodResult.ResultWithError(null, 400, result);
             }
             return MethodResult.ResultWithSuccess(result, 200, "Success");
+        }
+
+        [HttpPost]
+        [Route("Wallet-getProcessingWithdrawalRequests")]
+        public async Task<MethodResult> GetProcessingWithdrawalRequests(CollaboratorMemberManagerModel model)
+        {
+            var result = await _withdrawalRepos.GetProcessingWithdrawalRequestsAsync(model);
+            if (result == null || !result.Any())
+            {
+                return MethodResult.ResultWithError(null, 400, "Not Found");
+            }
+            return MethodResult.ResultWithSuccess(result, 200, "Success");
+        }
+
+        [HttpPost]
+        [Route("Wallet-approveWithdrawal")]
+        public async Task<MethodResult> ApproveWithdrawal(WithdrawalRequestModel model)
+        {
+            var result = await _withdrawalRepos.ApproveWithdrawal(model.WithdrawalRequestId, model.Note);
+            if (result)
+            {
+                return MethodResult.ResultWithSuccess(result, 200, "Success");
+            }
+            return MethodResult.ResultWithError(null, 400, "Not Found");
+        }
+
+        [HttpPost]
+        [Route("Wallet-rejectWithdrawal")]
+        public async Task<MethodResult> RejectWithdrawal(WithdrawalRequestModel model)
+        {
+            var result = await _withdrawalRepos.RejectWithdrawal(model.WithdrawalRequestId, model.Note);
+            if (result)
+            {
+                return MethodResult.ResultWithSuccess(result, 200, "Success");
+            }
+            return MethodResult.ResultWithError(null, 400, "Not Found");
         }
     }
 }

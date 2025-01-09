@@ -385,6 +385,52 @@ namespace Elite_life.Controllers
         }
 
         [HttpPost]
+        [Route("get-all-collaborator-up")]
+        public async Task<MethodResult> GetAllCollaboratorsRankUp(CollaboratorMemberManagerModel model)
+        {
+            var userClaims = HttpContext.User.Claims;
+            //var roles = userClaims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).ToList();
+            var rolesClaim = userClaims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
+
+            // Chuyển chuỗi quyền thành danh sách
+            var roles = rolesClaim?.Split(',').ToList() ?? new List<string>();
+            if (!roles.Contains("member-manager-view"))
+            {
+                return MethodResult.ResultWithError("Danh sách thành viên", 403, "Bạn không có quyền truy cập");
+            }
+            var result = await _collaboratorRepos.GetAllCollaboratorsRankUp(model);
+            if (result != null)
+            {
+                return MethodResult.ResultWithSuccess(result, 200, "Success");
+
+            }
+            return MethodResult.ResultWithError(null, 400, "Not Found");
+        }
+
+        [HttpPost]
+        [Route("get-all-collaborator-down")]
+        public async Task<MethodResult> GetAllCollaboratorsRankDown(CollaboratorMemberManagerModel model)
+        {
+            var userClaims = HttpContext.User.Claims;
+            //var roles = userClaims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).ToList();
+            var rolesClaim = userClaims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
+
+            // Chuyển chuỗi quyền thành danh sách
+            var roles = rolesClaim?.Split(',').ToList() ?? new List<string>();
+            if (!roles.Contains("member-manager-view"))
+            {
+                return MethodResult.ResultWithError("Danh sách thành viên", 403, "Bạn không có quyền truy cập");
+            }
+            var result = await _collaboratorRepos.GetAllCollaboratorsRankDown(model);
+            if (result != null)
+            {
+                return MethodResult.ResultWithSuccess(result, 200, "Success");
+
+            }
+            return MethodResult.ResultWithError(null, 400, "Not Found");
+        }
+
+        [HttpPost]
         [Route("export-excel-all-collaborator")]
         public async Task<IActionResult> ExportExcelAllCollaborators(CollaboratorMemberManagerModel model)
         {
@@ -398,6 +444,27 @@ namespace Elite_life.Controllers
             var toDay = DateTime.Today;
 
             var result = await _collaboratorRepos.ExportExcelAllCollaborators(model);
+            string templateFileURL = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "wwwroot", "template", "Export_Collaborator_CustomerManager.xlsx");
+            string fileName = $"{ExtensionFile.GetFileNameWithoutExtension(templateFileURL)}_{toDay.ToString().Replace('/', '_').Replace(':', '_').Replace(' ', '_')}.xlsx";
+
+            Response.Headers.Add("fileName", fileName);
+            return File(result.ToArray(), ExtensionFile.GetContentType(templateFileURL), fileName);
+        }
+
+        [HttpPost]
+        [Route("export-excel-all-collaborator-rank")]
+        public async Task<IActionResult> ExportExcelAllCollaboratorsRank(CollaboratorMemberManagerRankModel model)
+        {
+            var userClaims = HttpContext.User.Claims;
+            var rolesClaim = userClaims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
+            var roles = rolesClaim?.Split(',').ToList() ?? new List<string>();
+            if (!roles.Contains("member-manager-export-member"))
+            {
+                return Forbid();
+            }
+            var toDay = DateTime.Today;
+
+            var result = await _collaboratorRepos.ExportExcelAllCollaboratorsRank(model);
             string templateFileURL = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "wwwroot", "template", "Export_Collaborator_CustomerManager.xlsx");
             string fileName = $"{ExtensionFile.GetFileNameWithoutExtension(templateFileURL)}_{toDay.ToString().Replace('/', '_').Replace(':', '_').Replace(' ', '_')}.xlsx";
 

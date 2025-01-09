@@ -12041,6 +12041,7 @@ html .topbar {
 
 .d-flex {
   display: flex !important;
+  align-items: center;
 }
 
 .d-inline-flex {
