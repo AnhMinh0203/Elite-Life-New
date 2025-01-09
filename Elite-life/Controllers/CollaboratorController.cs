@@ -322,12 +322,9 @@ namespace Elite_life.Controllers
         public async Task<MethodResult> GetCollaboratorsTop()
         {
             var userClaims = HttpContext.User.Claims;
-            //var roles = userClaims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).ToList();
             var rolesClaim = userClaims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
-
-            // Chuyển chuỗi quyền thành danh sách
             var roles = rolesClaim?.Split(',').ToList() ?? new List<string>();
-            if (!roles.Contains("collaborator_viewTop"))
+            if (!roles.Contains("home-top-member"))
             {
                 return MethodResult.ResultWithError("Top thành viên", 403, "Bạn không có quyền truy cập");
             }
@@ -345,6 +342,14 @@ namespace Elite_life.Controllers
         [Route("export-excel-all-collaborator-top")]
         public async Task<IActionResult> ExportExcelAllCollaboratorsTop()
         {
+            var userClaims = HttpContext.User.Claims;
+            var rolesClaim = userClaims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
+            var roles = rolesClaim?.Split(',').ToList() ?? new List<string>();
+            if (!roles.Contains("home-export-top-member"))
+            {
+                //return MethodResult.ResultWithError("Top thành viên", 403, "Bạn không có quyền truy cập");
+                return Forbid();
+            }
 
             var toDay = DateTime.Today;
 
@@ -383,7 +388,13 @@ namespace Elite_life.Controllers
         [Route("export-excel-all-collaborator")]
         public async Task<IActionResult> ExportExcelAllCollaborators(CollaboratorMemberManagerModel model)
         {
-
+            var userClaims = HttpContext.User.Claims;
+            var rolesClaim = userClaims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
+            var roles = rolesClaim?.Split(',').ToList() ?? new List<string>();
+            if (!roles.Contains("member-manager-export-member"))
+            {
+                return Forbid();
+            }
             var toDay = DateTime.Today;
 
             var result = await _collaboratorRepos.ExportExcelAllCollaborators(model);

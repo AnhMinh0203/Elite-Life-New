@@ -5,6 +5,7 @@ using Elite_life_repository.Common;
 using Elite_life_repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Reflection;
+using System.Security.Claims;
 
 namespace Elite_life.Controllers
 {
@@ -37,7 +38,13 @@ namespace Elite_life.Controllers
         [Route("export-excel-order")]
         public async Task<IActionResult> ExportExcelOrderInfor(CollaboratorMemberManagerModel model)
         {
-
+            var userClaims = HttpContext.User.Claims;
+            var rolesClaim = userClaims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
+            var roles = rolesClaim?.Split(',').ToList() ?? new List<string>();
+            if (!roles.Contains("cart-manager-export-cart-manager"))
+            {
+                return Forbid();
+            }
             var toDay = DateTime.Today;
 
             var result = await _orderRepos.ExportExcelOrderInfo(model);
@@ -52,6 +59,15 @@ namespace Elite_life.Controllers
         [Route("update_order_delivery_date")]
         public async Task<MethodResult> UpdateOrderDeliveryDate(OrderDeliveryDateModel model)
         {
+            var userClaims = HttpContext.User.Claims;
+            var rolesClaim = userClaims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
+
+            var roles = rolesClaim?.Split(',').ToList() ?? new List<string>();  
+            if (!roles.Contains("cart-manager-select-delivery-date"))
+            {
+                return MethodResult.ResultWithError("Bạn không có quyền", 403, "error");
+            }
+
             var result = await _orderRepos.UpdateOrderDeliveryDate(model);
             if (result)
             {

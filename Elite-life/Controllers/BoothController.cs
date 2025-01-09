@@ -3,6 +3,7 @@ using Elite_life_datacontext.Model;
 using Elite_life_datacontext.Utils;
 using Elite_life_repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Elite_life.Controllers
 {
@@ -23,6 +24,15 @@ namespace Elite_life.Controllers
         {
             try
             {
+                var userClaims = HttpContext.User.Claims;
+                var rolesClaim = userClaims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
+
+                var roles = rolesClaim?.Split(',').ToList() ?? new List<string>();
+                if (!roles.Contains("booth-manager-edit"))
+                {
+                    return MethodResult.ResultWithError("Bạn không có quyền", 403, "error");
+                }
+
                 if (file == null || file.Length == 0)
                 {
                     return MethodResult.ResultWithError("No file was provided");
@@ -57,6 +67,15 @@ namespace Elite_life.Controllers
         {
             try
             {
+                var userClaims = HttpContext.User.Claims;
+                var rolesClaim = userClaims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
+
+                var roles = rolesClaim?.Split(',').ToList() ?? new List<string>();
+                if (!roles.Contains("booth-manager-delete"))
+                {
+                    return MethodResult.ResultWithError("Bạn không có quyền", 403, "error");
+                }
+
                 if (string.IsNullOrEmpty(fileName))
                 {
                     return MethodResult.ResultWithError("No file name was provided");
@@ -113,6 +132,14 @@ namespace Elite_life.Controllers
         [Route("add-booth")]
         public async Task<MethodResult> AddBooth(BoothModel model)
         {
+            var userClaims = HttpContext.User.Claims;
+            var rolesClaim = userClaims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
+
+            var roles = rolesClaim?.Split(',').ToList() ?? new List<string>();
+            if (!roles.Contains("booth-manager-add"))
+            {
+                return MethodResult.ResultWithError("Bạn không có quyền", 403, "error");
+            }
             var result = await _boothRepos.AddBoothAsync(model);
             if (result)
             {
@@ -139,6 +166,14 @@ namespace Elite_life.Controllers
         [Route("update-booth")]
         public async Task<MethodResult> UpdateBooth(BoothModel model)
         {
+            var userClaims = HttpContext.User.Claims;
+            var rolesClaim = userClaims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
+
+            var roles = rolesClaim?.Split(',').ToList() ?? new List<string>();
+            if (!roles.Contains("booth-manager-edit"))
+            {
+                return MethodResult.ResultWithError("Bạn không có quyền", 403, "error");
+            }
             var result = await _boothRepos.UpdateBoothAsync(model);
             if (result)
             {
@@ -152,6 +187,14 @@ namespace Elite_life.Controllers
         [Route("delete-booth/{id}")]
         public async Task<MethodResult> DeleteBooth(int id)
         {
+            var userClaims = HttpContext.User.Claims;
+            var rolesClaim = userClaims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
+
+            var roles = rolesClaim?.Split(',').ToList() ?? new List<string>();
+            if (!roles.Contains("booth-manager-delete"))
+            {
+                return MethodResult.ResultWithError("Bạn không có quyền", 403, "error");
+            }
             var result = await _boothRepos.DeleteBoothAsync(id);
             if (result)
             {
