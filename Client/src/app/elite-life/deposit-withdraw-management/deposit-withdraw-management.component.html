@@ -71,41 +71,16 @@
           styleClass="format-input" class="format-input" />
 
         <label for="">Mã khách hàng</label>
-        <!-- <p-dropdown [options]="visibleClients" [(ngModel)]="receivePerson"  placeholder="Chọn người gửi"
-          styleClass="format-input m-5" class="format-input m-5" (onScroll)="onDropdownScroll($event)">
-
-          <ng-template pTemplate="selectedItem" let-selectedOption>
-            <div class="flex align-items-center gap-2">
-              <div>{{ selectedOption }}</div>
-            </div>
-          </ng-template>
-
-          <ng-template let-client pTemplate="item">
-            <div class="flex align-items-center gap-2">
-              <div>{{ client }}</div>
-            </div>
-          </ng-template>
-        </p-dropdown> -->
-        <!-- <p-inputNumber [(ngModel)]="availableSource" inputId="minmaxfraction" readonly mode="decimal"
-        styleClass="format-input" class="format-input" /> -->
-
-      <label for="">Mã khách hàng</label>
-      <mat-select [formControl]="singleSelectControl" placeholder="Search" class="format-selection m-b-15"
-        (selectionChange)="onSelectionChange($event)">
-        <input class="w-100" type="text" pInputText placeholder="Search" [(ngModel)]="receivePerson"
-          (input)="filterOptions()" />
-        <cdk-virtual-scroll-viewport itemSize="50" [style.height.px]="5 * 48">
-          <mat-option *cdkVirtualFor="let topping of filteredToppingList" [value]="topping">
-            {{ topping.label }}
-          </mat-option>
-        </cdk-virtual-scroll-viewport>
-      </mat-select>
-
-        <!-- <p-dropdown [options]="filteredToppingList" [(ngModel)]="selectedUserOption" [virtualScroll]="true"
-          [itemSize]="50" [style]="{width: '100%'}" [panelStyle]="{'max-height': '300px', 'overflow': 'auto'}"
-          placeholder="Search" [filter]="true" (onChange)="onSelectionChange($event)">
-        </p-dropdown> -->
-
+        <mat-select [formControl]="singleSelectControl" placeholder="Search" class="format-selection m-b-15"
+          (selectionChange)="onSelectionChange($event)">
+          <input class="w-100" type="text" pInputText placeholder="Search" [(ngModel)]="receivePerson"
+            (input)="filterOptions()" />
+          <cdk-virtual-scroll-viewport itemSize="50" [style.height.px]="5 * 48">
+            <mat-option *cdkVirtualFor="let topping of filteredToppingList" [value]="topping">
+              {{ topping.label }}
+            </mat-option>
+          </cdk-virtual-scroll-viewport>
+        </mat-select>
 
         <label for="">Số tiền</label>
         <p-inputNumber inputId="integeronly" [(ngModel)]="transferAmount" class="format-input"
@@ -129,13 +104,13 @@
           <div class="d-flex ">
             <p-calendar [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true" [iconDisplay]="'input'"
               [showIcon]="true" [dateFormat]=" 'dd/mm/yy' " (onSelect)="onDateChange($event)" />
-            <p-button (onClick)="exportExcelWalletHistory()" label="Xuất Excel" icon="pi pi-file-export"
+            <p-button  (onClick)="exportExcelWalletHistory()" label="Xuất Excel" icon="pi pi-file-export"
               class="export-button" [outlined]="true" />
           </div>
         </div>
 
         <div class="m-25">
-          <p-table [value]="data" [paginator]="true" [rows]="5" [showCurrentPageReport]="true"
+          <p-table [value]="dataWithdrawHistory" [paginator]="true" [rows]="5" [showCurrentPageReport]="true"
             [tableStyle]="{ 'min-width': '50rem' }" [rowsPerPageOptions]="[5, 10, 20]">
             <ng-template pTemplate="header">
               <tr>

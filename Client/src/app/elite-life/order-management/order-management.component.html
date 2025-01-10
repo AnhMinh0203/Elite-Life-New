@@ -4,7 +4,7 @@
     <div class="d-flex justify-content-end">
       <p-calendar [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true" [iconDisplay]="'input'"
               [showIcon]="true" [dateFormat]=" 'dd/mm/yy' " (onSelect)="onDateChange($event)" />
-      <p-button label="Xuất hóa đơn" [raised]="true" severity="success" class="ms-10" (onClick)="exportExcelOrderByRange()" />
+      <p-button ngClass="format-button" label="Xuất hóa đơn" [raised]="true" severity="success" class="ms-10" (onClick)="exportExcelOrderByRange()" />
     </div>
   </div>
 </div>
@@ -57,7 +57,7 @@
                 Tổng tiền: <b>{{ totalPayed | currency: 'VND' }}</b>
               </div>
               <div class="action m-y-12">
-                <p-button label="Mua lại" [raised]="true" severity="success" (click)="orderAgain()" />
+                <p-button label="Mua lại"  class="format-button" [raised]="true" severity="success" (click)="orderAgain()" />
               </div>
             </div>
           </div>

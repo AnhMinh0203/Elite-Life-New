@@ -225,5 +225,18 @@ namespace Elite_life.Controllers
             }
             return MethodResult.ResultWithError(null, 400, "Not Found");
         }
+
+        [HttpGet]
+        [Route("check-star")]
+        public async Task<MethodResult> CheckStarAncestors(int collaboratorId)
+        {
+            var result = await _orderRepos.CheckStarAncestorsAsync(collaboratorId);
+            if (string.IsNullOrEmpty(result) || result.Contains("Lỗi"))
+            {
+                return MethodResult.ResultWithError(result, 400, "Not Found");
+            }
+
+            return MethodResult.ResultWithSuccess(result, 200, "Success");
+        }
     }
 }

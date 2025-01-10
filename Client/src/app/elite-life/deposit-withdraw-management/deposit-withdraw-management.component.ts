@@ -53,7 +53,8 @@ export class DepositWithdrawManagementComponent {
   commissionWallet: any; // ví hoa hồng giới thiệu
   leadershipWallet: any; // ví thưởng lãnh đạo
   totalRecords: number = 0;
-  data: any;
+  dataCollaborator: any;
+  dataWithdrawHistory: any;
   collaboratorId: any;
   allClients: any[] = [];
   pageSize: number = 10; // Số lượng bản ghi mỗi lần tải
@@ -105,7 +106,7 @@ export class DepositWithdrawManagementComponent {
     }
     this._withdrawService.getWalletHistory(model).subscribe(
       (response: any) => {
-        this.data = response.data;
+        this.dataWithdrawHistory = response.data;
 
       },
       (error: any) => {
@@ -552,23 +553,23 @@ export class DepositWithdrawManagementComponent {
     }
     this._withdrawService.getAllCollaboratorService(model).subscribe(
       (response: any) => {
-        this.data = response.data;
-        this.data = this.data.map((item: any, index: any) => ({
+        this.dataCollaborator = response.data;
+        this.dataCollaborator = this.dataCollaborator.map((item: any, index: any) => ({
           ...item,
           position: index + 1
         }));
-        this.data = this.data.filter((item: any) => item != null);
-        this.dataCombobox = this.data.map((item: any) => ({
+        this.dataCollaborator = this.dataCollaborator.filter((item: any) => item != null);
+        this.dataCombobox = this.dataCollaborator.map((item: any) => ({
           userName: `${item.userName}`,
           label: `${item.userName} - ${item.name}`,
           value: item.id
         }));
         this.filteredToppingList = [...this.dataCombobox];
         this.parentId = this.dataCombobox[0].value;
-        this.totalMember = this.data.length;
+        this.totalMember = this.dataCollaborator.length;
       },
       (error: any) => {
-        this.data = [];
+        this.dataCollaborator = [];
         console.error('Error fetching data:', error);
       });
   }

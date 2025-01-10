@@ -101,7 +101,7 @@ namespace Elite_life_repository
             catch (Exception ex)
             {
                 Console.WriteLine($"Error fetching GetBillOrderInfoAsync: {ex.Message}");
-                return (0,0);
+                return (0, 0);
             }
             finally
             {
@@ -1033,6 +1033,157 @@ namespace Elite_life_repository
             exportFile.Position = 0;
             return exportFile;
             #endregion
+        }
+
+
+        /*public async Task<string> CheckStarAsync(int collaboratorId)
+        {
+            // Tạo kết nối đến PostgreSQL
+            var connectPostgres = new ConnectToPostgresql(_configuration);
+            using var connection = await connectPostgres.CreateConnectionAsync();
+
+            try
+            {
+                // Lấy ParentId của cộng tác viên hiện tại
+                int? parentId = await connection.QuerySingleOrDefaultAsync<int?>(
+                    @"SELECT ""ParentId"" FROM dbo.""Collaborators"" WHERE ""Id"" = @CollaboratorId;",
+                    new { CollaboratorId = collaboratorId });
+
+                if (parentId == null)
+                {
+                    return "Không tìm thấy người giới thiệu";
+                }
+
+                // Lấy Rank hiện tại của Parent
+                string parentRank = await connection.QuerySingleOrDefaultAsync<string>(
+                    @"SELECT ""Rank"" FROM dbo.""Collaborators"" WHERE ""Id"" = @ParentId;",
+                    new { ParentId = parentId });
+
+                if (parentRank == null || new[] { "None", "V", "V1" }.Contains(parentRank))
+                {
+                    return "Lỗi: Hạng chưa phù hợp";
+                }
+
+                // Lấy danh sách F1
+                var f1Ids = await connection.QueryAsync<int>(
+                    @"SELECT ""Id"" FROM dbo.""Collaborators"" WHERE ""ParentId"" = @ParentId;",
+                    new { ParentId = parentId });
+
+                if (f1Ids == null || f1Ids.Count() < 3)
+                {
+                    return "Lỗi: Chưa đủ thành viên";
+                }
+
+                // Tính tổng doanh thu từ các nhánh con
+                var totalSales = new List<decimal>();
+                foreach (var f1Id in f1Ids)
+                {
+                    var sales = await connection.QuerySingleOrDefaultAsync<decimal>(
+                        @"select Sum(""Payed"") from dbo.""Orders"" 
+			where ""CollaboratorId"" in (Select DISTINCT ""id"" FROM dbo.get_collaborators_with_level (@F1Id ))",
+                        new { F1Id = f1Id });
+                    totalSales.Add(sales);
+                }
+
+                // Sắp xếp doanh thu theo thứ tự giảm dần
+                var sortedSales = totalSales.OrderByDescending(x => x).ToList();
+
+                // Lấy tổng doanh thu của 3 nhánh lớn nhất
+                var top3Sales = sortedSales.Take(3).Sum();
+
+                // Lấy nhánh nhỏ nhất trong 3 nhánh lớn nhất
+                var smallestTop3 = sortedSales.Skip(2).FirstOrDefault();
+
+                // Kiểm tra điều kiện sao
+                int star = 0;
+                if (parentRank == "V2" && top3Sales >= 500_000_000 && smallestTop3 >= 100_000_000)
+                {
+                    star = 2;
+                }
+                else if (parentRank == "V3" && top3Sales >= 2_000_000_000 && smallestTop3 >= 500_000_000)
+                {
+                    star = 3;
+                }
+                else if (parentRank == "V4" && top3Sales >= 30_000_000_000 && smallestTop3 >= 8_000_000_000)
+                {
+                    star = 4;
+                }
+                else if (parentRank == "V5" && top3Sales >= 120_000_000_000 && smallestTop3 >= 30_000_000_000)
+                {
+                    star = 5;
+                }
+
+                if (star == 0)
+                {
+                    return "Thu nhập từ các nhánh con chưa đủ";
+                }
+
+                // Cập nhật số sao cho cộng tác viên
+                await connection.ExecuteAsync(
+                    @"UPDATE dbo.""Collaborators"" SET ""Star"" = @Star WHERE ""Id"" = @ParentId;",
+                    new { Star = star, ParentId = parentId });
+
+                return $"Số sao được cập nhật: {star}";
+            }
+            catch (Exception ex)
+            {
+                // Xử lý lỗi
+                return $"Lỗi khi thực thi logic: {ex.Message}";
+            }
+            finally
+            {
+                // Đảm bảo đóng kết nối
+                await connection.CloseAsync();
+            }
+        }*/
+
+        public async Task<string> CheckStarAsync(int collaboratorId)
+        {
+            var connectPostgres = new ConnectToPostgresql(_configuration);
+            using var connection = await connectPostgres.CreateConnectionAsync();
+
+            try
+            {
+                var query = @"Select * from dbo.check_star (@collaboratorId)";
+                var result = await connection.ExecuteScalarAsync<string>(query, new { CollaboratorId = collaboratorId });
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Lỗi: {ex.Message}", ex);
+            }
+            finally
+            {
+                await connection.CloseAsync();
+            }
+        }
+
+        public async Task<string> CheckStarAncestorsAsync(int collaboratorId)
+        {
+            var connectPostgres = new ConnectToPostgresql(_configuration);
+            using var connection = await connectPostgres.CreateConnectionAsync();
+
+            try
+            {
+                var query = @"Select * from dbo.get_ancestors (@collaboratorId)";
+                var ancestors = await connection.QueryAsync<int>(query, new { CollaboratorId = collaboratorId });
+                ancestors  = ancestors.Append(collaboratorId);
+                foreach (var ancestorId in ancestors)
+                {
+                    await CheckStarAsync(ancestorId);
+                }
+                return "Đã cập nhật xong các bậc cha.";
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Lỗi: {ex.Message}", ex);
+            }
+            finally
+            {
+                await connection.CloseAsync();
+            }
         }
     }
 }
