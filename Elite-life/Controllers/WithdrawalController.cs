@@ -212,6 +212,7 @@ namespace Elite_life.Controllers
             return File(result.ToArray(), ExtensionFile.GetContentType(templateFileURL), fileName);
         }
 
+        [HttpPost]
         [Route("get-all-collaborator")]
         public async Task<MethodResult> GetAllCollaborators(CollaboratorMemberManagerModel model)
         {

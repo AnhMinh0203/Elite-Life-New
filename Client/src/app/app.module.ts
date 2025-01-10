@@ -68,7 +68,6 @@ import { OrderManagementComponent } from './elite-life/order-management/order-ma
 import { ImageModule } from 'primeng/image';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
-import { ScrollingModule } from '@angular/cdk/scrolling';
 
 
 
