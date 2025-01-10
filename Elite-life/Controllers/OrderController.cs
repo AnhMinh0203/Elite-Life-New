@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 using System.Reflection;
 using System.Security.Claims;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Elite_life.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class OrderController : ControllerBase
@@ -192,6 +194,8 @@ namespace Elite_life.Controllers
             }
             return MethodResult.ResultWithError(null, 400, "Not Found");
         }
+
+        [HttpGet]
         [Route("get-orderHistory")]
         public async Task<MethodResult> GetOrderHistory(int collaboratorId)
         {

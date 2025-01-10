@@ -261,35 +261,35 @@ namespace Elite_life_repository
             }
         }
 
-        public async Task<string> CaculateShareCommissionAsync(CommissionModel shareCommissionModel)
-        {
-            var connectPostgres = new ConnectToPostgresql(_configuration);
-            using var connection = await connectPostgres.CreateConnectionAsync();
+        //public async Task<string> CaculateShareCommissionAsync(CommissionModel shareCommissionModel)
+        //{
+        //    var connectPostgres = new ConnectToPostgresql(_configuration);
+        //    using var connection = await connectPostgres.CreateConnectionAsync();
 
-            try
-            {
-                using var command = connection.CreateCommand();
-                command.CommandText = @"SELECT * FROM dbo.cal_share_commission(
-                    @p_collaboratorId, 
-                    @p_amountOrder 
-                    )";
+        //    try
+        //    {
+        //        using var command = connection.CreateCommand();
+        //        command.CommandText = @"SELECT * FROM dbo.cal_share_commission(
+        //            @p_collaboratorId, 
+        //            @p_amountOrder 
+        //            )";
 
-                command.Parameters.AddWithValue("@p_collaboratorId", shareCommissionModel.CollaboratorId);
-                command.Parameters.AddWithValue("@p_amountOrder", shareCommissionModel.AmountOrder);
+        //        command.Parameters.AddWithValue("@p_collaboratorId", shareCommissionModel.CollaboratorId);
+        //        command.Parameters.AddWithValue("@p_amountOrder", shareCommissionModel.AmountOrder);
 
-                var result = (string)await command.ExecuteScalarAsync();
-                return result;
+        //        var result = (string)await command.ExecuteScalarAsync();
+        //        return result;
 
-            }
-            catch (Exception ex)
-            {
-                return $"Lỗi khi xử lý: {ex.Message}";
-            }
-            finally
-            {
-                await connection.CloseAsync();
-            }
-        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return $"Lỗi khi xử lý: {ex.Message}";
+        //    }
+        //    finally
+        //    {
+        //        await connection.CloseAsync();
+        //    }
+        //}
         public async Task<decimal> ProccessThresholdAsync(int customerId, decimal sharePerCustomer, string walletType)
         {
             var connectPostgres = new ConnectToPostgresql(_configuration);
@@ -322,23 +322,23 @@ namespace Elite_life_repository
             }
         }
         // Đồng chia dùng Dapper
-        /*public async Task<string> CaculateShareCommissionAsync(CommissionModel shareCommissionModel)
+        public async Task<string> CaculateShareCommissionAsync(CommissionModel shareCommissionModel)
         {
             var connectPostgres = new ConnectToPostgresql(_configuration);
             using var connection = await connectPostgres.CreateConnectionAsync();
+            using var transaction = await connection.BeginTransactionAsync();
 
             try
             {
-
                 // 1. Tính tổng hoa hồng
                 decimal totalCommission = 517500 * shareCommissionModel.AmountOrder;
 
                 // 2. Lấy danh sách khách hàng đủ điều kiện
-                var eligibleCustomers = await connection.QueryAsync<int>(
+                var eligibleCustomers = (await connection.QueryAsync<int>(
                     @"SELECT DISTINCT ""CollaboratorId""
-                      FROM dbo.""Orders""
-                      WHERE ""CollaboratorId"" < @CollaboratorId",
-                new { CollaboratorId = shareCommissionModel.CollaboratorId });
+              FROM dbo.""Orders""
+              WHERE ""CollaboratorId"" < @CollaboratorId",
+                    new { CollaboratorId = shareCommissionModel.CollaboratorId }, transaction, commandTimeout: 300)).ToList();
 
                 if (!eligibleCustomers.Any())
                 {
@@ -346,72 +346,50 @@ namespace Elite_life_repository
                 }
 
                 // 3. Tính số tiền chia cho mỗi khách hàng
-                decimal sharePerCustomer = Math.Round(totalCommission / eligibleCustomers.Count(), 2);
+                decimal sharePerCustomer = Math.Round(totalCommission / eligibleCustomers.Count, 2);
 
-                // 4. Lặp qua từng khách hàng để xử lý ví
-                foreach (var customerId in eligibleCustomers)
+                // 4. Bulk insert/update ví
+                await connection.ExecuteAsync(
+                    @"
+            INSERT INTO dbo.""Wallets"" (""CollaboratorId"", ""WalletTypeEnums"", ""Available"")
+            VALUES (@CollaboratorId, 'CustomerShare', @Available)
+            ON CONFLICT (""CollaboratorId"", ""WalletTypeEnums"")
+            DO UPDATE SET ""Available"" = dbo.""Wallets"".""Available"" + EXCLUDED.""Available"";",
+                    eligibleCustomers.Select(customerId => new
+                    {
+                        CollaboratorId = customerId,
+                        Available = sharePerCustomer
+                    }), transaction, commandTimeout: 300);
+
+                // 5. Cập nhật lịch sử ví (WalletDetails)
+                var walletDetails = eligibleCustomers.Select(customerId => new
                 {
-                    // Kiểm tra ví có tồn tại hay không
-                    bool walletExists = await connection.ExecuteScalarAsync<bool>(
-                        @"SELECT EXISTS (
-                        SELECT 1 
-                        FROM dbo.""Wallets""
-                        WHERE ""CollaboratorId"" = @CustomerId AND ""WalletTypeEnums"" = 'CustomerShare'
-                      )",
-                        new { CustomerId = customerId });
+                    WalletId = connection.QuerySingleAsync<int>(
+                        @"SELECT ""Id"" FROM dbo.""Wallets"" 
+                  WHERE ""CollaboratorId"" = @CollaboratorId AND ""WalletTypeEnums"" = 'CustomerShare';",
+                        new { CollaboratorId = customerId }, transaction).Result,
+                    WalletType = "CustomerShare",
+                    Value = sharePerCustomer,
+                    Note = $"Đồng chia từ cộng tác viên EL{shareCommissionModel.CollaboratorId} cho {eligibleCustomers.Count} khách hàng"
+                }).ToList();
 
-                    if (!walletExists)
-                    {
-                        // Tạo ví mới nếu chưa tồn tại
-                        await connection.ExecuteAsync(
-                          @"INSERT INTO dbo.""Wallets"" 
-                          (""CollaboratorId"", ""WalletTypeEnums"", ""Available"")
-                          VALUES (@CustomerId, 'CustomerShare', @SharePerCustomer)",
-                                new { CustomerId = customerId, SharePerCustomer = sharePerCustomer });
-                    }
-                    else
-                    {
-                        decimal updatedSharePerCustomer = await ProccessThresholdAsync(customerId, sharePerCustomer, "CustomerShare");
-                        // Cập nhật số dư nếu ví đã tồn tại
-                        if (updatedSharePerCustomer > 0)
-                        {
+                await connection.ExecuteAsync(
+                    @"
+            INSERT INTO dbo.""WalletDetails"" (""WalletId"", ""WalletType"", ""Value"", ""Note"")
+            VALUES (@WalletId, @WalletType, @Value, @Note);",
+                    walletDetails, transaction, commandTimeout: 300);
 
-                            // Cập nhật số dư ví và ngưỡng nhận
-                            await connection.ExecuteAsync(
-                                @"UPDATE dbo.""Wallets""
-                              SET ""Available"" = ""Available"" + @UpdatedSharePerCustomer
-                              WHERE ""CollaboratorId"" = @CustomerId AND ""WalletTypeEnums"" = 'CustomerShare';
-                          
-                              UPDATE dbo.""Collaborators""
-                              SET ""ShareReceived"" = ""ShareReceived"" + @UpdatedSharePerCustomer
-                              WHERE ""Id"" = @CustomerId;",
-                                new { CustomerId = customerId, UpdatedSharePerCustomer = updatedSharePerCustomer });
-                        }
-                    }
-
-                    // Thêm lịch sử giao dịch
-                    CreateWalletHistory createWalletHistory = new CreateWalletHistory();
-                    createWalletHistory.CollaboratorId = customerId;
-                    createWalletHistory.WalletType = "CustomerShare";
-                    createWalletHistory.Value = sharePerCustomer;
-                    createWalletHistory.Note = $"Đồng chia từ cộng tác viên EL{shareCommissionModel.CollaboratorId} cho {eligibleCustomers.Count()} khách hàng";
-
-                    await CreateWalletHistoryAsync(createWalletHistory);
-                }
-
-                return $"Tổng số tiền hoa hồng {totalCommission} được chia đều cho {eligibleCustomers.Count()} khách hàng, mỗi người nhận {sharePerCustomer}.";
-
-
+                await transaction.CommitAsync();
+                return $"Tổng số tiền hoa hồng {totalCommission} được chia đều cho {eligibleCustomers.Count} khách hàng, mỗi người nhận {sharePerCustomer}.";
             }
             catch (Exception ex)
             {
+                await transaction.RollbackAsync();
                 return $"Lỗi khi xử lý: {ex.Message}";
             }
-            finally
-            {
-                await connection.CloseAsync();
-            }
-        }*/
+        }
+
+
         // Đồng chia call function
         // ---
         public async Task<string> CaculateGratitudeCommissionAsync(GratitudeCommissionModel gratitudeCommissionModel)
@@ -466,7 +444,6 @@ namespace Elite_life_repository
                 return $"Lỗi khi xử lý: {ex.Message}";
             }
         }
-
 
         public async Task<string> CaculateIntroCommissionAsync(CommissionModel introCommissionModel)
         {
