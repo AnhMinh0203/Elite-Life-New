@@ -267,6 +267,14 @@ export class DepositWithdrawManagementComponent {
       });
       return;
     }
+    if(this.withdrawalAmount > this.availableSource){
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: "Số dư không đủ",
+      });
+      return;
+    }
     this._withdrawService.requestWithDrawMoney(model).subscribe({
 
       next: (response: any) => {
@@ -311,11 +319,11 @@ export class DepositWithdrawManagementComponent {
     this._withdrawService.getWalletByType(model).subscribe({
 
       next: (response: any) => {
-        if (response?.message === 'Success') {
+        if (response?.data != null) {
           this.availableWallets = Math.round(response.data);
 
         } else {
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Tải dữ liệu thất bại' });
+          this.availableWallets = 0;
         }
       },
       error: (err) => {

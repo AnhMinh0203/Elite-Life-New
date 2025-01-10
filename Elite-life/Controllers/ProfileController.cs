@@ -1,11 +1,13 @@
 ﻿using Elite_life_datacontext.Model;
 using Elite_life_datacontext.Utils;
 using Elite_life_repository.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.RegularExpressions;
 
 namespace Elite_life.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class ProfileController : ControllerBase

@@ -8,10 +8,11 @@
             <p-calendar 
               [(ngModel)]="rangeDates" 
               selectionMode="range" 
+              [ngStyle]="{'margin-right': '10px'}"
               [showIcon]="true"
               (onSelect)="onDateChange($event)"
               [readonlyInput]="true" />
-            <!-- <p-button (onClick)="exportExcelCollaboratorTop()" label="Xuất Excel" icon="pi pi-file-export" styleClass="m-0" [outlined]="true" /> -->
+            <p-button (onClick)="exportExcel()" label="Xuất Excel" severity="warning" icon="pi pi-file-export" styleClass="m-0" [outlined]="true" />
           </div>
         </div>
         <div class="">

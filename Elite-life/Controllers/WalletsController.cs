@@ -7,7 +7,7 @@ using System.Security.Claims;
 
 namespace Elite_life.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class WalletsController : ControllerBase

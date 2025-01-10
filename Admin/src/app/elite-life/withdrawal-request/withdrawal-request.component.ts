@@ -55,6 +55,27 @@ export class WithdrawalRequestComponent implements OnInit {
     );
   }
 
+  exportExcel() {
+    const model = {
+      startDate: this.startDate ? this._timezoneServie.convertUTCToTimezone(this.startDate).trim() : null,
+      endDate: this.endDate ? this._timezoneServie.convertUTCToTimezone(this.endDate).trim() : null,
+    };
+    this._withdrawalRequestsService.exportExcelWithdrawalRequest(model).subscribe(
+      (res) => {
+        const blob = new Blob([res], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'Quản lý yêu cầu rút tiền.xlsx';
+        a.click();
+        window.URL.revokeObjectURL(url);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
   showDialogAcceptRequest(item: any) {
     this.visibleAccept = true;
     this.item = item;

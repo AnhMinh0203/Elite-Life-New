@@ -43,6 +43,8 @@ export class AppSideRegisterComponent {
   intervalId: any;
   otp: any;
 
+  parentCode:any;
+
   constructor(private http: HttpClient,
     private messageService: MessageService,
     private _authenticateService: AuthenticateService,
@@ -134,6 +136,34 @@ export class AppSideRegisterComponent {
       });
       return;
     }
+
+    // Kiểm tra lỗi email từ form control
+    const emailControl = this.signUpForm.get('Email');
+    if (!emailControl?.value?.trim()) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Vui lòng điền Email',
+      });
+      return;
+    }
+    if (emailControl?.hasError('email')) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Email không hợp lệ',
+      });
+      return;
+    }
+
+    if (!this.signUpForm.get('Parent')?.value?.trim()) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Vui lòng điền mã người giới thiệu',
+      });
+      return;
+    }
     if (!this.signUpForm.get('Identity')?.value?.trim()) {
       this.messageService.add({
         severity: 'error',
@@ -150,7 +180,21 @@ export class AppSideRegisterComponent {
       });
       return;
     }
-    if (!this.signUpForm.get('IdentityDate')?.value) {
+
+    // Kiểm tra ngày cấp
+    const identityDate = this.signUpForm.get('IdentityDate')?.value;
+    if (identityDate) {
+      const currentDate = new Date();
+      const selectedDate = new Date(identityDate);
+      if (selectedDate > currentDate) {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Ngày cấp không hợp lệ',
+        });
+        return;
+      }
+    } else {
       this.messageService.add({
         severity: 'error',
         summary: 'Error',
@@ -183,10 +227,10 @@ export class AppSideRegisterComponent {
       });
       return;
     }
-    const parentCode = this.signUpForm.get('Parent')?.value;
-    this._authenticateService.checkParent({ UserName: parentCode }).subscribe({
+
+    this.parentCode = this.signUpForm.get('Parent')?.value;
+    this._authenticateService.checkParent({ UserName: this.parentCode }).subscribe({
       next: (response) => {
-        console.log(response);
         if (response.isExistent) {
           this.currentForm = 2; // Chuyển sang form tiếp theo nếu mã người dùng tồn tại
         } else {
@@ -206,6 +250,8 @@ export class AppSideRegisterComponent {
       },
     });
   }
+
+
 
   previousForm() {
     this.currentForm = 1;
@@ -253,12 +299,6 @@ export class AppSideRegisterComponent {
       },
     });
 
-    let parentId = this.signUpForm.get('Parent')?.value;
-    if (parentId && parentId.startsWith('EL')) {
-      parentId = parentId.substring(2);
-    }
-    const parsedParentId = parseInt(parentId, 10);
-
 
     const formData = new FormData();
 
@@ -270,9 +310,8 @@ export class AppSideRegisterComponent {
     formData.append('Identity', this.signUpForm.get('Identity')?.value);
     formData.append('IdentityPlace', this.signUpForm.get('IdentityPlace')?.value);
     // formData.append('IdentityDate', this.signUpForm.get('IdentityDate')?.value.toISOString());
-    formData.append('IdentityDate', this.signUpForm.get('IdentityDate')?.value ? new Date(this.signUpForm.get('IdentityDate')?.value).toLocaleDateString('en-CA'): ''
-    );
-    formData.append('ParentId', parsedParentId.toString());
+    formData.append('IdentityDate', this.signUpForm.get('IdentityDate')?.value ? new Date(this.signUpForm.get('IdentityDate')?.value).toLocaleDateString('en-CA'): '');
+    formData.append('ParentCode', this.parentCode);
     formData.append('BankId', BankId.toString());
     formData.append('BankNumber', this.signUpForm.get('BankNumber')?.value);
     formData.append('BankOwner', this.signUpForm.get('BankOwner')?.value);

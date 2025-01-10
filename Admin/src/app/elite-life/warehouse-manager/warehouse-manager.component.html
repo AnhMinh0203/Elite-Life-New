@@ -5,8 +5,8 @@
         <div class="d-flex w-100">
           <mat-card-title style="color: #B0903E;">Quản lý kho hàng</mat-card-title>
           <div class="m-l-auto">
-            <p-button *ngIf="isPermissionAdd" label="Thêm mới" icon="pi pi-plus" styleClass="m-0" [outlined]="true" (onClick)="showAdd()" />
-            <p-button *ngIf="isPermissionExport" label="Xuất Excel" icon="pi pi-file-export" styleClass="m-0" [outlined]="true" (onClick)="exportExcel()" />
+            <p-button *ngIf="isPermissionAdd" label="Thêm mới" icon="pi pi-plus" severity="warning" [ngStyle]="{'margin-right': '10px'}" styleClass="m-0" [outlined]="true" (onClick)="showAdd()" />
+            <p-button *ngIf="isPermissionExport" label="Xuất Excel" severity="warning" icon="pi pi-file-export" styleClass="m-0" [outlined]="true" (onClick)="exportExcel()" />
           </div>
         </div>
         <div class="">

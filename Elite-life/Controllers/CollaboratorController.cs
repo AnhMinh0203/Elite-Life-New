@@ -14,7 +14,7 @@ using System.Text.RegularExpressions;
 
 namespace Elite_life.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class CollaboratorController : ControllerBase

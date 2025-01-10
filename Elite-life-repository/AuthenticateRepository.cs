@@ -73,7 +73,7 @@ namespace Elite_life_repository
                 SELECT * FROM dbo.create_user(
                      @p_password, @p_displayname, @p_email, @p_mobile, 
                     @p_applicationtype, @p_identity, @p_identitydate, @p_identityplace, 
-                    @p_parentid, @p_bankid, @p_bankowner, @p_banknumber, @p_bankbranchname, @p_avatarpath
+                    @p_parentcode, @p_bankid, @p_bankowner, @p_banknumber, @p_bankbranchname, @p_avatarpath
                 )";
 
             var parameters = new
@@ -86,7 +86,7 @@ namespace Elite_life_repository
                 p_identity = (object?)model.Identity ?? DBNull.Value,
                 p_identitydate = model.IdentityDate,
                 p_identityplace = (object?)model.IdentityPlace ?? DBNull.Value,
-                p_parentid = (object?)model.ParentId ?? DBNull.Value,
+                p_parentcode = (object?)model.ParentCode ?? DBNull.Value,
                 p_bankid = (object?)model.BankId ?? DBNull.Value,
                 p_bankowner = (object?)model.BankOwner ?? DBNull.Value,
                 p_banknumber = (object?)model.BankNumber ?? DBNull.Value,
@@ -207,7 +207,7 @@ namespace Elite_life_repository
                 command.Parameters.AddWithValue("@p_Identity", model.Identity);
                 command.Parameters.AddWithValue("@p_IdentityDate", model.IdentityDate);
                 command.Parameters.AddWithValue("@p_IdentityPlace", model.IdentityPlace);
-                command.Parameters.AddWithValue("@p_ParentId", model.ParentId);
+                command.Parameters.AddWithValue("@p_ParentId", model.ParentCode);
                 command.Parameters.AddWithValue("@p_BankId", model.BankId);
                 command.Parameters.AddWithValue("@p_BankOwner", model.BankOwner);
                 command.Parameters.AddWithValue("@p_BankNumber", model.BankNumber);

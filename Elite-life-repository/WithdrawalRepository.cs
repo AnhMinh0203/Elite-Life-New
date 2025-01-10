@@ -560,5 +560,141 @@ namespace Elite_life_repository
                 await connection.CloseAsync();
             }
         }
+
+        public async Task<DataTable> ExportExcelProcessingWithdrawalRequestsAsyncDataTable(CollaboratorMemberManagerModel model)
+        {
+            DataTable dataTable = new DataTable();
+            dataTable.Columns.Add("CollaboratorId", typeof(int));
+            dataTable.Columns.Add("BankOwner", typeof(string));
+            dataTable.Columns.Add("BankNumber", typeof(string));
+            dataTable.Columns.Add("BankName", typeof(string));
+            dataTable.Columns.Add("BankBranchName", typeof(string));
+            dataTable.Columns.Add("WithdrawalAmount", typeof(Decimal));
+            dataTable.Columns.Add("Tax", typeof(Decimal));
+            dataTable.Columns.Add("ActualNumberReceived", typeof(Decimal));
+            dataTable.Columns.Add("Note", typeof(string));
+            dataTable.Columns.Add("Status", typeof(string));
+            dataTable.Columns.Add("NoteRejection", typeof(string));
+            dataTable.Columns.Add("CreatedAt", typeof(DateTime));
+
+            var connectPostgres = new ConnectToPostgresql(_configuration);
+            using var connection = await connectPostgres.CreateConnectionAsync();
+
+            try
+            {
+                using var command = connection.CreateCommand();
+                command.CommandText = @"SELECT * FROM dbo.get_processing_withdrawal_requests(@p_start_date, @p_end_date)";
+
+
+                command.Parameters.AddWithValue("@p_start_date", model.StartDate?.ToString("yyyy-MM-dd") ?? (object)DBNull.Value);
+                command.Parameters.AddWithValue("@p_end_date", model.StartDate?.ToString("yyyy-MM-dd") ?? (object)DBNull.Value);
+
+                using (var adapter = new NpgsqlDataAdapter(command))
+                {
+                    adapter.Fill(dataTable);
+                }
+                if (dataTable.Columns.Contains("CollaboratorId"))
+                {
+                    // Tạo cột mới "FormattedCollaboratorId"
+                    dataTable.Columns.Add("FormattedCollaboratorId", typeof(string));
+
+                    // Gán giá trị định dạng vào cột mới
+                    foreach (DataRow row in dataTable.Rows)
+                    {
+                        var collaboratorId = row["CollaboratorId"]?.ToString();
+                        row["FormattedCollaboratorId"] = $"EL{collaboratorId}";
+                    }
+
+                    // Đưa cột mới lên đầu
+                    dataTable.Columns["FormattedCollaboratorId"].SetOrdinal(0);
+
+                    // Xóa cột "CollaboratorId" cũ
+                    dataTable.Columns.Remove("CollaboratorId");
+
+                    // Đổi tên cột "FormattedCollaboratorId" thành "CollaboratorId"
+                    dataTable.Columns["FormattedCollaboratorId"].ColumnName = "CollaboratorId";
+                }
+
+                if (dataTable.Columns.Contains("Id"))
+                {
+                    dataTable.Columns.Remove("Id");
+                }
+                if (dataTable.Columns.Contains("Code"))
+                {
+                    dataTable.Columns.Remove("Code");
+                }
+                if (dataTable.Columns.Contains("Image"))
+                {
+                    dataTable.Columns.Remove("Image");
+                }
+                if (dataTable.Columns.Contains("UpdatedAt"))
+                {
+                    dataTable.Columns.Remove("UpdatedAt");
+                }
+                return dataTable;
+
+
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+            finally
+            {
+                await connection.CloseAsync();
+            }
+
+        }
+
+        public async Task<MemoryStream> ExportExcelProcessingWithdrawalRequestsAsync(CollaboratorMemberManagerModel model)
+        {
+            var exportFile = new MemoryStream();
+
+            #region Call data API
+            var histories = await ExportExcelProcessingWithdrawalRequestsAsyncDataTable(model);
+            #endregion
+
+            #region Export Excel from template
+            // Đường dẫn tới file template
+            string templatePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "wwwroot", "template", "Export_Processing_Withdrawal_Requests.xlsx");
+            Console.WriteLine($"Template path: {templatePath}");
+            if (!File.Exists(templatePath))
+            {
+                throw new FileNotFoundException("Template file not found", templatePath);
+            }
+
+
+            // Đọc file template Excel
+            var fileInfo = new FileInfo(templatePath);
+            using (var package = new OfficeOpenXml.ExcelPackage(fileInfo))
+            {
+                // Lấy worksheet đầu tiên
+                var worksheet = package.Workbook.Worksheets[0];
+                worksheet.Cells["A4"].LoadFromDataTable(histories, false);
+
+                // Tự động điều chỉnh kích thước cột
+                worksheet.Cells[worksheet.Dimension.Address].AutoFitColumns();
+
+                if (histories.Rows.Count > 0)
+                {
+                    var range = worksheet.Cells["A4:L" + (histories.Rows.Count + 6).ToString()];
+                    foreach (var cell in range)
+                    {
+                        var border = cell.Style.Border;
+                        border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                    }
+                }
+
+                // Lưu lại file Excel vào MemoryStream
+                package.SaveAs(exportFile);
+            }
+
+            exportFile.Position = 0;
+            return exportFile;
+            #endregion
+        }
     }
 }

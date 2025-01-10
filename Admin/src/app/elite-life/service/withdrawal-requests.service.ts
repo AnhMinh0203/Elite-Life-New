@@ -48,4 +48,14 @@ export class WithdrawalRequestsService {
         );
   }
 
+  exportExcelWithdrawalRequest(model: any) {
+    const apiUrl = `${this.serviceUri}/Wallet-exportExcelProcessingWithdrawalRequests`;
+      return this._http.post(apiUrl, model, {responseType: 'blob'})
+        .pipe(
+          catchError((error: any) => {
+            throw error;
+          })
+        );
+  }
+
 }

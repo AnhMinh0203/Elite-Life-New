@@ -4,11 +4,13 @@ using Elite_life_datacontext.Utils;
 using Elite_life_repository;
 using Elite_life_repository.Common;
 using Elite_life_repository.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Reflection;
 
 namespace Elite_life.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class WithdrawalController : ControllerBase
@@ -194,6 +196,20 @@ namespace Elite_life.Controllers
                 return MethodResult.ResultWithSuccess(result, 200, "Success");
             }
             return MethodResult.ResultWithError(null, 400, "Not Found");
+        }
+
+        [HttpPost]
+        [Route("Wallet-exportExcelProcessingWithdrawalRequests")]
+        public async Task<IActionResult> ExportExcelProcessingWithdrawalRequests(CollaboratorMemberManagerModel model)
+        {
+            var toDay = DateTime.Today;
+
+            var result = await _withdrawalRepos.ExportExcelProcessingWithdrawalRequestsAsync(model);
+            string templateFileURL = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "wwwroot", "template", "Export_Processing_Withdrawal_Requests.xlsx");
+            string fileName = $"{ExtensionFile.GetFileNameWithoutExtension(templateFileURL)}_{toDay.ToString().Replace('/', '_').Replace(':', '_').Replace(' ', '_')}.xlsx";
+
+            Response.Headers.Add("fileName", fileName);
+            return File(result.ToArray(), ExtensionFile.GetContentType(templateFileURL), fileName);
         }
     }
 }

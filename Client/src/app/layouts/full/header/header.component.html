@@ -57,27 +57,32 @@
   [style]="{ width: '80vw' }" [draggable]="false" [resizable]="false" [appendTo]="'body'">
 
   <div class="row my-10">
-    <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 d-flex flex-column w-100 my-10" >
+    <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 d-flex flex-column w-100 my-10">
       <label for="">Số tiền</label>
-      <p-inputNumber inputId="integeronly" [(ngModel)]="payed"  styleClass="format-input" class="format-input" />
+      <input type="text" [value]="payed | numberFormat" pInputText [disabled]="true" class="format-input">
     </div>
-
     <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 d-flex my-10">
       <div class="d-flex flex-column w-100">
-        <label for="">Kho hàng</label>
-        <p-dropdown [options]="test" [(ngModel)]="test" optionLabel="name" placeholder="Select a City"  styleClass="format-input" class="format-input" />
+        <label for="warehouse">Kho hàng</label>
+        <p-dropdown [options]="listWarehouse" [(ngModel)]="selectedWarehouse" placeholder="Chọn kho hàng"
+          styleClass="format-input" class="format-input">
+        </p-dropdown>
       </div>
     </div>
 
-    <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 d-flex my-10">
+
+
+    <div
+      class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 d-flex my-10 flex-column justify-content-start align-items-start">
       <div class="d-flex flex-column w-100">
         <label for="">Số lượng</label>
-        <p-inputNumber inputId="integeronly" [(ngModel)]="amountOrder"  styleClass="format-input" class="format-input" />
+        <p-inputNumber inputId="integeronly" [(ngModel)]="amountOrder" styleClass="format-input" class="format-input" (ngModelChange)="updateTotalMoney()"/>
       </div>
     </div>
 
-    <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 d-flex my-10 flex-column justify-content-end align-items-end">
-      <p-button label="Mua combo" [raised]="true" severity="success" class="m-b-4" (click)="placeOrder()"/>
+    <div
+      class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 d-flex my-10 flex-column justify-content-end align-items-end">
+      <p-button label="Mua combo" [raised]="true" severity="success" class="m-b-4" (click)="placeOrder()" />
     </div>
 
   </div>
@@ -85,8 +90,8 @@
 
     <div class="col-12 ">
       <h3>Danh sách thanh toán</h3>
-      <p-table [columns]="test" [value]="test" [tableStyle]="{ 'min-width': '50rem' }">
-        <ng-template pTemplate="header" let-columns>
+      <p-table [value]="orderHistory" [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template pTemplate="header">
           <tr>
             <th>STT</th>
             <th>Ngày thanh toán</th>
@@ -94,14 +99,17 @@
             <th>Số lượng</th>
           </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
           <tr>
-            <td *ngFor="let col of columns">
-              {{ rowData[col.field] }}
-            </td>
+            <td>{{ rowIndex + 1 }}</td> <!-- Số thứ tự -->
+            <td>{{ rowData.createdAt | date: 'dd/MM/yyyy' }}</td> <!-- Ngày thanh toán -->
+            <td>{{ rowData.payed }}</td> <!-- Số lượng -->
+            <td>{{ rowData.amount | number: '1.0-0' }}</td> <!-- Số tiền -->
+
           </tr>
         </ng-template>
       </p-table>
+
     </div>
   </div>
 </p-dialog>
