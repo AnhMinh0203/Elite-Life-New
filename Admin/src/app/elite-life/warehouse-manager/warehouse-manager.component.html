@@ -1,0 +1,184 @@
+<div class="row">
+  <div class="col-lg-12">
+    <mat-card class="cardWithShadow">
+      <mat-card-content class="p-24">
+        <div class="d-flex w-100">
+          <mat-card-title style="color: #B0903E;">Quản lý kho hàng</mat-card-title>
+          <div class="m-l-auto">
+            <input type="text" pInputText [(ngModel)]="search" (change)="searchWarehouse()"/>
+            <p-button label="Thêm mới" icon="pi pi-plus" styleClass="m-0" [outlined]="true" (onClick)="showAdd()" />
+            <p-button label="Xuất Excel" icon="pi pi-file-export" styleClass="m-0" [outlined]="true" />
+          </div>
+        </div>
+        <div class="">
+          <p-table
+            [value]="data"
+            [paginator]="true"
+            [rows]="5"
+            [showCurrentPageReport]="true"
+            [tableStyle]="{ 'min-width': '50rem' }"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [rowsPerPageOptions]="[5, 10, 20]"
+          >
+            <ng-template pTemplate="header">
+              <tr>
+                  <th style="width:5%">Hành động</th>
+                  <th style="width:10%">Tên kho</th>
+                  <th style="width:15%">
+                    Địa chỉ
+                  </th>
+                  <th style="width:10%">Số lượng</th>
+                  <th style="width:10%">Số điện thoại</th>
+                  <th style="width:15%">Người quản lý</th>
+                  <th style="width:10%">SĐT người quản lý</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-customer>
+              <tr>
+                  <td style="align-items: center;">
+                    <i class="pi pi-bars" style="color: #fff; background-color: green; padding: 5px 5px; cursor: pointer;" (click)="menu.toggle($event)" (click)="changId(customer)"></i>
+                    <p-tieredMenu 
+                      #menu 
+                      [model]="items" 
+                      [popup]="true" 
+                      appendTo="body" 
+                      (onclick)="changId(customer)"
+                      [baseZIndex]="1000">
+                    </p-tieredMenu>
+                  </td>
+                  <td>{{ customer.name }}</td>
+                  <td>{{ customer.location}}</td>
+                  <td>{{ customer.capacity }}</td>
+                  <td>{{ customer.mobile }}</td>
+                  <td>{{ customer.manager}}</td>
+                  <td>{{ customer.managerMobile }}</td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+<p-dialog 
+  header="Header" 
+  [(visible)]="visibleAdd" 
+  [modal]="true" 
+  [style]="{ width: '50rem' }">
+    <ng-template pTemplate="header">
+      <h3>Thêm mới kho hàng</h3>
+    </ng-template>
+    <div class="row">
+      <div class="d-flex col-6" style="flex-direction: column;">
+        <label class="font-semibold">
+          Tên kho <span style="color: red">*</span>
+        </label>
+        <input type="text" pInputText [(ngModel)]="name" />
+      </div>
+      <div class="d-flex col-6" style="flex-direction: column;">
+        <label class="font-semibold">
+          Địa chỉ <span style="color: red">*</span>
+        </label>
+        <input type="text" pInputText [(ngModel)]="address" />
+      </div>
+      <div class="d-flex col-6" style="flex-direction: column;">
+        <label class="font-semibold">
+          Số lượng <span style="color: red">*</span>
+        </label>
+        <input type="number" pInputText [(ngModel)]="amount" />
+      </div>
+      <div class="d-flex col-6" style="flex-direction: column;">
+        <label class="font-semibold">
+          SĐT <span style="color: red">*</span>
+        </label>
+        <input type="text" pInputText [(ngModel)]="mobile" />
+      </div>
+      <div class="d-flex col-6" style="flex-direction: column;">
+        <label class="font-semibold">
+          Người quản lý <span style="color: red">*</span>
+        </label>
+        <input type="text" pInputText [(ngModel)]="manager" />
+      </div>
+      <div class="d-flex col-6" style="flex-direction: column;">
+        <label class="font-semibold">
+          SĐT người quản lý <span style="color: red">*</span>
+        </label>
+        <input type="text" pInputText [(ngModel)]="managerMobile" />
+      </div>
+    </div>
+    <ng-template pTemplate="footer">
+      <p-button 
+          label="Hủy" 
+          [text]="true" 
+          severity="secondary" 
+          (onClick)="visibleAdd = false" />
+      <p-button 
+          label="Xác nhận" 
+          [outlined]="true" 
+          severity="secondary"
+          (onClick)="add()"
+        />
+  </ng-template>
+</p-dialog>
+
+<p-dialog 
+  header="Header" 
+  [(visible)]="visibleEdit" 
+  [modal]="true" 
+  [style]="{ width: '50rem' }">
+    <ng-template pTemplate="header">
+      <h3>Sửa thông tin kho hàng</h3>
+    </ng-template>
+    <div class="row">
+      <div class="d-flex col-6" style="flex-direction: column;">
+        <label class="font-semibold">
+          Tên kho <span style="color: red">*</span>
+        </label>
+        <input type="text" pInputText [(ngModel)]="nameEdit" />
+      </div>
+      <div class="d-flex col-6" style="flex-direction: column;">
+        <label class="font-semibold">
+          Địa chỉ <span style="color: red">*</span>
+        </label>
+        <input type="text" pInputText [(ngModel)]="addressEdit" />
+      </div>
+      <div class="d-flex col-6" style="flex-direction: column;">
+        <label class="font-semibold">
+          Số lượng <span style="color: red">*</span>
+        </label>
+        <input type="number" pInputText [(ngModel)]="amountEdit" />
+      </div>
+      <div class="d-flex col-6" style="flex-direction: column;">
+        <label class="font-semibold">
+          SĐT <span style="color: red">*</span>
+        </label>
+        <input type="text" pInputText [(ngModel)]="mobileEdit" />
+      </div>
+      <div class="d-flex col-6" style="flex-direction: column;">
+        <label class="font-semibold">
+          Người quản lý <span style="color: red">*</span>
+        </label>
+        <input type="text" pInputText [(ngModel)]="managerEdit" />
+      </div>
+      <div class="d-flex col-6" style="flex-direction: column;">
+        <label class="font-semibold">
+          SĐT người quản lý <span style="color: red">*</span>
+        </label>
+        <input type="text" pInputText [(ngModel)]="managerMobileEdit" />
+      </div>
+    </div>
+    <ng-template pTemplate="footer">
+      <p-button 
+          label="Hủy" 
+          [text]="true" 
+          severity="secondary" 
+          (onClick)="visibleEdit = false" />
+      <p-button 
+          label="Xác nhận" 
+          [outlined]="true" 
+          severity="secondary"
+          (onClick)="update()"
+        />
+  </ng-template>
+</p-dialog>

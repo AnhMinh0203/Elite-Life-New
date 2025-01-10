@@ -48,4 +48,14 @@ export class OrderService {
       );
   }
 
+  getPurchaseStatistics(month: any, year: any) {
+    const apiUrl = `${this.serviceUri}/get-purchase-statistics?month=${month}&year=${year}`;
+    return this._http.get<ResponseResult>(apiUrl)
+      .pipe(
+        catchError((error: any) => {
+          throw error;
+        })
+      );
+  }
+
 }

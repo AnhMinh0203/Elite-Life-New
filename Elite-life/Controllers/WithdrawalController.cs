@@ -1,4 +1,5 @@
-﻿using Elite_life_datacontext.Model;
+﻿using Elite_life_datacontext.Dto;
+using Elite_life_datacontext.Model;
 using Elite_life_datacontext.Utils;
 using Elite_life_repository;
 using Elite_life_repository.Common;
@@ -157,6 +158,19 @@ namespace Elite_life.Controllers
                 return MethodResult.ResultWithError(null, 400, result);
             }
             return MethodResult.ResultWithSuccess(result, 200, "Success");
+        }
+
+        [HttpPost]
+        [Route("get-all-collaborator")]
+        public async Task<MethodResult> GetAllCollaborators(CollaboratorMemberManagerModel model)
+        {
+            var result = await _withdrawalRepos.GetAllCollaborators(model);
+            if (result != null)
+            {
+                return MethodResult.ResultWithSuccess(result, 200, "Success");
+
+            }
+            return MethodResult.ResultWithError(null, 400, "Not Found");
         }
     }
 }

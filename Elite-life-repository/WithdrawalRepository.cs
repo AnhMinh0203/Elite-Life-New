@@ -470,5 +470,34 @@ namespace Elite_life_repository
                 await connection.CloseAsync();
             }
         }
+
+        public async Task<List<CollaboratorDto>> GetAllCollaborators(CollaboratorMemberManagerModel model)
+        {
+            var connectPostgres = new ConnectToPostgresql(_configuration);
+            using var connection = await connectPostgres.CreateConnectionAsync();
+
+            try
+            {
+                var query = @"SELECT * FROM dbo.get_all_collaborators(@p_start_date, @p_end_date)";
+
+                var parameters = new
+                {
+                    p_start_date = model.StartDate,
+                    p_end_date = model.EndDate,
+                };
+
+                var result = (await connection.QueryAsync<CollaboratorDto>(query, parameters)).AsList();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error fetching GetAllCollaborators: {ex.Message}");
+                return new List<CollaboratorDto>();
+            }
+            finally
+            {
+                await connection.CloseAsync();
+            }
+        }
     }
 }

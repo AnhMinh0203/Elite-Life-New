@@ -71,7 +71,7 @@
           styleClass="format-input" class="format-input" />
 
         <label for="">Mã khách hàng</label>
-        <p-dropdown [options]="visibleClients" [(ngModel)]="receivePerson" [filter]="true" placeholder="Chọn người gửi"
+        <!-- <p-dropdown [options]="visibleClients" [(ngModel)]="receivePerson"  placeholder="Chọn người gửi"
           styleClass="format-input m-5" class="format-input m-5" (onScroll)="onDropdownScroll($event)">
 
           <ng-template pTemplate="selectedItem" let-selectedOption>
@@ -85,11 +85,33 @@
               <div>{{ client }}</div>
             </div>
           </ng-template>
-        </p-dropdown>
+        </p-dropdown> -->
+        <!-- <p-inputNumber [(ngModel)]="availableSource" inputId="minmaxfraction" readonly mode="decimal"
+        styleClass="format-input" class="format-input" /> -->
+
+      <label for="">Mã khách hàng</label>
+      <mat-select [formControl]="singleSelectControl" placeholder="Search" class="format-selection m-b-15"
+        (selectionChange)="onSelectionChange($event)">
+        <input class="w-100" type="text" pInputText placeholder="Search" [(ngModel)]="receivePerson"
+          (input)="filterOptions()" />
+        <cdk-virtual-scroll-viewport itemSize="50" [style.height.px]="5 * 48">
+          <mat-option *cdkVirtualFor="let topping of filteredToppingList" [value]="topping">
+            {{ topping.label }}
+          </mat-option>
+        </cdk-virtual-scroll-viewport>
+      </mat-select>
+
+        <!-- <p-dropdown [options]="filteredToppingList" [(ngModel)]="selectedUserOption" [virtualScroll]="true"
+          [itemSize]="50" [style]="{width: '100%'}" [panelStyle]="{'max-height': '300px', 'overflow': 'auto'}"
+          placeholder="Search" [filter]="true" (onChange)="onSelectionChange($event)">
+        </p-dropdown> -->
+
+
         <label for="">Số tiền</label>
-        <p-inputNumber inputId="integeronly" [(ngModel)]="transferAmount" class="format-input" styleClass="format-input" />
+        <p-inputNumber inputId="integeronly" [(ngModel)]="transferAmount" class="format-input"
+          styleClass="format-input" />
         <div class="d-flex my-25 justify-content-end ">
-          <p-button label="Chuyển tiền" severity="success" class="format-button" (click)="transferMoney()"/>
+          <p-button label="Chuyển tiền" severity="success" class="format-button" (click)="transferMoney()" />
         </div>
       </p-tabPanel>
 

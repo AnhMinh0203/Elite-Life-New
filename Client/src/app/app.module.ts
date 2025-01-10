@@ -67,7 +67,7 @@ import { ImageModule } from 'primeng/image';
 
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
-
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @NgModule({
   declarations: [
@@ -123,7 +123,8 @@ import { InputIconModule } from 'primeng/inputicon';
     InputNumberModule,
     ImageModule,
     InputIconModule,
-    IconFieldModule
+    IconFieldModule,
+    ScrollingModule
 
   ],
   exports: [TablerIconsModule],

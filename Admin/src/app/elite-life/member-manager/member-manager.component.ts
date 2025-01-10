@@ -5,6 +5,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MenuItem, MessageService, TreeNode } from 'primeng/api';
 import { WalletDetailService } from '../service/wallet-detail.service';
 import { WalletsService } from '../service/wallets.service';
+import { FormControl } from '@angular/forms';
+import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -22,6 +24,8 @@ export type ChartOptions = {
 })
 export class MemberManagerComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(CdkVirtualScrollViewport, { static: true })
+  cdkVirtualScrollViewPort!: CdkVirtualScrollViewport;
   displayedColumns: string[] = ['action','name', 'userName', 'createdAt', 'rank'];
   rangeDates: Date[] | undefined;
   startDate: any;
@@ -47,6 +51,9 @@ export class MemberManagerComponent implements OnInit {
   money: any;
   note: any;
   visibleMoney: boolean = false;
+  singleSelectControl  = new FormControl();
+  filteredToppingList: any[] = [];
+  searchTerm: string = '';
 
   constructor(
     private _collaboratorService: CollaboratorService, 
@@ -82,6 +89,17 @@ export class MemberManagerComponent implements OnInit {
   changId(customer: any) {
     this.customer = customer;
     this.idSelected = customer.id;
+  }
+
+  onSelectionChange(event: any): void {
+    this.parentId = event.value.value;
+    console.log(this.parentId);
+  }
+
+  filterOptions(): void {
+    this.filteredToppingList = this.dataCombobox.filter((topping) =>
+      topping.label.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
   }
 
   onDateChange(event: any) {
@@ -126,6 +144,7 @@ export class MemberManagerComponent implements OnInit {
           label: `${item.userName} - ${item.name}`,
           value: item.id
         }));
+        this.filteredToppingList = [...this.dataCombobox];
         this.parentId = this.dataCombobox[0].value;
         this.totalMember = this.data.length;
       },

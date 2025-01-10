@@ -13,5 +13,6 @@ namespace Elite_life_repository.Interfaces
         Task<bool> AddBoothAsync(BoothModel model);
         Task<List<BoothDto>> GetBoothsAsync();
         Task<bool> UpdateBoothAsync(BoothModel model);
+        Task<bool> DeleteBoothAsync(int id);
     }
 }

@@ -1,4 +1,5 @@
-﻿using Elite_life_datacontext.Model;
+﻿using Elite_life_datacontext.Dto;
+using Elite_life_datacontext.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,5 +21,6 @@ namespace Elite_life_repository.Interfaces
         Task<string> CreateWalletHistoryAsync(CreateWalletHistory createWalletHistory);
         Task<MemoryStream> ExportExcelCollaboratorsByParendId(WithdrawMoneyRange withdrawMoneyRange);
         Task<string> TransferMoneyAsync(TransferRequestModel transferRequestModel);
+        Task<List<CollaboratorDto>> GetAllCollaborators(CollaboratorMemberManagerModel model);
     }
 }

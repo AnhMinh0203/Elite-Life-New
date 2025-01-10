@@ -3,11 +3,11 @@
     <mat-card class="cardWithShadow">
       <mat-card-content class="p-24">
         <div class="d-flex w-100">
-          <mat-card-title style="color: #004882;">Gian hàng</mat-card-title>
+          <mat-card-title style="color: #B0903E;">Gian hàng</mat-card-title>
           <div class="m-l-auto">
             <input #fileUploader accept="image/*" type="file" name="" id="" style="display: none;" (change)="uploadImage($event)">
             
-            <i class="pi pi-pen-to-square" style="color: #004882; padding: 0 5px; cursor: pointer;" (click)="triggerFileUpload()"></i>
+            <i class="pi pi-pen-to-square" style="color: #B0903E; padding: 0 5px; cursor: pointer;" (click)="triggerFileUpload()"></i>
             <i class="pi pi-trash" style="color: red; padding: 0 5px;cursor: pointer;" (click)="deleteFileImage('image_main.png')"></i>
           </div>
         </div>
@@ -19,7 +19,7 @@
           <div class="m-l-auto">
             <input #fileBannerUploader accept="image/*" type="file" name="" id="" style="display: none;" (change)="uploadImageBanner($event)">
             
-            <i class="pi pi-pen-to-square" style="color: #004882; padding: 0 5px; cursor: pointer;" (click)="triggerFileBannerUpload()"></i>
+            <i class="pi pi-pen-to-square" style="color: #B0903E; padding: 0 5px; cursor: pointer;" (click)="triggerFileBannerUpload()"></i>
             <i class="pi pi-trash" style="color: red; padding: 0 5px;cursor: pointer;" (click)="deleteFileImage('image_banner.png')"></i>
           </div>
         </div>
@@ -49,8 +49,8 @@
             <p>Liên hệ: {{item.contact}} </p>
           </div>
           <div class="action" style="margin-left: auto;">
-            <i class="pi pi-pen-to-square" style="color: #004882; padding: 0 5px; cursor: pointer;" (click)="showDialogEdit(item)" ></i>
-            <i class="pi pi-trash" style="color: red; padding: 0 5px;cursor: pointer;" ></i>
+            <i class="pi pi-pen-to-square" style="color: #B0903E; padding: 0 5px; cursor: pointer;" (click)="showDialogEdit(item)" ></i>
+            <i class="pi pi-trash" style="color: red; padding: 0 5px;cursor: pointer;" (click)="onDelete(item)" ></i>
           </div>
         </div>
       </mat-card-content>
