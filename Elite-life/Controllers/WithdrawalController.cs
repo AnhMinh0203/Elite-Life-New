@@ -211,5 +211,17 @@ namespace Elite_life.Controllers
             Response.Headers.Add("fileName", fileName);
             return File(result.ToArray(), ExtensionFile.GetContentType(templateFileURL), fileName);
         }
+
+        [Route("get-all-collaborator")]
+        public async Task<MethodResult> GetAllCollaborators(CollaboratorMemberManagerModel model)
+        {
+            var result = await _withdrawalRepos.GetAllCollaborators(model);
+            if (result != null)
+            {
+                return MethodResult.ResultWithSuccess(result, 200, "Success");
+
+            }
+            return MethodResult.ResultWithError(null, 400, "Not Found");
+        }
     }
 }

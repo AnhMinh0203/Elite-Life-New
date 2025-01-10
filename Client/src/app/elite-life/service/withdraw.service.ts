@@ -126,4 +126,14 @@ export class WithdrawService {
         })
       );
   }
+
+  getAllCollaboratorService(model: any) {
+    const apiUrl = `${this.serviceUri}/get-all-collaborator`;
+    return this._http.post<ResponseResult>(apiUrl, model)
+      .pipe(
+        catchError((error: any) => {
+          throw error;
+        })
+      );
+  }
 }

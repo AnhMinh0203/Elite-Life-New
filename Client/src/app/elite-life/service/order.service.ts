@@ -119,4 +119,22 @@ export class OrderService {
         })
       );
   }
+
+  getOrderByRangeDateService(model:any){
+    const apiUrl = `${this.serviceUri}/get-order-by-rangeDate`;
+    return this._http.post<ResponseResult>(apiUrl, model)
+      .pipe(
+        catchError((error: any) => {
+          throw error;
+        })
+      );
+  }
+
+  exportExcelOrderRangeService(model: any): Observable<any> {
+    const apiUrl = `${this.serviceUri}/export-excel-order-date-range`;
+    return this._http.post(apiUrl, model, {
+      responseType: 'blob', // Đảm bảo API trả về kiểu blob
+      observe: 'response' // Lấy header từ API nếu cần
+    });
+  }
 }

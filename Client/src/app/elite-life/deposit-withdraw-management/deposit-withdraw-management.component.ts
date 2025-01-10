@@ -4,7 +4,8 @@ import { WithdrawService } from '../service/withdraw.service';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { DatePipe } from '@angular/common';
 import { HttpResponse } from '@angular/common/http';
-
+import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-deposit-withdraw-management',
@@ -13,6 +14,8 @@ import { HttpResponse } from '@angular/common/http';
 })
 
 export class DepositWithdrawManagementComponent {
+  @ViewChild(CdkVirtualScrollViewport, { static: true })
+  cdkVirtualScrollViewPort!: CdkVirtualScrollViewport;
   //share
   availableSource: any;
 
@@ -50,11 +53,21 @@ export class DepositWithdrawManagementComponent {
   commissionWallet: any; // ví hoa hồng giới thiệu
   leadershipWallet: any; // ví thưởng lãnh đạo
   totalRecords: number = 0;
-  data: any;
+  dataCollaborator: any;
+  dataWithdrawHistory: any;
   collaboratorId: any;
   allClients: any[] = [];
   pageSize: number = 10; // Số lượng bản ghi mỗi lần tải
   currentIndex: number = 0; // Vị trí hiện tại trong danh sách
+  dataCombobox: { label: string; value: number }[] = [];
+  filteredToppingList: any[] = [];
+
+  parentId:any;
+  totalMember:any;
+  searchTerm:any;
+  singleSelectControl  = new FormControl();
+  selectedUserOption:any;
+  selectedUserName:any;
 
   constructor(
     private datePipe: DatePipe,
@@ -69,6 +82,7 @@ export class DepositWithdrawManagementComponent {
     this.loadAllClients();
     this.initializeWalletOptions();
     this.getWalletHistory();
+    this.getAllCollaborator();
   }
 
   onWindowScroll(event: any) {
@@ -92,7 +106,7 @@ export class DepositWithdrawManagementComponent {
     }
     this._withdrawService.getWalletHistory(model).subscribe(
       (response: any) => {
-        this.data = response.data;
+        this.dataWithdrawHistory = response.data;
 
       },
       (error: any) => {
@@ -306,6 +320,17 @@ export class DepositWithdrawManagementComponent {
     }
   }
 
+  onDateChangeToGetCollaborator(event: any) {
+    if (this.rangeDates && this.rangeDates.length === 2) {
+      const [startDate, endDate] = this.rangeDates;
+      this.startDate = startDate;
+      this.endDate = endDate
+      if(this.startDate && this.endDate) {
+        this. getAllCollaborator();
+      }
+    }
+  }
+
   formatValue(value: number): string {
     const integerValue = Math.floor(value);
     return integerValue > 0 ? `+${integerValue.toLocaleString('vi-VN')}` : integerValue.toLocaleString('vi-VN');
@@ -485,8 +510,8 @@ export class DepositWithdrawManagementComponent {
   }
 
   async transferMoney() {
-    let userNameReceive = this.receivePerson.split(' - ')[0].trim();
-    const response = await this._withdrawService.getCollaboratorId(userNameReceive).toPromise();
+
+    const response = await this._withdrawService.getCollaboratorId(this.selectedUserName).toPromise();
     if (response?.message !== 'Success') {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Tải dữ liệu thất bại' });
       return;
@@ -494,7 +519,7 @@ export class DepositWithdrawManagementComponent {
     let collaboratorIdReceive = response.data;
     let model = {
       CollaboratorId: this.collaboratorId,
-      UserNameReceive: userNameReceive,
+      UserNameReceive: this.selectedUserName,
       AmountReceive: this.transferAmount
     }
     this._withdrawService.transferMoneyService(model).subscribe({
@@ -502,7 +527,7 @@ export class DepositWithdrawManagementComponent {
         if (response?.message === 'Success') {
           await Promise.all([
             this.createHistory(collaboratorIdReceive, 'Source', this.transferAmount, `Nhận tiền từ mã  ${this.userName}`),
-            this.createHistory(this.collaboratorId, 'Source', -this.transferAmount, `Chuyển tiền tới mã ${userNameReceive}`),
+            this.createHistory(this.collaboratorId, 'Source', -this.transferAmount, `Chuyển tiền tới mã ${this.selectedUserName}`),
           ]);
           this.refreshWalletData('Source');
           this.messageService.add({
@@ -521,4 +546,45 @@ export class DepositWithdrawManagementComponent {
     })
   }
 
+  getAllCollaborator(){
+    const model = {
+      startDate: this.startDate,
+      endDate: this.endDate
+    }
+    this._withdrawService.getAllCollaboratorService(model).subscribe(
+      (response: any) => {
+        this.dataCollaborator = response.data;
+        this.dataCollaborator = this.dataCollaborator.map((item: any, index: any) => ({
+          ...item,
+          position: index + 1
+        }));
+        this.dataCollaborator = this.dataCollaborator.filter((item: any) => item != null);
+        this.dataCombobox = this.dataCollaborator.map((item: any) => ({
+          userName: `${item.userName}`,
+          label: `${item.userName} - ${item.name}`,
+          value: item.id
+        }));
+        this.filteredToppingList = [...this.dataCombobox];
+        this.parentId = this.dataCombobox[0].value;
+        this.totalMember = this.dataCollaborator.length;
+      },
+      (error: any) => {
+        this.dataCollaborator = [];
+        console.error('Error fetching data:', error);
+      });
+  }
+
+  filterOptions(): void {
+    this.filteredToppingList = this.dataCombobox.filter((topping) =>
+      topping.label.toLowerCase().includes(this.receivePerson.toLowerCase())
+    );
+  }
+
+  onSelectionChange(event: any) {
+    const selectedTopping = event.value;
+    console.log(selectedTopping);
+    if (selectedTopping) {
+      this.selectedUserName = selectedTopping.userName; // Lưu `userName` từ topping
+    }
+  }
 }

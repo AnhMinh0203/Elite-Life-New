@@ -20,3 +20,10 @@
 :host ::ng-deep .format-input {
   width: 100%;
 }
+
+:host ::ng-deep .format-button button{
+  width: 100%;
+  background: #B0903E;
+  border: #B0903E;
+  color: #fff;
+}

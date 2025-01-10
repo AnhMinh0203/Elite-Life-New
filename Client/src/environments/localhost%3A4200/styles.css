@@ -11434,14 +11434,14 @@ html .mat-drawer-container {
   background-color: #fff !important;
 }
 .sidebar-list.mdc-list .menu-list-item.activeMenu .mdc-list-item__primary-text {
-  color: #004882 !important;
+  color: #B0903E !important;
 }
 .sidebar-list.mdc-list .menu-list-item.activeMenu .mat-mdc-list-item-icon {
-  color: #004882 !important;
+  color: #B0903E !important;
   font-weight: bold;
 }
 .sidebar-list.mdc-list .menu-list-item.activeMenu .hide-menu {
-  color: #004882 !important;
+  color: #B0903E !important;
   font-weight: bold;
 }
 .sidebar-list.mdc-list .menu-list-item .mdc-list-item__start {

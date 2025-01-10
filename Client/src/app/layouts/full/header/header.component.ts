@@ -1,10 +1,11 @@
-import {Component,Output,EventEmitter,Input,ViewEncapsulation} from '@angular/core';
+import { Component, Output, EventEmitter, Input, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { OrderService } from 'src/app/elite-life/service/order.service';
 
 import { AuthenticateService } from 'src/app/pages/authentication/service/authenticate.service';
 import { MessageService } from 'primeng/api';
+import { SharedService } from 'src/app/elite-life/share/shared.service';
 
 // Ví 1: EL10939
 // Ví 2: EL10940
@@ -28,12 +29,12 @@ export class HeaderComponent {
   test: any;
   userInfo: any;
   collaboratorId: any;
-  amountOrder:any
+  amountOrder: any
   payed: any;
   orderId: any;
   data: any;
 
-  listWarehouse:any;
+  listWarehouse: any;
   selectedWarehouse: any;
 
   orderHistory: any[] = []; // Lưu dữ liệu trả về từ API
@@ -44,10 +45,15 @@ export class HeaderComponent {
     private _authenticateService: AuthenticateService,
     private _orderService: OrderService,
     private messageService: MessageService,
-    private router: Router
+    private router: Router,
+    private sharedService: SharedService
   ) { }
 
   ngOnInit() {
+    // Lắng nghe sự thay đổi từ service
+    this.sharedService.orderDialogStatus$.subscribe((status) => {
+      this.isOrder = status; // Hiển thị dialog nếu status là true
+    });
     this.userInfo = localStorage.getItem('info');
     this.loadFormOrder();
   }
@@ -105,7 +111,7 @@ export class HeaderComponent {
     });
   }
 
-  async shareCommission(){
+  async shareCommission() {
     let model = {
       CollaboratorId: this.collaboratorId,
       AmountOrder: this.amountOrder,
@@ -129,7 +135,7 @@ export class HeaderComponent {
     });
   }
 
-  async gratitudeCommission (orderId:number){
+  async gratitudeCommission(orderId: number) {
     let model = {
       CollaboratorId: this.collaboratorId,
       OrderId: orderId,
@@ -154,7 +160,7 @@ export class HeaderComponent {
     });
   }
 
-  async introductionCommission(){
+  async introductionCommission() {
     let model = {
       CollaboratorId: this.collaboratorId,
       AmountOrder: this.amountOrder,
@@ -179,7 +185,7 @@ export class HeaderComponent {
   }
 
 
-  async leadershipCommission (){
+  async leadershipCommission() {
     let model = {
       CollaboratorId: this.collaboratorId,
       AmountOrder: this.amountOrder,
@@ -203,7 +209,7 @@ export class HeaderComponent {
     });
   }
 
-  async calculateTotalCommission(orderId:number){
+  async calculateTotalCommission(orderId: number) {
     await this.shareCommission();
     await this.gratitudeCommission(orderId);
     await this.introductionCommission();
@@ -217,22 +223,22 @@ export class HeaderComponent {
       const parsedInfo = JSON.parse(this.userInfo);
       this.collaboratorId = parsedInfo.id;
 
-      if(!this.payed || !this.amountOrder){
+      if (!this.payed || !this.amountOrder) {
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
           detail: 'Vui lòng nhập đủ thông tin'
         });
-        return ;
+        return;
       }
 
-      if(this.payed < 3450000){
+      if (this.payed < 3450000) {
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
           detail: 'Số tiền không đủ'
         });
-        return ;
+        return;
       }
       let model = {
         CollaboratorId: this.collaboratorId,
@@ -243,16 +249,7 @@ export class HeaderComponent {
       }
       this._orderService.placeOrderService(model).subscribe({
         next: async (response: any) => {
-          console.log(response);
           if (response?.statusCode === 200) {
-
-            this.orderId = response.data.orderId
-            // Tính toán hoa hồng
-            await this.calculateTotalCommission(this.orderId)
-            // tạo lịch sử
-            await this.createHistory(this.collaboratorId, 'Source', -this.payed, `Mua ${this.amountOrder} combo`)
-            // load lại web
-            this.refreshWalletData();
             this.messageService.add({
               severity: 'success',
               summary: 'Success',
@@ -273,12 +270,12 @@ export class HeaderComponent {
     }
   }
 
-  loadFormOrder(){
+  loadFormOrder() {
     this.getOrderHistory();
     this.getWarehouse();
   }
 
-  getOrderHistory(){
+  getOrderHistory() {
     if (this.userInfo) {
       const parsedInfo = JSON.parse(this.userInfo);
       this.collaboratorId = parsedInfo.id;
@@ -294,7 +291,7 @@ export class HeaderComponent {
     }
   }
 
-  getWarehouse(){
+  getWarehouse() {
     this._orderService.getWarehouseService().subscribe({
       next: (response: any) => {
         this.listWarehouse = response.data;
@@ -310,7 +307,7 @@ export class HeaderComponent {
     });
   }
 
-  updateTotalMoney(){
+  updateTotalMoney() {
     if (this.amountOrder) {
       this.payed = this.amountOrder * 3450000;
     } else {
@@ -318,7 +315,7 @@ export class HeaderComponent {
     }
   }
 
-  checkRank(){
+  checkRank() {
     this._orderService.checkRankService(this.collaboratorId).subscribe({
       next: (response: any) => {
         this.messageService.add({

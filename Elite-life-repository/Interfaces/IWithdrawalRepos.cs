@@ -27,5 +27,6 @@ namespace Elite_life_repository.Interfaces
         Task<MemoryStream> ExportExcelProcessingWithdrawalRequestsAsync(CollaboratorMemberManagerModel model);
         Task<bool> ApproveWithdrawal(int WithdrawalRequestId , string? note);
         Task<bool> RejectWithdrawal(int WithdrawalRequestId , string note);
+        Task<List<CollaboratorDto>> GetAllCollaborators(CollaboratorMemberManagerModel model);
     }
 }

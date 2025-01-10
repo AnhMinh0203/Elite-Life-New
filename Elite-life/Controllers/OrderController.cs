@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Security.Claims;
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
+using System.Reflection;
 
 namespace Elite_life.Controllers
 {
@@ -224,6 +225,62 @@ namespace Elite_life.Controllers
         public async Task<MethodResult> CheckRank(int collaboratorId)
         {
             var result = await _orderRepos.CheckRankAsync(collaboratorId);
+            if (string.IsNullOrEmpty(result) || result.Contains("Lỗi"))
+            {
+                return MethodResult.ResultWithError(result, 400, "Not Found");
+            }
+
+            return MethodResult.ResultWithSuccess(result, 200, "Success");
+        }
+        
+        [HttpPost]
+        [Route("get-order-by-rangeDate")]
+        public async Task<MethodResult> GetOrderByRangeDate(OrderRange orderRange)
+        {
+            var result = await _orderRepos.GetOrdersByDateRangeAsync(orderRange);
+            if (result == null || !result.Any())
+            {
+                return MethodResult.ResultWithError(result, 400, "Not Found");
+            }
+            return MethodResult.ResultWithSuccess(result, 200, "Success");
+        }
+
+        [HttpPost]
+        [Route("export-excel-order-date-range")]
+        public async Task<IActionResult> ExportExcelCollaboratorsByParendId(OrderRange orderRange)
+        {
+
+            var toDay = DateTime.Today;
+
+            var result = await _orderRepos.ExportExcelOrderByDateRange(orderRange);
+            string templateFileURL = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "wwwroot", "template", "Export_Order_History.xlsx"); ;
+            string fileName = $"{ExtensionFile.GetFileNameWithoutExtension(templateFileURL)}_{toDay.ToString().Replace('/', '_').Replace(':', '_').Replace(' ', '_')}.xlsx";
+
+            Response.Headers.Add("fileName", fileName);
+            return File(result.ToArray(), ExtensionFile.GetContentType(templateFileURL), fileName);
+        }
+
+        [HttpGet]
+        [Route("get-purchase-statistics")]
+        public async Task<MethodResult> GetPurchaseStatisticsAsync(int month, int year)
+        {
+            var result = await _orderRepos.GetPurchaseStatisticsAsync(month, year);
+            if (result != (0, 0))
+            {
+                return MethodResult.ResultWithSuccess(
+                    new { NotPurchased = result.NotPurchased, Purchased = result.Purchased }
+                , 200
+                , "Success");
+
+            }
+            return MethodResult.ResultWithError(null, 400, "Not Found");
+        }
+
+        [HttpGet]
+        [Route("check-star")]
+        public async Task<MethodResult> CheckStarAncestors(int collaboratorId)
+        {
+            var result = await _orderRepos.CheckStarAncestorsAsync(collaboratorId);
             if (string.IsNullOrEmpty(result) || result.Contains("Lỗi"))
             {
                 return MethodResult.ResultWithError(result, 400, "Not Found");

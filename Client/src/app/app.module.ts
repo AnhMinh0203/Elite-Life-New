@@ -64,6 +64,11 @@ import { NumberFormatPipe } from './Core/pipes/number-format.pipe';
 import { DatePipe } from '@angular/common';
 import { BoothManagerComponent } from './elite-life/booth-manager/booth-manager.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { OrderManagementComponent } from './elite-life/order-management/order-management.component';
+import { ImageModule } from 'primeng/image';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 
 
@@ -89,6 +94,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     ProfileContainerComponent,
     NumberFormatPipe,
     BoothManagerComponent,
+    OrderManagementComponent
   ],
   imports: [
     BrowserModule,
@@ -120,6 +126,10 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     TabViewModule,
     InputNumberModule,
     ScrollingModule,
+    ImageModule,
+    InputIconModule,
+    IconFieldModule,
+    ScrollingModule
 
   ],
   exports: [TablerIconsModule],
