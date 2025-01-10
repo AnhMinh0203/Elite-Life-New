@@ -4,9 +4,13 @@ using Elite_life_datacontext.Dto;
 using Elite_life_datacontext.Model;
 using Elite_life_repository.Interfaces;
 using Microsoft.Extensions.Configuration;
+using Npgsql;
+using OfficeOpenXml.Style;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -201,7 +205,6 @@ namespace Elite_life_repository
                 command.Parameters.AddWithValue("@p_payed", placeOrderModel.Payed);
 
                 var result = (string)await command.ExecuteScalarAsync();
-                Console.WriteLine("JSON từ database: " + result);
 
                 // bỏ qua phân biệt tên thuộc tính khớp chính xác và phân biệt chữ hoa/chữ thường
                 var options = new JsonSerializerOptions
@@ -231,37 +234,37 @@ namespace Elite_life_repository
             }
         }
         // Xử lý ngưỡng
-        public async Task<decimal> ProccessThresholdAsync(int customerId, decimal sharePerCustomer, string walletType)
-        {
-            var connectPostgres = new ConnectToPostgresql(_configuration);
-            using var connection = await connectPostgres.CreateConnectionAsync();
-
-            try
-            {
-                string sql = "SELECT dbo.proccess_threshold(@customerid, @sharepercustomer, @wallettype)";
-
-                // Tham số truyền vào hàm
-                var parameters = new
+        /*        public async Task<decimal> ProccessThresholdAsync(int customerId, decimal sharePerCustomer, string walletType)
                 {
-                    customerid = customerId,
-                    sharepercustomer = sharePerCustomer,
-                    wallettype = walletType
-                };
+                    var connectPostgres = new ConnectToPostgresql(_configuration);
+                    using var connection = await connectPostgres.CreateConnectionAsync();
 
-                decimal result = await connection.ExecuteScalarAsync<decimal>(sql, parameters);
+                    try
+                    {
+                        string sql = "SELECT dbo.proccess_threshold(@customerid, @sharepercustomer, @wallettype)";
 
-                return result;
-            }
-            catch (Exception ex)
-            {
-                Console.Error.WriteLine($"Error in ProccessThresholdAsync: {ex.Message}");
-                throw;
-            }
-            finally
-            {
-                await connection.CloseAsync();
-            }
-        }
+                        // Tham số truyền vào hàm
+                        var parameters = new
+                        {
+                            customerid = customerId,
+                            sharepercustomer = sharePerCustomer,
+                            wallettype = walletType
+                        };
+
+                        decimal result = await connection.ExecuteScalarAsync<decimal>(sql, parameters);
+
+                        return result;
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.Error.WriteLine($"Error in ProccessThresholdAsync: {ex.Message}");
+                        throw;
+                    }
+                    finally
+                    {
+                        await connection.CloseAsync();
+                    }
+                }*/
         // Đồng chia dùng Dapper
         /*public async Task<string> CaculateShareCommissionAsync(CommissionModel shareCommissionModel)
         {
@@ -363,9 +366,9 @@ namespace Elite_life_repository
             {
                 using var command = connection.CreateCommand();
                 command.CommandText = @"SELECT * FROM dbo.cal_share_commission(
-                    @p_collaboratorId, 
-                    @p_amountOrder 
-                    )";
+                     @p_collaboratorId, 
+                     @p_amountOrder 
+                     )";
 
                 command.Parameters.AddWithValue("@p_collaboratorId", shareCommissionModel.CollaboratorId);
                 command.Parameters.AddWithValue("@p_amountOrder", shareCommissionModel.AmountOrder);
@@ -383,6 +386,8 @@ namespace Elite_life_repository
                 await connection.CloseAsync();
             }
         }
+
+
 
         public async Task<string> CaculateGratitudeCommissionAsync(GratitudeCommissionModel gratitudeCommissionModel)
         {
@@ -615,30 +620,30 @@ namespace Elite_life_repository
             }
         }
 
-        /*        public async Task<string> CheckRankAsync (int collaboratorId)
-                {
-                    var connectPostgres = new ConnectToPostgresql(_configuration);
-                    using var connection = await connectPostgres.CreateConnectionAsync();
+        public async Task<string> CheckRankAsync(int collaboratorId)
+        {
+            var connectPostgres = new ConnectToPostgresql(_configuration);
+            using var connection = await connectPostgres.CreateConnectionAsync();
 
-                    try
-                    {
-                        var query = @"Select * from dbo.check_rank (@collaboratorId)";
-                        var result = await connection.ExecuteScalarAsync<string>(query, new { CollaboratorId = collaboratorId });
+            try
+            {
+                var query = @"Select * from dbo.check_rank (@collaboratorId)";
+                var result = await connection.ExecuteScalarAsync<string>(query, new { CollaboratorId = collaboratorId });
 
-                        return result;
-                    }
-                    catch (Exception ex)
-                    {
-                        throw new Exception($"Lỗi: {ex.Message}", ex);
-                    }
-                    finally
-                    {
-                        await connection.CloseAsync();
-                    }
-                }*/
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Lỗi: {ex.Message}", ex);
+            }
+            finally
+            {
+                await connection.CloseAsync();
+            }
+        }
 
         // Check rank - logic backend
-        public async Task<string> CheckRankAsync(int collaboratorId)
+        /*public async Task<string> CheckRankAsync(int collaboratorId)
         {
             var connectPostgres = new ConnectToPostgresql(_configuration);
             using var connection = await connectPostgres.CreateConnectionAsync();
@@ -864,9 +869,144 @@ namespace Elite_life_repository
             {
                 await connection.CloseAsync();
             }
+        }*/
+
+
+        public async Task<List<OrderHistoryModel>> GetOrdersByDateRangeAsync(OrderRange orderRange)
+        {
+            var connectPostgres = new ConnectToPostgresql(_configuration);
+            using var connection = await connectPostgres.CreateConnectionAsync();
+
+            try
+            {
+                var sql = @"
+                    SELECT * FROM dbo.get_order_by_rangeDate(
+                        @CollaboratorId, 
+                        @StartDate, 
+                        @EnDate
+                    )";
+                var parameters = new
+                {
+                    CollaboratorId = orderRange.CollaboratorId,
+                    StartDate = orderRange.StartDate ?? (object)DBNull.Value,
+                    EnDate = orderRange.EndDate ?? (object)DBNull.Value
+                };
+
+                // Execute query using Dapper
+                var result = (await connection.QueryAsync<OrderHistoryModel>(sql, parameters)).ToList();
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+            finally
+            {
+                await connection.CloseAsync();
+            }
         }
 
+        public async Task<DataTable> ExportExceOrderByDateRangeDataTable(OrderRange orderRange)
+        {
+            DataTable dataTable = new DataTable();
+
+            var connectPostgres = new ConnectToPostgresql(_configuration);
+            using var connection = await connectPostgres.CreateConnectionAsync();
+
+            try
+            {
+                using var command = connection.CreateCommand();
+                command.CommandText = @"
+                    SELECT ""amount"",""payed"", 
+                           to_char(""createdat"", 'DD-MM-YYYY HH24:MI:SS') AS ""createdat""
+                    FROM dbo.get_order_by_rangeDate(
+                        @p_collaborator_id, 
+                        @p_start_date, 
+                        @p_end_date
+                    )";
 
 
+                command.Parameters.AddWithValue("@p_collaborator_id", orderRange.CollaboratorId);
+                command.Parameters.AddWithValue("@p_start_date", orderRange.StartDate);
+                command.Parameters.AddWithValue("@p_end_date", orderRange.EndDate);
+
+                using (var adapter = new NpgsqlDataAdapter(command))
+                {
+                    adapter.Fill(dataTable);
+                }
+
+                return dataTable;
+
+
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+            finally
+            {
+                await connection.CloseAsync();
+            }
+
+        }
+
+        public async Task<MemoryStream> ExportExcelOrderByDateRange(OrderRange orderRange)
+        {
+            var exportFile = new MemoryStream();
+
+            #region Call data API
+            var orders = await ExportExceOrderByDateRangeDataTable(orderRange);
+            #endregion
+
+            #region Export Excel from template
+            // Đường dẫn tới file template
+            string templatePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "wwwroot", "template", "Export_Order_History.xlsx");
+            Console.WriteLine($"Template path: {templatePath}");
+            if (!File.Exists(templatePath))
+            {
+                throw new FileNotFoundException("Template file not found", templatePath);
+            }
+
+
+            // Đọc file template Excel
+            var fileInfo = new FileInfo(templatePath);
+            using (var package = new OfficeOpenXml.ExcelPackage(fileInfo))
+            {
+                // Lấy worksheet đầu tiên
+                var worksheet = package.Workbook.Worksheets[0];
+                string reportTitle = $"BẢNG LỊCH SỬ MUA HÀNG ID: EL{orderRange.CollaboratorId}";
+                worksheet.Cells["A1"].Value = reportTitle;
+                worksheet.Cells["A1:D1"].Merge = true; // Hợp nhất các ô
+                worksheet.Cells["A1"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center; // Căn giữa ngang
+                worksheet.Cells["A1"].Style.VerticalAlignment = ExcelVerticalAlignment.Center; // Căn giữa dọc
+                worksheet.Cells["A1"].Style.Font.Size = 14; // Kích thước font chữ
+                worksheet.Cells["A1"].Style.Font.Bold = true;
+                worksheet.Cells["A4"].LoadFromDataTable(orders, false);
+
+                // Tự động điều chỉnh kích thước cột
+                worksheet.Cells[worksheet.Dimension.Address].AutoFitColumns();
+
+                if (orders.Rows.Count > 0)
+                {
+                    var range = worksheet.Cells["A4:D" + (orders.Rows.Count + 6).ToString()];
+                    foreach (var cell in range)
+                    {
+                        var border = cell.Style.Border;
+                        border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                    }
+                }
+
+                // Lưu lại file Excel vào MemoryStream
+                package.SaveAs(exportFile);
+            }
+
+            exportFile.Position = 0;
+            return exportFile;
+            #endregion
+        }
     }
 }

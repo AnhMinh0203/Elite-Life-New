@@ -1,0 +1,27 @@
+.ms-10{
+  margin-left: 10px;
+}
+
+.mt-10{
+  margin-top: 10px;
+}
+
+.my-10{
+  margin: 10px 0px;
+}
+
+.my-15{
+  margin: 15px 0px;
+}
+
+.me-5{
+  margin-right: 5px;
+}
+
+.me-10{
+  margin-right: 5px;
+}
+
+:host ::ng-deep .format-input-search input{
+  width: 100%;
+}

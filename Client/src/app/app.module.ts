@@ -62,7 +62,11 @@ import { TabViewModule } from 'primeng/tabview';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { NumberFormatPipe } from './Core/pipes/number-format.pipe';
 import { DatePipe } from '@angular/common';
+import { OrderManagementComponent } from './elite-life/order-management/order-management.component';
+import { ImageModule } from 'primeng/image';
 
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
 
 
 @NgModule({
@@ -85,7 +89,8 @@ import { DatePipe } from '@angular/common';
     InforComponent,
     DepositWithdrawManagementComponent,
     ProfileContainerComponent,
-    NumberFormatPipe
+    NumberFormatPipe,
+    OrderManagementComponent
   ],
   imports: [
     BrowserModule,
@@ -116,6 +121,9 @@ import { DatePipe } from '@angular/common';
     CardModule,
     TabViewModule,
     InputNumberModule,
+    ImageModule,
+    InputIconModule,
+    IconFieldModule
 
   ],
   exports: [TablerIconsModule],

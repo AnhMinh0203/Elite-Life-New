@@ -12,6 +12,7 @@ import { ContractManagerComponent } from './elite-life/contract-manager/contract
 import { InforComponent } from './elite-life/infor-account/infor.component';
 import { DepositWithdrawManagementComponent } from './elite-life/deposit-withdraw-management/deposit-withdraw-management.component';
 import { ProfileContainerComponent } from './elite-life/profile-container/profile-container.component';
+import { OrderManagementComponent } from './elite-life/order-management/order-management.component';
 
 const routes: Routes = [
   {
@@ -84,6 +85,10 @@ const routes: Routes = [
           {
             path: 'deposit-withdraw-management',
             component: DepositWithdrawManagementComponent, // Quản lý nạp/rút
+          },
+          {
+            path: 'order-management',
+            component: OrderManagementComponent, // Quản lý đơn hàng
           },
         ],
       },

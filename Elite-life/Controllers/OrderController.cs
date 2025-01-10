@@ -1,9 +1,11 @@
 ﻿using Elite_life_datacontext.Dto;
 using Elite_life_datacontext.Model;
 using Elite_life_datacontext.Utils;
+using Elite_life_repository.Common;
 using Elite_life_repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
+using System.Reflection;
 
 namespace Elite_life.Controllers
 {
@@ -179,6 +181,33 @@ namespace Elite_life.Controllers
             }
 
             return MethodResult.ResultWithSuccess(result, 200, "Success");
+        }
+
+        [HttpPost]
+        [Route("get-order-by-rangeDate")]
+        public async Task<MethodResult> GetOrderByRangeDate(OrderRange orderRange)
+        {
+            var result = await _orderRepos.GetOrdersByDateRangeAsync(orderRange);
+            if (result == null || !result.Any())
+            {
+                return MethodResult.ResultWithError(result, 400, "Not Found");
+            }
+            return MethodResult.ResultWithSuccess(result, 200, "Success");
+        }
+
+        [HttpPost]
+        [Route("export-excel-order-date-range")]
+        public async Task<IActionResult> ExportExcelCollaboratorsByParendId(OrderRange orderRange)
+        {
+
+            var toDay = DateTime.Today;
+
+            var result = await _orderRepos.ExportExcelOrderByDateRange(orderRange);
+            string templateFileURL = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "wwwroot", "template", "Export_Order_History.xlsx"); ;
+            string fileName = $"{ExtensionFile.GetFileNameWithoutExtension(templateFileURL)}_{toDay.ToString().Replace('/', '_').Replace(':', '_').Replace(' ', '_')}.xlsx";
+
+            Response.Headers.Add("fileName", fileName);
+            return File(result.ToArray(), ExtensionFile.GetContentType(templateFileURL), fileName);
         }
     }
 }
