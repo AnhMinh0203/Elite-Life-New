@@ -1,7 +1,7 @@
 <mat-card class="cardWithShadow">
   <mat-card-content class="p-24">
     <div class="d-flex w-100 p-24">
-      <mat-card-title style="color: #004882;">{{titleName}}</mat-card-title> 
+      <mat-card-title style="color: #B0903E;">{{titleName}}</mat-card-title> 
     </div>
     <div class="row align-items-center" >
       <pdf-viewer
@@ -24,9 +24,9 @@
     </div>
     <div class="row justify-content-center mt-3 align-items-center">
       <div class="col-3"></div>
-      <button class="col-2" mat-raised-button color="primary" (click)="previousPage()">Previous Page</button>
-      <p class="col-2 justify-content-center" style="font-weight: bold; align-items: center; display: flex;">Page {{currentPage}} of {{totalPages}}</p>
-      <button class="col-2" mat-raised-button color="primary" (click)="nextPage()">Next Page</button>
+      <button class="col-2" mat-raised-button style="background-color: #B0903E; color: #fff;" color="primary" (click)="previousPage()">Trước</button>
+      <p class="col-2 justify-content-center" style="font-weight: bold; align-items: center; display: flex;">Trang {{currentPage}} trong {{totalPages}}</p>
+      <button class="col-2" mat-raised-button color="primary" style="background-color: #B0903E;  color: #fff" (click)="nextPage()">Sau</button>
       <div class="col-3"></div>
     </div>
   </mat-card-content>

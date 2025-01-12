@@ -46,8 +46,7 @@
         <div class="d-flex w-100">
           <mat-card-title style="color: #B0903E;">Tổng ID chưa thực hiện tái mua theo quy định theo thời gian</mat-card-title>
           <div class="m-l-auto">
-            <input type="text" pInputText [(ngModel)]="search" (change)="onSearch()" />
-            <p-button label="Xuất Excel" icon="pi pi-file-export" styleClass="m-0" [outlined]="true" />
+            <p-button *ngIf="isPermissionExport" label="Xuất Excel" icon="pi pi-file-export" styleClass="m-0" [outlined]="true" (onClick)="exportExcelRePackageData()" />
           </div>
         </div>
         <div class="">
@@ -66,6 +65,36 @@
                       <th style="width:10%">Tên đăng nhập</th>
                       <th style="width:15%">Email</th>
                       <th style="width:5%">Số điện thoại</th>
+                  </tr>
+                  <tr>
+                    <th>
+                      <p-columnFilter 
+                        type="text"
+                        field="name" 
+                        placeholder="" 
+                        ariaLabel="Filter Name" />
+                    </th>
+                    <th>
+                      <p-columnFilter 
+                        type="text"
+                        field="userName"
+                        placeholder="" 
+                        ariaLabel="Filter Country" />
+                    </th>
+                    <th>
+                      <p-columnFilter 
+                        type="text"
+                        field="email"
+                        placeholder="" 
+                        ariaLabel="Filter Country" />
+                    </th>
+                    <th>
+                      <p-columnFilter 
+                        type="text"
+                        field="mobile"
+                        placeholder="" 
+                        ariaLabel="Filter Country" />
+                    </th>
                   </tr>
               </ng-template>
               <ng-template pTemplate="body" let-customer>
@@ -91,8 +120,7 @@
         <div class="d-flex w-100">
           <mat-card-title style="color: #B0903E;">Tổng ID đã tái mua đơn hàng thứ 2,3,4,5,6,7,8,9,10</mat-card-title>
           <div class="m-l-auto">
-            <input type="text" pInputText [(ngModel)]="search" />
-            <p-button label="Xuất Excel" icon="pi pi-file-export" styleClass="m-0" [outlined]="true" />
+            <p-button  *ngIf="isPermissionExport" label="Xuất Excel" icon="pi pi-file-export" styleClass="m-0" [outlined]="true" (onClick)="exportExcelMultiOrderData()" />
           </div>
         </div>
         <div class="">
@@ -111,6 +139,36 @@
                       <th style="width:10%">Tên đăng nhập</th>
                       <th style="width:15%">Email</th>
                       <th style="width:5%">Số điện thoại</th>
+                  </tr>
+                  <tr>
+                    <th>
+                      <p-columnFilter 
+                        type="text"
+                        field="name" 
+                        placeholder="" 
+                        ariaLabel="Filter Name" />
+                    </th>
+                    <th>
+                      <p-columnFilter 
+                        type="text"
+                        field="userName"
+                        placeholder="" 
+                        ariaLabel="Filter Country" />
+                    </th>
+                    <th>
+                      <p-columnFilter 
+                        type="text"
+                        field="email"
+                        placeholder="" 
+                        ariaLabel="Filter Country" />
+                    </th>
+                    <th>
+                      <p-columnFilter 
+                        type="text"
+                        field="mobile"
+                        placeholder="" 
+                        ariaLabel="Filter Country" />
+                    </th>
                   </tr>
               </ng-template>
               <ng-template pTemplate="body" let-customer>

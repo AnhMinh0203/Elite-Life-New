@@ -20,10 +20,14 @@ export class IdManagerComponent implements OnInit {
   dataContract: any;
   dataCombobox: { label: string; value: number }[] = [];
   parentId: any;
+  permission: any;
+  isPermissionExport: boolean = false
 
   constructor(private _collaboratorService: CollaboratorService) { }
 
   ngOnInit() {
+    this.permission = JSON.parse(localStorage.getItem('permission') || '{}');
+    this.isPermissionExport = this.permission.includes('id-manager-export');
     this.getAllCollaboratorByParentId();
     this.getAllCollaboratorContract();
   }
@@ -101,19 +105,19 @@ export class IdManagerComponent implements OnInit {
       });
   }
 
-  exportExcelCollaboratorTop(){
+  exportExcelCollaboratorIDManager(){
     const model = {
       startDate: this.startDate,
       endDate: this.endDate
     }
 
-    this._collaboratorService.exportExcelAllCollaborator(model).subscribe(
+    this._collaboratorService.exportExcelCollaboratorIDManager(model).subscribe(
       (response: any) => {
         const blob = new Blob([response], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
         const url = window.URL.createObjectURL(blob);
         const link = document.createElement('a');
         link.href = url;
-        link.download = 'Danh sách thành viên.xlsx';
+        link.download = 'Danh sách Tổng ID.xlsx';
         link.click();
       },
       (error: any) => {
@@ -122,12 +126,35 @@ export class IdManagerComponent implements OnInit {
   }
 
   getAllCollaboratorContract(){
-    this._collaboratorService.getAllCollaboratorContract(this.startDateContract, this.endDateContract).subscribe(
+    const model = {
+      startDate: this.startDateContract,
+      endDate: this.endDateContract
+    }
+    this._collaboratorService.getAllCollaboratorContract(model).subscribe(
       (response: any) => {
         this.dataContract = response.data;
       },
       (error: any) => {
         this.dataContract = [];
+        console.error('Error fetching data:', error);
+      });
+  }
+
+  exportExcelAllCollaboratorContract() {
+    const model = {
+      startDate: this.startDateContract,
+      endDate: this.endDateContract
+    }
+    this._collaboratorService.exportExcelAllCollaboratorContract(model).subscribe(
+      (response: any) => {
+        const blob = new Blob([response], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'Danh sách Tổng ID đã ký hợp đồng CTV.xlsx';
+        link.click();
+      },
+      (error: any) => {
         console.error('Error fetching data:', error);
       });
   }

@@ -3,9 +3,8 @@
     <mat-card class="cardWithShadow">
       <mat-card-content class="p-24">
         <div class="d-flex w-100">
-          <mat-card-title style="color: #B0903E;">Danh sách thành viên ({{totalMember}})</mat-card-title>
+          <mat-card-title style="color: #B0903E;">Danh sách hợp đồng</mat-card-title>
           <div class="m-l-auto">
-            <input type="text" pInputText [(ngModel)]="search" (keydown.enter)="searchName()" />
             <p-calendar 
               [(ngModel)]="rangeDates" 
               selectionMode="range" 
@@ -25,11 +24,42 @@
           >
               <ng-template pTemplate="header">
                   <tr>
-                      <th style="width:5%">Hành động</th>
-                      <th style="width:10%">Mã thành viên</th>
-                      <th style="width:15%">Họ tên</th>
-                      <th style="width:15%">Địa chỉ</th>
-                      <th style="width:5%">CMTND/CCCD</th>
+                    <th style="width:5%">Hành động</th>
+                    <th style="width:10%">Mã thành viên</th>
+                    <th style="width:15%">Họ tên</th>
+                    <th style="width:15%">Địa chỉ</th>
+                    <th style="width:5%">CMTND/CCCD</th>
+                  </tr>
+                  <tr>
+                    <th></th>
+                    <th>
+                      <p-columnFilter 
+                        type="text"
+                        field="userName" 
+                        placeholder="" 
+                        ariaLabel="Filter Name" />
+                    </th>
+                    <th>
+                      <p-columnFilter 
+                        type="text"
+                        field="name"
+                        placeholder="" 
+                        ariaLabel="Filter Country" />
+                    </th>
+                    <th>
+                      <p-columnFilter 
+                        type="text"
+                        field="address"
+                        placeholder="" 
+                        ariaLabel="Filter Country" />
+                    </th>
+                    <th>
+                      <p-columnFilter 
+                        type="text"
+                        field="identity"
+                        placeholder="" 
+                        ariaLabel="Filter Country" />
+                    </th>
                   </tr>
               </ng-template>
               <ng-template pTemplate="body" let-customer>

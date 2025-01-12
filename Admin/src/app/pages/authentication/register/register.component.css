@@ -29,7 +29,7 @@
 
 .button-decor.active {
   color: #fff !important;
-  background-color: #004882;
+  background-color: #B0903E;
 }
 
 .button_register .button_step {
@@ -41,14 +41,14 @@
 
 
 .button_register .button_step button.active {
-  background: #004882;
+  background: #B0903E;
 }
 
 .button_register .button_step .button_step--first:before {
   content: "";
   width: 100%;
   height: 3px;
-  background: #004882;
+  background: #B0903E;
   position: absolute;
   top: 45%;
   left: 55%;
@@ -90,7 +90,7 @@
 }
 
 .format_text {
-  color: #004882;
+  color: #B0903E;
   font-family: "Inter";
   font-size: 20px;
   font-style: normal;

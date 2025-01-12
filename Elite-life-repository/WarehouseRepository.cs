@@ -7,7 +7,9 @@ using Microsoft.Extensions.Configuration;
 using Npgsql;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -71,6 +73,92 @@ namespace Elite_life_repository
             {
                 await connection.CloseAsync();
             }
+        }
+
+        public async Task<DataTable> ExportExcelAllWarehousesAsyncDatatable()
+        {
+            DataTable dataTable = new DataTable();
+            dataTable.Columns.Add("Name", typeof(string));
+            dataTable.Columns.Add("Location", typeof(string));
+            dataTable.Columns.Add("Capacity", typeof(int));
+            dataTable.Columns.Add("Mobile", typeof(string));
+            dataTable.Columns.Add("Manager", typeof(string));
+            dataTable.Columns.Add("ManagerMobile", typeof(string));
+
+            var connectPostgres = new ConnectToPostgresql(_configuration);
+
+            using (var conn = await connectPostgres.CreateConnectionAsync())
+            {
+                using (var command = new NpgsqlCommand("SELECT * FROM dbo.get_all_warehouses()", conn))
+                {
+                    command.CommandTimeout = 400;
+
+                    using (var adapter = new NpgsqlDataAdapter(command))
+                    {
+                        adapter.Fill(dataTable);
+                    }
+                }
+
+                await conn.CloseAsync();
+            }
+            if (dataTable.Columns.Contains("Id"))
+            {
+                dataTable.Columns.Remove("Id");
+            }
+            if (dataTable.Columns.Contains("CreatedAt"))
+            {
+                dataTable.Columns.Remove("CreatedAt");
+            }
+            if (dataTable.Columns.Contains("UpdatedAt"))
+            {
+                dataTable.Columns.Remove("UpdatedAt");
+            }
+            return dataTable;
+        }
+
+        public async Task<MemoryStream> ExportExcelAllWarehousesAsync()
+        {
+            var exportFile = new MemoryStream();
+
+            #region Call data API
+            var collaborators = await ExportExcelAllWarehousesAsyncDatatable();
+            #endregion
+
+            #region Export Excel from template
+            // Đường dẫn tới file template
+            string templatePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "wwwroot", "template", "Export_Warehouse.xlsx");
+
+            // Đọc file template Excel
+            var fileInfo = new FileInfo(templatePath);
+            using (var package = new OfficeOpenXml.ExcelPackage(fileInfo))
+            {
+                // Lấy worksheet đầu tiên
+                var worksheet = package.Workbook.Worksheets[0];
+                worksheet.Cells["A4"].LoadFromDataTable(collaborators, false);
+
+                // Tự động điều chỉnh kích thước cột
+                worksheet.Cells[worksheet.Dimension.Address].AutoFitColumns();
+
+                if (collaborators.Rows.Count > 0)
+                {
+                    var range = worksheet.Cells["A4:F" + (collaborators.Rows.Count + 6).ToString()];
+                    foreach (var cell in range)
+                    {
+                        var border = cell.Style.Border;
+                        border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                    }
+                }
+
+                // Lưu lại file Excel vào MemoryStream
+                package.SaveAs(exportFile);
+            }
+
+            exportFile.Position = 0;
+            return exportFile;
+            #endregion
         }
 
         public async Task<List<WarehouseDto>> GetAllWarehousesAsync()

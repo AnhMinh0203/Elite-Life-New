@@ -13,6 +13,7 @@ import { InforComponent } from './elite-life/infor-account/infor.component';
 import { DepositWithdrawManagementComponent } from './elite-life/deposit-withdraw-management/deposit-withdraw-management.component';
 import { ProfileContainerComponent } from './elite-life/profile-container/profile-container.component';
 import { OrderManagementComponent } from './elite-life/order-management/order-management.component';
+import { BoothManagerComponent } from './elite-life/booth-manager/booth-manager.component';
 
 const routes: Routes = [
   {
@@ -66,10 +67,13 @@ const routes: Routes = [
       {
         path: 'culture', component: TutorialComponent
       },
+      {path: 'training', component: TutorialComponent},
       {
         path: 'contract', component: ContractManagerComponent
       },
-
+      {
+        path: 'booth', component: BoothManagerComponent
+      },
       { path: 'profile',
         component: ProfileContainerComponent,
         children: [

@@ -11,4 +11,9 @@ namespace Elite_life_datacontext.Dto
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
     }
+
+    public class CollaboratorMemberManagerRankModel : CollaboratorMemberManagerModel
+    {
+        public int Type { get; set; }
+    }
 }

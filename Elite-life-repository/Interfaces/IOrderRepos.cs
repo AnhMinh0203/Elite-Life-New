@@ -11,6 +11,7 @@ namespace Elite_life_repository.Interfaces
     public interface IOrderRepos
     {
         Task<List<OrderInfoDto>> GetOrderInfoAsync(CollaboratorMemberManagerModel model);
+        Task<MemoryStream> ExportExcelOrderInfo(CollaboratorMemberManagerModel model);
         Task<List<OrderBillDto>> GetBillOrderInfoAsync(int OrderId);
         Task<bool> UpdateOrderDeliveryDate(OrderDeliveryDateModel model);
         Task<List<WalletHistoryModel>> GetWalletHistoryAsync(WithdrawMoneyRange withdrawMoneyRange);
@@ -20,6 +21,7 @@ namespace Elite_life_repository.Interfaces
         Task<string> CaculateGratitudeCommissionAsync(GratitudeCommissionModel gratitudeCommissionModel);
         Task<string> CaculateIntroCommissionAsync(CommissionModel introCommissionModel);
         Task<string> CaculateLeaderCommissionAsync(CommissionModel introCommissionModel);
+        Task<(int NotPurchased, int Purchased)> GetPurchaseStatisticsAsync(int month, int year);
         Task<List<OrderHistoryModel>> GetOrderHistoryAsync(int collaboratorId);
         Task<List<string>> GetWarehouseAsync();
         Task<string> CheckRankAsync(int collaboratorId);

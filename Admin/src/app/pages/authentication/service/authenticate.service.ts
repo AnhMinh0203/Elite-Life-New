@@ -117,4 +117,14 @@ export class AuthenticateService {
       );
   }
 
+  sendOTP(email: any, otp: any): Promise<any> {
+    const apiUrl = `${this.serviceUri}/send-otp?email=${email}&otp=${otp}`;
+    return this._http
+      .post<any>(apiUrl, null)
+      .toPromise()
+      .catch((error) => {
+        return Promise.reject(error.message || error);
+      });
+  }
+
 }

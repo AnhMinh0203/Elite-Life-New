@@ -1,4 +1,5 @@
 ﻿using Elite_life_datacontext.Dto;
+using Elite_life_datacontext.Dto;
 using Elite_life_datacontext.Model;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,12 @@ namespace Elite_life_repository.Interfaces
         Task<string> CreateWalletHistoryAsync(CreateWalletHistory createWalletHistory);
         Task<MemoryStream> ExportExcelCollaboratorsByParendId(WithdrawMoneyRange withdrawMoneyRange);
         Task<string> TransferMoneyAsync(TransferRequestModel transferRequestModel);
+
+        //
+        Task<List<WithdrawalRequestDto>> GetProcessingWithdrawalRequestsAsync(CollaboratorMemberManagerModel model);
+        Task<MemoryStream> ExportExcelProcessingWithdrawalRequestsAsync(CollaboratorMemberManagerModel model);
+        Task<bool> ApproveWithdrawal(int WithdrawalRequestId , string? note);
+        Task<bool> RejectWithdrawal(int WithdrawalRequestId , string note);
         Task<List<CollaboratorDto>> GetAllCollaborators(CollaboratorMemberManagerModel model);
     }
 }

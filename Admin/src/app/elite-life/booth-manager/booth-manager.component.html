@@ -7,8 +7,8 @@
           <div class="m-l-auto">
             <input #fileUploader accept="image/*" type="file" name="" id="" style="display: none;" (change)="uploadImage($event)">
             
-            <i class="pi pi-pen-to-square" style="color: #B0903E; padding: 0 5px; cursor: pointer;" (click)="triggerFileUpload()"></i>
-            <i class="pi pi-trash" style="color: red; padding: 0 5px;cursor: pointer;" (click)="deleteFileImage('image_main.png')"></i>
+            <i class="pi pi-pen-to-square" *ngIf="isPermissionEdit" style="color: #B0903E; padding: 0 5px; cursor: pointer;" (click)="triggerFileUpload()"></i>
+            <i class="pi pi-trash" *ngIf="isPermissionDelete" style="color: red; padding: 0 5px;cursor: pointer;" (click)="deleteFileImage('image_main.png')"></i>
           </div>
         </div>
         <div style="display: flex; justify-content: center; align-items: end;">
@@ -19,8 +19,8 @@
           <div class="m-l-auto">
             <input #fileBannerUploader accept="image/*" type="file" name="" id="" style="display: none;" (change)="uploadImageBanner($event)">
             
-            <i class="pi pi-pen-to-square" style="color: #B0903E; padding: 0 5px; cursor: pointer;" (click)="triggerFileBannerUpload()"></i>
-            <i class="pi pi-trash" style="color: red; padding: 0 5px;cursor: pointer;" (click)="deleteFileImage('image_banner.png')"></i>
+            <i class="pi pi-pen-to-square" *ngIf="isPermissionEdit" style="color: #B0903E; padding: 0 5px; cursor: pointer;" (click)="triggerFileBannerUpload()"></i>
+            <i class="pi pi-trash" *ngIf="isPermissionDelete" style="color: red; padding: 0 5px;cursor: pointer;" (click)="deleteFileImage('image_banner.png')"></i>
           </div>
         </div>
         <div style="display: flex; justify-content: center; align-items: end;">
@@ -36,7 +36,7 @@
       <mat-card-content class="p-24">
         <div class="d-flex w-100">
           <div class="m-l-auto">
-            <p-button  label="Thêm mới" icon="pi pi-plus" styleClass="m-0" [outlined]="true" (onClick)="showDialogAdd()" />
+            <p-button *ngIf="isPermissionAdd" label="Thêm mới" icon="pi pi-plus" styleClass="m-0" [outlined]="true" (onClick)="showDialogAdd()" />
           </div>
         </div>
         <div  *ngFor="let item of boothList" class="d-flex" style="align-items: center; padding: 0 48px; margin: 10px 0px; border: 1px solid #8B760A; border-radius: 10px;">
@@ -49,8 +49,8 @@
             <p>Liên hệ: {{item.contact}} </p>
           </div>
           <div class="action" style="margin-left: auto;">
-            <i class="pi pi-pen-to-square" style="color: #B0903E; padding: 0 5px; cursor: pointer;" (click)="showDialogEdit(item)" ></i>
-            <i class="pi pi-trash" style="color: red; padding: 0 5px;cursor: pointer;" (click)="onDelete(item)" ></i>
+            <i class="pi pi-pen-to-square" *ngIf="isPermissionEdit" style="color: #B0903E; padding: 0 5px; cursor: pointer;" (click)="showDialogEdit(item)" ></i>
+            <i class="pi pi-trash" *ngIf="isPermissionDelete" style="color: red; padding: 0 5px;cursor: pointer;" (click)="onDelete(item)" ></i>
           </div>
         </div>
       </mat-card-content>

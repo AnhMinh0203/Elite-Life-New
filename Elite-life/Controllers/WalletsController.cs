@@ -3,10 +3,11 @@ using Elite_life_datacontext.Utils;
 using Elite_life_repository.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Elite_life.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class WalletsController : ControllerBase
@@ -34,6 +35,14 @@ namespace Elite_life.Controllers
         [Route("recharge")]
         public async Task<MethodResult> Recharge(WalletRechargeModel model)
         {
+            var userClaims = HttpContext.User.Claims;
+            var rolesClaim = userClaims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
+
+            var roles = rolesClaim?.Split(',').ToList() ?? new List<string>();
+            if (!roles.Contains("member-manager-recharge-member"))
+            {
+                return MethodResult.ResultWithError("Danh sách thành viên - Nạp tiền", 403, "Bạn không có quyền");
+            }
             var result = await _walletsRepos.Recharge(model);
             if (result)
             {

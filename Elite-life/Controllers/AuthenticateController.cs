@@ -1,4 +1,5 @@
-﻿using Elite_life_datacontext.Constants;
+﻿using AutoMapper.Internal;
+using Elite_life_datacontext.Constants;
 using Elite_life_datacontext.Model;
 using Elite_life_datacontext.Utils;
 using Elite_life_repository.Interfaces;
@@ -7,6 +8,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using System.Net.Mail;
+using System.Net;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
@@ -271,10 +274,45 @@ namespace Elite_life.Controllers
                 user.RefreshToken = null;
                 await _authenticateRepos.UpdateRefreshTokenAsync(user.Id, user.RefreshToken, user.RefreshTokenExpiryTime);
             }
-
             return NoContent();
         }
 
+        [HttpPost("send-otp")]
+        public IActionResult SendOtp(string email, int otp)
+        {
+            try
+            {
 
+                // Email configuration
+                string smtpHost = "smtp.gmail.com"; // Thay bằng SMTP server bạn dùng
+                int smtpPort = 587;
+                string senderEmail = "phuonganhhana360@gmail.com"; // Email của bạn
+                string senderPassword = "kiwg hnor aevc mnho"; // Mật khẩu ứng dụng
+
+                // Send email
+                using (var client = new SmtpClient(smtpHost, smtpPort))
+                {
+                    client.Credentials = new NetworkCredential(senderEmail, senderPassword);
+                    client.EnableSsl = true;
+
+                    var mailMessage = new MailMessage
+                    {
+                        From = new MailAddress(senderEmail),
+                        Subject = "Mã OTP của bạn",
+                        Body = $"Mã OTP của bạn là: {otp.ToString()}",
+                        IsBodyHtml = false
+                    };
+                    mailMessage.To.Add(email);
+
+                    client.Send(mailMessage);
+                }
+
+                return Ok(new { message = "OTP sent successfully!", otp = otp });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Failed to send OTP", error = ex.Message });
+            }
+        }
     }
 }

@@ -17,7 +17,7 @@
         <div class="d-flex w-100">
           <mat-card-title style="color: #B0903E;">Danh mục quyền</mat-card-title>
           <div class="m-l-auto">
-            <p-button (onClick)="showAdd()" label="Thêm mới" icon="pi pi-plus" styleClass="m-0" [outlined]="true" />
+            <p-button (onClick)="showAdd()" label="Thêm mới" severity="warning" icon="pi pi-plus" styleClass="m-0" [outlined]="true" />
           </div>
         </div>
         <div class="">
@@ -30,13 +30,44 @@
           >
               <ng-template pTemplate="header">
                   <tr>
-                      <th style="width:5%">Thao tác</th>
-                      <th style="width:10%">
-                        Tên chức năng
-                      </th>
-                      <th style="width:10%">Mã quyền</th>
-                      <th style="width:20%">Tên quyền</th>
-                      <th style="width:5%">Hoạt động</th>
+                    <th style="width:5%">Thao tác</th>
+                    <th style="width:10%">
+                      Tên chức năng
+                    </th>
+                    <th style="width:10%">Mã quyền</th>
+                    <th style="width:20%">Tên quyền</th>
+                    <th style="width:5%">Hoạt động</th>
+                  </tr>
+                  <tr>
+                    <th></th>
+                    <th>
+                      <p-columnFilter 
+                        type="text"
+                        field="controller" 
+                        placeholder="" 
+                        ariaLabel="Filter Name" />
+                    </th>
+                    <th>
+                      <p-columnFilter 
+                        type="text"
+                        field="code"
+                        placeholder="" 
+                        ariaLabel="Filter Country" />
+                    </th>
+                    <th>
+                      <p-columnFilter 
+                        type="text"
+                        field="name"
+                        placeholder="" 
+                        ariaLabel="Filter Country" />
+                    </th>
+                    <th>
+                      <p-columnFilter 
+                        type="text"
+                        field="action"
+                        placeholder="" 
+                        ariaLabel="Filter Country" />
+                    </th>
                   </tr>
               </ng-template>
               <ng-template pTemplate="body" let-customer>
@@ -78,7 +109,7 @@
         <label for="code" class="font-semibold">
           Mã quyền <span style="color: red">*</span>
         </label>
-        <input pInputText [(ngModel)]="code" id="code" class="flex-auto" autocomplete="off" />
+        <input pInputText [(ngModel)]="code" id="code" class="flex-auto" autocomplete="off" [readOnly]="true" />
       </div>
       <div class="d-flex col-6 w-100" style="flex-direction: column;">
         <label for="action" class="font-semibold">
@@ -91,6 +122,7 @@
           [autoDisplayFirst]="true"
           [filter]="true"
           filterBy="label,value"
+          (onChange)="onChangeAction($event)"
         >
         </p-dropdown>
       </div>
@@ -105,6 +137,7 @@
           [autoDisplayFirst]="true"
           [filter]="true"
           filterBy="label,value"
+          (onChange)="onChangeFunction($event)"
         >
         </p-dropdown>
       </div>
@@ -143,7 +176,7 @@
         <label for="codeEdit" class="font-semibold">
           Mã quyền <span style="color: red">*</span>
         </label>
-        <input pInputText [(ngModel)]="codeEdit" id="codeEdit" class="flex-auto" autocomplete="off" />
+        <input pInputText [(ngModel)]="codeEdit" id="codeEdit" class="flex-auto" autocomplete="off"  />
       </div>
       <div class="d-flex col-6 w-100" style="flex-direction: column;">
         <label for="actionEdit" class="font-semibold">
@@ -156,6 +189,7 @@
           [autoDisplayFirst]="true"
           [filter]="true"
           filterBy="label,value"
+          (onChange)="onChangeActionEdit($event)"
         >
         </p-dropdown>
       </div>
@@ -170,6 +204,7 @@
           [autoDisplayFirst]="true"
           [filter]="true"
           filterBy="label,value"
+          (onChange)="onChangeFunctionEdit($event)"
         >
         </p-dropdown>
       </div>
@@ -179,7 +214,7 @@
           label="Hủy" 
           [text]="true" 
           severity="secondary" 
-          (onClick)="visible = false" />
+          (onClick)="visibleEdit = false" />
       <p-button 
           label="Chỉnh sửa" 
           [outlined]="true" 

@@ -58,6 +58,11 @@ export class TutorialComponent implements OnInit {
         this.titleName = 'Văn hóa Elite';
         break;
 
+      case 'training':
+        this.src = '/assets/tutorial/training.pdf';
+        this.titleName = 'Đào tạo hướng dẫn';
+        break
+
       default:
         this.src = ''; 
         break;

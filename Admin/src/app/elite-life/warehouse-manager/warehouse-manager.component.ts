@@ -27,6 +27,11 @@ export class WarehouseManagerComponent implements OnInit {
   mobileEdit: any;
   managerEdit: any;
   managerMobileEdit: any;
+  permission: any;
+  isPermissionAdd: boolean = false;
+  isPermissionEdit: boolean = false;
+  isPermissionDelete: boolean = false;
+  isPermissionExport: boolean = false
 
 
   constructor(private _warehouseService: WarehouseService, private messageService: MessageService) { 
@@ -45,6 +50,29 @@ export class WarehouseManagerComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.permission = JSON.parse(localStorage.getItem('permission') || '{}');
+    this.isPermissionAdd = this.permission.includes('warehouse-manager-add');
+    this.isPermissionEdit = this.permission.includes('warehouse-manager-edit');
+    this.isPermissionDelete = this.permission.includes('warehouse-manager-delete');
+    this.isPermissionExport = this.permission.includes('warehouse-manager-export');
+    this.items = [
+      ...(this.isPermissionEdit
+        ? [{
+            label: 'Sửa thông tin kho',
+            icon: 'pi pi-pen-to-square',
+            command: () => this.showEdit()
+          }]
+        : []
+      ),
+      ...(this.isPermissionDelete
+        ? [{
+            label: 'Xóa kho',
+            icon: 'pi pi-trash',
+            command: () => this.delete()
+          }]
+        : []
+      )
+    ];
     this.getAll();
   }
 
@@ -58,6 +86,22 @@ export class WarehouseManagerComponent implements OnInit {
         this.data = res.data;
       }
     })
+  }
+
+  exportExcel() {
+    this._warehouseService.exportExcelWarehouse().subscribe(
+      (response: any) => {
+        const blob = new Blob([response], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'Danh sách kho hàng.xlsx';
+        link.click();
+      },
+      (error: any) => {
+        console.error('Error fetching data:', error);
+      }
+    );
   }
 
   showAdd() {

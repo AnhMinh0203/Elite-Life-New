@@ -23,6 +23,7 @@ namespace Elite_life_repository.Configs
             services.AddSingleton<IWithdrawalRepos, WithdrawalRepository>();
             services.AddSingleton<IWarehouseRepos, WarehouseRepository>();
             services.AddSingleton<IPermissionRepos, PermissionRepository>();
+            services.AddSingleton<IVnpay, Vnpay>();
         }
     }
 }

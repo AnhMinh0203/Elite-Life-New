@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 import { OrderService } from '../service/order.service';
 import { WalletDetailService } from '../service/wallet-detail.service';
+import { TimeZoneService } from '../service/convert-timezone.service';
 
 @Component({
   selector: 'app-cart-manager',
@@ -24,10 +25,14 @@ export class CartManagerComponent implements OnInit {
   visibleCommission: boolean = false;
   listCommission: any;
   isLoading: boolean = false;
+  permission: any;
+  isPermissionExport: boolean = false;
+  isPermissionDelivery: boolean = false;
 
   constructor(
     private _orderService: OrderService, 
     private messageService: MessageService,
+    private _timezoneServie: TimeZoneService,
     private _walletDetailService: WalletDetailService) {
     this.items = [
       {
@@ -44,6 +49,9 @@ export class CartManagerComponent implements OnInit {
    }
 
   ngOnInit() {
+    this.permission = JSON.parse(localStorage.getItem('permission') || '{}');
+    this.isPermissionExport = this.permission.includes('cart-manager-export-cart-manager');
+    this.isPermissionDelivery = this.permission.includes('cart-manager-select-delivery-date');
     this.getOrderInfor();
   }
 
@@ -59,9 +67,10 @@ export class CartManagerComponent implements OnInit {
   }
   getOrderInfor(){
     const model = {
-      startDate: this.startDate,
-      endDate: this.endDate
-    }
+      startDate: this.startDate ? this._timezoneServie.convertUTCToTimezone(this.startDate).trim() : null,
+      endDate: this.endDate ? this._timezoneServie.convertUTCToTimezone(this.endDate).trim() : null,
+    };
+    
     this._orderService.getOrderInfor(model).subscribe(
       (response: any) => {
         this.data = response.data;
@@ -72,7 +81,25 @@ export class CartManagerComponent implements OnInit {
       });
   }
 
-  exportExcelCollaboratorTop(){
+  exportExcelOrderInfor() {
+    const model = {
+      startDate: this.startDate ? this._timezoneServie.convertUTCToTimezone(this.startDate).trim() : null,
+      endDate: this.endDate ? this._timezoneServie.convertUTCToTimezone(this.endDate).trim() : null,
+    };
+
+    this._orderService.exportExcelOrder(model).subscribe(
+      (response: any) => {
+        const blob = new Blob([response], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'Danh sách đơn hàng.xlsx';
+        link.click();
+      },
+      (error: any) => {
+        console.error('Error fetching data:', error);
+      }
+    );
   }
 
   searchName() {
@@ -95,7 +122,10 @@ export class CartManagerComponent implements OnInit {
 
   showDialogDate(customer: any) {
     this.cart = customer;
-    console.log(customer)
+    if(!this.isPermissionDelivery) {
+      this.messageService.add({severity:'error', summary: 'Lỗi', detail: 'Bạn không có quyền cập nhật ngày gửi đơn'});
+      return;
+    }
     this.visibleDate = true;
     this.deliveryDate = new Date(customer.deliveryDate);
   }

@@ -29,11 +29,21 @@ export class PermissionManagerComponent implements OnInit {
       {label: 'Thêm', value: 'add'},
       {label: 'Sửa', value: 'edit'},
       {label: 'Xóa', value: 'delete'},
+      {label: 'Xuất excel', value: 'export'},
+      {label: 'Top thành viên', value: 'top-member'},
+      {label: 'Xuất excel top thành viên', value: 'export-top-member'},
+      {label: 'Xuất excel danh sách thành viên', value: 'export-member'},
+      {label: 'Chỉnh sửa danh sách thành viên', value: 'edit-member'},
+      {label: 'Nạp tiền danh sách thành viên', value: 'recharge-member'},
+      {label: 'Xuất excel quản lý đơn hàng', value: 'export-cart-manager'},
+      {label: 'Quản lý đơn hàng - Chọn ngày gửi đơn', value: 'select-delivery-date'},
     ];
     this.functionList = [
       {label: 'Trang chủ', value: 'home'},
       {label: 'Danh sách thành viên', value: 'member-manager'},
+      {label: 'Quản lý đơn hàng', value: 'cart-manager'},
       {label: 'Quản lý gian hàng', value: 'booth-manager'},
+      {label: 'Quản lý yêu cầu rút tiền', value: 'request-withdrawal-manager'},
       {label: 'Quản lý kho hàng', value: 'warehouse-manager'},
       {label: 'Quản lý ví tài khoản', value: 'wallet-source-manager'},
       {label: 'Quản lý ví tri ân khách hàng', value: 'wallet-gratitude-manager'},
@@ -44,6 +54,7 @@ export class PermissionManagerComponent implements OnInit {
       {label: 'Quản lý tổng ID', value: 'id-manager'},
       {label: 'Quản lý đơn hàng ID', value: 'order-manager'},
       {label: 'Danh mục quyền', value: 'permission-manager'},
+      {label: 'Quản lý nhóm quyền', value: 'role-manager'},
     ];
   }
 
@@ -134,6 +145,22 @@ export class PermissionManagerComponent implements OnInit {
         this.getAllPermission();
       }
     });
+  }
+
+  onChangeAction(event: any) {
+    this.code = this.function + '-' + this.action;
+  }
+
+  onChangeFunction(event: any) {
+    this.code = this.function + '-' + this.action;
+  }
+
+  onChangeActionEdit(event: any) {
+    this.codeEdit = this.functionEdit + '-' + this.actionEdit;
+  }
+
+  onChangeFunctionEdit(event: any) {
+    this.codeEdit = this.functionEdit + '-' + this.actionEdit;
   }
 
 }

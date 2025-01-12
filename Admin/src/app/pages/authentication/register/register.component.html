@@ -11,11 +11,11 @@
         <mat-card-content style="padding: 10px 80px;">
           <div class="text-center">
             <a [routerLink]="['/dashboard']">
-              <img src="./assets/images/elite-live/logo-elitelive.svg" class="align-middle m-2" alt="logo" />
+              <img src="./assets/images/elite-live/logo-elitelive.jpg" class="align-middle m-2" alt="logo" />
             </a>
           </div>
           <div class="or-border m-t-30">
-            <h1 style="color: #004882;">Đăng ký</h1>
+            <h1 style="color: #B0903E;">Đăng ký</h1>
           </div>
           <div class="button_register d-flex justify-content-center">
             <div class="button_step">
@@ -46,14 +46,14 @@
 
           <form [formGroup]="signUpForm" class="m-t-30">
             <!-- Họ tên -->
-            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Họ và tên <span
+            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block" style="color: #B0903E;">Họ và tên <span
                 style="color: red">*</span></mat-label>
             <mat-form-field appearance="outline" class="w-100" color="primary">
               <input matInput formControlName="DisplayName" />
             </mat-form-field>
 
             <!-- Email -->
-            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Email <span
+            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block" style="color: #B0903E;">Email <span
                 style="color: red">*</span></mat-label>
             <mat-form-field appearance="outline" class="w-100" color="primary">
               <input matInput formControlName="Email" />
@@ -62,7 +62,7 @@
             <div class="form-row">
               <div class="form-group">
                 <!-- Số điện thoại -->
-                <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Số điện thoại <span
+                <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block" style="color: #B0903E;">Số điện thoại <span
                     style="color: red">*</span></mat-label>
                 <mat-form-field appearance="outline" class="w-100" color="primary">
                   <input matInput formControlName="Mobile" />
@@ -70,7 +70,7 @@
               </div>
               <div class="form-group">
                 <!-- Người giới thiệu -->
-                <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Người giới thiệu<span
+                <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block" style="color: #B0903E;">Người giới thiệu<span
                     style="color: red">*</span></mat-label>
                 <mat-form-field appearance="outline" class="w-100" color="primary">
                   <input matInput formControlName="Parent" />
@@ -79,7 +79,7 @@
 
             </div>
             <!-- Số CMTND/ CCCD/ Hộ chiếu -->
-            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Số CMTND/ CCCD/ Hộ chiếu<span
+            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block" style="color: #B0903E;">Số CMTND/ CCCD/ Hộ chiếu<span
                 style="color: red">*</span></mat-label>
             <mat-form-field appearance="outline" class="w-100" color="primary">
               <input matInput formControlName="Identity" />
@@ -88,7 +88,7 @@
             <div class="form-row">
               <div class="form-group">
                 <!-- Nơi cấp -->
-                <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Nơi cấp<span
+                <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block" style="color: #B0903E;">Nơi cấp<span
                     style="color: red">*</span></mat-label>
                 <mat-form-field appearance="outline" class="w-100" color="primary">
                   <input matInput formControlName="IdentityPlace" />
@@ -96,7 +96,7 @@
               </div>
               <div class="form-group">
                 <!-- Ngày cấp -->
-                <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Ngày cấp<span
+                <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block" style="color: #B0903E;">Ngày cấp<span
                     style="color: red">*</span></mat-label>
                 <mat-form-field>
                   <input matInput [matDatepicker]="picker" formControlName="IdentityDate">
@@ -107,7 +107,7 @@
             </div>
 
             <!-- Mật khẩu -->
-            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Mật khẩu <span
+            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block" style="color: #B0903E;">Mật khẩu <span
                 style="color: red">*</span></mat-label>
             <mat-form-field appearance="outline" class="w-100" color="primary">
               <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="Password" required>
@@ -117,7 +117,7 @@
             </mat-form-field>
 
             <!-- Xác nhận mật khẩu -->
-            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Xác nhận mật khẩu <span
+            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block" style="color: #B0903E;">Xác nhận mật khẩu <span
                 style="color: red">*</span></mat-label>
             <mat-form-field appearance="outline" class="w-100" color="primary">
               <input matInput [type]="hideComfirmPassword ? 'password' : 'text'" formControlName="ConfirmPassword"
@@ -132,7 +132,7 @@
             </button>
           </form>
           <span class="d-block f-w-500 text-center m-t-24">Bạn đã có tài khoản?
-            <a [routerLink]="['/authentication/login']" class="text-decoration-none text-primary f-w-500 f-s-14">
+            <a [routerLink]="['/authentication/login']" class="text-decoration-none text-primary f-w-500 f-s-14" style="color: #B0903E;">
               Click để đăng nhập</a>
           </span>
         </mat-card-content>
@@ -149,7 +149,7 @@
             </a>
           </div>
           <div class="or-border m-t-30">
-            <h1 style="color: #004882;">Đăng ký</h1>
+            <h1 style="color: #B0903E;">Đăng ký</h1>
           </div>
           <div class="button_register d-flex justify-content-center">
             <div class="button_step">
@@ -167,7 +167,7 @@
           </div>
           <form [formGroup]="signUpForm" class="m-t-30">
             <!-- Ngân hàng -->
-            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Ngân hàng <span
+            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block" style="color: #B0903E;">Ngân hàng <span
                 style="color: red">*</span></mat-label>
             <mat-form-field class="w-100">
 
@@ -178,7 +178,7 @@
             </mat-form-field>
 
             <!-- Số tài khoản -->
-            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Số tài khoản <span
+            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block" style="color: #B0903E;">Số tài khoản <span
                 style="color: red">*</span></mat-label>
             <mat-form-field appearance="outline" class="w-100" color="primary">
               <input matInput formControlName="BankNumber" />
@@ -186,14 +186,14 @@
 
 
             <!-- Chủ tài khoản -->
-            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Chủ tài khoản <span
+            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block" style="color: #B0903E;">Chủ tài khoản <span
                 style="color: red">*</span></mat-label>
             <mat-form-field appearance="outline" class="w-100" color="primary">
               <input matInput formControlName="BankOwner" />
             </mat-form-field>
 
             <!-- Chi nhánh -->
-            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Chi nhánh<span
+            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block" style="color: #B0903E;">Chi nhánh<span
                 style="color: red">*</span></mat-label>
             <mat-form-field appearance="outline" class="w-100" color="primary">
               <input matInput formControlName="BankBranchName" />
@@ -205,7 +205,7 @@
                 </button>
               </div>
               <div class="form-group">
-                <button mat-button style="color: #919191;" class="w-100 button-decor active" (click)="signUp()">
+                <button mat-button style="color: #919191;" class="w-100 button-decor active" (click)="sendOtp()">
                   Đăng ký
                 </button>
               </div>
@@ -260,3 +260,31 @@
     </div>
   </div>
 </div>
+
+
+<p-dialog header="Confirm OTP" [modal]="true" [(visible)]="visible" [style]="{ width: '30rem' }">
+  <div class="flex flex-column align-items-center">
+    <div class="font-bold text-xl mb-2">Authenticate Your Account</div>
+    <p class="text-color-secondary block mb-3">Please enter the code sent to your e-mail.</p>
+    <p-inputOtp [(ngModel)]="value" [length]="6" style="gap: 0">
+        <ng-template pTemplate="input" let-token let-events="events" let-index="index">
+            <input 
+                pInputText
+                type="text" 
+                [maxLength]="1" 
+                (input)="events.input($event)" 
+                (keydown)="events.keydown($event)" 
+                [attr.value]="token" 
+                class="custom-otp-input col-1 m-2" />
+            <div *ngIf="index === 3" class="px-3">
+                <i class="pi pi-minus"></i>
+            </div>
+        </ng-template>
+    </p-inputOtp>
+    <p class="text-color-secondary block mb-3">Send OTP again({{countdown}}s)</p>
+    <div class="flex justify-content-between mt-3 align-self-stretch">
+        <p-button label="Resend Code" [link]="true" [disabled]="countdown > 0" (onClick)="resendCode()" class="p-0"/>
+        <p-button (onClick)="submitOTP()" label="Submit Code"/>
+    </div>
+  </div>
+</p-dialog>

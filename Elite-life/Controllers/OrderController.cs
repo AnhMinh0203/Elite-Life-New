@@ -4,11 +4,15 @@ using Elite_life_datacontext.Utils;
 using Elite_life_repository.Common;
 using Elite_life_repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Reflection;
+using System.Security.Claims;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 using System.Reflection;
 
 namespace Elite_life.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class OrderController : ControllerBase
@@ -35,9 +39,39 @@ namespace Elite_life.Controllers
         }
 
         [HttpPost]
+        [Route("export-excel-order")]
+        public async Task<IActionResult> ExportExcelOrderInfor(CollaboratorMemberManagerModel model)
+        {
+            var userClaims = HttpContext.User.Claims;
+            var rolesClaim = userClaims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
+            var roles = rolesClaim?.Split(',').ToList() ?? new List<string>();
+            if (!roles.Contains("cart-manager-export-cart-manager"))
+            {
+                return Forbid();
+            }
+            var toDay = DateTime.Today;
+
+            var result = await _orderRepos.ExportExcelOrderInfo(model);
+            string templateFileURL = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "wwwroot", "template", "Export_Order.xlsx"); ;
+            string fileName = $"{ExtensionFile.GetFileNameWithoutExtension(templateFileURL)}_{toDay.ToString().Replace('/', '_').Replace(':', '_').Replace(' ', '_')}.xlsx";
+
+            Response.Headers.Add("fileName", fileName);
+            return File(result.ToArray(), ExtensionFile.GetContentType(templateFileURL), fileName);
+        }
+
+        [HttpPost]
         [Route("update_order_delivery_date")]
         public async Task<MethodResult> UpdateOrderDeliveryDate(OrderDeliveryDateModel model)
         {
+            var userClaims = HttpContext.User.Claims;
+            var rolesClaim = userClaims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
+
+            var roles = rolesClaim?.Split(',').ToList() ?? new List<string>();  
+            if (!roles.Contains("cart-manager-select-delivery-date"))
+            {
+                return MethodResult.ResultWithError("Bạn không có quyền", 403, "error");
+            }
+
             var result = await _orderRepos.UpdateOrderDeliveryDate(model);
             if (result)
             {
@@ -144,6 +178,22 @@ namespace Elite_life.Controllers
                 return MethodResult.ResultWithError(result, 400, "Not Found");
             }
             return MethodResult.ResultWithSuccess(result, 200, "Success");
+        }
+
+        [HttpGet]
+        [Route("get-purchase-statistics")]
+        public async Task<MethodResult> GetPurchaseStatisticsAsync(int month, int year)
+        {
+            var result = await _orderRepos.GetPurchaseStatisticsAsync(month, year);
+            if (result != (0, 0))
+            {
+                return MethodResult.ResultWithSuccess(
+                    new { NotPurchased = result.NotPurchased, Purchased = result.Purchased }
+                , 200
+                , "Success");
+
+            }
+            return MethodResult.ResultWithError(null, 400, "Not Found");
         }
 
         [HttpGet]

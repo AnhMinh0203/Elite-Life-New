@@ -62,12 +62,14 @@ import { TabViewModule } from 'primeng/tabview';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { NumberFormatPipe } from './Core/pipes/number-format.pipe';
 import { DatePipe } from '@angular/common';
+import { BoothManagerComponent } from './elite-life/booth-manager/booth-manager.component';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 import { OrderManagementComponent } from './elite-life/order-management/order-management.component';
 import { ImageModule } from 'primeng/image';
 
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
-import { ScrollingModule } from '@angular/cdk/scrolling';
+
 
 @NgModule({
   declarations: [
@@ -89,6 +91,8 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     InforComponent,
     DepositWithdrawManagementComponent,
     ProfileContainerComponent,
+    NumberFormatPipe,
+    BoothManagerComponent,
     NumberFormatPipe,
     OrderManagementComponent
   ],
@@ -121,6 +125,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     CardModule,
     TabViewModule,
     InputNumberModule,
+    ScrollingModule,
     ImageModule,
     InputIconModule,
     IconFieldModule,

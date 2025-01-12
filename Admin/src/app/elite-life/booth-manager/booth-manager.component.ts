@@ -27,10 +27,18 @@ export class BoothManagerComponent implements OnInit {
   boothList: any;
   boothEdit: any;
   visibleEdit: boolean = false;
+  permission: any;
+  isPermissionAdd: boolean = false;
+  isPermissionEdit: boolean = false;
+  isPermissionDelete: boolean = false;
 
   constructor(private boothService: BoothService, private messageService: MessageService) { }
 
   ngOnInit() {
+    this.permission = JSON.parse(localStorage.getItem('permission') || '{}');
+    this.isPermissionAdd = this.permission.includes('booth-manager-add');
+    this.isPermissionEdit = this.permission.includes('booth-manager-edit');
+    this.isPermissionDelete = this.permission.includes('booth-manager-delete');
     this.getImageMain('image_main.png');
     this.getImageBanner("image_banner.png");
     this.getBooths();

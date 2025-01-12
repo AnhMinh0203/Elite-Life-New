@@ -68,14 +68,20 @@
             <img src="https://static.vecteezy.com/system/resources/previews/009/292/244/non_2x/default-avatar-icon-of-social-media-user-vector.jpg" alt="avatar" class="avatar-img">
           </div>
           <div class="info">
-            <h4 class="mat-headline-5 fullname">{{info.name}}</h4>
+            <div class="infor-name d-flex" style="align-items: center;">
+              <h4 class="mat-headline-5 fullname">{{info.name}}</h4>
+              <span *ngIf="info.rank != 'None'" style="color: #6F5E04; margin-left: 20px; font-size: 1.4rem; padding: 5px 20px; border-radius: 15px; background: conic-gradient(from 180deg at 50% 50%, #907C39 109.43986773490906deg, #DBBC56 183.23987245559692deg, #C2A64C 262.4398612976074deg, #F4D160 311.0398578643799deg);">{{info.rank}}</span>
+              <div class="star" style="margin-left: 20px;">
+                <i *ngFor="let item of [5]" style="color: #FFD400;" class="pi pi-star-fill"></i>
+              </div>
+            </div>
             <p>Mã hội viên: {{info.userName}}</p>
-            <p>Số thành viên mời:4</p>
+            <p>Số thành viên mời:{{data?.length ?? 0}}</p>
             <p>Ngày tham gia: {{info.createdAt | date: 'dd/MM/yyyy'}}</p>
           </div>
            <div class="btn_invite" style="position: absolute; top: 16px; right: 16px;">
                 <span>Mã Mời: </span> 
-                <button (click)="copyToClipboard(baseUrl + '/authentication/login?collaboratorCode=' + info?.userName)">
+                <button (click)="copyToClipboard(baseUrl + '/authentication/register?collaboratorCode=' + info?.userName)">
                   <i class="pi pi-clone"></i>
                 </button>
               </div>
@@ -90,7 +96,7 @@
     <mat-card class="cardWithShadow">
       <mat-card-content class="p-24">
         <div class="d-flex w-100">
-          <mat-card-title style="color: #004882;">Biểu đồ nạp rút</mat-card-title>
+          <mat-card-title style="color: #B0903E;">Biểu đồ nạp rút</mat-card-title>
           <div class="m-l-auto">
             <mat-form-field class="theme-select" appearance="outline">
               <mat-select value="1" (selectionChange)="onMonthChange($event)">
@@ -118,7 +124,7 @@
     <mat-card class="cardWithShadow">
       <mat-card-content class="p-24">
         <div class="d-flex w-100">
-          <mat-card-title style="color: #004882;">Bảng thành viên({{collaboratorNumber}})</mat-card-title>
+          <mat-card-title style="color: #B0903E;">Bảng thành viên({{collaboratorNumber}})</mat-card-title>
           <div class="m-l-auto">
             <p-button (onClick)="exportExcelCollaboratorByParentId()" label="Xuất Excel" icon="pi pi-file-export" styleClass="m-0" [outlined]="true" />
           </div>

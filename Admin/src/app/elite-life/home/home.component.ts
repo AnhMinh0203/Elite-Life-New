@@ -61,7 +61,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
   balance4: any;
   info: any;
   baseUrl: string = window.location.origin;
-
+  permission: any;
+  isPermissionExport: boolean = false;
   constructor(
     private messageService: MessageService, 
     private _statisticalService: StatisticalService,
@@ -111,6 +112,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.info = JSON.parse(localStorage.getItem('info') || '{}');
+    this.permission = JSON.parse(localStorage.getItem('permission') || '{}');
+    this.isPermissionExport = this.permission.includes('home-export-top-member');
     const currentYear = new Date().getFullYear();
     this.months = Array.from({ length: 12 }, (_, index) => ({
       value: `${index + 1}`,
@@ -245,6 +248,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
             detail: `${response.message}: ${response.data}`, 
             life: 3000 
           });
+          return;
         }
         this.data = response.data;
         this.dataSource = new MatTableDataSource<PeriodicElement>(this.data);
