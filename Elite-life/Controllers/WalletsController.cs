@@ -9,7 +9,7 @@ namespace Elite_life.Controllers
 {
     [Authorize]
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class WalletsController : ControllerBase
     {
         private readonly IWalletsRepos _walletsRepos;

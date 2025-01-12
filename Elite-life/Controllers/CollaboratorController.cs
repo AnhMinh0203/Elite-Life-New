@@ -16,7 +16,7 @@ namespace Elite_life.Controllers
 {
     [Authorize]
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class CollaboratorController : ControllerBase
     {
         private readonly ICollaboratorRepos _collaboratorRepos;
