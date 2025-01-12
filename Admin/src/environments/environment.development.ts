@@ -2,5 +2,5 @@ export const environment = {
     recaptcha: {
         siteKey: '6LdqZKcqAAAAAJu_govjukC_CvkceYa1oR-h9TAz',
     },
-    EnpointUrl: "https://localhost:7048"
+    EnpointUrl: "http://localhost:7048/api"
 };

@@ -28,6 +28,16 @@ export class CollaboratorService {
       );
   }
 
+  getCollaboratorById(CollaboratorId: any) {
+    const apiUrl = `${this.serviceUri}/get-collaborator-by-id?CollaboratorId=${CollaboratorId}`;
+    return this._http.get<ResponseResult>(apiUrl)
+      .pipe(
+        catchError((error: any) => {
+          throw error;
+        })
+      );
+  }
+
   exportExcelCollaboratorByParentId(CollaboratorId: any) {
     const apiUrl = `${this.serviceUri}/export-excel-collaborator-by-parentId?CollaboratorId=${CollaboratorId}`;
     return this._http.get(apiUrl, { responseType: 'blob' })

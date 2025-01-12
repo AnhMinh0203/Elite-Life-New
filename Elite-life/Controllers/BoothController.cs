@@ -10,7 +10,7 @@ namespace Elite_life.Controllers
 {
     [Authorize]
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class BoothController : ControllerBase
     {
         private readonly IConfiguration _configuration;

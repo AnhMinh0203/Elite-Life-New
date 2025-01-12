@@ -14,9 +14,9 @@ using System.Text.RegularExpressions;
 
 namespace Elite_life.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class CollaboratorController : ControllerBase
     {
         private readonly ICollaboratorRepos _collaboratorRepos;
@@ -32,6 +32,19 @@ namespace Elite_life.Controllers
         public async Task<MethodResult> GetCollaboratorsByParendId(int CollaboratorId)
         {
             var result = await _collaboratorRepos.GetCollaboratorsByParendId(CollaboratorId);
+            if (result != null)
+            {
+                return MethodResult.ResultWithSuccess(result, 200, "Success");
+
+            }
+            return MethodResult.ResultWithError(null, 400, "Not Found");
+        }
+
+        [HttpGet]
+        [Route("get-collaborator-by-id")]
+        public async Task<MethodResult> GetCollaboratorsById(int CollaboratorId)
+        {
+            var result = await _collaboratorRepos.GetCollaboratorsById(CollaboratorId);
             if (result != null)
             {
                 return MethodResult.ResultWithSuccess(result, 200, "Success");

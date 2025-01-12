@@ -45,6 +45,14 @@ export class HomeComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['position','name', 'userName', 'rank'];
   dataSource: any;
   collaboratorNumber: number = 0;
+  sale3: number = 0;
+  maxReceive: number = 0;
+  totalReceive: number = 0;
+  star: number = 0;
+  rank: string = '';
+  joiningDate: any;
+  userName: any;
+  fullName: any;
 
   hideWallet1 = true;  
   hideWallet2 = true;
@@ -107,6 +115,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.info = JSON.parse(localStorage.getItem('info') || '{}');
+    this.getCollaboratorById(this.info.id);
     const currentYear = new Date().getFullYear();
     this.months = Array.from({ length: 12 }, (_, index) => ({
       value: `${index + 1}`,
@@ -118,6 +127,24 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.getCollaboratorByParentId();
+  }
+
+  getCollaboratorById(id: any) {  
+    this._collaboratorService.getCollaboratorById(id).subscribe(
+      (response: any) => {
+        localStorage.setItem('info', JSON.stringify(response.data));
+        this.info = JSON.parse(localStorage.getItem('info') || '{}');
+        this.maxReceive = this.info.maxReceive;
+        this.totalReceive = this.info.sale1Received + this.info.sale2Received + this.info.shareReceived + this.info.gratitudeReceived;
+        this.rank = this.info.rank;
+        this.star = this.info.star;
+        this.joiningDate = this.info.beginDate;
+        this.userName = this.info.userName;
+        this.fullName = this.info.name;
+      },
+      (error: any) => {
+        console.error('Error fetching data:', error);
+      });
   }
 
   getMonthName(monthIndex: number): string {
@@ -291,12 +318,16 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
         // Tính tổng cho balance2 (Sale1, Sale2, Sale3)
         this.balance2 = this.listWalletData
-          .filter((item: any) => ['Sale1', 'Sale2', 'Sale3'].includes(item.walletTypeEnums))
+          .filter((item: any) => ['Sale1', 'Sale2'].includes(item.walletTypeEnums))
           .reduce((sum: number, item: any) => sum + (item.available || 0), 0);
 
         // Tính tổng cho balance3 (CustomerGratitude, CustomerShare)
         this.balance3 = this.listWalletData
           .filter((item: any) => ['CustomerGratitude', 'CustomerShare'].includes(item.walletTypeEnums))
+          .reduce((sum: number, item: any) => sum + (item.available || 0), 0);
+
+        this.sale3 = this.listWalletData
+          .filter((item: any) => ['Sale3'].includes(item.walletTypeEnums))
           .reduce((sum: number, item: any) => sum + (item.available || 0), 0);
 
       },

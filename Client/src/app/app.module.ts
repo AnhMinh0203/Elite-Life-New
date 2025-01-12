@@ -66,9 +66,10 @@ import { BoothManagerComponent } from './elite-life/booth-manager/booth-manager.
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { OrderManagementComponent } from './elite-life/order-management/order-management.component';
 import { ImageModule } from 'primeng/image';
-
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
+
+
 
 
 @NgModule({
@@ -125,6 +126,7 @@ import { InputIconModule } from 'primeng/inputicon';
     CardModule,
     TabViewModule,
     InputNumberModule,
+    ScrollingModule,
     ScrollingModule,
     ImageModule,
     InputIconModule,

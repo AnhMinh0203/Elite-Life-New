@@ -17,7 +17,7 @@ using System.Text;
 namespace Elite_life.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class AuthenticateController : ControllerBase
     {
         private readonly IAuthenticateRepos _authenticateRepos;

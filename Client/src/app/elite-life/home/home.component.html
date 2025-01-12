@@ -24,7 +24,7 @@
   <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
     <mat-card class="cardWithShadow">
       <mat-card-content class="p-24 card-content">
-        <mat-card-title>Số dư</mat-card-title>
+        <mat-card-title>Hoa hồng khách hàng <i matTooltip="Đây là ví 1" matTooltipPosition="right" class="pi pi-info-circle" style="cursor: pointer;"></i></mat-card-title>
         <div class="row m-t-24">
           <div class="col-10 d-flex align-items-center">
             <h4 class="mat-headline-5 balance-text"  style="color: #fff;">
@@ -34,6 +34,11 @@
               <mat-icon>{{ hideWallet2 ? 'visibility_off' : 'visibility' }}</mat-icon>
             </button>
           </div>
+          <div class="col-10 d-flex align-items-center">
+            <p *ngIf="rank == 'None' || rank == 'V' " class="mat-headline-5 balance-text"  style="color: #B0903E; background-color: #fff; padding: 5px; border-radius: 10px;">
+              Đã hưởng: {{ totalReceive | number: '1.0-2' }} / {{ maxReceive | number: '1.0-2' }} ELP 
+            </p>
+          </div>
         </div>
       </mat-card-content>
     </mat-card>
@@ -42,7 +47,7 @@
   <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
     <mat-card class="cardWithShadow">
       <mat-card-content class="p-24 card-content">
-        <mat-card-title>Số dư</mat-card-title>
+        <mat-card-title>Hoa hồng NVKD <i matTooltip="Đây là ví 1" matTooltipPosition="right" class="pi pi-info-circle" style="cursor: pointer;"></i></mat-card-title>
         <div class="row m-t-24">
           <div class="col-10 d-flex align-items-center">
             <h4 class="mat-headline-5 balance-text"  style="color: #fff;">
@@ -51,6 +56,11 @@
             <button mat-icon-button (click)="hideWallet3 = !hideWallet3" type="button">
               <mat-icon>{{ hideWallet3 ? 'visibility_off' : 'visibility' }}</mat-icon>
             </button>
+          </div>
+          <div class="col-10 d-flex align-items-center">
+            <p *ngIf="rank != 'None' && rank != 'V' " class="mat-headline-5 balance-text"  style="color: #B0903E; background-color: #fff; padding: 5px; border-radius: 10px;">
+              Ví tái tiêu dùng: {{ sale3 | number: '1.0-2' }} 
+            </p>
           </div>
         </div>
       </mat-card-content>
@@ -69,19 +79,21 @@
           </div>
           <div class="info">
             <div class="infor-name d-flex" style="align-items: center;">
-              <h4 class="mat-headline-5 fullname">{{info.name}}</h4>
-              <span *ngIf="info.rank != 'None'" style="color: #6F5E04; margin-left: 20px; font-size: 1.4rem; padding: 5px 20px; border-radius: 15px; background: conic-gradient(from 180deg at 50% 50%, #907C39 109.43986773490906deg, #DBBC56 183.23987245559692deg, #C2A64C 262.4398612976074deg, #F4D160 311.0398578643799deg);">{{info.rank}}</span>
-              <div class="star" style="margin-left: 20px;">
-                <i *ngFor="let item of [5]" style="color: #FFD400;" class="pi pi-star-fill"></i>
+              <h4 class="mat-headline-5 fullname">{{fullName}}</h4>
+              <span *ngIf="info.rank != 'None'" style="color: #6F5E04; margin-left: 20px; font-size: 1.4rem; padding: 5px 20px; border-radius: 15px; background: conic-gradient(from 180deg at 50% 50%, #907C39 109.43986773490906deg, #DBBC56 183.23987245559692deg, #C2A64C 262.4398612976074deg, #F4D160 311.0398578643799deg);">{{rank}}</span>
+              <div *ngIf="star > 0" class="star" style="margin-left: 20px;">
+                <i *ngFor="let item of [].constructor(star); let i = index" 
+                   style="color: #FFD400; padding: 0 5px;" 
+                   class="pi pi-star-fill"></i>
               </div>
             </div>
-            <p>Mã hội viên: {{info.userName}}</p>
+            <p>Mã hội viên: {{userName}}</p>
             <p>Số thành viên mời:{{data?.length ?? 0}}</p>
-            <p>Ngày tham gia: {{info.createdAt | date: 'dd/MM/yyyy'}}</p>
+            <p>Ngày tham gia: {{joiningDate | date: 'dd/MM/yyyy'}}</p>
           </div>
            <div class="btn_invite" style="position: absolute; top: 16px; right: 16px;">
                 <span>Mã Mời: </span> 
-                <button (click)="copyToClipboard(baseUrl + '/authentication/register?collaboratorCode=' + info?.userName)">
+                <button (click)="copyToClipboard(baseUrl + '/authentication/register?collaboratorCode=' + userName)">
                   <i class="pi pi-clone"></i>
                 </button>
               </div>

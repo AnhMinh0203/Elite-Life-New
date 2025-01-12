@@ -80,18 +80,22 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "testApp:build:production"
+              "buildTarget": "testApp:build:production"
             },
             "development": {
-              "browserTarget": "testApp:build:development"
+              "buildTarget": "testApp:build:development"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "development",
+          "options": {
+            "port": 8080,
+            "allowedHosts": ["all"]
+          }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "testApp:build"
+            "buildTarget": "testApp:build"
           }
         },
         "test": {

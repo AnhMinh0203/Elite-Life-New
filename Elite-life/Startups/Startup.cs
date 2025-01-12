@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Confluent.Kafka;
 using Elite_life.Helpers;
+using Microsoft.AspNetCore.Authentication.Certificate;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -28,6 +29,10 @@ namespace Elite_life.Startups
             services.AddSingleton<KafkaProducer>();
             services.AddSingleton<KafkaConsumer>();
             services.AddSingleton<KafkaService>();
+
+            services.AddAuthentication(
+                CertificateAuthenticationDefaults.AuthenticationScheme)
+                .AddCertificate();
 
             services.AddAuthentication(options =>
             {

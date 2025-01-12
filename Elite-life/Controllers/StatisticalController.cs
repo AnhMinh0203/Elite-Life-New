@@ -12,7 +12,7 @@ namespace Elite_life.Controllers
 {
     [Authorize]
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class StatisticalController : ControllerBase
     {
         private readonly IStatisticalRepos _statisticalRepos;

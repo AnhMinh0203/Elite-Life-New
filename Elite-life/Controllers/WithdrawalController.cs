@@ -13,7 +13,7 @@ namespace Elite_life.Controllers
 {
     [Authorize]
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class WithdrawalController : ControllerBase
     {
         private readonly IWithdrawalRepos _withdrawalRepos;

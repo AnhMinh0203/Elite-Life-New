@@ -12,6 +12,7 @@ namespace Elite_life_repository.Interfaces
     public interface ICollaboratorRepos
     {
         Task<List<CollaboratorHomeDto>> GetCollaboratorsByParendId(int CollaboratorId);
+        Task<CollaboratorDto> GetCollaboratorsById(int Id);
         Task<MemoryStream> ExportExcelCollaboratorsByParendId(int CollaboratorId);
         //Customer manager
         Task<List<CollaboratorCustomerManagerDto>> GetAllCollaboratorsByParendId(CollaboratorCustomerManagerModel model);

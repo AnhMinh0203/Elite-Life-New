@@ -179,6 +179,8 @@ namespace Elite_life_repository
                 var result = (await connection.QueryAsync<WalletHistoryModel>(sql, parameters)).ToList();
 
                 return result;
+
+
             }
             catch (Exception ex)
             {

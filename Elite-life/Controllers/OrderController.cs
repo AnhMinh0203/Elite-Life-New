@@ -14,7 +14,7 @@ namespace Elite_life.Controllers
 {
     [Authorize]
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class OrderController : ControllerBase
     {
         private readonly IOrderRepos _orderRepos;
@@ -232,7 +232,7 @@ namespace Elite_life.Controllers
 
             return MethodResult.ResultWithSuccess(result, 200, "Success");
         }
-
+        
         [HttpPost]
         [Route("get-order-by-rangeDate")]
         public async Task<MethodResult> GetOrderByRangeDate(OrderRange orderRange)
@@ -259,7 +259,6 @@ namespace Elite_life.Controllers
             Response.Headers.Add("fileName", fileName);
             return File(result.ToArray(), ExtensionFile.GetContentType(templateFileURL), fileName);
         }
-
 
         [HttpGet]
         [Route("check-star")]

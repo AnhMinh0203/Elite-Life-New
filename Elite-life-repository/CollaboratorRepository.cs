@@ -1824,5 +1824,33 @@ namespace Elite_life_repository
             return exportFile;
             #endregion
         }
+
+        public async Task<CollaboratorDto> GetCollaboratorsById(int Id)
+        {
+            var connectPostgres = new ConnectToPostgresql(_configuration);
+            using var connection = await connectPostgres.CreateConnectionAsync();
+
+            try
+            {
+                var query = @"SELECT * FROM dbo.get_collaborator_by_id(@collaborator_id)";
+
+                var parameters = new
+                {
+                    collaborator_id = Id
+                };
+
+                var result = (await connection.QueryFirstOrDefaultAsync<CollaboratorDto>(query, parameters));
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error fetching Collaborator: {ex.Message}");
+                return new CollaboratorDto();
+            }
+            finally
+            {
+                await connection.CloseAsync();
+            }
+        }
     }
 }
