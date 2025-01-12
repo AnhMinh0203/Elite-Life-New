@@ -397,41 +397,6 @@ namespace Elite_life_repository
             }
         }
 
-
-        // Đồng chia call function
-        // ---
-        public async Task<string> CaculateGratitudeCommissionAsync(GratitudeCommissionModel gratitudeCommissionModel)
-        {
-            var connectPostgres = new ConnectToPostgresql(_configuration);
-            using var connection = await connectPostgres.CreateConnectionAsync();
-
-            try
-            {
-                using var command = connection.CreateCommand();
-                command.CommandText = @"SELECT * FROM dbo.cal_share_commission(
-                     @p_collaboratorId, 
-                     @p_amountOrder 
-                     )";
-
-                command.Parameters.AddWithValue("@p_collaboratorId", shareCommissionModel.CollaboratorId);
-                command.Parameters.AddWithValue("@p_amountOrder", shareCommissionModel.AmountOrder);
-
-                var result = (string)await command.ExecuteScalarAsync();
-                return result;
-
-            }
-            catch (Exception ex)
-            {
-                return $"Lỗi khi xử lý: {ex.Message}";
-            }
-            finally
-            {
-                await connection.CloseAsync();
-            }
-        }
-
-
-
         public async Task<string> CaculateGratitudeCommissionAsync(GratitudeCommissionModel gratitudeCommissionModel)
         {
             var connectPostgres = new ConnectToPostgresql(_configuration);
@@ -464,8 +429,6 @@ namespace Elite_life_repository
             try
             {
                 // Tạo danh sách OrderId theo cấp bậc
-                var maxLevel = 21;
-                var listOrdersId = new List<int>();
                 var currentOrderId = gratitudeCommissionModel.OrderId;
 
                 for (int i = 0; i < maxLevel; i++)
