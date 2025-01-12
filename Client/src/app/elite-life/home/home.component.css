@@ -91,6 +91,7 @@
     border-radius: 10px;
     background: conic-gradient(from 90deg at 50% 50%, #DCB44D 18.0000002682209deg, #78632B 174.2398703098297deg, #5E4C20 194.0398621559143deg, #8F7532 295.3313183784485deg, #A98A3B 348.83986473083496deg);
     color: #fff;
+    min-height: 185.6px;
 }
 
 .balance-text {

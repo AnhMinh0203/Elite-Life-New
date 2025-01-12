@@ -34,20 +34,20 @@
   </button>
   <mat-menu #profilemenu="matMenu" class="topbar-dd cardWithShadow">
     <button mat-menu-item routerLink="/profile/info">
-      <mat-icon class="d-flex align-items-center"><i-tabler name="user" class="icon-18 d-flex"></i-tabler></mat-icon>My
-      Profile
+      <mat-icon class="d-flex align-items-center"><i-tabler name="user" class="icon-18 d-flex"></i-tabler></mat-icon>
+      Thông tin cá nhân
     </button>
-    <button mat-menu-item>
+    <!-- <button mat-menu-item>
       <mat-icon class="d-flex align-items-center"><i-tabler name="mail" class="icon-18 d-flex"></i-tabler></mat-icon>My
       Account
     </button>
     <button mat-menu-item>
       <mat-icon class="d-flex align-items-center"><i-tabler name="list-check"
           class="icon-18 d-flex"></i-tabler></mat-icon>My Task
-    </button>
+    </button> -->
 
     <div class="p-x-12 m-t-12">
-      <button (click)="logout()" mat-stroked-button color="primary" class="w-100">Logout</button>
+      <button (click)="logout()" mat-stroked-button color="primary" class="w-100">Đăng xuất</button>
     </div>
   </mat-menu>
 </mat-toolbar>
