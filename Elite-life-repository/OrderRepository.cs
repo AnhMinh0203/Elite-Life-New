@@ -6,10 +6,14 @@ using Elite_life_repository.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Npgsql;
 using OfficeOpenXml.Style;
+using Npgsql;
+using OfficeOpenXml.Style;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data;
 using System.Linq;
+using System.Reflection;
 using System.Reflection;
 using System.Text;
 using System.Text.Json;
@@ -897,6 +901,91 @@ namespace Elite_life_repository
             }
         }*/
 
+        public async Task<DataTable> ExportExcelOrderInfoDatatable(CollaboratorMemberManagerModel model)
+        {
+            DataTable dataTable = new DataTable();
+            dataTable.Columns.Add("DeliveryDate", typeof(DateTime));
+            dataTable.Columns.Add("Name", typeof(string));
+            dataTable.Columns.Add("Address", typeof(string));
+            dataTable.Columns.Add("Mobile", typeof(string));
+
+            var connectPostgres = new ConnectToPostgresql(_configuration);
+
+            using (var conn = await connectPostgres.CreateConnectionAsync())
+            {
+                using (var command = new NpgsqlCommand("SELECT * FROM dbo.get_order_info(@StartDate, @EndDate)", conn))
+                {
+                    command.Parameters.AddWithValue("@StartDate", model.StartDate?.ToString("yyyy-MM-dd") ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@EndDate", model.EndDate?.ToString("yyyy-MM-dd") ?? (object)DBNull.Value);
+                    command.CommandTimeout = 400;
+
+                    using (var adapter = new NpgsqlDataAdapter(command))
+                    {
+                        adapter.Fill(dataTable);
+                    }
+                }
+
+                await conn.CloseAsync();
+            }
+            if (dataTable.Columns.Contains("OrderId"))
+            {
+                dataTable.Columns.Remove("OrderId");
+            }
+            if (dataTable.Columns.Contains("CollaboratorId"))
+            {
+                dataTable.Columns.Remove("CollaboratorId");
+            }
+            if (dataTable.Columns.Contains("TotalCount"))
+            {
+                dataTable.Columns.Remove("TotalCount");
+            }
+            return dataTable;
+        }
+
+        public async Task<MemoryStream> ExportExcelOrderInfo(CollaboratorMemberManagerModel model)
+        {
+            var exportFile = new MemoryStream();
+
+            #region Call data API
+            var collaborators = await ExportExcelOrderInfoDatatable(model);
+            #endregion
+
+            #region Export Excel from template
+            // Đường dẫn tới file template
+            string templatePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "wwwroot", "template", "Export_Order.xlsx");
+
+            // Đọc file template Excel
+            var fileInfo = new FileInfo(templatePath);
+            using (var package = new OfficeOpenXml.ExcelPackage(fileInfo))
+            {
+                // Lấy worksheet đầu tiên
+                var worksheet = package.Workbook.Worksheets[0];
+                worksheet.Cells["A4"].LoadFromDataTable(collaborators, false);
+
+                // Tự động điều chỉnh kích thước cột
+                worksheet.Cells[worksheet.Dimension.Address].AutoFitColumns();
+
+                if (collaborators.Rows.Count > 0)
+                {
+                    var range = worksheet.Cells["A4:D" + (collaborators.Rows.Count + 6).ToString()];
+                    foreach (var cell in range)
+                    {
+                        var border = cell.Style.Border;
+                        border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                    }
+                }
+
+                // Lưu lại file Excel vào MemoryStream
+                package.SaveAs(exportFile);
+            }
+
+            exportFile.Position = 0;
+            return exportFile;
+            #endregion
+        }
 
         public async Task<List<OrderHistoryModel>> GetOrdersByDateRangeAsync(OrderRange orderRange)
         {

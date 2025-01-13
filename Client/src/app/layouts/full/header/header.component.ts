@@ -255,9 +255,9 @@ export class HeaderComponent {
               summary: 'Success',
               detail: response.data.message
             });
-            // setTimeout(() => {
-            //   location.reload();
-            // }, 2000);
+            setTimeout(() => {
+              location.reload();
+            }, 1000);
           } else {
             this.messageService.add({ severity: 'error', summary: 'Error', detail: response.data.message });
           }
@@ -331,3 +331,4 @@ export class HeaderComponent {
     });
   }
 }
+//

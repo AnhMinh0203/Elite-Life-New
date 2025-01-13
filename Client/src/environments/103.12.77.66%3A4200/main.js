@@ -2403,7 +2403,7 @@ class HeaderComponent {
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](10, "mat-icon", 9);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](11, "i-tabler", 10);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](12, "My Profile ");
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](12, "Hồ sơ của tôi");
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](13, "button", 11)(14, "mat-icon", 9);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](15, "i-tabler", 12);

@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Elite-life-datacontext\Elite-life-datacontext.csproj" />
     <ProjectReference Include="..\Elite-life-repository\Elite-life-repository.csproj" />
   </ItemGroup>
 

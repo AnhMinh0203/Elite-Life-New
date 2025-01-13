@@ -11,7 +11,7 @@
         <mat-card-content style="padding: 10px 80px;">
           <div class="text-center">
             <a [routerLink]="['/dashboard']">
-              <img src="./assets/images/elite-live/logo-elitelive.svg" class="align-middle m-2" alt="logo" />
+              <img src="./assets/images/elite-live/logo-elitelive.jpg" class="align-middle m-2" alt="logo" />
             </a>
           </div>
           <div class="or-border m-t-30">
@@ -145,7 +145,7 @@
         <mat-card-content style="padding: 10px 80px;">
           <div class="text-center">
             <a [routerLink]="['/dashboard']">
-              <img src="./assets/images/elite-live/logo-elitelive.svg" class="align-middle m-2" alt="logo" />
+              <img src="./assets/images/elite-live/logo-elitelive.jpg" class="align-middle m-2" alt="logo" />
             </a>
           </div>
           <div class="or-border m-t-30">
@@ -271,13 +271,13 @@
     <p class="text-color-secondary block mb-3">Please enter the code sent to your e-mail.</p>
     <p-inputOtp [(ngModel)]="value" [length]="6" style="gap: 0">
         <ng-template pTemplate="input" let-token let-events="events" let-index="index">
-            <input 
+            <input
                 pInputText
-                type="text" 
-                [maxLength]="1" 
-                (input)="events.input($event)" 
-                (keydown)="events.keydown($event)" 
-                [attr.value]="token" 
+                type="text"
+                [maxLength]="1"
+                (input)="events.input($event)"
+                (keydown)="events.keydown($event)"
+                [attr.value]="token"
                 class="custom-otp-input col-1 m-2" />
             <div *ngIf="index === 3" class="px-3">
                 <i class="pi pi-minus"></i>

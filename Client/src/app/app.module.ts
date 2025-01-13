@@ -71,6 +71,7 @@ import { InputIconModule } from 'primeng/inputicon';
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -93,6 +94,7 @@ import { InputIconModule } from 'primeng/inputicon';
     ProfileContainerComponent,
     NumberFormatPipe,
     BoothManagerComponent,
+    NumberFormatPipe,
     OrderManagementComponent
   ],
   imports: [
@@ -124,6 +126,7 @@ import { InputIconModule } from 'primeng/inputicon';
     CardModule,
     TabViewModule,
     InputNumberModule,
+    ScrollingModule,
     ScrollingModule,
     ImageModule,
     InputIconModule,
