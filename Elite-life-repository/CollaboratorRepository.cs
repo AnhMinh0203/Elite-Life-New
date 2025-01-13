@@ -1852,5 +1852,64 @@ namespace Elite_life_repository
                 await connection.CloseAsync();
             }
         }
+
+        public async Task<List<CollaboratorDto>> GetAllCollaboratorsDelete(CollaboratorMemberManagerModel model)
+        {
+            var connectPostgres = new ConnectToPostgresql(_configuration);
+            using var connection = await connectPostgres.CreateConnectionAsync();
+
+            try
+            {
+                var query = @"SELECT * FROM dbo.get_admin_confirmed_collaborators(@StartDate, @EndDate)";
+
+                var parameters = new
+                {
+                    StartDate = model.StartDate?.ToString("yyyy-MM-dd"),
+                    EndDate = model.EndDate?.ToString("yyyy-MM-dd"),
+                };
+
+                var result = (await connection.QueryAsync<CollaboratorDto>(query, parameters)).AsList();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error fetching GetAllCollaborators: {ex.Message}");
+                return new List<CollaboratorDto>();
+            }
+            finally
+            {
+                await connection.CloseAsync();
+            }
+        }
+
+        public async Task<bool> DeleteCollaboratorAdmin(int id, int RoleId)
+        {
+            var connectPostgres = new ConnectToPostgresql(_configuration);
+            using var connection = await connectPostgres.CreateConnectionAsync();
+
+            try
+            {
+                var query = @"SELECT dbo.update_collaborator_status(@collaborator_id, @roleId);";
+
+                var parameters = new
+                {
+                    collaborator_id = id,
+                    roleId = RoleId,
+                };
+
+                var result = await connection.ExecuteScalarAsync<bool>(query, parameters);
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error fetching DeleteCollaboratorAdmin: {ex.Message}");
+                return false;
+            }
+            finally
+            {
+                await connection.CloseAsync();
+            }
+        }
     }
 }

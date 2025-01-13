@@ -278,7 +278,7 @@ namespace Elite_life.Controllers
         }
 
         [HttpPost("send-otp")]
-        public IActionResult SendOtp(string email, int otp)
+        public IActionResult SendOtp(string email, string PassWord, int otp)
         {
             try
             {
@@ -298,8 +298,8 @@ namespace Elite_life.Controllers
                     var mailMessage = new MailMessage
                     {
                         From = new MailAddress(senderEmail),
-                        Subject = "Mã OTP của bạn",
-                        Body = $"Mã OTP của bạn là: {otp.ToString()}",
+                        Subject = "Mã OTP và thông tin tài khoản của bạn",
+                        Body = $"Mã OTP của bạn là: {otp.ToString()}\nThông tin tài khoản của bạn:\nMật khẩu: {PassWord}",
                         IsBodyHtml = false
                     };
                     mailMessage.To.Add(email);

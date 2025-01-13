@@ -322,7 +322,7 @@ export class AppSideRegisterComponent {
       otp: this.otp,
     };
     this._authenticateService
-      .sendOTP(this.signUpForm.get('Email')?.value, this.otp)
+      .sendOTP(this.signUpForm.get('Email')?.value, this.signUpForm.get('Password')?.value, this.otp)
       .then((res: any) => {
         if (!res.otp) {
           this.messageService.add({
@@ -364,7 +364,7 @@ export class AppSideRegisterComponent {
       otp: this.otp,
     };
     this._authenticateService
-      .sendOTP(this.signUpForm.get('Email')?.value, this.otp)
+      .sendOTP(this.signUpForm.get('Email')?.value, this.signUpForm.get('Password')?.value, this.otp)
       .then((res) => {
         if (!res.otp) {
           this.messageService.add({

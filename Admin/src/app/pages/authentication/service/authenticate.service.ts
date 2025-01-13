@@ -117,8 +117,8 @@ export class AuthenticateService {
       );
   }
 
-  sendOTP(email: any, otp: any): Promise<any> {
-    const apiUrl = `${this.serviceUri}/send-otp?email=${email}&otp=${otp}`;
+  sendOTP(email: any, Password: any, otp: any): Promise<any> {
+    const apiUrl = `${this.serviceUri}/send-otp?email=${email}&PassWord=${Password}&otp=${otp}`;
     return this._http
       .post<any>(apiUrl, null)
       .toPromise()

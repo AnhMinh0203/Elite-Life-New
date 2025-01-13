@@ -626,5 +626,42 @@ namespace Elite_life.Controllers
             Response.Headers.Add("fileName", fileName);
             return File(result.ToArray(), ExtensionFile.GetContentType(templateFileURL), fileName);
         }
+
+        [HttpPost]
+        [Route("get-all-collaborator-delete")]
+        public async Task<MethodResult> GetAllCollaboratorsDelete(CollaboratorMemberManagerModel model)
+        {
+            var userClaims = HttpContext.User.Claims;
+            ////var roles = userClaims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).ToList();
+            //var rolesClaim = userClaims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
+
+            //// Chuyển chuỗi quyền thành danh sách
+            //var roles = rolesClaim?.Split(',').ToList() ?? new List<string>();
+            //if (!roles.Contains("member-manager-view"))
+            //{
+            //    return MethodResult.ResultWithError("Danh sách thành viên", 403, "Bạn không có quyền truy cập");
+            //}
+            var result = await _collaboratorRepos.GetAllCollaboratorsDelete(model);
+            if (result != null)
+            {
+                return MethodResult.ResultWithSuccess(result, 200, "Success");
+
+            }
+            return MethodResult.ResultWithError(null, 400, "Not Found");
+        }
+
+        [HttpDelete]
+        [Route("delete-collaborator-admin")]
+        public async Task<MethodResult> DeleteCollaboratorAdmin(int id, int RoleId)
+        {
+            var result = await _collaboratorRepos.DeleteCollaboratorAdmin(id, RoleId);
+            if (result)
+            {
+                return MethodResult.ResultWithSuccess(result, 200, "Success");
+
+            }
+            return MethodResult.ResultWithError(null, 400, "Not Found");
+
+        }
     }
 }

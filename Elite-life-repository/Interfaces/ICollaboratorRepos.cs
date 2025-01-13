@@ -35,11 +35,13 @@ namespace Elite_life_repository.Interfaces
         Task<List<CollaboratorDto>> GetAllCollaborators(CollaboratorMemberManagerModel model);
         Task<List<CollaboratorDto>> GetAllCollaboratorsRankUp(CollaboratorMemberManagerModel model);
         Task<List<CollaboratorDto>> GetAllCollaboratorsRankDown(CollaboratorMemberManagerModel model);
+        Task<List<CollaboratorDto>> GetAllCollaboratorsDelete(CollaboratorMemberManagerModel model);
         Task<MemoryStream> ExportExcelAllCollaborators(CollaboratorMemberManagerModel model);
         Task<MemoryStream> ExportExcelAllCollaboratorsRank(CollaboratorMemberManagerRankModel model);
         Task<MemoryStream> ExportExcelAllCollaboratorsIDManager(CollaboratorMemberManagerModel model);
         //Admin delete collaborator
         Task<bool> DeleteCollaborator(int id, int idNew);
+        Task<bool> DeleteCollaboratorAdmin(int id, int RoleId);
 
         //Nhị Phân
         Task<List<CollaboratorTreeDto>> GetCollaborators();

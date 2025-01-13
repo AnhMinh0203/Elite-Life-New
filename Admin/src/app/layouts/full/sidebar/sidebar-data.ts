@@ -37,6 +37,12 @@ export const navItems: NavItem[] = [
     permission: 'request-withdrawal-manager-view',
   },
   {
+    displayName: 'Xóa cộng tác viên',
+    iconName: 'file-text',
+    route: '/delete-collaborator',
+    permission: 'delete-collaborator-admin-view',
+  },
+  {
     navCap: 'Quản lý ví',
   },
   {

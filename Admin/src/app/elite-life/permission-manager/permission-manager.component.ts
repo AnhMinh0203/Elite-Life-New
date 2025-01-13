@@ -44,6 +44,7 @@ export class PermissionManagerComponent implements OnInit {
       {label: 'Quản lý đơn hàng', value: 'cart-manager'},
       {label: 'Quản lý gian hàng', value: 'booth-manager'},
       {label: 'Quản lý yêu cầu rút tiền', value: 'request-withdrawal-manager'},
+      {label: 'Xóa cộng tác viên', value: 'delete-collaborator-admin'},
       {label: 'Quản lý kho hàng', value: 'warehouse-manager'},
       {label: 'Quản lý ví tài khoản', value: 'wallet-source-manager'},
       {label: 'Quản lý ví tri ân khách hàng', value: 'wallet-gratitude-manager'},

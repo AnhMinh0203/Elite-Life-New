@@ -9,7 +9,7 @@
         <div class="row m-t-24">
           <div class="col-10 d-flex align-items-center">
             <h4 class="mat-headline-5 balance-text" style="color: #fff;">
-              {{ hideWallet1 ? getMaskedBalance1() : balance1 | number: '1.0-2' }} ELP
+              {{ hideWallet1 ? getMaskedBalance1() : balance1 | number: '1.0-2' }} Điểm
             </h4>
             <button mat-icon-button (click)="hideWallet1 = !hideWallet1" type="button">
               <mat-icon>{{ hideWallet1 ? 'visibility_off' : 'visibility' }}</mat-icon>
@@ -28,15 +28,15 @@
         <div class="row m-t-24">
           <div class="col-10 d-flex align-items-center">
             <h4 class="mat-headline-5 balance-text"  style="color: #fff;">
-              {{ hideWallet2 ? getMaskedBalance2() : balance2 | number: '1.0-2' }} ELP
+              {{ hideWallet2 ? getMaskedBalance2() : balance2 | number: '1.0-2' }} Điểm
             </h4>
             <button mat-icon-button (click)="hideWallet2 = !hideWallet2" type="button">
               <mat-icon>{{ hideWallet2 ? 'visibility_off' : 'visibility' }}</mat-icon>
             </button>
           </div>
           <div class="col-10 d-flex align-items-center">
-            <p *ngIf="rank == 'None' || rank == 'V' " class="mat-headline-5 balance-text"  style="color: #B0903E; background-color: #fff; padding: 5px; border-radius: 10px;">
-              Đã hưởng: {{ totalReceive | number: '1.0-2' }} / {{ maxReceive | number: '1.0-2' }} ELP 
+            <p *ngIf="rank == 'None' || rank == 'V' " class="mat-headline-5 balance-text"  style="color: #B0903E; background-color: #fff; padding: 5px; border-radius: 10px; font-size: 0.8rem;">
+              Đã hưởng: {{ totalReceive | number: '1.0-2' }} / {{ maxReceive | number: '1.0-2' }} Điểm 
             </p>
           </div>
         </div>
@@ -51,14 +51,14 @@
         <div class="row m-t-24">
           <div class="col-10 d-flex align-items-center">
             <h4 class="mat-headline-5 balance-text"  style="color: #fff;">
-              {{ hideWallet3 ? getMaskedBalance3() : balance3 | number: '1.0-2' }} ELP
+              {{ hideWallet3 ? getMaskedBalance3() : balance3 | number: '1.0-2' }} Điểm
             </h4>
             <button mat-icon-button (click)="hideWallet3 = !hideWallet3" type="button">
               <mat-icon>{{ hideWallet3 ? 'visibility_off' : 'visibility' }}</mat-icon>
             </button>
           </div>
           <div class="col-10 d-flex align-items-center">
-            <p *ngIf="rank != 'None' && rank != 'V' " class="mat-headline-5 balance-text"  style="color: #B0903E; background-color: #fff; padding: 5px; border-radius: 10px;">
+            <p *ngIf="rank != 'None' && rank != 'V' " class="mat-headline-5 balance-text"  style="color: #B0903E; background-color: #fff; padding: 5px; border-radius: 10px; font-size: 0.8rem;">
               Ví tái tiêu dùng: {{ sale3 | number: '1.0-2' }} 
             </p>
           </div>

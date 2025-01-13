@@ -1,6 +1,6 @@
 export const environment = {
     recaptcha: {
-        siteKey: '6LfKNi0cAAAAACeYwFRY9_d_qjGhpiwYUo5gNW5-',
+        siteKey: '6LdqZKcqAAAAAJu_govjukC_CvkceYa1oR-h9TAz',
     },
     EnpointUrl: "https://hana360.com:7049/api"
 };

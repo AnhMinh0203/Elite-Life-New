@@ -1,0 +1,97 @@
+<div class="row">
+  <div class="col-lg-12">
+    <mat-card class="cardWithShadow">
+      <mat-card-content class="p-24">
+        <div class="d-flex w-100">
+          <mat-card-title style="color: #B0903E;">Danh sách thành viên kế toán đã xóa</mat-card-title>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-12">
+    <mat-card class="cardWithShadow">
+      <mat-card-content class="p-24">
+        <div class="d-flex w-100">
+          <mat-card-title style="color: #B0903E;">Danh sách thành viên kế toán xóa</mat-card-title>
+          <div class="m-l-auto">
+            <p-calendar 
+              [(ngModel)]="rangeDates" 
+              selectionMode="range" 
+              [showIcon]="true"
+              [ngStyle]="{'margin-right': '10px'}"
+              (onSelect)="onDateChange($event)"
+              [readonlyInput]="true" />
+            <p-button *ngIf="isPermissionExport" (onClick)="exportExcelCollaboratorTop()" label="Xuất Excel" severity="warning" icon="pi pi-file-export" styleClass="m-0" [outlined]="true" />
+          </div>
+        </div>
+        <div class="">
+          <p-table
+            #dt2
+            [value]="data"
+            [paginator]="true"
+            [rows]="5"
+            [globalFilterFields]="['name', 'userName', 'createdAt', 'rank']"
+            [tableStyle]="{ 'min-width': '50rem' }"
+            [rowsPerPageOptions]="[5, 10, 20]"
+          >
+              <ng-template pTemplate="header" style="color: #B0903E;">
+                  <tr>
+                      <th style="width:5%">Hành động</th>
+                      <th style="width:15%">
+                        Họ tên
+                      </th>
+                      <th style="width:10%">Tên đăng nhập</th>
+                      <th style="width:15%">Ngày gia nhập</th>
+                      <th style="width:5%">Cấp độ</th>
+                  </tr>
+                  <tr>
+                    <th></th>
+                    <th>
+                      <p-columnFilter 
+                        type="text"
+                        field="name" 
+                        placeholder="" 
+                        ariaLabel="Filter Name" />
+                    </th>
+                    <th>
+                      <p-columnFilter 
+                        type="text"
+                        field="userName"
+                        placeholder="" 
+                        ariaLabel="Filter Country" />
+                    </th>
+                    <th>
+                      <p-columnFilter 
+                        type="text"
+                        field="createdAt"
+                        placeholder="" 
+                        ariaLabel="Filter Country" />
+                    </th>
+                    <th>
+                      <p-columnFilter 
+                        type="text"
+                        field="rank"
+                        placeholder="" 
+                        ariaLabel="Filter Country" />
+                    </th>
+                  </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-customer>
+                  <tr>
+                      <td style="align-items: center;">
+                        <i class="pi pi-trash" style="color: red; padding: 0 5px;cursor: pointer;" (click)="delete(customer)"></i>
+                      </td>
+                      <td>{{ customer.name }}</td>
+                      <td>{{ customer.userName }}</td>
+                      <td>{{ customer.createdAt | date: 'dd/MM/yyyy hh:mm:ss' }}</td>
+                      <td>{{ customer.rank }}</td>
+                  </tr>
+              </ng-template>
+          </p-table>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

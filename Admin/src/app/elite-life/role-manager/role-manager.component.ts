@@ -95,7 +95,7 @@ export class RoleManagerComponent implements OnInit {
     }
     const model = {
       roleId: this.itemEdit.roleId,
-      roleName: this.itemEdit.roleName,
+      roleName: this.nameEdit,
       permissionIds : this.targetProductsEdit.map((item: any) => item.permission_id)
     }
     this._permissionService.updateRolePermission(model).subscribe(res => {

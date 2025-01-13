@@ -278,5 +278,23 @@ export class CollaboratorService {
       );
   }
 
+  getAllCollaboratorDelete(model: any) {
+    let apiUrl = `${this.serviceUri}/get-all-collaborator-delete`;
+    return this._http.post<ResponseResult>(apiUrl, model)
+      .pipe(
+        catchError((error: any) => {
+          throw error;
+        })
+      );
+  }
 
+  deleteCollaboratorAdmin(Id: any, RoleId: any) {
+    const apiUrl = `${this.serviceUri}/delete-collaborator-admin?id=${Id}&RoleId=${RoleId}`;
+    return this._http.delete<ResponseResult>(apiUrl)
+      .pipe(
+        catchError((error: any) => {
+          throw error;
+        })
+      );
+  }
 }
