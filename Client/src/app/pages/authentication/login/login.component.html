@@ -48,6 +48,7 @@
               <a
                 [routerLink]="['/']"
                 class="f-w-600 text-decoration-none m-l-auto f-s-14" style="color: #B0903E;"
+                (click)="showForgotPassword()"
                 >Quên mật khẩu ?</a
               >
             </div>
@@ -77,3 +78,85 @@
     </div>
   </div>
 </div>
+
+<p-dialog 
+  header="Header" 
+  [(visible)]="visibleForgotPassword" 
+  [modal]="true">
+    <ng-template pTemplate="header">
+      <h3 style="color: #B0903E;">Quên mật khẩu</h3>
+    </ng-template>
+    <div class="row">
+      <div class="d-flex" style="flex-direction: column;">
+        <label for="userNameForgotPassword" class="font-semibold">
+          Mã đăng nhập 
+        </label>
+        <mat-form-field appearance="outline" class="w-100" color="primary">
+          <input [(ngModel)]="userNameForgotPassword" name="userNameForgotPassword" placeholder="Nhập mã đăng nhập" matInput />
+        </mat-form-field>
+      </div>
+      
+    </div>
+    <ng-template pTemplate="footer">
+      <p-button 
+        label="Hủy" 
+        [text]="true" 
+        severity="secondary" 
+        (onClick)="visibleForgotPassword = false" />
+      <p-button 
+        label="Xác nhận" 
+        [outlined]="true" 
+        severity="secondary"
+        (onClick)="forgotPassword()"
+        />
+  </ng-template>
+</p-dialog>
+
+<p-dialog header="Confirm OTP" [modal]="true" [(visible)]="visible" [style]="{ width: '30rem' }">
+  <div class="flex flex-column align-items-center">
+    <div class="font-bold text-xl mb-2">Xác thực tài khoản của bạn</div>
+    <p class="text-color-secondary block mb-3">Vui lòng nhập mã được gửi tới email {{Email}} của bạn.</p>
+    <p-inputOtp [(ngModel)]="value" [length]="6" style="gap: 0">
+        <ng-template pTemplate="input" let-token let-events="events" let-index="index">
+            <input
+                pInputText
+                type="text"
+                [maxLength]="1"
+                (input)="events.input($event)"
+                (keydown)="events.keydown($event)"
+                [attr.value]="token"
+                class="custom-otp-input col-1 m-2" />
+            <div *ngIf="index === 3" class="px-3">
+                <i class="pi pi-minus"></i>
+            </div>
+        </ng-template>
+    </p-inputOtp>
+    <div class="d-flex" style="flex-direction: column;">
+      <label for="newPassWord" class="font-semibold">
+        Nhập mật khẩu mới 
+      </label>
+      <mat-form-field appearance="outline" class="w-100" color="primary">
+        <input [(ngModel)]="newPassWord" name="newPassWord" [type]="hide ? 'password' : 'text'" matInput />
+        <button mat-icon-button matSuffix (click)="hide = !hide" type="button">
+          <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+    <div class="d-flex" style="flex-direction: column;">
+      <label for="confirmNewPassWord" class="font-semibold">
+        Nhập lại mật khẩu mới 
+      </label>
+      <mat-form-field appearance="outline" class="w-100" color="primary">
+        <input [(ngModel)]="confirmNewPassWord" name="confirmNewPassWord" [type]="hide1 ? 'password' : 'text'" matInput />
+        <button mat-icon-button matSuffix (click)="hide1 = !hide1" type="button">
+          <mat-icon>{{ hide1 ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+    <p class="text-color-secondary block mb-3">Send OTP again({{countdown}}s)</p>
+    <div class="flex justify-content-between mt-3 align-self-stretch">
+        <p-button label="Resend Code" [link]="true" [disabled]="countdown > 0" (onClick)="resendCode()" class="p-0"/>
+        <p-button (onClick)="submitOTP()" label="Submit Code"/>
+    </div>
+  </div>
+</p-dialog>

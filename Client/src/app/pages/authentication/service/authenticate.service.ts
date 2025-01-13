@@ -117,4 +117,29 @@ export class AuthenticateService {
       });
   }
 
+  getCollaboratorByUserName(userName: string): Observable<any> {
+    const apiUrl = `${this.serviceUri}/get-collaborator-by-userName?UserName=${userName}`;
+    return this._http.get<any>(apiUrl);
+  }
+
+  sendOTPForgot(email: any, otp: any): Promise<any> {
+    const apiUrl = `${this.serviceUri}/send-otp-forgot?email=${email}&otp=${otp}`;
+    return this._http
+      .post<any>(apiUrl, null)
+      .toPromise()
+      .catch((error) => {
+        return Promise.reject(error.message || error);
+      });
+  }
+
+  updatePassword(UserName: any, Password: any): Promise<any> {
+    const apiUrl = `${this.serviceUri}/update-password?UserName=${UserName}&Password=${Password}`;
+    return this._http
+      .post<any>(apiUrl, null)
+      .toPromise()
+      .catch((error) => {
+        return Promise.reject(error.message || error);
+      });
+  }
+
 }

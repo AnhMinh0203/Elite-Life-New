@@ -356,5 +356,52 @@ namespace Elite_life_repository
                 connection.Close();
             }
         }
+
+        public async Task<CollaboratorDto> GetCollaboratorsByUserName(string UserName)
+        {
+            var connectPostgres = new ConnectToPostgresql(_configuration);
+            using var connection = await connectPostgres.CreateConnectionAsync();
+            try
+            {
+                const string query = @"SELECT * FROM dbo.""Collaborators"" WHERE ""UserName"" = @UserName;";
+                var result = await connection.QueryFirstOrDefaultAsync<CollaboratorDto>(query, new { UserName = UserName });
+                return result;
+            }
+            catch (Exception ex)
+            {
+                // Use a proper logging framework instead of Console.WriteLine
+                Console.WriteLine($"Error retrieving collaborator by username: {ex.Message}");
+                return null;
+            }
+        }
+
+        public async Task<bool> UpdatePassword(string UserName, string Password)
+        {
+            var connectPostgres = new ConnectToPostgresql(_configuration);
+            using var connection = await connectPostgres.CreateConnectionAsync();
+            try
+            {
+                var salt = _passwordManager.GenerateSalt();
+                var hashedPassword = _passwordManager.HashPassword(Password, salt);
+                var query = @"SELECT dbo.update_password(@user_name, @new_password)";
+                var parameters = new
+                {
+                    user_name = UserName, 
+                    new_password = hashedPassword
+                };
+
+                var result = await connection.ExecuteScalarAsync<bool>(query, parameters);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error updating password: {ex.Message}");
+                return false; 
+            }
+            finally
+            {
+                connection.Close(); 
+            }
+        }
     }
 }

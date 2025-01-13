@@ -314,5 +314,68 @@ namespace Elite_life.Controllers
                 return StatusCode(500, new { message = "Failed to send OTP", error = ex.Message });
             }
         }
+
+        [HttpPost("send-otp-forgot")]
+        public IActionResult SendOtpForgot(string email, int otp)
+        {
+            try
+            {
+
+                // Email configuration
+                string smtpHost = "smtp.gmail.com"; // Thay bằng SMTP server bạn dùng
+                int smtpPort = 587;
+                string senderEmail = "phuonganhhana360@gmail.com"; // Email của bạn
+                string senderPassword = "kiwg hnor aevc mnho"; // Mật khẩu ứng dụng
+
+                // Send email
+                using (var client = new SmtpClient(smtpHost, smtpPort))
+                {
+                    client.Credentials = new NetworkCredential(senderEmail, senderPassword);
+                    client.EnableSsl = true;
+
+                    var mailMessage = new MailMessage
+                    {
+                        From = new MailAddress(senderEmail),
+                        Subject = "Mã OTP của bạn",
+                        Body = $"Mã OTP của bạn là: {otp.ToString()}",
+                        IsBodyHtml = false
+                    };
+                    mailMessage.To.Add(email);
+
+                    client.Send(mailMessage);
+                }
+
+                return Ok(new { message = "OTP sent successfully!", otp = otp });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Failed to send OTP", error = ex.Message });
+            }
+        }
+
+        [HttpGet]
+        [Route("get-collaborator-by-userName")]
+        public async Task<MethodResult> GetCollaboratorsByUserName(string UserName)
+        {
+            var result = await _authenticateRepos.GetCollaboratorsByUserName(UserName);
+            if (result != null)
+            {
+                return MethodResult.ResultWithSuccess(result, 200, "Success");
+
+            }
+            return MethodResult.ResultWithError(null, 400, "Not Found");
+        }
+
+        [HttpPost]
+        [Route("update-password")]
+        public async Task<MethodResult> UpdatePassword(string UserName, string Password)
+        {
+            var result = await _authenticateRepos.UpdatePassword(UserName, Password);
+            if (result)
+            {
+                return MethodResult.ResultWithSuccess(result, 200, "Success");
+            }
+            return MethodResult.ResultWithError(null, 400, "Error");
+        }
     }
 }

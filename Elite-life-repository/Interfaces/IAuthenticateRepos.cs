@@ -21,5 +21,7 @@ namespace Elite_life_repository.Interfaces
         Task<List<string>> GetBanksAsync();
         Task<bool> CheckParentAsync(CheckParentRequestModel request);
         Task<int> GetBankIdAsync(GetBankIdRequestModel request);
+        Task<CollaboratorDto> GetCollaboratorsByUserName(string UserName);
+        Task<bool> UpdatePassword(string UserName, string Password);
     }
 }
