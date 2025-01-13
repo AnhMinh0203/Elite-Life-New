@@ -1,7 +1,7 @@
 <mat-card class="cardWithShadow">
   <mat-card-content class="p-24">
     <div class="d-flex w-100 p-24">
-      <mat-card-title style="color: #B0903E;">{{titleName}}</mat-card-title> 
+      <mat-card-title style="color: #B0903E;">{{titleName}}</mat-card-title>
     </div>
     <div class="row align-items-center" >
       <pdf-viewer
@@ -24,17 +24,17 @@
     </div>
     <div class="row justify-content-center m-3 p-3" style="margin-top: 30px;">
       <div class="col-6">
-        <mat-card-title style="color: #B0903E;">Bên B</mat-card-title> 
+        <mat-card-title style="color: #B0903E;">Bên B</mat-card-title>
         <button *ngIf="!imageSignUrl" class="col-3" mat-raised-button color="primary" (click)="showDialog()">Ký hợp đồng</button>
         <img [src]="imageSignUrl" *ngIf="imageSignUrl" alt="Signature">
       </div>
       <div class="col-6">
-        <mat-card-title style="color: #B0903E;">Bên A</mat-card-title> 
+        <mat-card-title style="color: #B0903E;">Bên A</mat-card-title>
           <p>CÔNG TY TNHH NGHIÊN CỨU VÀ SẢN XUẤT SINH HỌC HANA, THỰC THUỘC CTY CP TẬP ĐOÀN ELITE LIFE - JAPAN.</p>
           <p>Mã số doanh nghiệp: 0901155104, cấp ngày 15 tháng 02 năm 2024.</p>
-          <p>Đại diện: Ông LƯƠNG VĂN NGHỊ.</p>
-          <p>Chức vụ: Tổng giám đốc</p>
-          <p>Điện thoại: 0909679955</p>
+          <p>Đại diện: </p>
+          <p>Chức vụ: </p>
+          <p>Điện thoại: </p>
       </div>
       <!-- <button class="col-2" mat-raised-button color="primary" (click)="previousPage()">Previous Page</button>
       <p class="col-2 justify-content-center" style="font-weight: bold; align-items: center; display: flex;">Page {{currentPage}} of {{totalPages}}</p>
@@ -44,10 +44,10 @@
   </mat-card-content>
 </mat-card>
 
-<p-dialog 
-    header="Header" 
-    [(visible)]="visible" 
-    [modal]="true" 
+<p-dialog
+    header="Header"
+    [(visible)]="visible"
+    [modal]="true"
     [style]="{ width: '50rem' }">
         <ng-template pTemplate="header">
             <div class="inline-flex align-items-center justify-content-center gap-2">
@@ -79,10 +79,10 @@
             <label for="beginDate" class="font-semibold">
               Ngày cấp <span style="color: red">*</span>
             </label>
-            <p-calendar 
-              [(ngModel)]="beginDate" 
-              [iconDisplay]="'input'" 
-              [showIcon]="true" 
+            <p-calendar
+              [(ngModel)]="beginDate"
+              [iconDisplay]="'input'"
+              [showIcon]="true"
               dateFormat="dd/mm/yy"
               inputId="icondisplay" />
           </div>
@@ -107,16 +107,16 @@
           </div>
         </div>
         <ng-template pTemplate="footer">
-            <p-button 
-                label="Cancel" 
-                [text]="true" 
-                severity="secondary" 
+            <p-button
+                label="Cancel"
+                [text]="true"
+                severity="secondary"
                 (onClick)="visible = false" />
-            <p-button 
-                label="Save" 
+            <p-button
+                label="Save"
                 [outlined]="true"
-                (onClick)="save()" 
-                severity="secondary" 
+                (onClick)="save()"
+                severity="secondary"
               />
         </ng-template>
 </p-dialog>
