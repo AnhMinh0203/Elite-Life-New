@@ -298,6 +298,9 @@ export class DepositWithdrawManagementComponent {
             summary: 'Success',
             detail: response.data,
           });
+          setTimeout(() => {
+            location.reload();
+          }, 1000);
         } else {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Tải dữ liệu thất bại' });
         }
@@ -429,13 +432,17 @@ export class DepositWithdrawManagementComponent {
             this.createHistory(this.collaboratorId, type, -this.withdrawCommissionAmount, `Rút hoa hồng từ ví ${note}`),
           ]);
 
-          // Load lại
-          this.refreshWalletData(type)
+
+          // this.refreshWalletData(type)
           this.messageService.add({
             severity: 'success',
             summary: 'Success',
             detail: response.data,
           });
+          // Load lại
+          setTimeout(() => {
+            location.reload();
+          }, 1000);
         } else {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: response.message });
         }
@@ -529,12 +536,16 @@ export class DepositWithdrawManagementComponent {
             this.createHistory(collaboratorIdReceive, 'Source', this.transferAmount, `Nhận tiền từ mã  ${this.userName}`),
             this.createHistory(this.collaboratorId, 'Source', -this.transferAmount, `Chuyển tiền tới mã ${this.selectedUserName}`),
           ]);
-          this.refreshWalletData('Source');
+          // this.refreshWalletData('Source');
           this.messageService.add({
             severity: 'success',
             summary: 'Success',
             detail: response.data,
           });
+          // Load lại
+          setTimeout(() => {
+            location.reload();
+          }, 1000);
         } else {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: response.message });
         }
