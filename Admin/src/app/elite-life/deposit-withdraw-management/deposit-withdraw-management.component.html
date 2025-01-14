@@ -1,0 +1,139 @@
+<h2>Quản lý nạp rút</h2>
+<p-card>
+  <div class="card w-100">
+    <p-tabView>
+      <!-- Rút tiền -->
+      <p-tabPanel header="Rút tiền">
+        <label class="custom-label">Số dư</label>
+        <p-inputNumber [(ngModel)]="availableSource" readonly mode="decimal" styleClass="format-input"
+          class="format-input" />
+
+        <label for="" class="format-label" styleClass="format-label">Ngân hàng</label>
+        <p-dropdown [options]="bankOptions" [(ngModel)]="bankName" [showClear]="true" [showClear]="true"
+          placeholder="Chọn ngân hàng" [filter]="true" styleClass="format-input m-5" class="format-input m-5" />
+
+        <div class="d-flex">
+          <div style="flex: 1; padding-right: 10px;">
+            <label for="">Số tài khoản</label>
+
+            <input type="text" [(ngModel)]="bankNumber" pInputText styleClass="format-input" class="format-input" />
+          </div>
+
+          <div style="flex: 1; padding-left: 10px;">
+            <label for="">Chủ tài khoản</label>
+            <input type="text" [(ngModel)]="bankOwner" pInputText styleClass="format-input" class="format-input" />
+          </div>
+        </div>
+
+        <div class="d-flex">
+          <div style="flex: 1; padding-right: 10px;">
+            <label for="">Số tiền</label>
+            <p-inputNumber type="text" [(ngModel)]="withdrawalAmount" inputId="integeronly" styleClass="format-input"
+              class="format-input" (input)="formatInput($event)" (ngModelChange)="updateActualReceive()" />
+          </div>
+
+          <div style="flex: 1; padding-left: 10px;">
+            <label for="">Thực nhận</label>
+            <input type="text" [value]="actualReceive | numberFormat" pInputText [disabled]="true" class="format-input">
+          </div>
+        </div>
+
+        <div class="d-flex my-25 justify-content-end">
+          <p-button label="Rút tiền" severity="success" class="format-button primary-color"
+            (click)="requestWithdrawMoney()" />
+        </div>
+      </p-tabPanel>
+
+      <!-- Rút hoa hồng -->
+      <p-tabPanel header="Rút hoa hồng">
+        <label class="custom-label">Số dư</label>
+        <p-inputNumber [(ngModel)]="availableWallets" inputId="minmaxfraction" readonly mode="decimal"
+          styleClass="format-input" class="format-input" />
+
+        <label for="">Chọn ví rút</label>
+        <p-dropdown [options]="walletOptions" [(ngModel)]="selectedType" [showClear]="true" placeholder="Chọn ví rút"
+          (onChange)="onWalletOptionsChange(selectedType)" styleClass="format-input m-5" class="format-input m-5" />
+
+        <label for="integeronly">Số tiền</label>
+        <p-inputNumber inputId="integeronly" [(ngModel)]="withdrawCommissionAmount" styleClass="format-input"
+          class="format-input" />
+
+        <div class="d-flex my-25 justify-content-end ">
+          <p-button label="Rút tiền" severity="success" class="format-button"
+            (click)="withdrawCommission(selectedType)" />
+        </div>
+      </p-tabPanel>
+
+      <!-- Chuyển tiền hoa hồng -->
+      <p-tabPanel header="Chuyển tiền hoa hồng">
+        <label class="custom-label">Số dư</label>
+        <p-inputNumber [(ngModel)]="availableSource" inputId="minmaxfraction" readonly mode="decimal"
+          styleClass="format-input" class="format-input" />
+
+        <label for="">Mã khách hàng</label>
+        <mat-select [formControl]="singleSelectControl" placeholder="Search" class="format-selection m-b-15"
+          (selectionChange)="onSelectionChange($event)">
+          <input class="w-100" type="text" pInputText placeholder="Search" [(ngModel)]="receivePerson"
+            (input)="filterOptions()" />
+          <cdk-virtual-scroll-viewport itemSize="50" [style.height.px]="5 * 48">
+            <mat-option *cdkVirtualFor="let topping of filteredToppingList" [value]="topping">
+              {{ topping.label }}
+            </mat-option>
+          </cdk-virtual-scroll-viewport>
+        </mat-select>
+
+        <label for="">Số tiền</label>
+        <p-inputNumber inputId="integeronly" [(ngModel)]="transferAmount" class="format-input"
+          styleClass="format-input" />
+        <div class="d-flex my-25 justify-content-end ">
+          <p-button label="Chuyển tiền" severity="success" class="format-button" (click)="transferMoney()" />
+        </div>
+      </p-tabPanel>
+
+    </p-tabView>
+  </div>
+</p-card>
+
+<div class="row" style="margin-top: 30px;">
+  <div class="col-lg-12">
+
+    <mat-card class="cardWithShadow">
+      <mat-card-content class="p-24">
+        <div class="d-flex w-100 justify-content-between">
+          <mat-card-title style="color: #B0903E;">Lịch sử nạp rút</mat-card-title>
+          <div class="d-flex ">
+            <p-calendar [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true" [iconDisplay]="'input'"
+              [showIcon]="true" [dateFormat]=" 'dd/mm/yy' " (onSelect)="onDateChange($event)" />
+            <p-button  (onClick)="exportExcelWalletHistory()" label="Xuất Excel" icon="pi pi-file-export"
+              class="export-button" [outlined]="true" />
+          </div>
+        </div>
+
+        <div class="m-25">
+          <p-table [value]="dataWithdrawHistory" [paginator]="true" [rows]="5" [showCurrentPageReport]="true"
+            [tableStyle]="{ 'min-width': '50rem' }" [rowsPerPageOptions]="[5, 10, 20]">
+            <ng-template pTemplate="header">
+              <tr>
+                <th>Nội dung</th>
+                <th>Số tiền</th>
+                <th>
+                  Ngày tạo
+                </th>
+                <th>Trạng thái</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-history>
+              <tr>
+                <td>{{ history.note }}</td>
+                <td>{{ formatValue(history.value)}}</td>
+                <td>{{ history.createdAt | date: 'dd/MM/yyyy HH:mm:ss' }}</td>
+                <td>{{ history.status }}</td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+  </div>
+</div>

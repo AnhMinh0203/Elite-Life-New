@@ -76,6 +76,15 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 import { CardModule } from 'primeng/card';
 import { TabViewModule } from 'primeng/tabview';
 import { SplitterModule } from 'primeng/splitter';
+import { DepositWithdrawManagementComponent } from './elite-life/deposit-withdraw-management/deposit-withdraw-management.component';
+import { InforComponent } from './elite-life/infor-account/infor.component';
+import { OrderManagementComponent } from './elite-life/order-management/order-management.component';
+import { ProfileContainerComponent } from './elite-life/profile-container/profile-container.component';
+import { NumberFormatPipe } from './Core/pipes/number-format.pipe';
+import { ImageModule } from 'primeng/image';
+import { DatePipe } from '@angular/common';
+import { InputNumberModule } from 'primeng/inputnumber';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -105,6 +114,11 @@ import { SplitterModule } from 'primeng/splitter';
     RoleManagerComponent,
     WithdrawalRequestComponent,
     DeleteCollaboratorComponent,
+    InforComponent,
+    DepositWithdrawManagementComponent,
+    ProfileContainerComponent,
+    OrderManagementComponent,
+    NumberFormatPipe,
   ],
   imports: [
     BrowserModule,
@@ -139,11 +153,13 @@ import { SplitterModule } from 'primeng/splitter';
     FloatLabelModule,
     CardModule,
     TabViewModule,
-    SplitterModule
+    SplitterModule,
+    ImageModule,
+    InputNumberModule,
   ],
   exports: [TablerIconsModule],
   bootstrap: [AppComponent],
-  providers: [
+  providers: [ DatePipe,
       {
         provide: RECAPTCHA_SETTINGS,
         useValue: {

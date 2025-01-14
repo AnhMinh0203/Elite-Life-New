@@ -14,7 +14,6 @@ const MONITOR_VIEW = 'screen and (min-width: 1024px)';
   styleUrls: [],
 })
 export class FullComponent implements OnInit {
-  isProfilePage: boolean = false;
   @ViewChild('leftsidenav')
   public sidenav: MatSidenav | any;
 
@@ -29,7 +28,7 @@ export class FullComponent implements OnInit {
     return this.isMobileScreen;
   }
 
-  constructor(private breakpointObserver: BreakpointObserver,private router: Router) {
+  constructor(private breakpointObserver: BreakpointObserver,public router: Router) {
     this.htmlElement = document.querySelector('html')!;
     this.layoutChangesSubscription = this.breakpointObserver
       .observe([MOBILE_VIEW, TABLET_VIEW, MONITOR_VIEW])
@@ -44,9 +43,6 @@ export class FullComponent implements OnInit {
 
   ngOnInit() {
     this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.isProfilePage = event.url.includes('/profile');
-      }
     });
   }
 
