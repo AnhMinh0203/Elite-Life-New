@@ -67,12 +67,31 @@ export class MemberManagerComponent implements OnInit {
   startDateDown: any;
   endDateDown: any;
 
+  // Thay đổi thông tin thành viên
+  isChangePassword:any;
+  currentPass: any;
+  newPass: any;
+  confirmNewPass: any;
+  name: any;
+  userName: any;
+  identity:any;
+  bankNumber:any;
+  bankOptions:any;
+  bank:any;
+  identityDate:any;
+  bankBranchName:any;
+  identityPlace:any;
+  bankOwner:any;
+  phone:any;
+  email:any;
+  isUpdate:boolean = false;
+
   constructor(
-    private _collaboratorService: CollaboratorService, 
+    private _collaboratorService: CollaboratorService,
     private messageService: MessageService,
     private _walletDetailService: WalletDetailService,
-    private _walletsService: WalletsService) { 
-    
+    private _walletsService: WalletsService) {
+
   }
 
   ngOnInit() {
@@ -90,7 +109,7 @@ export class MemberManagerComponent implements OnInit {
           label: 'Chi tiết nhận hoa hồng',
           icon: 'pi pi-wallet',
           command: () => this.showDialogComission()
-          
+
       },
       ...(this.rechargeMember
         ? [{
@@ -159,8 +178,8 @@ export class MemberManagerComponent implements OnInit {
   searchName() {
     if(this.search) {
       this.data = this.data.filter((item: any) => item != null);
-      this.data = this.data.filter((item: any) => 
-        (item?.userName?.toLowerCase()?.includes(this.search.toLowerCase()) || 
+      this.data = this.data.filter((item: any) =>
+        (item?.userName?.toLowerCase()?.includes(this.search.toLowerCase()) ||
          item?.name?.toLowerCase()?.includes(this.search.toLowerCase()))
       );
       this.totalMember = this.data.length;
@@ -339,27 +358,27 @@ export class MemberManagerComponent implements OnInit {
 
   buildTree(data: any[], parentId: any = null, level: number = 0): any[] {
     const children = data.filter(item => item.parentId === parentId);
-  
+
     if (children.length === 0) {
       return [];
     }
-  
+
     const childNodes = children.map(item => {
       return {
         key: item.id,
         data: `${item.name} (${item.rank})`,
         label: `${item.name} (${item.rank})`,
-        children: this.buildTree(data, item.id, level + 1) 
+        children: this.buildTree(data, item.id, level + 1)
       };
     });
-  
+
     if (level === 0) {
       return childNodes;
     }
 
     const nodeKey = `DL${level-1}`;
     this.countChildren[nodeKey] = (this.countChildren[nodeKey] || 0) + childNodes.length;
-  
+
     return [
       {
         key: `DL${level-1}`,
@@ -450,4 +469,27 @@ export class MemberManagerComponent implements OnInit {
     );
   }
 
+  // Cập nhật thông tin thành viên
+  showUpdateForm(){
+    this.isUpdate = true;
+  }
+
+  showPassordForm(){
+
+  }
+  changePassword(){
+
+  }
+  closePassordForm(){
+
+  }
+  updateProfile(){
+
+  }
+  updatePhoneNumber(){
+
+  }
+  updateEmail(){
+
+  }
 }

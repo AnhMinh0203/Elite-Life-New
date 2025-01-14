@@ -281,7 +281,7 @@ export class DepositWithdrawManagementComponent {
       });
       return;
     }
-    if(this.withdrawalAmount > this.availableSource){
+    if((this.withdrawalAmount - this.availableSource < 0)||(this.withdrawalAmount < 0)){
       this.messageService.add({
         severity: 'error',
         summary: 'Error',
@@ -418,10 +418,16 @@ export class DepositWithdrawManagementComponent {
       return;
     }
 
+    if (model.WalletCommissionAmount < 0) {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Số tiền rút phải lớn hơn 0.' });
+      return;
+    }
+
     if (model.WalletCommissionAmount - model.WithdrawAmount < 0) {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Số tiền không đủ' });
       return;
     }
+
     this._withdrawService.withdrawCommissionRequest(model).subscribe({
 
       next: async (response: any) => {

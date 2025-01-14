@@ -252,24 +252,12 @@ namespace Elite_life_repository
         public async Task<string> WithdrawCommissionWalletAsync(WithdrawCommissionRequire request)
         {
             var connectPostgres = new ConnectToPostgresql(_configuration);
+
             using var connection = await connectPostgres.CreateConnectionAsync();
-            using var transaction = await connection.BeginTransactionAsync();
+            await using var transaction = await connection.BeginTransactionAsync(System.Data.IsolationLevel.Serializable);
 
             try
             {
-                if (request.WithdrawAmount <= 0)
-                {
-                    return "Số tiền rút phải lớn hơn 0.";
-                }
-
-                if (request.WalletCommissionAmount - request.WithdrawAmount < 0)
-                {
-                    return "Số tiền hoa hồng không đủ để rút.";
-                }
-
-                request.SourceAmount = request.SourceAmount + request.WithdrawAmount;
-                request.WalletCommissionAmount = request.WalletCommissionAmount - request.WithdrawAmount;
-
                 using var command = connection.CreateCommand();
                 command.CommandText = @"SELECT * FROM dbo.withdraw_commission(
                     @p_collaboratorid,
@@ -282,17 +270,17 @@ namespace Elite_life_repository
 
                 var result = (string)await command.ExecuteScalarAsync();
 
-                // If the SQL function returns 'Rút tiền thành công', proceed with transaction commit
                 if (result == "Rút tiền thành công")
                 {
                     // Commit transaction after successful updates
                     await transaction.CommitAsync();
+                    return result;
                 }
                 else
                 {
-                    // If the result is unexpected, rollback the transaction
+                    // Trường hợp kết quả không như mong đợi
                     await transaction.RollbackAsync();
-                    return "Lỗi xảy ra khi rút tiền.";
+                    return result ?? "Lỗi không xác định khi thực hiện rút tiền.";
                 }
 
                 return result;

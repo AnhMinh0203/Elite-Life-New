@@ -72,6 +72,10 @@ import { ChipModule } from 'primeng/chip';
 import { WithdrawalRequestComponent } from './elite-life/withdrawal-request/withdrawal-request.component';
 import { DeleteCollaboratorComponent } from './elite-life/delete-collaborator/delete-collaborator.component';
 
+import { FloatLabelModule } from 'primeng/floatlabel';
+import { CardModule } from 'primeng/card';
+import { TabViewModule } from 'primeng/tabview';
+import { SplitterModule } from 'primeng/splitter';
 @NgModule({
   declarations: [
     AppComponent,
@@ -132,6 +136,10 @@ import { DeleteCollaboratorComponent } from './elite-life/delete-collaborator/de
     ScrollingModule,
     PickListModule,
     ChipModule,
+    FloatLabelModule,
+    CardModule,
+    TabViewModule,
+    SplitterModule
   ],
   exports: [TablerIconsModule],
   bootstrap: [AppComponent],
