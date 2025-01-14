@@ -78,12 +78,26 @@
               </div>
 
             </div>
-            <!-- Số CMTND/ CCCD/ Hộ chiếu -->
-            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block" style="color: #B0903E;">Số CMTND/ CCCD/ Hộ chiếu<span
-                style="color: red">*</span></mat-label>
-            <mat-form-field appearance="outline" class="w-100" color="primary">
-              <input matInput formControlName="Identity" />
-            </mat-form-field>
+            
+
+            <div class="form-row">
+              <div class="form-group">
+                <!-- Số CMTND/ CCCD/ Hộ chiếu -->
+                <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block" style="color: #B0903E;">Số CMTND/ CCCD/ Hộ chiếu<span
+                  style="color: red">*</span></mat-label>
+                <mat-form-field appearance="outline" class="w-100" color="primary">
+                  <input matInput formControlName="Identity" />
+                </mat-form-field>
+              </div>
+              <div class="form-group">
+                <!-- Địa chỉ -->
+                <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block" style="color: #B0903E;">Địa chỉ<span
+                    style="color: red">*</span></mat-label>
+                <mat-form-field appearance="outline" class="w-100" color="primary">
+                  <input [ngModel]="Address" matInput formControlName="Address" />
+                </mat-form-field>
+              </div>
+            </div>
 
             <div class="form-row">
               <div class="form-group">

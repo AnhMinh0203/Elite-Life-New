@@ -32,6 +32,7 @@ export class InforComponent implements OnInit {
   currentPass: any;
   newPass: any;
   confirmNewPass:any;
+  address: any;
 
   constructor(
     private messageService: MessageService,
@@ -84,6 +85,7 @@ export class InforComponent implements OnInit {
               const profile = response.data;
               this.name = profile.name;
               this.userName = profile.userName;
+              this.address = profile.address;
               this.identity = profile.identity;
               this.bank = profile.bank;
               this.bankNumber = profile.bankNumber;
@@ -255,6 +257,7 @@ export class InforComponent implements OnInit {
     const model = {
       UserName: this.userName,
       Name: this.name,
+      Address: this.address,
       Identity: this.identity,
       BankNumber: this.bankNumber,
       Bank: this.bank,
