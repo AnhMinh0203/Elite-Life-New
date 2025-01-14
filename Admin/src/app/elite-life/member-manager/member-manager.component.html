@@ -81,7 +81,7 @@
               <ng-template pTemplate="body" let-customer>
                   <tr>
                       <td style="align-items: center;">
-                        <i class="pi pi-pen-to-square" *ngIf="editMember" style="color: #B0903E; padding: 0 5px; cursor: pointer;" (click)="showUpdateForm()"></i>
+                        <i class="pi pi-pen-to-square" *ngIf="editMember" style="color: #B0903E; padding: 0 5px; cursor: pointer;" (click)="showUpdateForm(customer)"></i>
                         <i class="pi pi-trash" style="color: red; padding: 0 5px;cursor: pointer;" (click)="showDialogDelete(customer)"></i>
                         <i class="pi pi-bars" style=" padding: 0 5px;cursor: pointer;" (click)="menu.toggle($event)" (click)="changId(customer)"></i>
                         <p-tieredMenu
@@ -433,7 +433,7 @@ header="Header"
 
 <!-- Cập nhật thông tin thành viên -->
 
-<p-dialog header="Mua combo" [(visible)]="isUpdate" [modal]="true"
+<p-dialog header="Thông tin thành viên" [(visible)]="isUpdate" [modal]="true"
   [style]="{ width: '80vw' }" [draggable]="false" [resizable]="false" [appendTo]="'body'">
   <div class="container">
     <div class="row" >
@@ -606,13 +606,6 @@ header="Header"
                 <div class="col-5">
                   <p-button class="format-button" label="Cập nhật" styleClass="m-0" [outlined]="true" (click)="showPassordForm()" />
                   <p-dialog  header="Đổi mật khẩu" [(visible)]="isChangePassword" [style]="{ width: '25rem' }">
-
-                    <div class="my-25">
-                      <p-floatLabel>
-                        <input pInputText id="on_label" [(ngModel)]="currentPass" autocomplete="off" class="w-100" />
-                        <label for="on_label">Mật khẩu cũ</label>
-                      </p-floatLabel>
-                    </div>
                     <div class="my-25">
                       <p-floatLabel>
                         <input pInputText id="on_label" [(ngModel)]="newPass" autocomplete="off" class="w-100" />
@@ -640,206 +633,4 @@ header="Header"
   </div>
 </p-dialog>
 
-<!-- <div class="container">
-  <div class="row" >
-    <div class="col col-sm-12 col-md-12 col-lg-7 col-xl-7" style="margin-bottom: 30px;">
-      <p-card >
-        <div class="p-card-header" style="color: #B0903E; margin: 10px 0;">Thông tin cá nhân</div>
-        <div class="card w-100">
-          <p-tabView>
-            <div class="row m-5">
-              <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 d-flex justify-content-center align-items-center">
-                <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/onyamalimba.png"  class="mr-2" size="xlarge" shape="circle" />
-                <input type="file" accept="image/*" #fileInput style="display: none;" />
-              </div>
-              <div class="col-12 col-sm-12 col-md-9 col-lg-9 col-xl-9">
-                <div class="row m-5 no-gutters justify-content-center align-items-center">
-                  <div class="col-4 ">
-                    <label for="fullname" class="font-semibold py-3">
-                      Họ và tên
-                    </label>
 
-                  </div>
-                  <div class="col-8">
-                    <input class="mt-5 w-100" type="text" pInputText [(ngModel)]="name" />
-                  </div>
-                </div>
-                <div class="row m-5 no-gutters justify-content-center align-items-center">
-                  <div class="col-4">
-                    <label for="fullname" class="font-semibold py-3" >
-                      Tên đăng nhập
-                    </label>
-                  </div>
-                  <div class="col-8">
-                    <input class="mt-5 w-100" type="text" readonly pInputText [(ngModel)]="userName" />
-                  </div>
-
-                </div>
-              </div>
-            </div>
-            <div class="row m-5">
-              <div class="d-flex col-12" style="flex-direction: column;">
-                <label for="fullname" class="font-semibold">
-                  CMTND/ CCCD/ HC
-                </label>
-                <input class="mt-5" type="text" pInputText [(ngModel)]="identity" />
-              </div>
-            </div>
-            <div class="row m-5">
-              <div class="d-flex col-12" style="flex-direction: column;">
-                <label for="fullname" class="font-semibold">
-                  Số tài khoản
-                </label>
-                <input class="mt-5" type="text" pInputText [(ngModel)]="bankNumber" />
-              </div>
-            </div>
-            <div class="row m-5">
-              <div class="d-flex col-12" style="flex-direction: column;">
-                <label for="fullname" class="font-semibold">
-                  Ngân hàng
-                </label>
-                <p-dropdown [options]="bankOptions" [(ngModel)]="bank" [showClear]="true" [showClear]="true"
-                placeholder="Chọn ngân hàng" [filter]="true" styleClass="format-input mt-5" class="format-input mt-5" />
-              </div>
-            </div>
-            <div class="row m-5">
-              <div class="d-flex col-12" style="flex-direction: column;">
-                <label for="fullname" class="font-semibold">
-                  Ngày cấp
-                </label>
-                <p-calendar [(ngModel)]="identityDate" [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay"
-                styleClass="format-input mt-5" class="format-input mt-5" />
-              </div>
-            </div>
-            <div class="row m-5">
-              <div class="d-flex col-12" style="flex-direction: column;">
-                <label for="fullname" class="font-semibold">
-                  Chủ tài khoản
-                </label>
-                <input class="mt-5" type="text" pInputText [(ngModel)]="bankOwner" />
-              </div>
-            </div>
-            <div class="row m-5">
-              <div class="d-flex col-12" style="flex-direction: column;">
-                <label for="fullname" class="font-semibold">
-                  Nơi cấp
-                </label>
-                <input class="mt-5" type="text" pInputText [(ngModel)]="identityPlace" />
-              </div>
-            </div>
-            <div class="row m-5">
-              <div class="d-flex col-12" style="flex-direction: column;">
-                <label for="fullname" class="font-semibold">
-                  Chi nhánh
-                </label>
-                <input class="mt-5" type="text" pInputText [(ngModel)]="bankBranchName" />
-              </div>
-            </div>
-            <div class="row m-5">
-              <div class="d-flex col-12 my-25 justify-content-end">
-                <p-button ngClass="format-button" label="Lưu thay đổi" severity="success" class="ms-10" (click)="updateProfile()" />
-              </div>
-            </div>
-          </p-tabView>
-        </div>
-      </p-card>
-    </div>
-
-    <div class=" col col-sm-12 col-md-12 col-lg-5 col-xl-5">
-      <p-card>
-        <div class="p-card-header" style="color: #B0903E; margin: 10px 0;">Số điện thoại và email</div>
-        <div class="card w-100">
-          <p-tabView>
-
-            <div class="row justify-content-center align-items-center mt-5">
-              <div class="col-1">
-              </div>
-              <div class="d-flex col-6" style="flex-direction: column;">
-                <label for="fullname" class="font-semibold">
-                  Số điện thoại
-                </label>
-              </div>
-              <div class="col-5">
-              </div>
-            </div>
-
-            <div class="row justify-content-center align-items-center mt-5">
-              <div class="col-1">
-                <i class="pi pi-phone"></i>
-              </div>
-              <div class="d-flex col-6" style="flex-direction: column;">
-                <input class="mt-5" type="text" pInputText [(ngModel)]="phone" />
-              </div>
-              <div class="col-5">
-                <p-button ngClass="format-button" label="Cập nhật" styleClass="m-0" [outlined]="true" (click)="updatePhoneNumber()" />
-              </div>
-            </div>
-
-            <div class="row justify-content-center align-items-center mt-5">
-              <div class="col-1">
-              </div>
-              <div class="d-flex col-6" style="flex-direction: column;">
-                <label for="fullname" class="font-semibold">
-                  Địa chỉ Email
-                </label>
-              </div>
-              <div class="col-5">
-              </div>
-            </div>
-
-            <div class="row justify-content-center align-items-center mt-5">
-              <div class="col-1">
-                <i class="pi pi-envelope"></i>
-              </div>
-              <div class="d-flex col-6" style="flex-direction: column;">
-                <input class="mt-5" type="text" pInputText [(ngModel)]="email" placeholder="Thêm địa chỉ email" />
-              </div>
-              <div class="col-5">
-                <p-button class="format-button" label="Cập nhật" styleClass="m-0" [outlined]="true" (click)="updateEmail()" />
-              </div>
-            </div>
-            <mat-card-title style="color: #B0903E; margin: 10px 0;">Bảo mật</mat-card-title>
-            <div class="row justify-content-center align-items-center mt-5">
-              <div class="col-1">
-                <i class="pi pi-phone"></i>
-              </div>
-              <div class="d-flex col-6" style="flex-direction: column;">
-                <label for="fullname" class="font-semibold">
-                  Đổi mật khẩu
-                </label>
-              </div>
-              <div class="col-5">
-                <p-button class="format-button" label="Cập nhật" styleClass="m-0" [outlined]="true" (click)="showPassordForm()" />
-                <p-dialog  header="Đổi mật khẩu" [(visible)]="isChangePassword" [style]="{ width: '25rem' }">
-
-                  <div class="my-25">
-                    <p-floatLabel>
-                      <input pInputText id="on_label" [(ngModel)]="currentPass" autocomplete="off" class="w-100" />
-                      <label for="on_label">Mật khẩu cũ</label>
-                    </p-floatLabel>
-                  </div>
-                  <div class="my-25">
-                    <p-floatLabel>
-                      <input pInputText id="on_label" [(ngModel)]="newPass" autocomplete="off" class="w-100" />
-                      <label for="on_label">Mật khẩu mới</label>
-                    </p-floatLabel>
-                  </div>
-                  <div class="my-25">
-                    <p-floatLabel>
-                      <input pInputText id="on_label" [(ngModel)]="confirmNewPass" autocomplete="off" class="w-100" />
-                      <label for="on_label">Xác nhận mật khẩu mới</label>
-                    </p-floatLabel>
-                  </div>
-                  <div class="d-flex justify-content-end">
-                    <p-button class="format-button" label="Hủy" severity="secondary" (click)="closePassordForm()" />
-                    <p-button class="format-button" label="Xác nhận" severity="success" class="ms-10" (click)="changePassword()" />
-                  </div>
-                </p-dialog>
-              </div>
-            </div>
-          </p-tabView>
-        </div>
-      </p-card>
-    </div>
-  </div>
-</div> -->
