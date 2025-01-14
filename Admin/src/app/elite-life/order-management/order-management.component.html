@@ -1,0 +1,69 @@
+<h2>Quản lý đơn hàng</h2>
+<div class="row m-y-12">
+  <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+    <div class="d-flex justify-content-end">
+      <p-calendar [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true" [iconDisplay]="'input'"
+              [showIcon]="true" [dateFormat]=" 'dd/mm/yy' " (onSelect)="onDateChange($event)" />
+      <p-button ngClass="format-button" label="Xuất hóa đơn" [raised]="true" severity="success" class="ms-10" (onClick)="exportExcelOrderByRange()" />
+    </div>
+  </div>
+</div>
+
+
+<p-card>
+  <div class="card w-100">
+    <p-tabView>
+      <!--  -->
+      <p-tabPanel header="Tất cả đơn">
+        <div class="order_status d-flex mt-5 align-items-center">
+          <div class="order_status--icon me-10">
+            <i class="pi pi-truck"></i>
+          </div>
+          <div class="order_status--text ms-10">Đang giao hàng</div>
+        </div>
+        <div *ngFor="let order of orders" class="order_infor my-15">
+          <div class="row no-gutters">
+            <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+              <p-image src="assets/product/combo.jpg" alt="Image" width="100%" [preview]="true" [appendTo]="'body'" />
+            </div>
+            <div class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+              <div class="d-flex flex-column p-x-24">
+                <div class="order_infor--title">
+                  <b>Dinh Dưỡng Thay Thế Bữa Ăn - Green - Thương hiệu của Nhật Bản</b>
+                </div>
+                <div class="order_infor--store d-flex m-t-12">
+                  <div class="infor_store--icon"><i class="pi pi-shop"></i></div>
+                  <div class="infor_store--text ms-10">Elite Life Official Store</div>
+                </div>
+                <div class="order_infor--amount m-t-12">
+                  Số lượng: {{ order.amount }}
+                </div>
+                <div class="order_infor--purchaseDate m-t-12">
+                  Ngày mua: {{ order.createdAt | date: 'dd/MM/yyyy' }}
+                </div>
+              </div>
+            </div>
+            <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+              <b>{{ order.payed | currency: 'VND' }}</b>
+            </div>
+          </div>
+        </div>
+
+        <hr>
+        <div class="row">
+          <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <div class="d-flex flex-column align-items-end">
+              <div class="total_money m-y-12">
+                Tổng tiền: <b>{{ totalPayed | currency: 'VND' }}</b>
+              </div>
+              <div class="action m-y-12">
+                <p-button label="Mua lại"  class="format-button" [raised]="true" severity="success" (click)="orderAgain()" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </p-tabPanel>
+
+    </p-tabView>
+  </div>
+</p-card>

@@ -43,14 +43,14 @@
               </button>
             </mat-form-field>
 
-            <div class="d-flex align-items-center m-b-12">
+            <!-- <div class="d-flex align-items-center m-b-12">
               <mat-checkbox color="primary">Ghi nhớ mật khẩu</mat-checkbox>
               <a
                 [routerLink]="['/']"
                 class="f-w-600 text-decoration-none m-l-auto f-s-14" style="color: #B0903E;"
                 >Quên mật khẩu ?</a
               >
-            </div>
+            </div> -->
             <re-captcha id="recaptcha" name="recaptcha" #recaptcha="ngModel" [(ngModel)]="token" required [class.is-invalid]="recaptcha.invalid && (recaptcha.dirty || recaptcha.touched)"></re-captcha>
             <div *ngIf="recaptcha.invalid && (recaptcha.dirty || recaptcha.touched)" class="invalid-feedback">
               <div *ngIf="recaptcha.errors?.['required']" style="color: red;padding: 10px 0;">Vui lòng xác thực capcha.</div>
@@ -63,7 +63,7 @@
             </button>
             <!-- input -->
           </form>
-          <span class="d-block f-w-500 text-center m-t-24"
+          <!-- <span class="d-block f-w-500 text-center m-t-24"
             >Bạn chưa có tài khoản?
             <a
               [routerLink]="['/authentication/register']"
@@ -71,7 +71,7 @@
             >
               Tạo tài khoản</a
             >
-          </span>
+          </span> -->
         </mat-card-content>
       </mat-card>
     </div>

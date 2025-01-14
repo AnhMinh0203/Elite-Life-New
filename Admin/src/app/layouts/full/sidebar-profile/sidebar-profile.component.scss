@@ -1,0 +1,27 @@
+.p-0{
+  padding: 0;
+}
+
+.row {
+  transition: background-color 0.3s; /* Thêm hiệu ứng chuyển đổi khi hover */
+}
+
+.row:not(:first-child):hover {
+  background-color: #f0f0f0; /* Màu nền vào hàng khi hover */
+}
+.active {
+  background-color: #f0f0f0;
+  font-weight: bold;
+}
+.icon-large {
+  font-size: 1.5rem; /* Tăng kích thước biểu tượng */
+}
+
+.hoverable {
+  cursor: pointer;
+}
+
+.hoverable:hover {
+  background-color: #f5f5f5; /* Tùy chỉnh màu nền khi hover */
+  transition: background-color 0.3s ease; /* Hiệu ứng chuyển đổi */
+}

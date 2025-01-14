@@ -21,6 +21,10 @@ import { PermissionManagerComponent } from './elite-life/permission-manager/perm
 import { RoleManagerComponent } from './elite-life/role-manager/role-manager.component';
 import { WithdrawalRequestComponent } from './elite-life/withdrawal-request/withdrawal-request.component';
 import { DeleteCollaboratorComponent } from './elite-life/delete-collaborator/delete-collaborator.component';
+import { DepositWithdrawManagementComponent } from './elite-life/deposit-withdraw-management/deposit-withdraw-management.component';
+import { InforComponent } from './elite-life/infor-account/infor.component';
+import { OrderManagementComponent } from './elite-life/order-management/order-management.component';
+import { ProfileContainerComponent } from './elite-life/profile-container/profile-container.component';
 
 const routes: Routes = [
   {
@@ -109,6 +113,28 @@ const routes: Routes = [
       { path: 'role-manager', component: RoleManagerComponent },
       { path: 'withdrawal-request', component: WithdrawalRequestComponent },
       { path: 'delete-collaborator', component: DeleteCollaboratorComponent },
+      { path: 'profile',
+        component: ProfileContainerComponent,
+        children: [
+          {
+            path: '',
+            redirectTo: 'info', // Mặc định chuyển đến trang thông tin cá nhân
+            pathMatch: 'full',
+          },
+          {
+            path: 'info',
+            component: InforComponent, // Trang thông tin cá nhân
+          },
+          {
+            path: 'deposit-withdraw-management',
+            component: DepositWithdrawManagementComponent, // Quản lý nạp/rút
+          },
+          {
+            path: 'order-management',
+            component: OrderManagementComponent, // Quản lý đơn hàng
+          },
+        ],
+      },
     ],
   },
   {
