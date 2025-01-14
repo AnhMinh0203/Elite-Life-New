@@ -418,7 +418,7 @@ export class DepositWithdrawManagementComponent {
       return;
     }
 
-    if (model.WalletCommissionAmount < 0) {
+    if (model.WalletCommissionAmount < 0 || !model.WalletCommissionAmount) {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Số tiền rút phải lớn hơn 0.' });
       return;
     }
