@@ -253,16 +253,16 @@ namespace Elite_life_repository
         {
             var connectPostgres = new ConnectToPostgresql(_configuration);
 
-            using var connection = await connectPostgres.CreateConnectionAsync();
+            await using var connection = await connectPostgres.CreateConnectionAsync();
             await using var transaction = await connection.BeginTransactionAsync(System.Data.IsolationLevel.Serializable);
 
             try
             {
                 using var command = connection.CreateCommand();
-                command.CommandText = @"SELECT * FROM dbo.withdraw_commission(
+                command.CommandText = @"SELECT dbo.withdraw_commission_with_serializable(
                     @p_collaboratorid,
                     @p_commissionAmount, 
-                    @p_walletType )";
+                    @p_walletType)";
 
                 command.Parameters.AddWithValue("@p_collaboratorId", request.CollaboratorId);
                 command.Parameters.AddWithValue("@p_commissionAmount", request.WithdrawAmount);
@@ -272,18 +272,12 @@ namespace Elite_life_repository
 
                 if (result == "Rút tiền thành công")
                 {
-                    // Commit transaction after successful updates
                     await transaction.CommitAsync();
                     return result;
                 }
-                else
-                {
-                    // Trường hợp kết quả không như mong đợi
-                    await transaction.RollbackAsync();
-                    return result ?? "Lỗi không xác định khi thực hiện rút tiền.";
-                }
 
-                return result;
+                await transaction.RollbackAsync();
+                return result ?? "Lỗi không xác định khi thực hiện rút tiền.";
             }
             catch (Exception ex)
             {
@@ -295,6 +289,7 @@ namespace Elite_life_repository
                 await connection.CloseAsync();
             }
         }
+
 
         public async Task<string> CreateWalletHistoryAsync(CreateWalletHistory createWalletHistory)
         {
