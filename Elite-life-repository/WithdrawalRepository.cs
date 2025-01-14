@@ -431,11 +431,12 @@ namespace Elite_life_repository
         {
             var connectPostgres = new ConnectToPostgresql(_configuration);
             using var connection = await connectPostgres.CreateConnectionAsync();
+            await using var transaction = await connection.BeginTransactionAsync(System.Data.IsolationLevel.Serializable);
 
             try
             {
                 using var command = connection.CreateCommand();
-                command.CommandText = @"SELECT * FROM dbo.transfer_money(
+                command.CommandText = @"SELECT * FROM dbo.transfer_money_with_serializable(
                     @p_collaboratorId, 
                     @p_userNameReceive, 
                     @p_amountReceive)";
@@ -445,11 +446,12 @@ namespace Elite_life_repository
                 command.Parameters.AddWithValue("@p_amountReceive", transferRequestModel.AmountReceive);
 
                 var result = (string)await command.ExecuteScalarAsync();
+                await transaction.CommitAsync(); // Commit transaction
                 return result;
-
             }
             catch (Exception ex)
             {
+                await transaction.RollbackAsync(); // Rollback transaction in case of error
                 return $"Lỗi khi xử lý: {ex.Message}";
             }
             finally
@@ -457,6 +459,7 @@ namespace Elite_life_repository
                 await connection.CloseAsync();
             }
         }
+
 
         public async Task<List<WithdrawalRequestDto>> GetProcessingWithdrawalRequestsAsync(CollaboratorMemberManagerModel model)
         {
