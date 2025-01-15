@@ -18,7 +18,7 @@ namespace Elite_life_datacontext.Model
         public string Identity { get; set; }
         public DateTime IdentityDate { get; set; }
         public string IdentityPlace { get; set; }
-        public string ParentCode { get; set; }
+        public string? ParentCode { get; set; }
         public int BankId { get; set; }
         public string BankOwner { get; set; }
         public string BankNumber { get; set; }

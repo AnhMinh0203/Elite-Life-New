@@ -168,14 +168,6 @@ export class AppSideRegisterComponent {
       return;
     }
 
-    if (!this.signUpForm.get('Parent')?.value?.trim()) {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Error',
-        detail: 'Vui lòng điền mã người giới thiệu',
-      });
-      return;
-    }
     if (!this.signUpForm.get('Identity')?.value?.trim()) {
       this.messageService.add({
         severity: 'error',
@@ -241,26 +233,32 @@ export class AppSideRegisterComponent {
     }
 
     this.parentCode = this.signUpForm.get('Parent')?.value;
-    this._authenticateService.checkParent({ UserName: this.parentCode }).subscribe({
-      next: (response) => {
-        if (response.isExistent) {
-          this.currentForm = 2; // Chuyển sang form tiếp theo nếu mã người dùng tồn tại
-        } else {
+    if(this.parentCode){
+      this._authenticateService.checkParent({ UserName: this.parentCode }).subscribe({
+        next: (response) => {
+          if (response.isExistent) {
+            this.currentForm = 2; // Chuyển sang form tiếp theo nếu mã người dùng tồn tại
+          } else {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: 'Mã người dùng không tồn tại',
+            });
+          }
+        },
+        error: () => {
           this.messageService.add({
             severity: 'error',
             summary: 'Error',
-            detail: 'Mã người dùng không tồn tại',
+            detail: 'Đã xảy ra lỗi khi kiểm tra mã người dùng',
           });
-        }
-      },
-      error: () => {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: 'Đã xảy ra lỗi khi kiểm tra mã người dùng',
-        });
-      },
-    });
+        },
+      });
+    }else {
+      // Nếu không có parentCode, chuyển ngay sang form tiếp theo
+      this.currentForm = 2;
+    }
+
   }
 
 
@@ -324,7 +322,7 @@ export class AppSideRegisterComponent {
     formData.append('IdentityPlace', this.signUpForm.get('IdentityPlace')?.value);
     // formData.append('IdentityDate', this.signUpForm.get('IdentityDate')?.value.toISOString());
     formData.append('IdentityDate', this.signUpForm.get('IdentityDate')?.value ? new Date(this.signUpForm.get('IdentityDate')?.value).toLocaleDateString('en-CA'): '');
-    formData.append('ParentCode', this.parentCode);
+    formData.append('ParentCode', this.parentCode || '');
     formData.append('BankId', BankId.toString());
     formData.append('BankNumber', this.signUpForm.get('BankNumber')?.value);
     formData.append('BankOwner', this.signUpForm.get('BankOwner')?.value);
