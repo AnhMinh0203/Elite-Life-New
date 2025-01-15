@@ -84,6 +84,7 @@ import { NumberFormatPipe } from './Core/pipes/number-format.pipe';
 import { ImageModule } from 'primeng/image';
 import { DatePipe } from '@angular/common';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { AccountManagerComponent } from './elite-life/account-manager/account-manager.component';
 
 @NgModule({
   declarations: [
@@ -119,6 +120,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
     ProfileContainerComponent,
     OrderManagementComponent,
     NumberFormatPipe,
+    AccountManagerComponent,
   ],
   imports: [
     BrowserModule,
@@ -156,6 +158,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
     SplitterModule,
     ImageModule,
     InputNumberModule,
+
   ],
   exports: [TablerIconsModule],
   bootstrap: [AppComponent],

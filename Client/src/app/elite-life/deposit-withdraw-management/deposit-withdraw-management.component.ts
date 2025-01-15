@@ -418,8 +418,8 @@ export class DepositWithdrawManagementComponent {
       return;
     }
 
-    if (model.WalletCommissionAmount < 0) {
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Số tiền rút phải lớn hơn 0.' });
+    if (model.WalletCommissionAmount < 0 || !model.WalletCommissionAmount) {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Số tiền rút không hợp lệ' });
       return;
     }
 
@@ -439,7 +439,7 @@ export class DepositWithdrawManagementComponent {
           ]);
 
 
-          // this.refreshWalletData(type)
+          this.refreshWalletData(type)
           this.messageService.add({
             severity: 'success',
             summary: 'Success',
@@ -542,7 +542,7 @@ export class DepositWithdrawManagementComponent {
             this.createHistory(collaboratorIdReceive, 'Source', this.transferAmount, `Nhận tiền từ mã  ${this.userName}`),
             this.createHistory(this.collaboratorId, 'Source', -this.transferAmount, `Chuyển tiền tới mã ${this.selectedUserName}`),
           ]);
-          // this.refreshWalletData('Source');
+          this.refreshWalletData('Source');
           this.messageService.add({
             severity: 'success',
             summary: 'Success',

@@ -7,6 +7,7 @@ import { WalletDetailService } from '../service/wallet-detail.service';
 import { WalletsService } from '../service/wallets.service';
 import { FormControl } from '@angular/forms';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
+import { ProfileService } from '../service/profile.service';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -69,7 +70,7 @@ export class MemberManagerComponent implements OnInit {
 
   // Thay đổi thông tin thành viên
   isChangePassword:any;
-  currentPass: any;
+
   newPass: any;
   confirmNewPass: any;
   name: any;
@@ -85,8 +86,10 @@ export class MemberManagerComponent implements OnInit {
   phone:any;
   email:any;
   isUpdate:boolean = false;
+  selectMember:any;
 
   constructor(
+    private _profileService: ProfileService,
     private _collaboratorService: CollaboratorService,
     private messageService: MessageService,
     private _walletDetailService: WalletDetailService,
@@ -470,26 +473,196 @@ export class MemberManagerComponent implements OnInit {
   }
 
   // Cập nhật thông tin thành viên
-  showUpdateForm(){
+  loadProfileData(customer:any){
+    this._profileService.getProfile(customer.userName).subscribe({
+
+      next: (response: any) => {
+        if (response?.message === 'Success') {
+          const profile = response.data;
+          this.name = profile.name;
+          this.userName = profile.userName;
+          this.identity = profile.identity;
+          this.bank = profile.bank;
+          this.bankNumber = profile.bankNumber;
+          this.bankOwner = profile.bankOwner;
+          this.identityPlace = profile.identityPlace;
+          this.bankBranchName = profile.bankBranchName;
+          this.identityDate = profile.identityDate
+            ? new Date(profile.identityDate)
+            : undefined;
+          this.phone = profile.mobile;
+          this.email = profile.email;
+        } else {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to load profile data.' });
+        }
+      },
+      error: (err) => {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'An error occurred while loading profile data.' });
+        console.error(err);
+      },
+    });
+  }
+
+  showUpdateForm(customer:any){
+    this.loadProfileData(customer);
+    this.loadBanks();
     this.isUpdate = true;
   }
 
+
+
   showPassordForm(){
-
+    this.isChangePassword = true;
   }
-  changePassword(){
+  changePassword() {
+    const newModel = {
+      UserName: this.userName,
+      Password: this.newPass
+    };
 
+    this._profileService.changePassword(newModel).subscribe({
+      next: (response: any) => {
+        if (response?.message === 'Success') {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: response.data,
+          });
+        } else {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: response.data,
+          });
+        }
+      },
+      error: () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Có lỗi xảy ra khi thay đổi mật khẩu',
+        });
+      }
+    });
   }
   closePassordForm(){
-
+    this.isChangePassword = false;
   }
   updateProfile(){
+    const model = {
+      UserName: this.userName,
+      Name: this.name,
+      Identity: this.identity,
+      BankNumber: this.bankNumber,
+      Bank: this.bank,
+      IdentityDate: this.identityDate ? new Date(this.identityDate).toLocaleDateString('en-CA') : null,
+      BankOwner: this.bankOwner,
+      IdentityPlace: this.identityPlace,
+      BankBranchName: this.bankBranchName
+    }
+    this._profileService.updateProfile(model).subscribe({
+      next: (response: any) => {
+        if (response?.message === 'Success') {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: response.data,
+          });
 
+          setTimeout(() => { location.reload() }, 1000);
+        } else {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: response.data,
+          });
+        }
+      },
+      error: (error: any) => {
+        // Error handling
+        console.error('An error occurred while updating contact information:', error);
+      }
+    });
   }
   updatePhoneNumber(){
-
+    const model = {
+      UserName: this.userName,
+      Email: '',
+      PhoneNumber: this.phone
+    }
+    this._profileService.updateContactInfor(model).subscribe({
+      next: (response: any) => {
+        if (response?.message === 'Success') {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: response.data,
+          });
+        } else {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: response.data,
+          });
+        }
+      },
+      error: (error: any) => {
+        // Error handling
+        console.error('An error occurred while updating contact information:', error);
+      }
+    });
   }
-  updateEmail(){
 
+  loadBanks() {
+    this._profileService.getBanks().subscribe({
+      next: (response: any) => {
+        if (response?.message === 'Success') {
+          this.bankOptions = response.data;
+        } else {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Lỗi khi hiển thị ngân hàng',
+          });
+        }
+      },
+      error: (err) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Có lỗi xảy ra khi tải dữ liệu',
+        });
+        console.error(err);
+      },
+    });
+  }
+
+  updateEmail(){
+    const model = {
+      UserName: this.userName,
+      Email: this.email,
+      PhoneNumber: ''
+    }
+    this._profileService.updateContactInfor(model).subscribe({
+      next: (response: any) => {
+        if (response?.message === 'Success') {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: response.data,
+          });
+        } else {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: response.data,
+          });
+        }
+      },
+      error: (error: any) => {
+        // Error handling
+        console.error('An error occurred while updating contact information:', error);
+      }
+    });
   }
 }

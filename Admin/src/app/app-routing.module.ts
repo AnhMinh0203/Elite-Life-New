@@ -25,6 +25,7 @@ import { DepositWithdrawManagementComponent } from './elite-life/deposit-withdra
 import { InforComponent } from './elite-life/infor-account/infor.component';
 import { OrderManagementComponent } from './elite-life/order-management/order-management.component';
 import { ProfileContainerComponent } from './elite-life/profile-container/profile-container.component';
+import { AccountManagerComponent } from './elite-life/account-manager/account-manager.component';
 
 const routes: Routes = [
   {
@@ -105,6 +106,9 @@ const routes: Routes = [
       },
       {
         path: 'booth-manager', component: BoothManagerComponent
+      },
+      {
+        path: 'account-manager', component: AccountManagerComponent
       },
       { path: 'warehouse-manager', component: WarehouseManagerComponent },
       { path: 'order-manager', component: OrderManagerComponent },

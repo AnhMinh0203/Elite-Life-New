@@ -39,6 +39,9 @@ export class HeaderComponent {
 
   orderHistory: any[] = []; // Lưu dữ liệu trả về từ API
   columns: any[] = []; // Khai báo các cột
+  mobile: any;
+  address: any;
+  info: any;
 
   constructor(
     public dialog: MatDialog,
@@ -50,6 +53,9 @@ export class HeaderComponent {
   ) { }
 
   ngOnInit() {
+    this.info = JSON.parse(localStorage.getItem('info') || '{}');
+    this.mobile = this.info.mobile;
+    this.address = this.info.address;
     // Lắng nghe sự thay đổi từ service
     this.sharedService.orderDialogStatus$.subscribe((status) => {
       this.isOrder = status; // Hiển thị dialog nếu status là true

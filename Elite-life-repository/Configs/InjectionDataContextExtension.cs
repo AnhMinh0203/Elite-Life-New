@@ -24,6 +24,7 @@ namespace Elite_life_repository.Configs
             services.AddSingleton<IWarehouseRepos, WarehouseRepository>();
             services.AddSingleton<IPermissionRepos, PermissionRepository>();
             services.AddSingleton<IVnpay, Vnpay>();
+            services.AddSingleton<IMemberManagerRepons, MemberRepository>();
         }
     }
 }
