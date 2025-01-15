@@ -289,7 +289,7 @@ namespace Elite_life_repository
             using var connection = await connectPostgres.CreateConnectionAsync();
             try
             {
-                var query = @"SELECT COUNT(1) FROM dbo.""Collaborators"" WHERE ""UserName"" = @UserName";
+                var query = @"SELECT COUNT(1) FROM dbo.""Collaborators"" WHERE ""UserName"" = @UserName AND ""ApplicationType"" <> 'User'";
                 var result = await connection.ExecuteScalarAsync<int>(query, new {request.UserName });
                 return result > 0;
             }

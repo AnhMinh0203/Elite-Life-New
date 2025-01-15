@@ -27,7 +27,7 @@ import { RECAPTCHA_SETTINGS, RecaptchaFormsModule, RecaptchaModule, RecaptchaSet
 import { AppSideLoginComponent } from './pages/authentication/login/login.component';
 import { environment } from '../environments/environment';
 import { HomeComponent } from './elite-life/home/home.component';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { SendAccessTokenInterceptorService } from 'src/untils/SendAccessTokenInterceptor.service';
 import { NgApexchartsModule } from 'ng-apexcharts';
@@ -84,8 +84,9 @@ import { NumberFormatPipe } from './Core/pipes/number-format.pipe';
 import { ImageModule } from 'primeng/image';
 import { DatePipe } from '@angular/common';
 import { InputNumberModule } from 'primeng/inputnumber';
-import { AccountManagerComponent } from './elite-life/account-manager/account-manager.component';
 
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { AccountManagerComponent } from './elite-life/account-manager/account-manager.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -158,7 +159,7 @@ import { AccountManagerComponent } from './elite-life/account-manager/account-ma
     SplitterModule,
     ImageModule,
     InputNumberModule,
-
+    ConfirmPopupModule
   ],
   exports: [TablerIconsModule],
   bootstrap: [AppComponent],
@@ -170,6 +171,7 @@ import { AccountManagerComponent } from './elite-life/account-manager/account-ma
         } as RecaptchaSettings,
       },
       MessageService,
+      ConfirmationService,
       {
         provide: HTTP_INTERCEPTORS,
         useClass: SendAccessTokenInterceptorService,

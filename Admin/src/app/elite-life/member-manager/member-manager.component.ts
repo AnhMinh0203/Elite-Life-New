@@ -514,6 +514,7 @@ export class MemberManagerComponent implements OnInit {
   showPassordForm(){
     this.isChangePassword = true;
   }
+
   changePassword() {
     const newModel = {
       UserName: this.userName,
