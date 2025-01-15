@@ -54,29 +54,29 @@ export class HomeComponent implements OnInit, AfterViewInit {
   userName: any;
   fullName: any;
 
-  hideWallet1 = true;  
+  hideWallet1 = true;
   hideWallet2 = true;
   hideWallet3 = true;
 
   listWalletData: any;
 
-  balance1: any;  
+  balance1: any;
   balance2: any;
   balance3: any;
   info: any;
   baseUrl: string = window.location.origin;
 
   constructor(
-    private messageService: MessageService, 
+    private messageService: MessageService,
     private _statisticalService: StatisticalService,
     private _collaboratorService: CollaboratorService,
     private _walletsService: WalletsService,
-  ) { 
+  ) {
     this.chartOptions = {
       series: [
         {
           name: "Nạp tiền",
-          data: [31, 40, 28, 51, 42, 109, 100]  
+          data: [31, 40, 28, 51, 42, 109, 100]
         },
         {
           name: "Rút tiền",
@@ -129,7 +129,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this.getCollaboratorByParentId();
   }
 
-  getCollaboratorById(id: any) {  
+  getCollaboratorById(id: any) {
     this._collaboratorService.getCollaboratorById(id).subscribe(
       (response: any) => {
         localStorage.setItem('info', JSON.stringify(response.data));
@@ -165,23 +165,23 @@ export class HomeComponent implements OnInit, AfterViewInit {
     const formattedBalance = this.formatNumber(this.balance1);
     return '*'.repeat(formattedBalance.length);
   }
-  
+
   getMaskedBalance2(): string {
     const formattedBalance = this.formatNumber(this.balance2);
     return '*'.repeat(formattedBalance.length);
   }
-  
+
   getMaskedBalance3(): string {
     const formattedBalance = this.formatNumber(this.balance3);
     return '*'.repeat(formattedBalance.length);
   }
-  
+
 
   formatNumber(value: number): string {
     return value.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
   }
-  
-  
+
+
 
   copyToClipboard(text: string): void {
     const textarea = document.createElement('textarea');
@@ -190,32 +190,32 @@ export class HomeComponent implements OnInit, AfterViewInit {
     textarea.style.opacity = '0';
     document.body.appendChild(textarea);
     textarea.select();
-  
+
     try {
       const success = document.execCommand('copy');
       if (success) {
-        this.messageService.add({ 
-          severity: 'success', 
-          summary: 'Thành công', 
-          detail: 'Bạn đã copy thành công', 
-          life: 3000 
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Thành công',
+          detail: 'Bạn đã copy thành công',
+          life: 3000
         });
       } else {
         throw new Error('Không thể sao chép');
       }
     } catch (err) {
       console.error('Lỗi khi sao chép:', err);
-      this.messageService.add({ 
-        severity: 'error', 
-        summary: 'Lỗi', 
-        detail: 'Không thể sao chép vào clipboard', 
-        life: 3000 
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Lỗi',
+        detail: 'Không thể sao chép vào clipboard',
+        life: 3000
       });
     }
-  
+
     document.body.removeChild(textarea);
   }
-  
+
 
   confirmActivateAccount(): void {
     // Logic to activate account
@@ -234,7 +234,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
         const moneyIn = data.map((item: any) => item.moneyIn);
         const moneyOut = data.map((item: any) => item.moneyOut);
         const dates = data.map((item: any) => item.date);
-  
+
         this.chartOptions = {
           series: [
             {
@@ -257,8 +257,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
             curve: "smooth"
           },
           xaxis: {
-            categories: dates, 
-            type: "category" 
+            categories: dates,
+            type: "category"
           },
           tooltip: {
             x: {
@@ -319,12 +319,12 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
         // Tính tổng cho balance2 (Sale1, Sale2, Sale3)
         this.balance2 = this.listWalletData
-          .filter((item: any) => ['Sale1', 'Sale2'].includes(item.walletTypeEnums))
+          .filter((item: any) => ['CustomerGratitude', 'CustomerShare'].includes(item.walletTypeEnums))
           .reduce((sum: number, item: any) => sum + (item.available || 0), 0);
 
         // Tính tổng cho balance3 (CustomerGratitude, CustomerShare)
         this.balance3 = this.listWalletData
-          .filter((item: any) => ['CustomerGratitude', 'CustomerShare'].includes(item.walletTypeEnums))
+          .filter((item: any) => ['Sale1', 'Sale2'].includes(item.walletTypeEnums))
           .reduce((sum: number, item: any) => sum + (item.available || 0), 0);
 
         // this.sale3 = this.listWalletData
@@ -337,6 +337,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
         console.error('Error fetching data:', error);
       });
   }
-  
+
 
 }

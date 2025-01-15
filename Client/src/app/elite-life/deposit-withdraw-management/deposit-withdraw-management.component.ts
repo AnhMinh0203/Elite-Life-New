@@ -419,7 +419,7 @@ export class DepositWithdrawManagementComponent {
     }
 
     if (model.WalletCommissionAmount < 0 || !model.WalletCommissionAmount) {
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Số tiền rút phải lớn hơn 0.' });
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Số tiền rút không hợp lệ' });
       return;
     }
 
