@@ -10,6 +10,7 @@ namespace Elite_life_datacontext.Model
     {
         public string Name { get; set; }
         public string UserName { get; set; }
+        public string Address { get; set; }
         public string Identity { get; set; }
         public string BankNumber { get; set; }
         public string Bank { get; set; }

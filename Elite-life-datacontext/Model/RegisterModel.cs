@@ -12,6 +12,7 @@ namespace Elite_life_datacontext.Model
         public string DisplayName { get; set; }
         public string Password { get; set; }
         public string Email { get; set; }
+        public string Address { get; set; }
         public string Mobile { get; set; }
         public string ApplicationType { get; set; }
         public string Identity { get; set; }

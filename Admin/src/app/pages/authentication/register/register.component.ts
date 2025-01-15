@@ -42,6 +42,7 @@ export class AppSideRegisterComponent {
   countdown: any;
   intervalId: any;
   otp: any;
+  Address: any;
 
   constructor(private http: HttpClient,
     private messageService: MessageService,
@@ -56,6 +57,7 @@ export class AppSideRegisterComponent {
       Mobile: new FormControl('', [Validators.required]),
       Parent: new FormControl('', [Validators.required]),
       Identity: new FormControl('', [Validators.required]),
+      Address: new FormControl('', [Validators.required]),
       IdentityPlace: new FormControl('', [Validators.required]),
       IdentityDate: new FormControl('', [Validators.required]),
       Password: new FormControl('', [Validators.required]),
@@ -134,6 +136,16 @@ export class AppSideRegisterComponent {
       });
       return;
     }
+
+    if (!this.Address) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Vui lòng điền địa chỉ',
+      });
+      return;
+    }
+
     if (!this.signUpForm.get('Identity')?.value?.trim()) {
       this.messageService.add({
         severity: 'error',
@@ -265,6 +277,7 @@ export class AppSideRegisterComponent {
     formData.append('Password', this.signUpForm.get('Password')?.value);
     formData.append('DisplayName', this.signUpForm.get('DisplayName')?.value);
     formData.append('Email', this.signUpForm.get('Email')?.value);
+    formData.append('Address', this.Address);
     formData.append('Mobile', this.signUpForm.get('Mobile')?.value);
     formData.append('ApplicationType', 'Sale');
     formData.append('Identity', this.signUpForm.get('Identity')?.value);

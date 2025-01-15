@@ -42,6 +42,7 @@ export class AppSideRegisterComponent {
   countdown: any;
   intervalId: any;
   otp: any;
+  Address: any;
 
   parentCode:any;
 
@@ -56,6 +57,7 @@ export class AppSideRegisterComponent {
       DisplayName: new FormControl('', [Validators.required]),
       Email: new FormControl('', [Validators.email]),
       Mobile: new FormControl('', [Validators.required]),
+      Address: new FormControl('', [Validators.required]),
       Parent: new FormControl('', [Validators.required]),
       Identity: new FormControl('', [Validators.required]),
       IdentityPlace: new FormControl('', [Validators.required]),
@@ -147,6 +149,16 @@ export class AppSideRegisterComponent {
       });
       return;
     }
+
+    if (!this.Address) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Vui lòng điền địa chỉ',
+      });
+      return;
+    }
+
     if (emailControl?.hasError('email')) {
       this.messageService.add({
         severity: 'error',
@@ -306,6 +318,7 @@ export class AppSideRegisterComponent {
     formData.append('DisplayName', this.signUpForm.get('DisplayName')?.value);
     formData.append('Email', this.signUpForm.get('Email')?.value);
     formData.append('Mobile', this.signUpForm.get('Mobile')?.value);
+    formData.append('Address', this.Address);
     formData.append('ApplicationType', 'Sale');
     formData.append('Identity', this.signUpForm.get('Identity')?.value);
     formData.append('IdentityPlace', this.signUpForm.get('IdentityPlace')?.value);
