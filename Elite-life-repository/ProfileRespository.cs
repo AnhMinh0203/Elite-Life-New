@@ -49,6 +49,7 @@ namespace Elite_life_repository
                     @"SELECT dbo.update_profile( 
                     @p_username, 
                     @p_displayname, 
+                    @p_address, 
                     @p_identity, 
                     @p_banknumber, 
                     @p_bank,
@@ -59,6 +60,7 @@ namespace Elite_life_repository
 
                 command.Parameters.AddWithValue("p_username", profileUpdateModel.UserName); 
                 command.Parameters.AddWithValue("p_displayname", profileUpdateModel.Name); 
+                command.Parameters.AddWithValue("p_address", profileUpdateModel.Address);
                 command.Parameters.AddWithValue("p_identity", profileUpdateModel.Identity); 
                 command.Parameters.AddWithValue("p_banknumber", profileUpdateModel.BankNumber); 
                 command.Parameters.AddWithValue("p_bank", profileUpdateModel.Bank);

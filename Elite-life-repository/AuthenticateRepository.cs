@@ -71,7 +71,7 @@ namespace Elite_life_repository
 
             var query = @"
                 SELECT * FROM dbo.create_user(
-                     @p_password, @p_displayname, @p_email, @p_mobile, 
+                     @p_password, @p_displayname, @p_email, @p_mobile, @p_address, 
                     @p_applicationtype, @p_identity, @p_identitydate, @p_identityplace, 
                     @p_parentcode, @p_bankid, @p_bankowner, @p_banknumber, @p_bankbranchname, @p_avatarpath
                 )";
@@ -82,6 +82,7 @@ namespace Elite_life_repository
                 p_displayname = (object?)model.DisplayName ?? DBNull.Value,
                 p_email = (object?)model.Email ?? DBNull.Value,
                 p_mobile = (object?)model.Mobile ?? DBNull.Value,
+                p_address = (object?)model.Address ?? DBNull.Value,
                 p_applicationtype = model.ApplicationType ?? "Sale",
                 p_identity = (object?)model.Identity ?? DBNull.Value,
                 p_identitydate = model.IdentityDate,
