@@ -66,7 +66,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   balance3: any;
   info: any;
 
-  isThreshold:any;
+  isThreshold: boolean = false;
   baseUrl: string = window.location.origin;
 
   constructor(
@@ -331,7 +331,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
         this.balance3 = this.listWalletData
           .filter((item: any) => ['Sale1', 'Sale2'].includes(item.walletTypeEnums))
           .reduce((sum: number, item: any) => sum + (item.available || 0), 0);
-
+        alert(this.isThreshold);
         if((this.rank == 'V' || this.rank == '') && this.balance2 >= this.maxReceive){
 
           this.isThreshold = true;
