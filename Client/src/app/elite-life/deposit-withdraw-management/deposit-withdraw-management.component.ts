@@ -410,13 +410,15 @@ export class DepositWithdrawManagementComponent {
   }
 
   withdrawCommission(type: string) {
-    if (!this.isThreshold && !['CustomerShare', 'CustomerGratitude'].includes(type)) {
-            this.messageService.add({
-        severity: 'error',
-        summary: 'Error',
-        detail: "Không thể rút tiền ở ví này vì đã đạt ngưỡng, vui lòng tái gói",
-      });
-      return;
+    if (this.isThreshold ) {
+      if(type === 'CustomerShare' || type === 'CustomerGratitude'){
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: "Không thể rút tiền ở ví này vì đã đạt ngưỡng, vui lòng tái gói",
+        });
+        return;
+      }
     }
     else {
       let model = {
