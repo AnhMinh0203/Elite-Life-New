@@ -13,7 +13,7 @@ export class TutorialComponent implements OnInit {
   currentPage = 1; // Trang hiện tại
   totalPages = 0;
 
-  constructor(private route: ActivatedRoute) { 
+  constructor(private route: ActivatedRoute) {
     this.checkScreenSize();
   }
 
@@ -34,37 +34,37 @@ export class TutorialComponent implements OnInit {
     // Sử dụng switch-case để kiểm tra và gán giá trị
     switch (currentPath) {
       case 'about-us':
-        this.src = '/assets/tutorial/about-us.pdf';
+        // this.src = '/assets/tutorial/about-us.pdf';
         this.titleName = 'Về chúng tôi';
         break;
 
       case 'guide':
-        this.src = '/assets/tutorial/hdsd.pdf';
+        // this.src = '/assets/tutorial/hdsd.pdf';
         this.titleName = 'Hướng dẫn sử dụng';
         break;
 
       case 'policy':
-        this.src = '/assets/tutorial/business-policy.pdf';
+        // this.src = '/assets/tutorial/business-policy.pdf';
         this.titleName = 'Chính sách kinh doanh';
         break;
 
       case 'legal':
-        this.src = '/assets/tutorial/legality.pdf';
+        // this.src = '/assets/tutorial/legality.pdf';
         this.titleName = 'Cơ sở pháp lý';
         break;
 
       case 'culture':
-        this.src = '/assets/tutorial/culture.pdf';
-        this.titleName = 'Văn hóa Elite';
+        // this.src = '/assets/tutorial/culture.pdf';
+        this.titleName = 'Văn hóa Hana';
         break;
 
       case 'training':
-        this.src = '/assets/tutorial/training.pdf';
+        // this.src = '/assets/tutorial/training.pdf';
         this.titleName = 'Đào tạo hướng dẫn';
         break
 
       default:
-        this.src = ''; 
+        this.src = '';
         break;
     }
   }

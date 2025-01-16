@@ -50,7 +50,7 @@ export const navItems: NavItem[] = [
   //   navCap: 'Extra',
   // },
   {
-    displayName: 'Văn hóa Elite',
+    displayName: 'Văn hóa Hana',
     iconName: 'file-text',
     route: '/culture',
   },

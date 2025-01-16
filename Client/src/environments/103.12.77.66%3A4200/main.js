@@ -1921,24 +1921,24 @@ class TutorialComponent {
     // Sử dụng switch-case để kiểm tra và gán giá trị
     switch (currentPath) {
       case 'about-us':
-        this.src = '/assets/tutorial/about-us.pdf';
+        // this.src = '/assets/tutorial/about-us.pdf';
         this.titleName = 'Về chúng tôi';
         break;
       case 'guide':
-        this.src = '/assets/tutorial/hdsd.pdf';
+        // this.src = '/assets/tutorial/hdsd.pdf';
         this.titleName = 'Hướng dẫn sử dụng';
         break;
       case 'policy':
-        this.src = '/assets/tutorial/business-policy.pdf';
+        // this.src = '/assets/tutorial/business-policy.pdf';
         this.titleName = 'Chính sách kinh doanh';
         break;
       case 'legal':
-        this.src = '/assets/tutorial/legality.pdf';
+        // this.src = '/assets/tutorial/legality.pdf';
         this.titleName = 'Cơ sở pháp lý';
         break;
       case 'culture':
-        this.src = '/assets/tutorial/culture.pdf';
-        this.titleName = 'Văn hóa Elite';
+        // this.src = '/assets/tutorial/culture.pdf';
+        this.titleName = 'Văn hóa Hana';
         break;
       default:
         this.src = '';
@@ -2680,7 +2680,7 @@ const navItems = [{
 //   navCap: 'Extra',
 // },
 {
-  displayName: 'Văn hóa Elite',
+  displayName: 'Văn hóa Hana',
   iconName: 'file-text',
   route: '/culture'
 }, {
