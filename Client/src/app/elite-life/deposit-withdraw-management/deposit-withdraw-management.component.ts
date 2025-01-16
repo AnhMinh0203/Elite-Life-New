@@ -297,7 +297,7 @@ export class DepositWithdrawManagementComponent {
       });
       return;
     }
-    if((this.withdrawalAmount - this.availableSource < 0)||(this.withdrawalAmount < 0)){
+    if(( this.availableSource - this.withdrawalAmount < 0)||(this.withdrawalAmount < 0)){
       this.messageService.add({
         severity: 'error',
         summary: 'Error',
