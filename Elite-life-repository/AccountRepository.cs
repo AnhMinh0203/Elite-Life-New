@@ -53,7 +53,7 @@ namespace Elite_life_repository
             using var connection = await connectPostgres.CreateConnectionAsync();
             try
             {
-                var query = @"SELECT delete_account(@UserName);";
+                var query = @"SELECT dbo.delete_account(@UserName);";
                 var result = await connection.ExecuteScalarAsync<string>(query, new { UserName = userName });
                 return result;
             }
@@ -209,7 +209,7 @@ namespace Elite_life_repository
             try
             {
                 // Gọi hàm PostgreSQL để thêm dữ liệu
-                var commandText = "select * from create_account_admin(@Name, @UserName, @Identity, @BankNumber, @Bank, @IdentityDate, @BankBranchName, @IdentityPlace, @BankOwner, @Phone, @Email);";
+                var commandText = "select * from dbo.create_account_admin(@Name, @UserName, @Identity, @BankNumber, @Bank, @IdentityDate, @BankBranchName, @IdentityPlace, @BankOwner, @Phone, @Email, @Password);";
                 using var command = new NpgsqlCommand(commandText, connection);
 
                 var salt = _passwordManager.GenerateSalt();

@@ -6,6 +6,7 @@ import { OrderService } from 'src/app/elite-life/service/order.service';
 import { AuthenticateService } from 'src/app/pages/authentication/service/authenticate.service';
 import { MessageService } from 'primeng/api';
 import { SharedService } from 'src/app/elite-life/share/shared.service';
+import { SharedStateService } from 'src/app/elite-life/share/shared-state.service';
 
 // Ví 1: EL10939
 // Ví 2: EL10940
@@ -49,7 +50,8 @@ export class HeaderComponent {
     private _orderService: OrderService,
     private messageService: MessageService,
     private router: Router,
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    private sharedStateService: SharedStateService
   ) { }
 
   ngOnInit() {
@@ -256,11 +258,14 @@ export class HeaderComponent {
       this._orderService.placeOrderService(model).subscribe({
         next: async (response: any) => {
           if (response?.statusCode === 200) {
+            // Cập nhật trạng thái isThreshold
+            this.sharedStateService.setIsThreshold(false);
             this.messageService.add({
               severity: 'success',
               summary: 'Success',
               detail: response.data.message
             });
+
             setTimeout(() => {
               location.reload();
             }, 1000);

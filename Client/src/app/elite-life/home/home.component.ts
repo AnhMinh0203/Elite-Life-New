@@ -14,6 +14,7 @@ import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import { CollaboratorService } from '../service/collaborator.service';
 import { WalletsService } from '../service/wallets.service';
+import { SharedStateService } from '../share/shared-state.service';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -64,6 +65,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
   balance2: any;
   balance3: any;
   info: any;
+
+  isThreshold:any;
   baseUrl: string = window.location.origin;
 
   constructor(
@@ -71,6 +74,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     private _statisticalService: StatisticalService,
     private _collaboratorService: CollaboratorService,
     private _walletsService: WalletsService,
+    private sharedStateService: SharedStateService
   ) {
     this.chartOptions = {
       series: [
@@ -310,6 +314,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   getWalletByCollaboratorId() {
+    this.maxReceive = this.info.maxReceive;
     this._walletsService.getWalletByCollaboratorId(this.info.id).subscribe(
       (response: any) => {
         this.listWalletData = response.data;
@@ -327,6 +332,11 @@ export class HomeComponent implements OnInit, AfterViewInit {
           .filter((item: any) => ['Sale1', 'Sale2'].includes(item.walletTypeEnums))
           .reduce((sum: number, item: any) => sum + (item.available || 0), 0);
 
+        if((this.rank == 'V' || this.rank == '') && this.balance2 >= this.maxReceive){
+
+          this.isThreshold = true;
+          this.sharedStateService.setIsThreshold(this.isThreshold);
+        }
         // this.sale3 = this.listWalletData
         //   .filter((item: any) => ['Sale3'].includes(item.walletTypeEnums))
         //   .reduce((sum: number, item: any) => sum + (item.available || 0), 0);
@@ -337,6 +347,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
         console.error('Error fetching data:', error);
       });
   }
+
+
 
 
 }

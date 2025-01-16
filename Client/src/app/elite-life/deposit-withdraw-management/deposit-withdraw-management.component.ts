@@ -6,6 +6,7 @@ import { DatePipe } from '@angular/common';
 import { HttpResponse } from '@angular/common/http';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { FormControl } from '@angular/forms';
+import { SharedStateService } from '../share/shared-state.service';
 
 @Component({
   selector: 'app-deposit-withdraw-management',
@@ -68,11 +69,13 @@ export class DepositWithdrawManagementComponent {
   singleSelectControl  = new FormControl();
   selectedUserOption:any;
   selectedUserName:any;
+  isThreshold = false;
 
   constructor(
     private datePipe: DatePipe,
     private messageService: MessageService,
-    private _withdrawService: WithdrawService
+    private _withdrawService: WithdrawService,
+    private sharedStateService: SharedStateService
   ) {}
 
   ngOnInit() {
@@ -83,6 +86,11 @@ export class DepositWithdrawManagementComponent {
     this.initializeWalletOptions();
     this.getWalletHistory();
     this.getAllCollaborator();
+    this.sharedStateService.isThreshold$.subscribe((value) => {
+      this.isThreshold = value;
+    });
+
+
   }
 
   onWindowScroll(event: any) {
@@ -402,62 +410,73 @@ export class DepositWithdrawManagementComponent {
   }
 
   withdrawCommission(type: string) {
-    let model = {
-      CollaboratorId: this.collaboratorId,
-      SourceAmount: this.availableSource,
-      WalletCommissionAmount: this.availableWallets,
-      WithdrawAmount: this.withdrawCommissionAmount,
-      WalletType: type
+    if (!this.isThreshold || !['CustomerShare', 'CustomerGratitude'].includes(type)) {
+      let model = {
+        CollaboratorId: this.collaboratorId,
+        SourceAmount: this.availableSource,
+        WalletCommissionAmount: this.availableWallets,
+        WithdrawAmount: this.withdrawCommissionAmount,
+        WalletType: type
+      }
+      if (!this.withdrawCommissionAmount || !type) {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: "Vui lòng nhập đủ thông tin",
+        });
+        return;
+      }
+
+      if (model.WalletCommissionAmount < 0 || !model.WalletCommissionAmount) {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Số tiền rút không hợp lệ' });
+        return;
+      }
+
+      if (model.WalletCommissionAmount - model.WithdrawAmount < 0) {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Số tiền không đủ' });
+        return;
+      }
+
+      this._withdrawService.withdrawCommissionRequest(model).subscribe({
+
+        next: async (response: any) => {
+          if (response?.message === 'Success') {
+            const note = this.createNoteForHistory(type);
+            await Promise.all([
+              this.createHistory(this.collaboratorId, type, this.withdrawCommissionAmount, `Nạp tiền từ ví ${note}`),
+              this.createHistory(this.collaboratorId, type, -this.withdrawCommissionAmount, `Rút hoa hồng từ ví ${note}`),
+            ]);
+
+
+            this.refreshWalletData(type)
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Success',
+              detail: response.data,
+            });
+            // Load lại
+            setTimeout(() => {
+              location.reload();
+            }, 1000);
+          } else {
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: response.message });
+          }
+        },
+        error: (err) => {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Có lỗi sảy ra khi tải dữ liệu' });
+          console.error(err);
+        },
+      });
     }
-    if (!this.withdrawCommissionAmount || !type) {
+    else {
       this.messageService.add({
         severity: 'error',
         summary: 'Error',
-        detail: "Vui lòng nhập đủ thông tin",
+        detail: "Không thể rút tiền ở ví này vì đã đạt ngưỡng, vui lòng tái gói",
       });
       return;
     }
 
-    if (model.WalletCommissionAmount < 0 || !model.WalletCommissionAmount) {
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Số tiền rút không hợp lệ' });
-      return;
-    }
-
-    if (model.WalletCommissionAmount - model.WithdrawAmount < 0) {
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Số tiền không đủ' });
-      return;
-    }
-
-    this._withdrawService.withdrawCommissionRequest(model).subscribe({
-
-      next: async (response: any) => {
-        if (response?.message === 'Success') {
-          const note = this.createNoteForHistory(type);
-          await Promise.all([
-            this.createHistory(this.collaboratorId, type, this.withdrawCommissionAmount, `Nạp tiền từ ví ${note}`),
-            this.createHistory(this.collaboratorId, type, -this.withdrawCommissionAmount, `Rút hoa hồng từ ví ${note}`),
-          ]);
-
-
-          this.refreshWalletData(type)
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Success',
-            detail: response.data,
-          });
-          // Load lại
-          setTimeout(() => {
-            location.reload();
-          }, 1000);
-        } else {
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: response.message });
-        }
-      },
-      error: (err) => {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Có lỗi sảy ra khi tải dữ liệu' });
-        console.error(err);
-      },
-    });
   }
 
   exportExcelWalletHistory() {
