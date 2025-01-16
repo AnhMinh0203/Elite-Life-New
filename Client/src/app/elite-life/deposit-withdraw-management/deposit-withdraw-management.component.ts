@@ -270,6 +270,14 @@ export class DepositWithdrawManagementComponent {
   }
 
   requestWithdrawMoney() {
+    if(this.withdrawalAmount > this.availableSource){
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: "Số tiền rút không được vượt quá số dư",
+      });
+      return;
+    }
     var model = {
       CollaboratorId: this.collaboratorId,
       BankNumber: this.bankNumber,
