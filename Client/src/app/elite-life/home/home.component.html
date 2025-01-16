@@ -4,7 +4,8 @@
     <mat-card class="cardWithShadow">
       <mat-card-content class="p-24 card-content">
         <mat-card-title>Số dư
-          <i matTooltip="Ví tài khoản" matTooltipPosition="right" class="pi pi-info-circle" style="cursor: pointer;"></i>
+          <i matTooltip="Ví tài khoản" matTooltipPosition="right" class="pi pi-info-circle"
+            style="cursor: pointer;"></i>
         </mat-card-title>
         <div class="row m-t-24">
           <div class="col-10 d-flex align-items-center">
@@ -24,10 +25,11 @@
   <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
     <mat-card class="cardWithShadow">
       <mat-card-content class="p-24 card-content">
-        <mat-card-title>Ví tri ân<i matTooltip="Ví tri ân" matTooltipPosition="right" class="pi pi-info-circle" style="cursor: pointer;"></i></mat-card-title>
+        <mat-card-title>Ví tri ân<i matTooltip="Ví tri ân" matTooltipPosition="right" class="pi pi-info-circle"
+            style="cursor: pointer;"></i></mat-card-title>
         <div class="row m-t-24">
           <div class="col-10 d-flex align-items-center">
-            <h4 class="mat-headline-5 balance-text"  style="color: #fff;">
+            <h4 class="mat-headline-5 balance-text" style="color: #fff;">
               {{ hideWallet2 ? getMaskedBalance2() : balance2 | number: '1.0-2' }} Điểm
             </h4>
             <button mat-icon-button (click)="hideWallet2 = !hideWallet2" type="button">
@@ -35,7 +37,8 @@
             </button>
           </div>
           <div class="col-10 d-flex align-items-center">
-            <p *ngIf="rank == 'None' || rank == 'V' " class="mat-headline-5 balance-text"  style="color: #B0903E; background-color: #fff; padding: 5px; border-radius: 10px; font-size: 0.8rem;">
+            <p *ngIf="rank == 'None' || rank == 'V' " class="mat-headline-5 balance-text"
+              style="color: #B0903E; background-color: #fff; padding: 5px; border-radius: 10px; font-size: 0.8rem;">
               Đã hưởng: {{ totalReceive | number: '1.0-2' }} / {{ maxReceive | number: '1.0-2' }} Điểm
             </p>
           </div>
@@ -47,10 +50,11 @@
   <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
     <mat-card class="cardWithShadow">
       <mat-card-content class="p-24 card-content">
-        <mat-card-title>Hoa hồng NVKD <i matTooltip="Ví hoa hồng NVKD" matTooltipPosition="right" class="pi pi-info-circle" style="cursor: pointer;"></i></mat-card-title>
+        <mat-card-title>Hoa hồng NVKD <i matTooltip="Ví hoa hồng NVKD" matTooltipPosition="right"
+            class="pi pi-info-circle" style="cursor: pointer;"></i></mat-card-title>
         <div class="row m-t-24">
           <div class="col-10 d-flex align-items-center">
-            <h4 class="mat-headline-5 balance-text"  style="color: #fff;">
+            <h4 class="mat-headline-5 balance-text" style="color: #fff;">
               {{ hideWallet3 ? getMaskedBalance3() : balance3 | number: '1.0-2' }} Điểm
             </h4>
             <button mat-icon-button (click)="hideWallet3 = !hideWallet3" type="button">
@@ -58,7 +62,8 @@
             </button>
           </div>
           <div class="col-10 d-flex align-items-center">
-            <p *ngIf="rank != 'None' && rank != 'V' " class="mat-headline-5 balance-text"  style="color: #B0903E; background-color: #fff; padding: 5px; border-radius: 10px; font-size: 0.8rem;">
+            <p *ngIf="rank != 'None' && rank != 'V' " class="mat-headline-5 balance-text"
+              style="color: #B0903E; background-color: #fff; padding: 5px; border-radius: 10px; font-size: 0.8rem;">
               Ví tái tiêu dùng: {{ sale3 | number: '1.0-2' }}
             </p>
           </div>
@@ -75,28 +80,30 @@
       <mat-card-content class="p-24" style="color: #fff; border-radius: 10px; background: #444;">
         <div class="d-flex flex-wrap align-items-center">
           <div class="avatar" style="border-radius: 50%; margin-right: 15px;">
-            <img src="https://static.vecteezy.com/system/resources/previews/009/292/244/non_2x/default-avatar-icon-of-social-media-user-vector.jpg" alt="avatar" class="avatar-img">
+            <img
+              src="https://static.vecteezy.com/system/resources/previews/009/292/244/non_2x/default-avatar-icon-of-social-media-user-vector.jpg"
+              alt="avatar" class="avatar-img">
           </div>
           <div class="info">
             <div class="infor-name d-flex" style="align-items: center;">
               <h4 class="mat-headline-5 fullname">{{fullName}}</h4>
-              <span *ngIf="info.rank != 'None'" style="color: #6F5E04; margin-left: 20px; font-size: 1.4rem; padding: 5px 20px; border-radius: 15px; background: conic-gradient(from 180deg at 50% 50%, #907C39 109.43986773490906deg, #DBBC56 183.23987245559692deg, #C2A64C 262.4398612976074deg, #F4D160 311.0398578643799deg);">{{rank}}</span>
+              <span *ngIf="info.rank != 'None'"
+                style="color: #6F5E04; margin-left: 20px; font-size: 1.4rem; padding: 5px 20px; border-radius: 15px; background: conic-gradient(from 180deg at 50% 50%, #907C39 109.43986773490906deg, #DBBC56 183.23987245559692deg, #C2A64C 262.4398612976074deg, #F4D160 311.0398578643799deg);">{{rank}}</span>
               <div *ngIf="star > 0" class="star" style="margin-left: 20px;">
-                <i *ngFor="let item of [].constructor(star); let i = index"
-                   style="color: #FFD400; padding: 0 5px;"
-                   class="pi pi-star-fill"></i>
+                <i *ngFor="let item of [].constructor(star); let i = index" style="color: #FFD400; padding: 0 5px;"
+                  class="pi pi-star-fill"></i>
               </div>
             </div>
             <p>Mã hội viên: {{userName}}</p>
             <p>Số thành viên mời:{{data?.length ?? 0}}</p>
             <p>Ngày tham gia: {{joiningDate | date: 'dd/MM/yyyy'}}</p>
           </div>
-           <div class="btn_invite" style="position: absolute; top: 16px; right: 16px;">
-                <span>Mã Mời: </span>
-                <button (click)="copyToClipboard(baseUrl + '/authentication/register?collaboratorCode=' + userName)">
-                  <i class="pi pi-clone"></i>
-                </button>
-              </div>
+          <div class="btn_invite" style="position: absolute; top: 16px; right: 16px;">
+            <span>Mã Mời: </span>
+            <button (click)="copyToClipboard(baseUrl + '/authentication/register?collaboratorCode=' + userName)">
+              <i class="pi pi-clone"></i>
+            </button>
+          </div>
         </div>
       </mat-card-content>
     </mat-card>
@@ -119,14 +126,9 @@
             </mat-form-field>
           </div>
         </div>
-        <apx-chart
-        [series]="chartOptions.series"
-        [chart]="chartOptions.chart"
-        [xaxis]="chartOptions.xaxis"
-        [stroke]="chartOptions.stroke"
-        [tooltip]="chartOptions.tooltip"
-        [dataLabels]="chartOptions.dataLabels"
-      ></apx-chart>
+        <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [xaxis]="chartOptions.xaxis"
+          [stroke]="chartOptions.stroke" [tooltip]="chartOptions.tooltip"
+          [dataLabels]="chartOptions.dataLabels"></apx-chart>
       </mat-card-content>
     </mat-card>
   </div>
@@ -138,7 +140,8 @@
         <div class="d-flex w-100">
           <mat-card-title style="color: #B0903E;">Bảng thành viên({{collaboratorNumber}})</mat-card-title>
           <div class="m-l-auto">
-            <p-button (onClick)="exportExcelCollaboratorByParentId()" label="Xuất Excel" icon="pi pi-file-export" styleClass="m-0" [outlined]="true" />
+            <p-button (onClick)="exportExcelCollaboratorByParentId()" label="Xuất Excel" icon="pi pi-file-export"
+              styleClass="m-0" [outlined]="true" />
           </div>
         </div>
         <div class="">
@@ -164,9 +167,8 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
           </table>
 
-          <mat-paginator [pageSizeOptions]="[5, 10, 20]"
-                         showFirstLastButtons
-                         aria-label="Select page of periodic elements">
+          <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+            aria-label="Select page of periodic elements">
           </mat-paginator>
         </div>
       </mat-card-content>
@@ -181,5 +183,4 @@
   <p>Đã vượt ngưỡng hưởng hoa hồng từ ví tri ân. Vui lòng tái gói để tiếp tục hưởng hoa hồng</p>
 </div>
 </p-dialog>
-
 

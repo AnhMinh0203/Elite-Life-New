@@ -127,6 +127,9 @@ export class HomeComponent implements OnInit, AfterViewInit {
     }));
     this.getDataForMonth(1);
     this.getWalletByCollaboratorId();
+    this.sharedStateService.isThreshold$.subscribe(
+      (value) => (this.isThreshold = value)
+    );
   }
 
   ngAfterViewInit(): void {
@@ -314,6 +317,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   getWalletByCollaboratorId() {
+
     this.maxReceive = this.info.maxReceive;
     this._walletsService.getWalletByCollaboratorId(this.info.id).subscribe(
       (response: any) => {
@@ -331,10 +335,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
         this.balance3 = this.listWalletData
           .filter((item: any) => ['Sale1', 'Sale2'].includes(item.walletTypeEnums))
           .reduce((sum: number, item: any) => sum + (item.available || 0), 0);
-        if((this.rank == 'V' || this.rank == '') && this.balance2 > this.maxReceive){
+        if((this.rank == 'V' || this.rank == '' || this.rank == "None") && this.totalReceive > this.maxReceive){
 
           this.isThreshold = true;
-          this.sharedStateService.setIsThreshold(this.isThreshold);
+          this.sharedStateService.setIsThreshold(true);
         }
         // this.sale3 = this.listWalletData
         //   .filter((item: any) => ['Sale3'].includes(item.walletTypeEnums))
@@ -346,8 +350,4 @@ export class HomeComponent implements OnInit, AfterViewInit {
         console.error('Error fetching data:', error);
       });
   }
-
-
-
-
 }
