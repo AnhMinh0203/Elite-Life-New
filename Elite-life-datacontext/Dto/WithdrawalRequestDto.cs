@@ -15,6 +15,7 @@ namespace Elite_life_datacontext.Dto
         public string BankOwner { get; set; }
         public string BankName { get; set; }
         public string BankBranchName { get; set; }
+        public decimal TotalAmount { get; set; }
         public decimal WithdrawalAmount { get; set; }
         public string Note { get; set; }
         public string Status { get; set; }

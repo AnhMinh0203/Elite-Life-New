@@ -31,6 +31,7 @@
                     <th style="width:15%">Số tài khoản</th>
                     <th style="width:20%">Ngân hàng</th>
                     <th style="width:15%">Chi nhánh</th>
+                    <th style="width:15%">Số dư trong ví tài khoản</th>
                     <th style="width:15%">Số tiền</th>
                     <th style="width:15%">Thuế</th>
                     <th style="width:15%">Số tiền thực nhận</th>
@@ -75,6 +76,13 @@
                         field="bankBranchName" 
                         placeholder="" 
                         ariaLabel="Filter Name" />
+                    </th>
+                    <th>
+                      <p-columnFilter 
+                        type="text"
+                        field="totalAmount"
+                        placeholder="" 
+                        ariaLabel="Filter Country" />
                     </th>
                     <th>
                       <p-columnFilter 
@@ -133,8 +141,10 @@
                       <td>{{ customer.bankNumber}}</td>
                       <td>{{ customer.bankName }}</td>
                       <td>{{ customer.bankBranchName }}</td>
+                      <td>{{ customer.totalAmount | number: '1.0-2' }}</td>
                       <td>{{ customer.withdrawalAmount | number: '1.0-2' }}</td>
-                      <td>{{ customer.tax | number: '1.0-2'}}</td>
+                      <!-- <td>{{ customer.tax | number: '1.0-2'}}</td> -->
+                      <td>0</td>
                       <td>{{ customer.actualNumberReceived | number: '1.0-2' }}</td>
                       <td>{{ customer.note }}</td>
                       <td [ngStyle]="{ color: customer.status === 'Reject' ? 'red' : (customer.status === 'Accept' ? 'green' : '#B0903E') }">{{ customer.status }}</td>

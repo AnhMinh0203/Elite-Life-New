@@ -255,7 +255,7 @@ export class DepositWithdrawManagementComponent {
 
   updateActualReceive() {
     if (this.withdrawalAmount) {
-      this.actualReceive = this.withdrawalAmount * 0.9;
+      this.actualReceive = this.withdrawalAmount;
     } else {
       this.actualReceive = 0;
     }
