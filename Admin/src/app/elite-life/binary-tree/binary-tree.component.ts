@@ -42,7 +42,7 @@ export class BinaryTreeComponent implements OnInit {
 
     collaborators.forEach(collaborator => {
       map[collaborator.id] = {
-        label: collaborator.userName,
+        label: `${collaborator.userName} (${collaborator.id})`,
         expanded: true,
         data: collaborator.id.toString(),
         children: []
