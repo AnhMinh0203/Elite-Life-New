@@ -142,11 +142,11 @@ export class HomeComponent implements OnInit, AfterViewInit {
         localStorage.setItem('info', JSON.stringify(response.data));
         this.info = JSON.parse(localStorage.getItem('info') || '{}');
         this.maxReceive = this.info.maxReceive;
-        this.sale3 = this.info.sale1Received + this.info.sale2Received;
+        //this.sale3 = this.info.sale1Received + this.info.sale2Received;
         this.totalReceive = this.info.shareReceived + this.info.gratitudeReceived
         this.rank = this.info.rank;
         this.star = this.info.star;
-        this.joiningDate = this.info.beginDate;
+        this.joiningDate = this.info.createdAt;
         this.userName = this.info.userName;
         this.fullName = this.info.name;
       },
@@ -340,9 +340,9 @@ export class HomeComponent implements OnInit, AfterViewInit {
           this.isThreshold = true;
           this.sharedStateService.setIsThreshold(true);
         }
-        // this.sale3 = this.listWalletData
-        //   .filter((item: any) => ['Sale3'].includes(item.walletTypeEnums))
-        //   .reduce((sum: number, item: any) => sum + (item.available || 0), 0);
+        this.sale3 = this.listWalletData
+          .filter((item: any) => ['Sale3'].includes(item.walletTypeEnums))
+          .reduce((sum: number, item: any) => sum + (item.available || 0), 0);
 
       },
       (error: any) => {
