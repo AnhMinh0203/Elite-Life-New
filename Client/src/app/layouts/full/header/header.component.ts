@@ -251,6 +251,7 @@ export class HeaderComponent {
       let model = {
         CollaboratorId: this.collaboratorId,
         ProductId: 1,
+        WarehouseName: this.selectedWarehouse,
         Value: this.amountOrder * 3450000,
         Amount: this.amountOrder,
         Payed: this.payed
