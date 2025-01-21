@@ -19,4 +19,16 @@ namespace Elite_life_datacontext.Model
         public string EndDate { get; set; } = string.Empty;
     }
 
+    public class OrderStatus
+    {
+        public int OrderId { get; set; }
+        public string Status { get; set; }  
+    }
+
+    public class OrderNote
+    {
+        public int OrderId { get; set; }
+        public string Note { get; set; }
+    }
+
 }

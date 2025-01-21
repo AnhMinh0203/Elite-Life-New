@@ -87,6 +87,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { AccountManagerComponent } from './elite-life/account-manager/account-manager.component';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 @NgModule({
   declarations: [
     AppComponent,
@@ -159,7 +160,8 @@ import { AccountManagerComponent } from './elite-life/account-manager/account-ma
     SplitterModule,
     ImageModule,
     InputNumberModule,
-    ConfirmPopupModule
+    ConfirmPopupModule,
+    InputTextareaModule
   ],
   exports: [TablerIconsModule],
   bootstrap: [AppComponent],

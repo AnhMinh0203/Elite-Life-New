@@ -23,6 +23,8 @@ export class CartManagerComponent implements OnInit {
   listBill: any;
   first = 0;
   visibleCommission: boolean = false;
+  visibleNote: boolean = false;
+  noteValue: any;
   listCommission: any;
   isLoading: boolean = false;
   permission: any;
@@ -44,7 +46,12 @@ export class CartManagerComponent implements OnInit {
           label: 'Chi tiết hoa hồng',
           icon: 'pi pi-dollar',
           command: () => this.showDialogComission()
-      }
+      },
+      {
+        label: 'Ghi chú',
+        icon: 'pi pi-note',
+        command: () => this.showDialogNote()
+    }
     ]
    }
 
@@ -189,5 +196,63 @@ export class CartManagerComponent implements OnInit {
       }
     );
   }
+  showDialogNote(){
+    this.visibleNote = true;
+    this.isLoading = true;
+    this._orderService.getNoteOrderService(this.cart.orderId).subscribe(
+      (response: any) => {
+        if(response.data) {
+          this.noteValue = response.data
+          this.isLoading = false;
+        }
+      },
+      (error: any) => {
+        console.error('Error fetching data:', error);
+        this.isLoading = false
+      }
+    );
+  }
 
+  updateStatusOrder(status: string,customer: any) {
+    this.changId(customer);
+    const model = {
+      orderId: this.cart.orderId,
+      status: status
+    }
+
+    this._orderService.updateStatusOrderService(model).subscribe(
+      (response: any) => {
+        if(response.message == 'Success') {
+          this.getOrderInfor();
+          this.messageService.add({severity:'success', summary: 'Thành công', detail: 'Cập nhật thành công'});
+        }
+      },
+      (error: any) => {
+        console.error('Lỗi:', error);
+      }
+    );
+  }
+
+  onCancelUpdateNote(){
+    this.visibleNote = false;
+  }
+
+  updateNoteOrderService() {
+    const model = {
+      orderId: this.cart.orderId,
+      note: this.noteValue
+    }
+
+    this._orderService.updateNoteOrderService(model).subscribe(
+      (response: any) => {
+        if(response.message == 'Success') {
+          this.getOrderInfor();
+          this.messageService.add({severity:'success', summary: 'Thành công', detail: 'Cập nhật thành công'});
+        }
+      },
+      (error: any) => {
+        console.error('Lỗi:', error);
+      }
+    );
+  }
 }

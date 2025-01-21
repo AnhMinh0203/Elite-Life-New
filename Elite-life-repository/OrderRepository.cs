@@ -1277,6 +1277,102 @@ namespace Elite_life_repository
             }
         }
 
-        
+        public async Task<string> UpdateStatusOrderAsync (OrderStatus orderStatus)
+        {
+            var connectPostgres = new ConnectToPostgresql(_configuration);
+            using var connection = await connectPostgres.CreateConnectionAsync();
+
+            try
+            {
+                using var command = connection.CreateCommand();
+                command.CommandText = @"UPDATE dbo.""Orders"" 
+                                SET ""AdminApprove"" = @status 
+                                WHERE ""Id"" = @orderId";
+
+                command.Parameters.AddWithValue("@status", orderStatus.Status);
+                command.Parameters.AddWithValue("@orderId", orderStatus.OrderId);
+
+                var affectedRows = await command.ExecuteNonQueryAsync();
+
+                return affectedRows > 0
+                    ? "Cập nhật trạng thái đơn hàng thành công."
+                    : "Lỗi: Không tìm thấy đơn hàng với Id tương ứng.";
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Lỗi: {ex.Message}", ex);
+            }
+            finally
+            {
+                await connection.CloseAsync();
+            }
+        }
+
+        public async Task<string> UpdateNoteOrderAsync(OrderNote orderNote)
+        {
+            var connectPostgres = new ConnectToPostgresql(_configuration);
+            using var connection = await connectPostgres.CreateConnectionAsync();
+
+            try
+            {
+                using var command = connection.CreateCommand();
+                command.CommandText = @"UPDATE dbo.""Orders"" 
+                                SET ""Note"" = @note 
+                                WHERE ""Id"" = @orderId";
+
+                command.Parameters.AddWithValue("@note", orderNote.Note);
+                command.Parameters.AddWithValue("@orderId", orderNote.OrderId);
+
+                var affectedRows = await command.ExecuteNonQueryAsync();
+
+                return affectedRows > 0
+                    ? "Cập nhật ghi chú đơn hàng thành công."
+                    : "Lỗi: Không tìm thấy ghi chú tương ứng.";
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Lỗi: {ex.Message}", ex);
+            }
+            finally
+            {
+                await connection.CloseAsync();
+            }
+        }
+
+        public async Task<string> GetNoteOrderAsync(int orderId)
+        {
+            var connectPostgres = new ConnectToPostgresql(_configuration);
+            using var connection = await connectPostgres.CreateConnectionAsync();
+
+            try
+            {
+                using var command = connection.CreateCommand();
+                command.CommandText = @"select ""Note"" from dbo.""Orders"" 
+                                WHERE ""Id"" = @orderId";
+
+                // Thêm tham số vào câu lệnh
+                command.Parameters.AddWithValue("@orderId", orderId);
+
+                using var reader = await command.ExecuteReaderAsync();
+                if (await reader.ReadAsync())
+                {
+                    return reader["Note"] as string ?? string.Empty;
+                }
+                else
+                {
+                    return "";
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Lỗi khi truy vấn ghi chú đơn hàng: {ex.Message}", ex);
+            }
+            finally
+            {
+                // Đảm bảo đóng kết nối
+                await connection.CloseAsync();
+            }
+        }
+
     }
 }

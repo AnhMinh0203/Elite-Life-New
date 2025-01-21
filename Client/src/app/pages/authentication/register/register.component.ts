@@ -62,7 +62,11 @@ export class AppSideRegisterComponent {
       Identity: new FormControl('', [Validators.required]),
       IdentityPlace: new FormControl('', [Validators.required]),
       IdentityDate: new FormControl('', [Validators.required]),
-      Password: new FormControl('', [Validators.required]),
+      Password: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^(?=.*[A-Za-z])(?=.*\\d).{8,}$')
+        // Regex để yêu cầu chữ, số và tối thiểu 8 ký tự
+      ]),
       ConfirmPassword: new FormControl('', [Validators.required]),
       Bank: new FormControl('', [Validators.required]),
       BankNumber: new FormControl('', [Validators.required]),
@@ -223,6 +227,7 @@ export class AppSideRegisterComponent {
       });
       return;
     }
+
     if (this.signUpForm.get('Password')?.value.trim() !== this.signUpForm.get('ConfirmPassword')?.value.trim()) {
       this.messageService.add({
         severity: 'error',
@@ -231,7 +236,14 @@ export class AppSideRegisterComponent {
       });
       return;
     }
-
+    if(this.signUpForm.get('Password')?.hasError('pattern')){
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Mật khẩu phải gồm ít nhất 8 ký tự, bao gồm cả chữ và số',
+      });
+      return;
+    }
     this.parentCode = this.signUpForm.get('Parent')?.value;
     if(this.parentCode){
       this._authenticateService.checkParent({ UserName: this.parentCode }).subscribe({
@@ -254,7 +266,9 @@ export class AppSideRegisterComponent {
           });
         },
       });
-    }else {
+    }
+
+    else {
       // Nếu không có parentCode, chuyển ngay sang form tiếp theo
       this.currentForm = 2;
     }

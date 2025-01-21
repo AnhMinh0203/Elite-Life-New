@@ -28,5 +28,8 @@ namespace Elite_life_repository.Interfaces
         Task<List<OrderHistoryModel>> GetOrdersByDateRangeAsync(OrderRange orderRange);
         Task<MemoryStream> ExportExcelOrderByDateRange(OrderRange orderRange);
         Task<string> CheckStarAncestorsAsync(int collaboratorId);
+        Task<string> UpdateStatusOrderAsync(OrderStatus orderStatus);
+        Task<string> UpdateNoteOrderAsync(OrderNote orderNote);
+        Task<string> GetNoteOrderAsync(int orderId);
     }
 }

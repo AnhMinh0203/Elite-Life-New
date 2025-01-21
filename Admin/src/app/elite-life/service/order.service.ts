@@ -186,4 +186,33 @@ export class OrderService {
     });
   }
 
+  updateStatusOrderService(model: any){
+    const apiUrl = `${this.serviceUri}/order-updateStatus`;
+    return this._http.post<ResponseResult>(apiUrl, model)
+      .pipe(
+        catchError((error: any) => {
+          throw error;
+        })
+      );
+  }
+
+
+  updateNoteOrderService(model: any){
+    const apiUrl = `${this.serviceUri}/order-updateNote`;
+    return this._http.post<ResponseResult>(apiUrl, model)
+      .pipe(
+        catchError((error: any) => {
+          throw error;
+        })
+      );
+  }
+  getNoteOrderService(orderId: number){
+    const apiUrl = `${this.serviceUri}/order-getNote?orderId=${orderId}`;
+    return this._http.get<ResponseResult>(apiUrl)
+      .pipe(
+        catchError((error: any) => {
+          throw error;
+        })
+      );
+  }
 }

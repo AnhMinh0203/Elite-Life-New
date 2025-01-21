@@ -272,5 +272,42 @@ namespace Elite_life.Controllers
 
             return MethodResult.ResultWithSuccess(result, 200, "Success");
         }
+
+        [HttpPost]
+        [Route("order-updateStatus")]
+        public async Task<MethodResult> UpdateStatusOrder(OrderStatus orderStatus)
+        {
+            var result = await _orderRepos.UpdateStatusOrderAsync(orderStatus);
+            if (string.IsNullOrEmpty(result) || result.Contains("Lỗi"))
+            {
+                return MethodResult.ResultWithError(result, 400, "Not Found");
+            }
+            return MethodResult.ResultWithSuccess(result, 200, "Success");
+        }
+
+
+        [HttpPost]
+        [Route("order-updateNote")]
+        public async Task<MethodResult> UpdateNoteOrder(OrderNote orderNote)
+        {
+            var result = await _orderRepos.UpdateNoteOrderAsync(orderNote);
+            if (string.IsNullOrEmpty(result) || result.Contains("Lỗi"))
+            {
+                return MethodResult.ResultWithError(result, 400, "Not Found");
+            }
+            return MethodResult.ResultWithSuccess(result, 200, "Success");
+        }
+
+        [HttpGet]
+        [Route("order-getNote")]
+        public async Task<MethodResult> GetNoteOrder(int orderId)
+        {
+            var result = await _orderRepos.GetNoteOrderAsync(orderId);
+            if (string.IsNullOrEmpty(result) || result.Contains("Lỗi"))
+            {
+                return MethodResult.ResultWithError(result, 400, "Not Found");
+            }
+            return MethodResult.ResultWithSuccess(result, 200, "Success");
+        }
     }
 }

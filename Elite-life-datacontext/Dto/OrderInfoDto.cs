@@ -16,5 +16,6 @@ namespace Elite_life_datacontext.Dto
         public DateTime? DeliveryDate { get; set; }
         public int TotalCount { get; set; }
         public string WarehouseName { get; set; }
+        public string Note { get; set; }
     }
 }

@@ -299,8 +299,21 @@ namespace Elite_life.Controllers
                     {
                         From = new MailAddress(senderEmail),
                         Subject = "Mã OTP và thông tin tài khoản của bạn",
-                        Body = $"Mã OTP của bạn là: {otp.ToString()}\nThông tin tài khoản của bạn:\nMật khẩu: {PassWord}",
-                        IsBodyHtml = false
+                        Body = $@"
+                                <html>
+                                <body>
+                                    <p>Xin chào,</p>
+                                    <p>Cảm ơn bạn đã đăng ký tài khoản với chúng tôi. Dưới đây là thông tin xác thực của bạn:</p>
+                                    <p><b>Mã OTP:</b> {otp}</p>
+                                    <p><b>Thông tin tài khoản:</b><br />
+                                    Mật khẩu: {PassWord}</p>
+                                    <p>Chúng tôi luôn sẵn sàng hỗ trợ bạn nếu có bất kỳ thắc mắc nào!</p>
+                                    <p>Cảm ơn bạn và chúc bạn một ngày tuyệt vời!</p>
+                                    <br />
+                                    <p><i>Trân trọng,</i><br />Đội ngũ hỗ trợ khách hàng Hana</p>
+                                </body>
+                                </html>",
+                        IsBodyHtml = true
                     };
                     mailMessage.To.Add(email);
 
