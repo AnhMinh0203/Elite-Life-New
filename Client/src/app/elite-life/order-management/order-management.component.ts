@@ -134,4 +134,30 @@ export class OrderManagementComponent {
   }
 
 
+  getStatusClass(status: string): string {
+    switch (status) {
+      case 'Pending':
+        return 'text-yellow';
+      case 'Reject':
+        return 'text-red';
+      case 'Approved':
+        return 'text-green';
+      default:
+        return '';
+    }
+  }
+
+  getStatusText(status: string): string {
+    switch (status) {
+      case 'Pending':
+        return 'Đang chờ';
+      case 'Reject':
+        return 'Hủy bỏ';
+      case 'Approved':
+        return 'Đã xử lý';
+      default:
+        return status;
+    }
+  }
+
 }

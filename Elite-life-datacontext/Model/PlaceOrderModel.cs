@@ -10,6 +10,7 @@ namespace Elite_life_datacontext.Model
     {
         public int CollaboratorId { get; set; }
         public int ProductId { get; set; }
+        public string WarehouseName { get; set; }
         public decimal Value { get; set; }
         public int Amount { get; set; }
         public decimal Payed {  get; set; } 

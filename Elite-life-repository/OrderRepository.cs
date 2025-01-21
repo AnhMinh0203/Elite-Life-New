@@ -224,12 +224,14 @@ namespace Elite_life_repository
                 command.CommandText = @"SELECT * FROM dbo.create_order(
                     @p_collaboratorId, 
                     @p_productid, 
+                    @p_warehouseName,
                     @p_value,
                     @p_amount,
                     @p_payed)";
 
                 command.Parameters.AddWithValue("@p_collaboratorId", placeOrderModel.CollaboratorId);
                 command.Parameters.AddWithValue("@p_productid", placeOrderModel.ProductId);
+                command.Parameters.AddWithValue("@p_warehouseName", placeOrderModel.WarehouseName);
                 command.Parameters.AddWithValue("@p_value", placeOrderModel.Value);
                 command.Parameters.AddWithValue("@p_amount", placeOrderModel.Amount);
                 command.Parameters.AddWithValue("@p_payed", placeOrderModel.Payed);

@@ -11,5 +11,7 @@ namespace Elite_life_datacontext.Model
         public DateTime CreatedAt { get; set; }
         public decimal Payed { get; set; }
         public decimal Amount { get; set; }
+        public string WarehouseName { get; set; }
+        public string AdminApprove { get; set; }
     }
 }

@@ -47,7 +47,14 @@
               </div>
             </div>
             <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
-              <b>{{ order.payed | currency: 'VND' }}</b>
+              <div class="d-flex flex-column p-x-24">
+                <div class="order_infor--price">
+                  <b>{{ order.payed | currency: 'VND' }}</b>
+                </div>
+                <div class="order_infor--status m-t-12" [ngClass]="getStatusClass(order.adminApprove)">
+                  {{ getStatusText(order.adminApprove) }}
+                </div>
+              </div>
             </div>
           </div>
         </div>

@@ -30,7 +30,7 @@ export class CartManagerComponent implements OnInit {
   isPermissionDelivery: boolean = false;
 
   constructor(
-    private _orderService: OrderService, 
+    private _orderService: OrderService,
     private messageService: MessageService,
     private _timezoneServie: TimeZoneService,
     private _walletDetailService: WalletDetailService) {
@@ -70,7 +70,7 @@ export class CartManagerComponent implements OnInit {
       startDate: this.startDate ? this._timezoneServie.convertUTCToTimezone(this.startDate).trim() : null,
       endDate: this.endDate ? this._timezoneServie.convertUTCToTimezone(this.endDate).trim() : null,
     };
-    
+
     this._orderService.getOrderInfor(model).subscribe(
       (response: any) => {
         this.data = response.data;
@@ -105,10 +105,12 @@ export class CartManagerComponent implements OnInit {
   searchName() {
     if(this.search) {
       this.data = this.data.filter((item: any) => item != null);
-      this.data = this.data.filter((item: any) => 
-        (item?.mobile?.toLowerCase()?.includes(this.search.trim().toLowerCase()) || 
+      this.data = this.data.filter((item: any) =>
+        (item?.mobile?.toLowerCase()?.includes(this.search.trim().toLowerCase()) ||
          item?.name?.toLowerCase()?.includes(this.search.trim().toLowerCase()) ||
-         item?.address?.toLowerCase()?.includes(this.search.trim().toLowerCase()))
+         item?.address?.toLowerCase()?.includes(this.search.trim().toLowerCase()) ||
+         item?.warehouseName?.toLowerCase()?.includes(this.search.trim().toLowerCase())
+        )
       );
     } else {
       this.getOrderInfor();

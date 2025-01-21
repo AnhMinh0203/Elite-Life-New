@@ -16,9 +16,9 @@
         <div class="d-flex w-100">
           <mat-card-title style="color: #B0903E;">Quản lý đơn hàng</mat-card-title>
           <div class="m-l-auto">
-            <p-calendar 
-              [(ngModel)]="rangeDates" 
-              selectionMode="range" 
+            <p-calendar
+              [(ngModel)]="rangeDates"
+              selectionMode="range"
               [ngStyle]="{'margin-right': '10px'}"
               [showIcon]="true"
               (onSelect)="onDateChange($event)"
@@ -45,29 +45,38 @@
                   </th>
                   <th style="width:15%">Địa chỉ</th>
                   <th style="width:5%">Số điện thoại</th>
+                  <th style="width:5%">Kho hàng</th>
+                  <th style="width:5%">Xử lý</th>
               </tr>
               <tr>
                 <th></th>
                 <th></th>
                 <th>
-                  <p-columnFilter 
+                  <p-columnFilter
                     type="text"
-                    field="name" 
-                    placeholder="" 
+                    field="name"
+                    placeholder=""
                     ariaLabel="Filter Name" />
                 </th>
                 <th>
-                  <p-columnFilter 
+                  <p-columnFilter
                     type="text"
                     field="address"
-                    placeholder="" 
+                    placeholder=""
                     ariaLabel="Filter Country" />
                 </th>
                 <th>
-                  <p-columnFilter 
+                  <p-columnFilter
                     type="text"
                     field="mobile"
-                    placeholder="" 
+                    placeholder=""
+                    ariaLabel="Filter Country" />
+                </th>
+                <th>
+                  <p-columnFilter
+                    type="text"
+                    field="warehouseName"
+                    placeholder=""
                     ariaLabel="Filter Country" />
                 </th>
               </tr>
@@ -76,11 +85,11 @@
               <tr>
                   <td style="align-items: center;">
                     <i class="pi pi-bars" style="color: #fff; background-color: green; padding: 5px 5px; cursor: pointer;" (click)="menu.toggle($event)" (click)="changId(customer)"></i>
-                    <p-tieredMenu 
-                      #menu 
-                      [model]="items" 
-                      [popup]="true" 
-                      appendTo="body" 
+                    <p-tieredMenu
+                      #menu
+                      [model]="items"
+                      [popup]="true"
+                      appendTo="body"
                       [baseZIndex]="1000">
                     </p-tieredMenu>
                   </td>
@@ -88,6 +97,7 @@
                   <td>{{ customer.name }}</td>
                   <td>{{ customer.address}}</td>
                   <td>{{ customer.mobile }}</td>
+                  <td>{{ customer.warehouseName }}</td>
               </tr>
             </ng-template>
           </p-table>
@@ -97,10 +107,10 @@
   </div>
 </div>
 
-<p-dialog 
-  header="Header" 
-  [(visible)]="visibleDate" 
-  [modal]="true" 
+<p-dialog
+  header="Header"
+  [(visible)]="visibleDate"
+  [modal]="true"
   [style]="{ width: '50%', height: '100%' }">
     <ng-template pTemplate="header">
       <h3 style="color: #B0903E;">Chọn ngày gửi đơn</h3>
@@ -110,31 +120,31 @@
         <label for="parentId" class="font-semibold">
           Ngày gửi đơn <span style="color: red">*</span>
         </label>
-        <p-calendar 
-          [(ngModel)]="deliveryDate" 
-          [iconDisplay]="'input'" 
-          [showIcon]="true" 
+        <p-calendar
+          [(ngModel)]="deliveryDate"
+          [iconDisplay]="'input'"
+          [showIcon]="true"
           inputId="icondisplay" />
       </div>
     </div>
     <ng-template pTemplate="footer">
-      <p-button 
-          label="Hủy" 
-          [text]="true" 
-          severity="secondary" 
+      <p-button
+          label="Hủy"
+          [text]="true"
+          severity="secondary"
           (onClick)="visibleDate = false" />
-      <p-button 
-          label="Xác nhận" 
-          [outlined]="true" 
+      <p-button
+          label="Xác nhận"
+          [outlined]="true"
           severity="secondary"
           (onClick)="UpdateOrderDeliveryDate()"
         />
   </ng-template>
 </p-dialog>
 
-<p-dialog 
-  header="Header" 
-  [(visible)]="visibleBill" 
+<p-dialog
+  header="Header"
+  [(visible)]="visibleBill"
   [modal]="true" >
     <ng-template pTemplate="header">
       <h3 style="color: #B0903E;">Chi tiết hoá đơn</h3>
@@ -154,7 +164,7 @@
               <th style="width:33%">Ngày thanh toán</th>
               <th style="width:33%">Số tiền</th>
             </tr>
-            
+
         </ng-template>
         <ng-template pTemplate="body" let-customer let-index="rowIndex">
             <tr>
@@ -167,10 +177,10 @@
     </div>
 </p-dialog>
 
-<p-dialog 
-  header="Header" 
-  [(visible)]="visibleCommission" 
-  [modal]="true" 
+<p-dialog
+  header="Header"
+  [(visible)]="visibleCommission"
+  [modal]="true"
   [style]="{ width: '60%'}">
     <ng-template pTemplate="header">
       <h3 style="color: #B0903E;">Chi tiết chi hoa hồng</h3>
