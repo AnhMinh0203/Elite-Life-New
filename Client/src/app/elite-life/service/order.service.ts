@@ -130,6 +130,26 @@ export class OrderService {
       );
   }
 
+  getOrderPendingByRangeDateService(model:any){
+    const apiUrl = `${this.serviceUri}/get-order-pending-by-rangeDate`;
+    return this._http.post<ResponseResult>(apiUrl, model)
+      .pipe(
+        catchError((error: any) => {
+          throw error;
+        })
+      );
+  }
+
+  getOrderApprovedByRangeDateService(model:any){
+    const apiUrl = `${this.serviceUri}/get-order-approve-by-rangeDate`;
+    return this._http.post<ResponseResult>(apiUrl, model)
+      .pipe(
+        catchError((error: any) => {
+          throw error;
+        })
+      );
+  }
+
   exportExcelOrderRangeService(model: any): Observable<any> {
     const apiUrl = `${this.serviceUri}/export-excel-order-date-range`;
     return this._http.post(apiUrl, model, {

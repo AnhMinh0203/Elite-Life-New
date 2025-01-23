@@ -244,6 +244,29 @@ namespace Elite_life.Controllers
             }
             return MethodResult.ResultWithSuccess(result, 200, "Success");
         }
+        [HttpPost]
+        [Route("get-order-pending-by-rangeDate")]
+        public async Task<MethodResult> GetOrderPendingByRangeDate(OrderRange orderRange)
+        {
+            var result = await _orderRepos.GetOrdersByDateRangePendingAsync(orderRange);
+            if (result == null || !result.Any())
+            {
+                return MethodResult.ResultWithError(result, 400, "Not Found");
+            }
+            return MethodResult.ResultWithSuccess(result, 200, "Success");
+        }
+
+        [HttpPost]
+        [Route("get-order-approve-by-rangeDate")]
+        public async Task<MethodResult> GetOrderApprovedByRangeDate(OrderRange orderRange)
+        {
+            var result = await _orderRepos.GetOrdersByDateRangeApproveAsync(orderRange);
+            if (result == null || !result.Any())
+            {
+                return MethodResult.ResultWithError(result, 400, "Not Found");
+            }
+            return MethodResult.ResultWithSuccess(result, 200, "Success");
+        }
 
         [HttpPost]
         [Route("export-excel-order-date-range")]

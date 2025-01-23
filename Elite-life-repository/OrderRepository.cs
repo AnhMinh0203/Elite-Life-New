@@ -1024,6 +1024,76 @@ namespace Elite_life_repository
             }
         }
 
+        public async Task<List<OrderHistoryModel>> GetOrdersByDateRangePendingAsync(OrderRange orderRange)
+        {
+            var connectPostgres = new ConnectToPostgresql(_configuration);
+            using var connection = await connectPostgres.CreateConnectionAsync();
+
+            try
+            {
+                var sql = @"
+                    SELECT * FROM dbo.get_order_pending_by_rangeDate(
+                        @CollaboratorId, 
+                        @StartDate, 
+                        @EnDate
+                    )";
+                var parameters = new
+                {
+                    CollaboratorId = orderRange.CollaboratorId,
+                    StartDate = orderRange.StartDate ?? (object)DBNull.Value,
+                    EnDate = orderRange.EndDate ?? (object)DBNull.Value
+                };
+
+                // Execute query using Dapper
+                var result = (await connection.QueryAsync<OrderHistoryModel>(sql, parameters)).ToList();
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+            finally
+            {
+                await connection.CloseAsync();
+            }
+        }
+
+        public async Task<List<OrderHistoryModel>> GetOrdersByDateRangeApproveAsync(OrderRange orderRange)
+        {
+            var connectPostgres = new ConnectToPostgresql(_configuration);
+            using var connection = await connectPostgres.CreateConnectionAsync();
+
+            try
+            {
+                var sql = @"
+                    SELECT * FROM dbo.get_order_approve_by_rangeDate(
+                        @CollaboratorId, 
+                        @StartDate, 
+                        @EnDate
+                    )";
+                var parameters = new
+                {
+                    CollaboratorId = orderRange.CollaboratorId,
+                    StartDate = orderRange.StartDate ?? (object)DBNull.Value,
+                    EnDate = orderRange.EndDate ?? (object)DBNull.Value
+                };
+
+                // Execute query using Dapper
+                var result = (await connection.QueryAsync<OrderHistoryModel>(sql, parameters)).ToList();
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+            finally
+            {
+                await connection.CloseAsync();
+            }
+        }
+
         public async Task<DataTable> ExportExceOrderByDateRangeDataTable(OrderRange orderRange)
         {
             DataTable dataTable = new DataTable();

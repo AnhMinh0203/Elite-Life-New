@@ -31,5 +31,7 @@ namespace Elite_life_repository.Interfaces
         Task<string> UpdateStatusOrderAsync(OrderStatus orderStatus);
         Task<string> UpdateNoteOrderAsync(OrderNote orderNote);
         Task<string> GetNoteOrderAsync(int orderId);
+        Task<List<OrderHistoryModel>> GetOrdersByDateRangeApproveAsync(OrderRange orderRange);
+        Task<List<OrderHistoryModel>> GetOrdersByDateRangePendingAsync(OrderRange orderRange);
     }
 }

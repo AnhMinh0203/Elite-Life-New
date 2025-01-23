@@ -19,6 +19,8 @@ export class OrderManagementComponent {
   collaboratorId: any;
   userInfo:any;
   orders: any[] = [];
+  ordersPending: any[] = [];
+  ordersApprove: any[] = [];
   totalPayed:any;
 
   constructor(
@@ -30,6 +32,8 @@ export class OrderManagementComponent {
   ngOnInit() {
     this.userInfo = localStorage.getItem('info');
     this.getOrderByRangeDate();
+    this.getOrderPendingByRangeDate();
+    this.getOrderApprovedByRangeDate();
   }
 
 
@@ -52,6 +56,52 @@ export class OrderManagementComponent {
         (response: any) => {
           this.orders = response.data;
           this.totalPayed = this.orders.reduce((sum, order) => sum + order.payed, 0);
+        },
+        (error: any) => {
+          console.error('Error fetching data:', error);
+        });
+    }
+
+  }
+
+  getOrderPendingByRangeDate() {
+    if (this.userInfo) {
+      const parsedInfo = JSON.parse(this.userInfo);
+      this.collaboratorId = parsedInfo.id;
+
+      let model = {
+        CollaboratorId: this.collaboratorId,
+        StartDate: this.startDate,
+        EndDate: this.endDate,
+
+      }
+      this._orderService.getOrderPendingByRangeDateService(model).subscribe(
+        (response: any) => {
+          this.ordersPending = response.data;
+          this.totalPayed = this.ordersPending.reduce((sum, order) => sum + order.payed, 0);
+        },
+        (error: any) => {
+          console.error('Error fetching data:', error);
+        });
+    }
+
+  }
+
+  getOrderApprovedByRangeDate() {
+    if (this.userInfo) {
+      const parsedInfo = JSON.parse(this.userInfo);
+      this.collaboratorId = parsedInfo.id;
+
+      let model = {
+        CollaboratorId: this.collaboratorId,
+        StartDate: this.startDate,
+        EndDate: this.endDate,
+
+      }
+      this._orderService.getOrderApprovedByRangeDateService(model).subscribe(
+        (response: any) => {
+          this.ordersApprove = response.data;
+          this.totalPayed = this.ordersApprove.reduce((sum, order) => sum + order.payed, 0);
         },
         (error: any) => {
           console.error('Error fetching data:', error);
