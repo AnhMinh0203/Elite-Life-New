@@ -73,4 +73,10 @@ export class BoothService {
       );
   }
 
+  uploadPDF(file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file);
+    return this._http.post(`${this.serviceUri}/upload-pdf`, formData);
+  }
+
 }

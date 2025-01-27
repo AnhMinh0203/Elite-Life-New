@@ -12,6 +12,7 @@ import { environment } from 'src/environments/environment';
 export class BoothManagerComponent implements OnInit {
   @ViewChild('fileUploader', { static: false }) fileUploader!: ElementRef<HTMLInputElement>;
   @ViewChild('fileBannerUploader', { static: false }) fileBannerUploader!: ElementRef<HTMLInputElement>;
+  @ViewChild('filePDFloader', { static: false }) filePDFloader!: ElementRef<HTMLInputElement>;
   imageUrl: string | null = null;
   imageBannerUrl: string | null = null;
   fileToUpload: File | null = null;
@@ -31,6 +32,8 @@ export class BoothManagerComponent implements OnInit {
   isPermissionAdd: boolean = false;
   isPermissionEdit: boolean = false;
   isPermissionDelete: boolean = false;
+  filePDFName: any;
+  typePDF: any;
 
   constructor(private boothService: BoothService, private messageService: MessageService) { }
 
@@ -50,6 +53,32 @@ export class BoothManagerComponent implements OnInit {
 
   triggerFileBannerUpload() {
     this.fileBannerUploader?.nativeElement.click();
+  }
+
+  triggerFilePDFUpload(typePDF: any) {
+    this.filePDFloader?.nativeElement.click();
+    switch (typePDF) {
+      case 1:
+        this.filePDFName = "about-us.pdf";
+        break;
+      case 2:
+        this.filePDFName = "hdsd.pdf";
+        break;
+      case 3:
+        this.filePDFName = "business-policy.pdf";
+        break;
+      case 4:
+        this.filePDFName = "legality.pdf";
+        break;
+      case 5:
+        this.filePDFName = "culture.pdf";
+        break;
+      case 6:
+        this.filePDFName = "training.pdf";
+        break;
+      default:
+        break;
+    }
   }
 
   uploadImage(files: any){
@@ -116,6 +145,22 @@ export class BoothManagerComponent implements OnInit {
         console.log(error.message)
       }
     });
+  }
+
+  uploadPDF(files: any){
+    const originalFile = files.target.files.item(0); // Lấy file đầu tiên từ danh sách
+
+    if (originalFile) {
+      this.fileToUpload = new File([originalFile], this.filePDFName, { type: originalFile.type });
+      this.boothService.uploadPDF(this.fileToUpload).subscribe({
+        next: (response) => {
+          this.messageService.add({ severity: 'success', summary: 'Upload Success', detail: response.message });
+        },
+        error: (error) => {
+          this.messageService.add({ severity: 'error', summary: 'Upload Failed', detail: error.message });
+        }
+      });
+    }
   }
 
   deleteFileImage(fileName: any) {

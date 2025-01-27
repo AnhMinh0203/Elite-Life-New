@@ -205,5 +205,48 @@ namespace Elite_life.Controllers
             }
             return MethodResult.ResultWithError(null, 400, "Not Found");
         }
+
+        [HttpPost("upload-pdf")]
+        public async Task<MethodResult> UploadFilePDF(IFormFile file)
+        {
+            try
+            {
+                //var userClaims = HttpContext.User.Claims;
+                //var rolesClaim = userClaims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
+
+                //var roles = rolesClaim?.Split(',').ToList() ?? new List<string>();
+                //if (!roles.Contains("booth-manager-edit"))
+                //{
+                //    return MethodResult.ResultWithError("Bạn không có quyền", 403, "error");
+                //}
+
+                if (file == null || file.Length == 0)
+                {
+                    return MethodResult.ResultWithError("No file was provided");
+                }
+
+                string baseDirData = _configuration.GetValue("FilePDFUrl", "E:\\Customers\\Elite-Life-New\\Client\\src\\assets");
+                string imageDir = Path.Combine(baseDirData, "tutorial");
+
+                if (!Directory.Exists(imageDir))
+                {
+                    Directory.CreateDirectory(imageDir);
+                }
+
+                //string newFileName = "image_main.png";
+                string filePath = Path.Combine(imageDir, file.FileName);
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await file.CopyToAsync(stream);
+                }
+
+                return MethodResult.ResultWithSuccess(file.FileName, 200, "File upload successfully");
+            }
+            catch (Exception ex)
+            {
+                return MethodResult.ResultWithError("An error occurred while uploading the file: " + ex.Message);
+            }
+        }
     }
 }
