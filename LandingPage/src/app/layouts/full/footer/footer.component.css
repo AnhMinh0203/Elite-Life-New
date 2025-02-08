@@ -1,0 +1,19 @@
+h5 {
+    font-size: 16px;
+    margin-bottom: 15px;
+  }
+  
+  ul {
+    padding-left: 0;
+    margin-bottom: 0;
+  }
+  
+  ul li {
+    font-size: 14px;
+    line-height: 1.8;
+  }
+  
+  img {
+    max-width: 100%;
+  }
+  

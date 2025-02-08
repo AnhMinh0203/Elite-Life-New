@@ -1,0 +1,814 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv='cache-control' content='no-cache'>
+    <meta http-equiv='expires' content='0'>
+    <meta http-equiv='pragma' content='no-cache'>
+    <link rel="shortcut icon" type="image/ico" href='/favicon.ico' />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-rc.0/css/select2.min.css" />
+    <noscript>
+        <meta http-equiv="refresh" content="0; url=NoJavascript.html" />
+    </noscript>
+        <title>Tạo sự vụ chuyển ho&#224;n ECONOMY</title>
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<link href="/Assets/css/bootstrap.css?v=3.0.0.9" rel="stylesheet" type="text/css" />
+<link href="/Assets/plugin/kendoui/css/kendo.bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="/Assets/plugin/kendoui/css/kendo.common-bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="/Assets/css/font.css?v=3.0.0.9" rel="stylesheet" type="text/css" />
+<link href="/Assets/css/font-awesome.css?v=3.0.0.9" rel="stylesheet" type="text/css" />
+<link href="/Assets/css/style.css?v=3.0.0.9" rel="stylesheet" type="text/css" />
+<link href="/Assets/css/base/main.css?v=3.0.0.9" rel="stylesheet" type="text/css" />
+<link href="/Assets/css/custom.css?v=3.0.0.9" rel="stylesheet" type="text/css" />
+<script src="/Assets/plugin/jquery/js/jquery-1.12.4.min.js" type="text/javascript"></script>
+<script src="/Assets/plugin/jqueryform/jquery.form.min.js" type="text/javascript"></script>
+<script src="/Assets/plugin/jquery/js/jquery-ui.min.js" type="text/javascript"></script>
+<script src="/Assets/js/jquery2.0.3.min.js" type="text/javascript"></script>
+<script src="/Assets/js/modernizr.js" type="text/javascript"></script>
+<script src="/Assets/js/jquery.cookie.js" type="text/javascript"></script>
+<script src="/Assets/plugin/validation/jquery.validate.min.js" type="text/javascript"></script>
+<script src="/Assets/plugin/validation/jquery.validate.unobtrusive.min.js" type="text/javascript"></script>
+<script src="/Assets/plugin/validation/jquery.validate.kendo.js" type="text/javascript"></script>
+<script src="/Assets/plugin/bootstrap/js/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+<script src="/Assets/plugin/bootstrap/js/metronic.js" type="text/javascript"></script>
+<script src="/Assets/plugin/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="/Assets/plugin/kendoui/js/kendo.all.min.js" type="text/javascript"></script>
+<script src="/Assets/plugin/kendoui/js/kendo.aspnetmvc.min.js" type="text/javascript"></script>
+<script src="/Assets/js/treeview/AjaxBase.js?v=3.0.0.9" type="text/javascript"></script>
+<script src="/Assets/plugin/session-time-out/store.min.js?v=3.0.0.9" type="text/javascript"></script>
+<script src="/Assets/js/jquery-idleTimeout.js?v=3.0.0.9" type="text/javascript"></script>
+<script src="/Assets/js/raphael-min.js?v=3.0.0.9" type="text/javascript"></script>
+<script src="/Assets/js/morris.js?v=3.0.0.9" type="text/javascript"></script>
+<link href="/Assets/css/morris.css?v=3.0.0.9" rel="stylesheet" type="text/css" />
+<script src="/Assets/js/skycons.js?v=3.0.0.9" type="text/javascript"></script>
+<script src="/Assets/js/screenfull.js?v=3.0.0.9" type="text/javascript"></script>
+<script src="/Assets/js/jquery.nicescroll.js?v=3.0.0.9" type="text/javascript"></script>
+
+
+    <![if !IE]>
+    <link href="/Assets/css/base/nonIE.css" rel="stylesheet" />
+    <![endif]>
+
+    <script>
+        $(function () {
+            $('#supported').text('Supported/allowed: ' + !!screenfull.enabled);
+
+            if (!screenfull.enabled) {
+                return false;
+            }
+
+            $('#toggle').click(function () {
+                screenfull.toggle($('#container')[0]);
+            });
+        });
+    </script>
+    <script type="text/javascript" defer="defer">
+
+        
+        $(function () {
+            $(document).ajaxError(function (e, xhr, settings) {
+                if (xhr.status == 401) {
+                    window.location ='/Security/SignIn';
+                }
+            });
+        });
+
+    </script>
+    
+</head>
+<body class="dashboard-page">
+    <script type="text/javascript">
+        var theme = $.cookie('protonTheme') || 'default';
+        $('body').removeClass(function (index, css) {
+            return (css.match(/\btheme-\S+/g) || []).join(' ');
+        });
+        if (theme !== 'default') $('body').addClass(theme);
+    </script>
+    <nav class="main-menu">
+
+
+<style>
+    .clGreen{ color: green !important;}
+    .clRed{ color: red !important;}
+</style>
+<!-- BEGIN SIDEBAR MENU -->
+<ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+    <li>
+        <a href="/">
+            <i class="fa fa-home nav_icon"></i>
+            <span class="nav-text">
+                TRANG CHỦ
+            </span>
+        </a>
+    </li>
+    <li class="has-subnav">
+        <a href="javascript:;">
+            <i class="fa fa-file-text-o nav_icon" aria-hidden="true"></i>
+            <span class="nav-text">&nbsp;HỆ THỐNG</span>
+            <i class="icon-angle-right"></i><i class="icon-angle-down"></i>
+        </a>
+        <ul>
+            <li>
+                <a class="subnav-text" href="javascript:void(0)" id="btnInfo">
+                    Thông tin cá nhân
+                </a>
+            </li>
+            <li>
+                <a class="subnav-text" href="javascript:void(0)" id="btnChangePass">
+                    Thay đổi mật khẩu
+                </a>
+            </li>
+        </ul>
+    </li>
+    <li>
+        <a href="/TraceItem">
+            <i class="fa fa-map-marker nav_icon"></i>
+            <span class="nav-text">
+                ĐỊNH VỊ
+            </span>
+        </a>
+    </li>
+    
+            <li class="has-subnav ">
+                <a href="javascript:void(0);;">
+                    <i class="icon-table  nav_icon nav-icon" aria-hidden="true"></i>
+                    <span class="nav-text">
+                        DANH MỤC
+                    </span>
+                    <i class="icon-angle-right"></i><i class="icon-angle-down"></i>
+                </a>
+
+                    <ul>
+                            <li class="">
+                                <a class="subnav-text" href="/country"> Quản l&#253; quốc gia</a>
+                            </li>
+                            <li class="">
+                                <a class="subnav-text" href="/postal/refundECONOMY"> Tạo sự vụ ECONOMY</a>
+                            </li>
+                            <li class="">
+                                <a class="subnav-text" href="/mailroute"> Quản l&#253; bưu cục đ&#243;ng thẳng</a>
+                            </li>
+                            <li class="">
+                                <a class="subnav-text" href="/posman"> Danh mục Bưu t&#225;</a>
+                            </li>
+                            <li class="">
+                                <a class="subnav-text" href="/customer"> Quản l&#253; kh&#225;ch h&#224;ng</a>
+                            </li>
+                            <li class="">
+                                <a class="subnav-text" href="/rate"> Quản l&#253; cước dịch vụ</a>
+                            </li>
+                            <li class="">
+                                <a class="subnav-text" href="/freight"> Quản l&#253; loại cước</a>
+                            </li>
+                            <li class="">
+                                <a class="subnav-text" href="/resolve"> Giải ph&#225;p xử l&#253; bưu gửi</a>
+                            </li>
+                            <li class="">
+                                <a class="subnav-text" href="/rate/customer"> Quản l&#253; cước kh&#225;ch h&#224;ng</a>
+                            </li>
+                            <li class="">
+                                <a class="subnav-text" href="/commision"> Cấu h&#236;nh hoa hồng dịch vụ</a>
+                            </li>
+                            <li class="">
+                                <a class="subnav-text" href="/rateexchange"> Cấu h&#236;nh tỷ gi&#225; $</a>
+                            </li>
+                    </ul>
+
+            </li>
+            <li class="has-subnav ">
+                <a href="javascript:void(0);;">
+                    <i class="fa fa-cubes  nav_icon nav-icon" aria-hidden="true"></i>
+                    <span class="nav-text">
+                        CHẤP NHẬN
+                    </span>
+                    <i class="icon-angle-right"></i><i class="icon-angle-down"></i>
+                </a>
+
+                    <ul>
+                            <li class="">
+                                <a class="subnav-text" href="/postal"> Quản l&#253; bưu gửi</a>
+                            </li>
+                    </ul>
+
+            </li>
+            <li class="has-subnav ">
+                <a href="javascript:void(0);;">
+                    <i class="fa fa-paper-plane nav-icon nav-icon" aria-hidden="true"></i>
+                    <span class="nav-text">
+                        KHAI TH&#193;C CHIỀU ĐẾN
+                    </span>
+                    <i class="icon-angle-right"></i><i class="icon-angle-down"></i>
+                </a>
+
+                    <ul>
+                            <li class="">
+                                <a class="subnav-text" href="/dispatch/inbound"> Quản l&#253; chuyến thư chiều đến</a>
+                            </li>
+                    </ul>
+
+            </li>
+            <li class="has-subnav ">
+                <a href="javascript:void(0);;">
+                    <i class="fa fa-bar-chart nav_icon nav-icon" aria-hidden="true"></i>
+                    <span class="nav-text">
+                        ĐSSL CHIỀU ĐI
+                    </span>
+                    <i class="icon-angle-right"></i><i class="icon-angle-down"></i>
+                </a>
+
+                    <ul>
+                            <li class="">
+                                <a class="subnav-text" href="/rptups/come1"> ĐSSL PUD UPS1</a>
+                            </li>
+                            <li class="">
+                                <a class="subnav-text" href="/rptups/come2"> ĐSSL PUD UPS2</a>
+                            </li>
+                            <li class="">
+                                <a class="subnav-text" href="/rptups/come3"> ĐSSL PUB UPS4</a>
+                            </li>
+                    </ul>
+
+            </li>
+            <li class="has-subnav ">
+                <a href="javascript:void(0);;">
+                    <i class="fa fa-bar-chart nav_icon nav-icon" aria-hidden="true"></i>
+                    <span class="nav-text">
+                        ĐSSL CHIỀU ĐẾN
+                    </span>
+                    <i class="icon-angle-right"></i><i class="icon-angle-down"></i>
+                </a>
+
+                    <ul>
+                            <li class="">
+                                <a class="subnav-text" href="/rptups/arrive1"> ĐSSL PUD UPS1</a>
+                            </li>
+                    </ul>
+
+            </li>
+            <li class="has-subnav ">
+                <a href="javascript:void(0);;">
+                    <i class="icon-table nav-icon nav-icon" aria-hidden="true"></i>
+                    <span class="nav-text">
+                        GI&#193;M S&#193;T
+                    </span>
+                    <i class="icon-angle-right"></i><i class="icon-angle-down"></i>
+                </a>
+
+                    <ul>
+                            <li class="">
+                                <a class="subnav-text" href="/noty/bgton"> Bưu gửi đang xử l&#253;/tồn</a>
+                            </li>
+                            <li class="">
+                                <a class="subnav-text" href="/noty/bgqua"> Thời gian khai th&#225;c bưu gửi</a>
+                            </li>
+                            <li class="">
+                                <a class="subnav-text" href="/noty/bgnohi"> Bưu gửi chưa c&#243; th&#244;ng tin ph&#225;t</a>
+                            </li>
+                            <li class="">
+                                <a class="subnav-text" href="/noty/bgsapden"> Dự b&#225;o sản lượng</a>
+                            </li>
+                    </ul>
+
+            </li>
+            <li class="has-subnav ">
+                <a href="javascrip:void(0);">
+                    <i class="fa fa-cogs nav_icon nav-icon" aria-hidden="true"></i>
+                    <span class="nav-text">
+                        PH&#194;N QUYỀN
+                    </span>
+                    <i class="icon-angle-right"></i><i class="icon-angle-down"></i>
+                </a>
+
+                    <ul>
+                            <li class="">
+                                <a class="subnav-text" href="/role"> Quản l&#253; quyền</a>
+                            </li>
+                            <li class="">
+                                <a class="subnav-text" href="/user"> Quản l&#253; người d&#249;ng</a>
+                            </li>
+                            <li class="">
+                                <a class="subnav-text" href="/user/assign"> Ph&#226;n quyền người d&#249;ng</a>
+                            </li>
+                            <li class="">
+                                <a class="subnav-text" href="/tab"> Quản l&#253; menu</a>
+                            </li>
+                    </ul>
+
+            </li>
+</ul>
+
+<!-- END SIDEBAR MENU -->
+<ul class="logout">
+    <li>
+        <a href="/Documents/HDSD PUD.rar">
+            <i class="icon-font nav-icon"></i>
+            <span class="nav-text">
+                Hướng dẫn sử dụng
+            </span>
+        </a>
+    </li>
+    <li>      
+        <a href="javascript:void(0)" onclick="return onConfirmLogout(); ">
+            <i class="icon-off nav-icon"></i> <span class="nav-text">
+                &nbsp;Đăng xuất
+            </span>
+        </a>
+    </li>
+</ul>
+<script>
+    $(document).ready(function () {
+        var count = $(".fa-paper-plane").length;
+
+        if (count > 0) {
+            $($(".fa-paper-plane")[0]).parent().addClass("clGreen");
+        }
+        if (count > 1) {
+            $($(".fa-paper-plane")[1]).parent().addClass("clRed");
+        }
+    });
+</script>
+
+    </nav>
+    <section class="wrapper scrollable">
+        <nav class="user-menu">
+            <a href="javascript:;" class="main-menu-access">
+                <i class="icon-proton-logo"></i>
+                <i class="icon-reorder"></i>
+            </a>
+        </nav>
+        <section class="title-bar">
+
+
+<div class="logo">
+    <div class="form-group">
+        <div style="float:left">
+            <h1><a href="/"><img src="/Assets/img/logo.png" alt="" />HỆ THỐNG QUẢN TRỊ</a></h1>
+            <div style="padding-left:85px;padding-top:-10px;font-weight:bold;color:darkred;text-transform:uppercase"> <blink>GDV 0 - Super</blink></div>
+        </div>
+        <div style="float:left; padding-left:10px;padding-top:5px">
+
+        </div>
+        <div style="float:left; padding-left:10px;font-size:1.8em; color:#fecf08;padding-top:8px; font-style:normal">
+            <a href="javascript:void(0);;" id="tenantService"><i class="fa fa-refresh" aria-hidden="true"></i> CHUYỂN DỊCH VỤ</a>
+        </div>
+    </div>
+    
+</div>
+<div class="header-right">
+    <div class="profile_details_left">
+        <div class="header-right-left">
+            <div class="full-screen">
+                <section class="full-top">
+                    <button id="toggle"><i class="fa fa-arrows-alt" aria-hidden="true"></i></button>
+                </section>
+            </div>
+        </div>
+        <div class="profile_details">
+            <div class="top-menu">
+                <ul class="nav navbar-nav pull-right">
+                    <li class="dropdown dropdown-user">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                            <img src="/Assets/img/avatar3_small.png" alt="" class="img-circle" />
+                            <span class="username username-hide-on-mobile hidden-sm hidden-xs">
+                                
+                            </span>
+                            <i class="fa fa-angle-down"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-default">
+                            <li><a href='#' id="btnProfile"><i class="fa fa-user"></i> Thông tin cá nhân</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#" id="btnChangePassword"><i class="fa fa-key"></i> Thay đổi mật khẩu</a></li>
+                            <li class="divider"></li>
+                            <li><a onclick="javascript: return onConfirmLogout();; "><i class="fa fa-sign-out"></i> Đăng xuất</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="clearfix"> </div>
+    </div>
+</div>
+<div class="clearfix"> </div>
+
+<script type="text/javascript">
+    function onSwitchTenant() {
+        var options = {
+            id: 'popupAddOrEditId',
+            title: 'Chuyển dịch vụ',
+            width: 500
+        };
+        var popupWindow = window.utilJs.initPopupWindow(options);
+        popupWindow.refresh({
+            url: window.utilJs.PathVirtual() + '/home/switchtenant',
+            async: false
+        });
+        popupWindow.center().open();
+
+        //init form
+        return window.utilJs.initFormWindow("#frmAddOrEditSwicthTenant", popupWindow);
+    }
+    $('#tenantService').on('click', function (e) {
+        return onSwitchTenant();
+    });
+</script>
+        </section>
+
+        <div class="main-grid">
+            <div class="panel panel-widget">
+                <ol class="breadcrumb panel panel-widget w3-last-form">
+                    <li><i class="fa fa-home" id="iconHome" style="cursor: pointer;"></i>&nbsp;<a href="/">Trang chủ</a></li>
+                    <li><a href="javascript:void(0)"><span>Tạo sự vụ chuyển ho&#224;n ECONOMY</span></a></li>
+                </ol>
+            </div>
+            
+
+
+<style type="text/css">
+    label {
+        /* font-weight: normal !important; */
+    }
+
+    table td {
+        font-size: 12px !important;
+        text-wrap: normal;
+        text-space-collapse: preserve-breaks
+    }
+
+    /* Modal container */
+    .modal {
+        display: none; /* Ẩn ban đầu */
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.4); /* Tạo lớp mờ */
+    }
+
+    /* Modal content */
+    .modal-content {
+        background-color: #fff;
+        margin: 15% auto;
+        padding: 30px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 500px;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        position: relative;
+    }
+
+    /* Close button (the "x") */
+    .close {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        font-size: 20px;
+        cursor: pointer;
+    }
+
+        /* Close button on hover */
+        .close:hover {
+            color: #f00;
+        }
+
+    /* Form label and input fields */
+    label {
+        display: block;
+        margin: 10px 0;
+        font-weight: bold;
+    }
+
+    input[type="text"],
+    select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        margin-bottom: 10px;
+    }
+
+    /* Submit button */
+    input[type="submit"] {
+        background-color: #4CAF50;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+
+        /* Style for the submit button on hover */
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+    /* CSS cho nút "Đồng ý" và "Hủy" */
+    .modal-refund-confirm {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+
+        .modal-refund-confirm .btn {
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .modal-refund-confirm .btn-accept {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .modal-refund-confirm .btn-cancel {
+            background-color: #f44336;
+            color: white;
+        }
+</style>
+<div class="grids">
+    <div class="panel panel-widget">
+        <div class="form-body widget-shadow">
+            <div class="panel-body-inputin">
+                <div class="form-horizontal">
+                    <div class="form-group clearfix" style="margin-top:-15px;margin-bottom:-20px">
+                        <label class="col-sm-2 control-label text-right" for="S__hi_u_b_u_g_i">Số hiệu bưu gửi</label>
+                        <div class="col-sm-2">
+                            <input class="form-control" id="ItemCodeRefundECONOMY" name="ItemCodeRefundECONOMY" placeholder="Số hiệu bưu gửi.." type="text" value="" />
+                        </div>
+                        <div class="col-sm-7">
+                            <a id="btnRefundAddECONOMY" class="btn btn-primary k-grid-update col-11"><i class="fa fa-plus-square-o"></i> Tạo sự vụ</a>&nbsp;
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-widget">
+        <div class="form-group">
+            <div>
+                <div class="k-widget k-grid" id="ItemRefundGrid" tyle=""><div class="k-grid-header"><div class="k-grid-header-wrap"><table><colgroup><col style="width:8%" /><col style="width:11%" /><col style="width:6%" /><col style="width:11%" /><col style="width:10%" /><col style="width:5%" /><col style="width:5%" /><col style="width:20%" /><col style="width:20%" /><col style="width:13%" /><col style="width:11%" /><col style="width:11%" /></colgroup><thead class="k-grid-header"><tr><th class="k-header" data-field="ItemCode" data-index="0" data-title="Số hiệu" scope="col"><span class="k-link">Số hiệu</span></th><th class="k-header" data-field="SenderFullname" data-index="1" data-title="Người gửi" scope="col"><span class="k-link">Người gửi</span></th><th class="k-header" data-field="SendingTimeDsp" data-index="2" data-title="Ngày gửi" scope="col"><span class="k-link">Ngày gửi</span></th><th class="k-header" data-field="ReceiverFullname" data-index="3" data-title="Người nhận" scope="col"><span class="k-link">Người nhận</span></th><th class="k-header" data-field="ReceiverCity" data-index="4" data-title="Nước nhận" scope="col"><span class="k-link">Nước nhận</span></th><th class="k-header" data-field="ItemTypeName" data-index="5" data-title="Loại dịch vụ" scope="col"><span class="k-link">Loại dịch vụ</span></th><th class="k-header" data-field="Weight" data-index="6" data-title="Khối lượng" scope="col"><span class="k-link">Khối lượng</span></th><th class="k-header" data-field="FreightNames" data-index="7" data-title="Sự vụ phát sinh" scope="col"><span class="k-link">Sự vụ phát sinh</span></th><th class="k-header" data-field="FreightValues" data-index="8" data-title="Cước sự vụ phát sinh" scope="col"><span class="k-link">Cước sự vụ phát sinh</span></th><th class="k-header" data-field="NameStatus" data-index="9" data-title="Trạng thái" scope="col"><span class="k-link">Trạng thái</span></th><th class="k-header" data-field="SenderAddress" data-index="10" data-title="Địa chỉ người gửi" scope="col"><span class="k-link">Địa chỉ người gửi</span></th><th class="k-header" data-field="ReceiverAddress" data-index="11" data-title="Địa chỉ người nhận" scope="col"><span class="k-link">Địa chỉ người nhận</span></th></tr></thead></table></div></div><div class="k-grid-content" style="height:450px"><table><colgroup><col style="width:8%" /><col style="width:11%" /><col style="width:6%" /><col style="width:11%" /><col style="width:10%" /><col style="width:5%" /><col style="width:5%" /><col style="width:20%" /><col style="width:20%" /><col style="width:13%" /><col style="width:11%" /><col style="width:11%" /></colgroup><tbody><tr class="k-no-data"><td colspan="12"></td></tr></tbody></table></div></div><script>
+	jQuery(function(){jQuery("#ItemRefundGrid").kendoGrid({"change":onRowSelectECONOMY,"columns":[{"title":"Số hiệu","width":"8%","field":"ItemCode","encoded":true},{"title":"Người gửi","width":"11%","field":"SenderFullname","encoded":true},{"title":"Ngày gửi","width":"6%","field":"SendingTimeDsp","format":"{0:dd-MM-yyyy}","encoded":true},{"title":"Người nhận","width":"11%","field":"ReceiverFullname","encoded":true},{"title":"Nước nhận","width":"10%","field":"ReceiverCity","encoded":true},{"title":"Loại dịch vụ","width":"5%","field":"ItemTypeName","encoded":true},{"title":"Khối lượng","attributes":{"class":"text-right"},"width":"5%","field":"Weight","format":"{0:n0}","encoded":true},{"title":"Sự vụ phát sinh","width":"20%","template":"#= FreightNames ? FreightNames.replace(/, /g, \u0027\u003cbr\u003e\u0027) : \u0027\u0027 #","field":"FreightNames","encoded":true},{"title":"Cước sự vụ phát sinh","attributes":{"class":"text-right"},"width":"20%","template":"#= FreightValues ? FreightValues.replace(/, /g, \u0027\u003cbr\u003e\u0027) : \u0027\u0027 #","field":"FreightValues","format":"{0:n2}","encoded":true},{"title":"Trạng thái","width":"13%","field":"NameStatus","encoded":true},{"title":"Địa chỉ người gửi","width":"11%","field":"SenderAddress","encoded":true},{"title":"Địa chỉ người nhận","width":"11%","field":"ReceiverAddress","encoded":true}],"selectable":"Single, Row","dataSource":{"type":(function(){if(kendo.data.transports['aspnetmvc-ajax']){return 'aspnetmvc-ajax';} else{throw new Error('The kendo.aspnetmvc.min.js script is not included.');}})(),"transport":{"read":{"url":"/postal/GetRefundInfoEonomy?filter=~\u0026sort=~","data":onItemRefundGridDataBound},"prefix":"","create":{"url":"/PosMan/Form"}},"pageSize":20,"page":1,"total":0,"serverPaging":true,"serverSorting":true,"serverFiltering":true,"serverGrouping":true,"serverAggregates":true,"filter":[],"schema":{"data":"Data","total":"Total","errors":"Errors","model":{"id":"ItemId","fields":{"ItemId":{"type":"number"},"TenantId":{"type":"number","defaultValue":null},"CountryId":{"type":"number","defaultValue":null},"CustomerId":{"type":"number","defaultValue":null},"ItemCode":{"type":"string"},"AwbCode":{"type":"string"},"SendingTime":{"type":"date","defaultValue":null},"PickUpDate":{"type":"date","defaultValue":null},"AcceptancePosCode":{"type":"string"},"SenderFullname":{"type":"string"},"SenderAddress":{"type":"string"},"SenderTel":{"type":"string"},"SenderEmail":{"type":"string"},"SenderPosCode":{"type":"string"},"SenderContact":{"type":"string"},"ReceiverFullname":{"type":"string"},"ReceiverTel":{"type":"string"},"ReceiverEmail":{"type":"string"},"ReceiverPosCode":{"type":"string"},"ReceiverContact":{"type":"string"},"ReceiverAddress":{"type":"string"},"ReceiverStreet":{"type":"string"},"ReceiverCity":{"type":"string"},"ReceiverState":{"type":"string"},"SendContent":{"type":"string"},"LicenseCode":{"type":"string"},"CertificateNumbe":{"type":"string"},"InvoiceNumber":{"type":"string"},"CustomsCode":{"type":"string"},"CountryOfOrigin":{"type":"string"},"IsDCDC":{"type":"boolean"},"DCDC":{"type":"string"},"IsDC":{"type":"boolean"},"DC":{"type":"string"},"IsKVGHKD":{"type":"boolean"},"KVGHKD":{"type":"string"},"IsKVGHNR":{"type":"boolean"},"KVGHNR":{"type":"string"},"IsKVMRKD":{"type":"boolean"},"KVMRKD":{"type":"string"},"IsKVMRNR":{"type":"boolean"},"KVMRNR":{"type":"string"},"IsVSVXA":{"type":"boolean"},"VSVXA":{"type":"string"},"IsVSVXH":{"type":"boolean"},"VSVXH":{"type":"string"},"IsCCBP":{"type":"boolean"},"CCBP":{"type":"string"},"Remark":{"type":"string"},"ItemType":{"type":"number","defaultValue":null},"ItemTypeStr":{"type":"string"},"Weight":{"type":"number","defaultValue":null},"WeightStr":{"type":"string"},"WeightExc":{"type":"number","defaultValue":null},"RealWeight":{"type":"number","defaultValue":null},"TotalFreight":{"type":"number","defaultValue":null},"Direction":{"type":"number","defaultValue":null},"Status":{"type":"number","defaultValue":null},"Discount":{"type":"number","defaultValue":null},"DiscountStr":{"type":"string"},"FeeTime":{"type":"number","defaultValue":null},"PackageFreight":{"type":"number","defaultValue":null},"BatchFreight":{"type":"number","defaultValue":null},"IsFarZone":{"type":"boolean"},"FarZone":{"type":"string"},"IsTN":{"type":"boolean"},"TN":{"type":"string"},"IsQCQK":{"type":"boolean"},"QCQK":{"type":"string"},"IsRR":{"type":"boolean"},"RR":{"type":"string"},"IsDH":{"type":"boolean"},"DH":{"type":"string"},"IsDT":{"type":"boolean"},"DT":{"type":"string"},"IsDL":{"type":"boolean"},"DL":{"type":"string"},"IsHC":{"type":"boolean"},"HC":{"type":"string"},"IsKVC":{"type":"boolean"},"KVC":{"type":"string"},"IsSDC":{"type":"boolean"},"SDC":{"type":"string"},"IsHQK":{"type":"boolean"},"HQK":{"type":"string"},"IsCD":{"type":"boolean"},"CD":{"type":"string"},"IsResponsibility":{"type":"boolean"},"Responsibility":{"type":"string"},"IsAddRessCorrection":{"type":"boolean"},"IsDeliverySignature":{"type":"boolean"},"IsDeliverySignatureAdult":{"type":"boolean"},"IsSaturdayDelivery":{"type":"boolean"},"IsResidential":{"type":"boolean"},"IsExtendedArea":{"type":"boolean"},"IsAdditonalHandling":{"type":"boolean"},"IsLargePackage":{"type":"boolean"},"IsOverMaxLimit":{"type":"boolean"},"IsExpressPlus":{"type":"boolean"},"IsPayPos":{"type":"boolean"},"IsReturn":{"type":"boolean"},"IsDHL":{"type":"boolean"},"PPWatch":{"type":"number","defaultValue":null},"PPPhone":{"type":"number","defaultValue":null},"PPHair":{"type":"number","defaultValue":null},"Debt":{"type":"number","defaultValue":null},"Invoice":{"type":"string"},"Payer":{"type":"string"},"PayCard":{"type":"number","defaultValue":null},"CardNo":{"type":"string"},"SenderTaxNo":{"type":"string"},"ReceiverTaxNo":{"type":"string"},"DeclareValue":{"type":"number","defaultValue":null},"CargoCode":{"type":"string"},"FormExport":{"type":"number","defaultValue":null},"IsCPN9":{"type":"boolean"},"IsCPN10":{"type":"boolean"},"IsCPN12":{"type":"boolean"},"IsCPNGlobal":{"type":"boolean"},"IsCPNEconomy":{"type":"boolean"},"IsCPNExpress":{"type":"boolean"},"IsCPNOther":{"type":"boolean"},"IsOpSaturday":{"type":"boolean"},"IsOpDelivery":{"type":"boolean"},"IsOpShip":{"type":"boolean"},"IsOpPick":{"type":"boolean"},"IsOpPay":{"type":"boolean"},"IsOpOther":{"type":"boolean"},"IsGPriority":{"type":"boolean"},"IsGStandard":{"type":"boolean"},"IsGOther":{"type":"boolean"},"CreatedBy":{"type":"number","defaultValue":null},"CreatedDate":{"type":"date","defaultValue":null},"ModifiedBy":{"type":"number","defaultValue":null},"ModifiedDate":{"type":"date","defaultValue":null},"AccountDHL":{"type":"string"},"RowNumber":{"type":"number"},"CountryName":{"type":"string"},"TypeName":{"type":"string"},"StatusName":{"type":"string"},"TotalItem":{"type":"number"},"SumWeight":{"type":"number"},"SumFreight":{"type":"number"},"CustomerName":{"type":"string"},"FreightNames":{"type":"string"},"FreightValues":{"type":"string"},"NameStatus":{"type":"string"},"MainFreight":{"type":"number","defaultValue":null},"WeightFreight":{"type":"number","defaultValue":null},"FarFreight":{"type":"number","defaultValue":null},"VATFreight":{"type":"number","defaultValue":null},"OtherFreight":{"type":"number","defaultValue":null},"InsuranceFreight":{"type":"number","defaultValue":null},"InvoicePath":{"type":"string"},"IsInvoicePath":{"editable":false,"type":"boolean"},"OverSize":{"type":"number","defaultValue":null},"TotalOverWeight":{"type":"number","defaultValue":null},"TotalOverSize":{"type":"number","defaultValue":null},"CountHKWeight":{"type":"number","defaultValue":null},"CountPackage":{"type":"number","defaultValue":null},"ZoneName":{"type":"string"},"CountryCode":{"type":"string"},"FeeTimeName":{"type":"string"},"ItemTypeName":{"type":"string"},"CreatedByName":{"type":"string"},"ModifiedByName":{"type":"string"},"IsContinue":{"type":"boolean"},"IsSuccess":{"type":"boolean"},"IsError":{"type":"boolean"},"Msg":{"type":"string"},"PosName":{"type":"string"},"DispatchName":{"type":"string"},"LabelDisplay":{"type":"string"},"SendingTimeStr":{"type":"string"},"SendingTimeDsp":{"editable":false,"type":"string"},"PickUpDateStr":{"type":"string"},"PickUpDateDsp":{"editable":false,"type":"string"},"BagId":{"type":"number","defaultValue":null},"BagNo":{"type":"number","defaultValue":null},"DispatchId":{"type":"number","defaultValue":null},"IsExportVNQP":{"editable":false,"type":"boolean"},"IsEnterHand":{"type":"boolean"},"IsAwb":{"type":"boolean"},"IsPayShipper":{"type":"boolean"},"IsPayReceiver":{"type":"boolean"},"IsPayThirdParty":{"type":"boolean"},"IsPayCredidCard":{"type":"boolean"},"IsPayCheck":{"type":"boolean"},"PayCompanyThirdParty":{"type":"string"},"IsTaxShipper":{"type":"boolean"},"IsTaxReceiver":{"type":"boolean"},"IsTaxThirdParty":{"type":"boolean"},"TaxCompanyThirdParty":{"type":"string"},"TaxAccountThirdParty":{"type":"string"},"CargoNote":{"type":"string"},"CargoBaggage":{"type":"number","defaultValue":null},"CargoCustoms":{"type":"number","defaultValue":null},"CustomsFees":{"type":"number","defaultValue":null},"Pices":{"type":"number","defaultValue":null},"Quantity":{"type":"number"},"QuantityStr":{"type":"string"},"AccountNumber":{"type":"string"},"CCCD":{"type":"string"},"RefundFee":{"type":"number","defaultValue":null}}}},"batch":true,"data":{"Data":[],"Total":0}}});});
+</script>
+                
+            </div>
+        </div>
+        <div id="myModalECONOMY" class="modal">
+            <div class="modal-content">
+                <span class="close" id="closeModal">&times;</span>
+                <h3 style="display:flex; justify-content:center;">THÊM MỚI SỰ VỤ</h3>
+                <form id="myFormECONOMY">
+                    <label style="font-weight: bold" for="data">Số hiệu bưu gửi:</label>
+                    <input type="text" readonly id="itemcode_pchECONOMY" name="data">
+                    <label style="font-weight: bold" for="status">Loại sự vụ:</label>
+                    <select id="statusECONOMY" name="status">
+                        <option value="9">PP đơn hàng cần thay đổi địa chỉ</option>
+                        <option value="10">PP đơn hàng cần hoàn về kho</option>
+                        <option value="11">PP đơn hàng cần giao lại lần 2</option>
+                        <option value="12">PP đơn hàng cần hoàn về kho và giao lại</option>
+                        <option value="13">Hàng yến sào trên 10kg</option>
+                    </select><br>
+                    <label style="font-weight: bold" for="data">Cước phí:</label>
+                    <input type="number" id="refund_fee_pchECONOMY" name="data"><br><br><br>
+                    <input type="submit" value="Xác nhận" style="background-color: #4CAF50; color: white; padding: 10px 20px; border: none; cursor: pointer; border-radius: 4px;">
+                    <button type="button" id="closeForm" class="cancel-button" style="background-color: #f44336; color: white; padding: 10px 20px; border: none; cursor: pointer; border-radius: 4px;">Hủy</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="refundModalConfirm" class="modal-refund-confirm">
+            <div class="modal-content">
+                <p id="confirmationText">Xác nhận thêm mới sự vụ cho bưu gửi <span id="itemcodeDisplay"></span> với cước phí là <span id="refundFeeDisplay"></span>?</p>
+                <button id="accept" class="btn btn-accept">Đồng ý</button>
+                <button id="cancel" class="btn btn-cancel">Hủy</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        setTimeout(function () {
+            $("#ItemCodeRefund").focus();
+        },300)
+    });
+
+    $("#btnBackAffair").on('click', function (e) {
+        e.preventDefault();
+        showProcessing();
+        window.location.href = '/affair/outbound';
+    });
+</script>
+            <input id="PathVirtual" name="PathVirtual" type="hidden" value="" />
+        </div>
+    </section>
+    <script type="text/javascript">
+            var utilJs = utilJs || {};
+            utilJs.oGlobal = {"controller":"postal","action":"refundECONOMY","CurrentModule":null,"RootURL":"http://localhost:2012/","IgnoreNotify":"GenerateCommon|"};
+    </script>
+    <!--Reference the utils script. -->
+    <script src="/Assets/js/base/utilJs.js?v=3.0.0.9"></script>
+    <script src="/Assets/js/base/base.js?v=3.0.0.9"></script>
+
+    <script src="/Assets/js/base/jszip.min.js"></script>
+    <!-- Kendo Window -->
+    
+
+    
+    
+    
+
+        <script src="/Assets/js/controller/postalController.js?v=3.0.0.9"></script>
+
+        <script src="/Assets/js/controller/dispatchController.js?v=3.0.0.9"></script>
+
+        <script src="/Assets/js/controller/arriveController.js?v=3.0.0.9"></script>
+
+
+    
+    <script type="text/javascript">
+            $(document).ready(function() {
+                utilJs.initController('postalController');
+            });
+    </script>
+
+
+
+
+    <script type="text/javascript">
+            $(document).ready(function () {
+                showProcessing();
+                $(document).idleTimeout({
+                    redirectUrl: '/Security/SignOut',   // redirect to this url
+                    idleTimeLimit: '900',            // 15 seconds 'No activity' time limit in seconds.
+                    activityEvents: 'click keypress scroll wheel mousewheel',    // separate each event with a space
+                    dialogDisplayLimit: '900',       // Time to display the warning dialog before logout (and optional callback) in seconds
+                    sessionKeepAliveTimer: false  // Set to false to disable pings.
+                });
+            });
+            $(document).on('keypress', ':input:not(textarea):not([type=submit])', function (e) {
+                if (e.which === 13) return false;
+            });
+
+            //show proccessing
+            function showProcessing() {
+                setTimeout('Loading_end()', 3000);
+            }
+
+            function showProcessing(timeout, animate) {
+                Loading_proceed();
+                setTimeout('Loading_end()', timeout);
+            }
+
+            function hideProcessingTimeout() {
+                hideProcessing();
+            }
+
+            function hideProcessing() {
+                Loading_end();
+            }
+
+            function Loading_proceed() {
+                var str = '<div id="modal-loading-parent"  class="modal fade" role="dialog" style="opacity: 0.6;background: #000;display: block;">' + ' </div>' +
+                    '<div id="modal-loading"  class="modal fade" style="margin-top: 14%;">' +
+                    '<div class="modal-dialog">' +
+                    '  <div class="modal-content">' +
+                    '  <div class="modal-body text-center">' +
+                    '   <br />' +
+                    ' <i class="fa fa-spinner fa-4x fa-spin" style="margin-bottom: 20px;"></i>' +
+                    ' <h4>Processing Data, please wait...</h4>' +
+                    ' <br />' +
+                    '<br />' +
+                    ' </div>' +
+                    ' </div>' +
+                    ' </div>' +
+                    ' </div>' +
+                    '<input type="button" data-toggle="modal" data-target="#modal-loading" id="popdialogloading" style="display:none" />';
+                $('body').append(str);
+                $('#popdialogloading').click();
+            }
+
+            function Loading_end() {
+                setTimeout(function () {
+                    $('body').find('div#modal-loading').remove();
+                    $('body').find('div#modal-loading-parent').remove();
+                    var _array = $('.modal-backdrop.fade.in').toArray();
+                    for (var x = 1; x < _array.length; x++) {
+                        _array[x].remove();
+                    }
+                    $('#popdialogloading').remove();
+                }, 500);
+            }
+
+            $("#iconHome").click(function () {
+                location.href = '/Home/Index';
+            });
+
+    function onConfirmLogout(e) {
+        var confirmTitle = "Đăng xuất";
+        var confirmText = "Bạn có muốn thoát khỏi hệ thống?";
+        var options = {
+            id: 'popupLogOut',
+            idAction: '#LogOut',
+            url: "/Security/SignOut",
+            typeStatus: true,
+            title: confirmTitle,
+            confirmText: confirmText,
+            textYes: "Yes",
+            textNo: "No"
+        }
+        var popupWindow = window.utilJs.initPopupWindow(options);
+        popupWindow.refresh({}).center().open();
+
+        var $form = $('#' + options.id);
+        $form.find("#act-accept-no").on("click", function () {
+            if (popupWindow) popupWindow.close();
+        });
+        $form.find("#act-accept-yes").on("click", function () {
+            window.location = "/Security/SignOut";
+        });
+    }
+
+    $('#btnChangePassword').on('click', function(e) {
+        onChangePass(e)
+    });
+
+        $('#btnChangePass').on('click', function (e) {
+        onChangePass(e)
+    });
+    function onChangePass(e) {
+        e.preventDefault();
+        var options = {
+            id: 'poupChangePassword',
+            title: 'Thay đổi mật khẩu',
+            width: 600
+        };
+        var popupWindow = window.utilJs.initPopupWindow(options);
+        popupWindow.refresh({
+            url: '/User/ChangePassword',
+            async: false
+        });
+        popupWindow.refresh({}).center().open();
+        window.utilJs.initFormWindow('#frmChangePassword', popupWindow, $('#UserGrid'), options);
+    }
+
+    $('#btnInfo').on('click', function (e) {
+        onProfile(e)
+    });
+
+    $('#btnProfile').on('click', function (e) {
+        onProfile(e)
+        });
+        function onProfile(e) {
+            e.preventDefault();
+            var options = {
+                id: 'popupAddOrEditUser',
+                title: 'Thông tin cá nhân',
+                width: 600
+            };
+            var popupWindow = window.utilJs.initPopupWindow(options);
+            popupWindow.refresh({
+                url: window.utilJs.PathVirtual() + '/User/MyProfile',
+                async: false
+            });
+            popupWindow.refresh({}).center().open();
+            window.utilJs.initFormWindow('#frmProfileUser', popupWindow, $('#UserGrid'), options);
+        }
+
+    </script>
+    <div id='idletimer_warning_dialog' style="display: none">
+        <p>Bởi vì bạn đã không hoạt động, phiên của bạn sắp hết hạn.</p>
+        <p style='display: inline'>
+            Thời gian còn lại:
+            <div style='display: inline' id='countdownDisplay'></div>
+        </p>
+        <div class="text-right modal-footer">
+            <a class="btn btn-primary col-1" id="btnStayLoggedIn"> Tiếp tục</a>
+            <a class="btn btn-primary col-2" id="btnLogOutNow"> Thoát khỏi hệ thống</a>
+        </div>
+    </div>
+    <span id="popupNotification"></span>
+    <div id="popupContent" class="show-notify k-content"></div>
+    <script src="/Assets/js/bootstrap.js"></script>
+    <script src="/Assets/js/proton.js"></script>
+
+<!-- Visual Studio Browser Link -->
+<script type="text/javascript" src="http://localhost:64569/37feda8544f84147bcfd43c08bcfb56e/browserLink" async="async" id="__browserLink_initializationData" data-requestId="03083cd419c44353ae9e57c2076a8ed7" data-appName="Chrome"></script>
+<!-- End Browser Link -->
+
+</body>
+</html>

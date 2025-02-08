@@ -8,7 +8,7 @@ using System.Security.Claims;
 
 namespace Elite_life.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class BoothController : ControllerBase

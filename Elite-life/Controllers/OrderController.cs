@@ -208,6 +208,7 @@ namespace Elite_life.Controllers
             return MethodResult.ResultWithSuccess(result, 200, "Success");
         }
 
+        [AllowAnonymous]
         [HttpGet]
         [Route("get-warehouse")]
         public async Task<MethodResult> GetWarehouse()
